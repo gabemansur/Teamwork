@@ -60,12 +60,16 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Teamwork\User
      */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-    }
+     protected function create(array $data)
+     {
+         $user = User::create([
+             'name' => $data['name'],
+             'email' => $data['email'],
+             'password' => bcrypt($data['password']),
+         ]);
+
+         $user->roles()
+              ->attach(Role::where('name', 'participant')->first());
+         return $user;
+     }
 }
