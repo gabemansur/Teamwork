@@ -24,3 +24,11 @@ Route::get('/test', [
 	'uses' => 'TestController@test',
 	'roles' => ['researcher'] // Only a logged in user can view this page
 ]);
+
+Route::get('/participant-login', [
+	'uses' => 'LoginController@participantLogin',
+]);
+
+Route::post('/player-login', [
+	'uses' => 'LoginController@postParticipantLogin',
+]);

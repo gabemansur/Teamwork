@@ -18,6 +18,8 @@ class UserTableSeeder extends Seeder
       $researcher->email = 'test@test.com';
       $researcher->password = bcrypt('hdsl124MA');
       $researcher->role_id = 2;
+      $researcher->participant_id = 0;
+      $researcher->group_id = 1;
       $researcher->save();
     }
 }
