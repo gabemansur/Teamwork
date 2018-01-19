@@ -23,8 +23,13 @@ class RoleTableSeeder extends Seeder
       ]);
       Teamwork\Role::create([
           'id'            => 3,
-          'name'          => 'Paerticipant',
+          'name'          => 'Participant',
           'description'   => 'Limited access.'
+      ]);
+      Teamwork\Role::create([
+          'id'            => 4,
+          'name'          => 'Group',
+          'description'   => 'Group response access.'
       ]);
     }
 }

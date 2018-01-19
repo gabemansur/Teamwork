@@ -12,14 +12,9 @@
         </h5>
         @endforeach
       @endif
-      <form action="participant-login" method="post">
+      <form action="group-login" method="post">
         {{ csrf_field() }}
         <fieldset class="bg-light p-4">
-          <div class="form-group">
-            <label for="participant_id">Participant ID</label>
-            <input type="text" class="form-control" name="participant_id"
-                   value="{{ old('participant_id') }}">
-          </div>
           <div class="form-group">
             <label for="group_id">Group ID</label>
             <input type="text" class="form-control" name="group_id"

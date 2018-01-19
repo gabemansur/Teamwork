@@ -17,8 +17,6 @@ class LoginController extends Controller
       $group = Group::firstOrCreate(['group_number' => $request->group_id]);
       $group->save();
 
-
-      // Check if a user with this participant_id already exists
       $user = User::firstOrCreate(['participant_id' => $request->participant_id],
                                   ['name' => 'partipant',
                                    'participant_id' => $request->participant_id,
@@ -26,12 +24,32 @@ class LoginController extends Controller
                                    'role_id' => 3,
                                    'group_id' => $group->id]);
       $user->save();
+      \Auth::login($user);
 
        if($group->id != $user->group_id) {
-         \Session::flash('message', 'It appears that you already belong to a different group.');
-         return view('layouts.participants.participant-login')
-                ->with('request', $request);
+         return redirect()->back()->withInput()->withErrors('It appears that you already belong to another group.');
        }
 
+       return redirect('/get-individual-task');
+    }
+
+    public function groupLogin() {
+      return view('layouts.participants.group-login');
+    }
+
+    public function postGroupLogin(Request $request) {
+
+      $group = Group::firstOrCreate(['group_number' => $request->group_id]);
+      $group->save();
+
+      // Find or create a group user, for authentication purposes
+      $user = User::firstOrCreate(['group_id' => $group->id,
+                                   'role_id' => 4],
+                                  ['name' => 'group',
+                                   'participant_id' => null,
+                                   'password' => bcrypt('group')]);
+      \Auth::login($user);
+
+      return redirect('/get-group-task');
     }
 }

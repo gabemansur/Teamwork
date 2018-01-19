@@ -13,4 +13,8 @@ class Group extends Model
     public function users() {
       return $this->hasMany('\Teamwork\User');
     }
+
+    public function groupTasks() {
+      return $this->hasMany('\Teamwork\GroupTask');
+    }
 }

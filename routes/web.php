@@ -19,16 +19,36 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/test', [
+Route::get('/get-group-task', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
-	'uses' => 'TestController@test',
-	'roles' => ['researcher'] // Only a logged in user can view this page
+	'uses' => 'GroupTaskController@getTask',
+	'roles' => ['Group'] // Only a logged in user can view this page
+]);
+
+Route::get('/get-individual-task', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@getTask',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/unscramble-words-group', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@unscrambleWords',
+	'roles' => ['Group'] // Only a logged in user can view this page
 ]);
 
 Route::get('/participant-login', [
 	'uses' => 'LoginController@participantLogin',
 ]);
 
-Route::post('/player-login', [
+Route::post('/participant-login', [
 	'uses' => 'LoginController@postParticipantLogin',
+]);
+
+Route::get('/group-login', [
+	'uses' => 'LoginController@groupLogin',
+]);
+
+Route::post('/group-login', [
+	'uses' => 'LoginController@postGroupLogin',
 ]);
