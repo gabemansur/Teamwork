@@ -1,5 +1,5 @@
 <?php
-namespace Teamwork\Tasks\UnscrambleWords;
+namespace Teamwork\Tasks;
 
 class UnscrambleWords {
 
@@ -9,14 +9,14 @@ class UnscrambleWords {
 
 
   public function getWords() {
-    return $this->WORDS;
+    return $this->words;
   }
 
   public function setWords($words) {
     $this->words = $words;
   }
 
-  public function scrambleWords() {
+  public function getScrambledWords() {
     $words = $this->words;
     foreach ($words as $key => $value) {
       $words[$key] = str_shuffle($value);
