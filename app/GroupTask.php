@@ -22,7 +22,7 @@ class GroupTask extends Model
     }
 
     public function response() {
-      return $this->hasMany('\Teamwork\Response');
+      return $this->hasMany('\Teamwork\Response', 'group_tasks_id', 'id');
     }
 
     public static function initializeDefaultTasks($group_id, $randomize) {
@@ -34,7 +34,7 @@ class GroupTask extends Model
       foreach($tasks as $key => $task) {
 
         $g = GroupTask::create(['group_id' => $group_id, 'name' => $task['name'], 'order' => $key + 1]);
-        dump($g);
+
         if($task['hasIndividuals']) {
           \Teamwork\IndividualTask::create(['group_task_id' => $g->id]);
         }

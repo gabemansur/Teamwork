@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-  <div class="row">
+  <div class="row vertical-center">
     <div class="col-md-12 text-center">
       <h3>
         You have completed the {{ $taskName }}.
@@ -21,7 +21,7 @@
       <div class="text-center">
         <a class="btn btn-lg btn-primary"
            role="button"
-           href="/get-individual-task">Continue
+           href="/end-individual-task">Continue
         </a>
       </div>
     </div>

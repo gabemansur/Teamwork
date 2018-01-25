@@ -17,7 +17,7 @@ $( document ).ready(function() {
     event.preventDefault();
   });
 
-  initializeTimer(20, function() {
+  initializeTimer(120, function() {
     $("input").prop( "readonly", true );
     $('#submitPrompt').modal();
   });

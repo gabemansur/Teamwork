@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container">
-  <div class="row justify-content-center">
+  <div class="row justify-content-center vertical-center">
     <div class="col-md-6 p-4">
       @if($errors)
         @foreach ($errors->all() as $error)

@@ -81,7 +81,7 @@ class GroupTaskController extends Controller
 
       foreach ($request->responses as $response) {
         $r = new Response;
-        $r->group_task_id = $taskId;
+        $r->group_tasks_id = $taskId;
         $r->user_id = \Auth::user()->id;
         $r->response = $response;
 
@@ -101,7 +101,7 @@ class GroupTaskController extends Controller
 
       return view('layouts.participants.tasks.group-task-results')
              ->with('taskName', "Unscramble Words Task")
-             ->with('results', $numCorrect);
+             ->with('result', $numCorrect);
 
     }
 }

@@ -17,7 +17,7 @@ $( document ).ready(function() {
 </script>
 
 <div class="container">
-  <div class="row">
+  <div class="row vertical-center">
     <div class="col-md-12 text-center">
       <h3>
         This is a group task.

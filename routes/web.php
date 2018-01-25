@@ -27,7 +27,7 @@ Route::get('/get-group-task', [
 
 Route::get('/group-experiment-end', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
-	'uses' => 'GroupTaskController@endExperiement',
+	'uses' => 'GroupTaskController@endExperiment',
 	'roles' => ['Group'] // Only a logged in user can view this page
 ]);
 
@@ -38,9 +38,15 @@ Route::get('/get-individual-task', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
-Route::get('/participant-experiement-end', [
+Route::get('/end-individual-task', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
-	'uses' => 'IndividualTaskController@endExperiement',
+	'uses' => 'IndividualTaskController@endTask',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/participant-experiment-end', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@endExperiment',
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 

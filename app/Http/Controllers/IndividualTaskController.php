@@ -55,6 +55,23 @@ class IndividualTaskController extends Controller
       }
     }
 
+    public function endTask(Request $request) {
+
+      $task = \Teamwork\GroupTask::with('response')
+                                 ->find($request->session()->get('currentGroupTask'));
+
+      $numUsersResponded = count($task->response->groupBy('user_id'));
+      $usersInGroup = \Teamwork\User::where('group_id', \Auth::user()->group_id)->count();
+      if($numUsersResponded == $usersInGroup) {
+        $task->completed = true;
+        $task->save();
+        return redirect('/get-individual-task');
+      }
+      else {
+        return view('layouts.participants.tasks.waiting');
+      }
+    }
+
     public function endExperiment() {
       return view('layouts.participants.participant-experiment-end');
     }
@@ -78,7 +95,7 @@ class IndividualTaskController extends Controller
 
       foreach ($request->responses as $response) {
         if(!$response) continue; // Skip any empty responses
-        
+
         $r = new Response;
         $r->group_tasks_id = $groupTaskId;
         $r->individual_tasks_id = $individualTaskId;
@@ -87,6 +104,7 @@ class IndividualTaskController extends Controller
         $r->response = $response;
         $r->save();
       }
+
 
       return view('layouts.participants.tasks.participant-task-results')
              ->with('taskName', "Brainstorming Task")

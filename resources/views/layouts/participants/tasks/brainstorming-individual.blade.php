@@ -17,7 +17,7 @@ $( document ).ready(function() {
     event.preventDefault();
   });
 
-  initializeTimer(20, function() {
+  initializeTimer(120, function() {
     $("input").prop( "readonly", true );
     $('#submitPrompt').modal();
   });
@@ -35,13 +35,13 @@ $( document ).ready(function() {
     <div class="col-md-12 text-center">
       <div class="pull-right" id="timer"></div>
       <h3>Based on the following prompt, enter as many ideas as possible in the boxes below.</h3>
-      <h2>{{ $prompt }}</h2>
+      <h2 class="text-primary">{{ $prompt }}</h2>
       <form name="brainstorming-responses" class="brainstorming-responses" id="brainstorming-responses" action="/brainstorming-individual" method="post">
         {{ csrf_field() }}
         <input type="hidden" name="prompt" value="{{ $prompt }}">
         @for($i = 0; $i < 24; $i++)
           <div class="form-group">
-            <textarea class="form-control" name="responses[]" rows="3"></textarea>
+            <input type="text" class="form-control" name="responses[]">
           </div>
         @endfor
         <div class="text-center">
