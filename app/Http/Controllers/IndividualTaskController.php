@@ -3,10 +3,12 @@
 namespace Teamwork\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \Teamwork\Tasks as Task;
+use Teamwork\Response;
 
 class IndividualTaskController extends Controller
 {
-    public function getTask() {
+    public function getTask(Request $request) {
 
       $groupTasksAll = \Teamwork\GroupTask::where('group_id', \Auth::user()->group_id)
                              ->with('individualTasks')
@@ -20,8 +22,7 @@ class IndividualTaskController extends Controller
 
      if(count($groupTasksAll) > 0 && count($groupTasks) == 0) {
        // The experiment is over
-       dump('THE EXPERIMENT IS OVER');
-       return;
+       return redirect('/participant-experiment-end');
      }
 
      // If there are no tasks at all, let's create some
@@ -31,17 +32,64 @@ class IndividualTaskController extends Controller
        $groupTasks = \Teamwork\GroupTask::initializeDefaultTasks(\Auth::user()->group_id, $randomize = true);
      }
 
-      $task = $groupTasks->first();
-      $individualTask = $task->individualTasks->first();
+      $currentTask = $groupTasks->first();
+      $individualTask = $currentTask->individualTasks->first();
+
+      $request->session()->put('currentGroupTask', $currentTask->id);
 
       if($individualTask) {
-        dump($task->name . " THIS IS AN INDIVIDUAL TASK");
+        $request->session()->put('currentIndividualTask', $currentTask->individualTasks->first()->id);
+        return $this->routeTask($currentTask);
       }
 
       else {
         return view('layouts.participants.participant-group-task');
       }
+    }
 
+    public function routeTask($task) {
+      switch($task->name) {
 
+        case "Brainstorming":
+          return redirect('/brainstorming-individual-intro');
+      }
+    }
+
+    public function endExperiment() {
+      return view('layouts.participants.participant-experiment-end');
+    }
+
+    public function brainstormingIntro() {
+      return view('layouts.participants.tasks.brainstorming-individual-intro');
+    }
+
+    public function brainstorming() {
+      $task = new Task\Brainstorming;
+      $prompt = $task->getRandomPrompt();
+
+      return view('layouts.participants.tasks.brainstorming-individual')
+             ->with('prompt', $prompt);
+    }
+
+    public function scoreBrainstorming(Request $request) {
+
+      $groupTaskId = $request->session()->get('currentGroupTask');
+      $individualTaskId = $request->session()->get('currentIndividualTask');
+
+      foreach ($request->responses as $response) {
+        if(!$response) continue; // Skip any empty responses
+        
+        $r = new Response;
+        $r->group_tasks_id = $groupTaskId;
+        $r->individual_tasks_id = $individualTaskId;
+        $r->user_id = \Auth::user()->id;
+        $r->prompt = $request->prompt;
+        $r->response = $response;
+        $r->save();
+      }
+
+      return view('layouts.participants.tasks.participant-task-results')
+             ->with('taskName', "Brainstorming Task")
+             ->with('result', false);
     }
 }

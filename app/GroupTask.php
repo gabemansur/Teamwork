@@ -22,7 +22,7 @@ class GroupTask extends Model
     }
 
     public function response() {
-      return $this->hasMany('\Teamwork\Resonse');
+      return $this->hasMany('\Teamwork\Response');
     }
 
     public static function initializeDefaultTasks($group_id, $randomize) {

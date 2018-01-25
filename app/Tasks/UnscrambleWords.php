@@ -4,7 +4,10 @@ namespace Teamwork\Tasks;
 class UnscrambleWords {
 
   private $words = [
-    'unusual', 'guardrail', 'newspaper', 'guitar'
+    'unusual', 'cylinder', 'newspaper', 'guitar', 'calendar', 'population',
+    'mountain', 'environment', 'business', 'morning', 'neighborhood', 'sandwich',
+    'athlete', 'steam', 'talent', 'electron', 'shoe', 'police',
+    'joint', 'displace', 'arrange', 'telephone', 'ambulance', 'pencil'
   ];
 
 
@@ -23,5 +26,20 @@ class UnscrambleWords {
     }
     return $words;
   }
+
+  public function checkResponses($responses) {
+    $numCorrect = 0;
+    foreach ($responses as $key => $response) {
+      if(in_array(strtolower($response), $this->words)) {
+        $numCorrect++;
+      }
+    }
+    return $numCorrect;
+  }
+
+  public function checkResponse($response) {
+    return in_array(strtolower($response), $this->words);
+  }
+
 
 }

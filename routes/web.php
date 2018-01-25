@@ -25,17 +25,61 @@ Route::get('/get-group-task', [
 	'roles' => ['Group'] // Only a logged in user can view this page
 ]);
 
+Route::get('/group-experiment-end', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@endExperiement',
+	'roles' => ['Group'] // Only a logged in user can view this page
+]);
+
+
 Route::get('/get-individual-task', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@getTask',
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
-Route::get('/unscramble-words-group', [
+Route::get('/participant-experiement-end', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@endExperiement',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/unscramble-words-intro', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@unscrambleWordsIntro',
+	'roles' => ['Group'] // Only a logged in user can view this page
+]);
+
+Route::get('/unscramble-words', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'GroupTaskController@unscrambleWords',
 	'roles' => ['Group'] // Only a logged in user can view this page
 ]);
+
+Route::post('/unscramble-words', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@scoreUnscrambleWords',
+	'roles' => ['Group'] // Only a logged in user can view this page
+]);
+
+Route::get('/brainstorming-individual-intro', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@brainstormingIntro',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/brainstorming-individual', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@brainstorming',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::post('/brainstorming-individual', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@scoreBrainstorming',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 
 Route::get('/participant-login', [
 	'uses' => 'LoginController@participantLogin',
