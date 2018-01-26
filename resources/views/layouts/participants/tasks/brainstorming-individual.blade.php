@@ -28,7 +28,7 @@ $( document ).ready(function() {
 <div class="container">
   <div class="row">
     <div class="col-md-12 text-center">
-      <div class="pull-right" id="timer"></div>
+      <div class="pull-right text-primary" id="timer"></div>
     </div>
   </div>
   <div class="row">

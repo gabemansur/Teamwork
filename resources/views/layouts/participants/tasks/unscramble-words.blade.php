@@ -17,6 +17,10 @@ $( document ).ready(function() {
     event.preventDefault();
   });
 
+  $("#manual-submit").on("click", function(event) {
+    deleteCookie('task_timer');
+  });
+
   initializeTimer(120, function() {
     $("input").prop( "readonly", true );
     $('#submitPrompt').modal();
@@ -33,7 +37,7 @@ $( document ).ready(function() {
   </div>
   <div class="row">
     <div class="col-md-12 text-center">
-      <div class="pull-right" id="timer"></div>
+      <div class="pull-right text-primary" id="timer"></div>
       <h3>Unscramble the following words:</h3>
       <div class="word-list text-center">
         @foreach($words as $word)
@@ -48,7 +52,7 @@ $( document ).ready(function() {
           </div>
         @endforeach
         <div class="text-center">
-          <button class="btn btn-lg btn-primary" type="submit">Submit</button>
+          <button class="btn btn-lg btn-primary" id="manual-submit" type="submit">Submit</button>
         </div>
       </form>
     </div>

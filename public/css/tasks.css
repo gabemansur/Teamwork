@@ -12,3 +12,8 @@ div.word-list span {
   width: 260px;
   float: left;
 }
+
+.modal-title {
+  display: inline-block;
+  margin: 0 auto;
+}
