@@ -14,7 +14,7 @@
       @endif
       <form action="group-login" method="post">
         {{ csrf_field() }}
-        <fieldset class="bg-light p-4">
+        <fieldset class="bg-light p-4 rounded">
           <div class="form-group">
             <label for="group_id">Group ID</label>
             <input type="text" class="form-control" name="group_id"

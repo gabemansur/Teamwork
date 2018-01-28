@@ -80,6 +80,8 @@ class GroupTaskController extends Controller
       $taskId = $request->session()->get('currentGroupTask');
 
       foreach ($request->responses as $response) {
+        if(!$response) continue; // Skip any empty responses
+        
         $r = new Response;
         $r->group_tasks_id = $taskId;
         $r->user_id = \Auth::user()->id;

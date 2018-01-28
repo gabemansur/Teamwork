@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class GroupTask extends Model
 {
-    protected $fillable = ['group_id', 'name', 'order'];
+    protected $fillable = ['group_id', 'name', 'parameters', 'order'];
 
     private static $TASKS = [
-                      ['name' => 'UnscrambleWords', 'hasIndividuals' => false],
-                      ['name' => 'Brainstorming', 'hasIndividuals' => true]
+                      ['name' => 'UnscrambleWords',
+                       'hasIndividuals' => false],
+                      ['name' => 'Brainstorming',
+                       'hasIndividuals' => true]
                     ];
 
     public function group() {
@@ -33,7 +35,12 @@ class GroupTask extends Model
 
       foreach($tasks as $key => $task) {
 
-        $g = GroupTask::create(['group_id' => $group_id, 'name' => $task['name'], 'order' => $key + 1]);
+        $g = new GroupTask;
+        $g->group_id = $group_id;
+        $g->name = $task['name'];
+        $g->order = $key + 1;
+        $g->parameters = serialize(Self::setDefaultTaskParameters($task['name']));
+        $g->save();
 
         if($task['hasIndividuals']) {
           \Teamwork\IndividualTask::create(['group_task_id' => $g->id]);
@@ -44,5 +51,13 @@ class GroupTask extends Model
                       ->with('individualTasks')
                       ->orderBy('order', 'ASC')
                       ->get();
+    }
+
+    public static function setDefaultTaskParameters($taskName) {
+      $parameters = [];
+      if($taskName == 'Brainstorming') {
+        $parameters = ['prompt' => (new \Teamwork\Tasks\Brainstorming)->getRandomPrompt()];
+      }
+      return $parameters;
     }
 }

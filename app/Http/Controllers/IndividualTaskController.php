@@ -80,10 +80,14 @@ class IndividualTaskController extends Controller
       return view('layouts.participants.tasks.brainstorming-individual-intro');
     }
 
-    public function brainstorming() {
-      $task = new Task\Brainstorming;
-      $prompt = $task->getRandomPrompt();
+    public function brainstorming(Request $request) {
 
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+
+      $task = new Task\Brainstorming;
+
+      $prompt = unserialize($currentTask->parameters)['prompt'];
+    
       return view('layouts.participants.tasks.brainstorming-individual')
              ->with('prompt', $prompt);
     }

@@ -17,6 +17,10 @@ $( document ).ready(function() {
     event.preventDefault();
   });
 
+  $("#manual-submit").on("click", function(event) {
+    deleteCookie('task_timer');
+  });
+
   initializeTimer(120, function() {
     $("input").prop( "readonly", true );
     $('#submitPrompt').modal();
@@ -45,7 +49,7 @@ $( document ).ready(function() {
           </div>
         @endfor
         <div class="text-center">
-          <button class="btn btn-lg btn-primary" type="submit">Submit</button>
+          <button class="btn btn-lg btn-primary" id="manual-submit" type="submit">Submit</button>
         </div>
       </form>
     </div>

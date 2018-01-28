@@ -16,7 +16,7 @@
       </h3>
       <h3>
         The other members of the group can click the 'Continue' button once
-        the group's anwers have been submitted.
+        the group's answers have been submitted.
       </h3>
       <div>
         <a class="btn btn-lg btn-primary pull-left"
