@@ -61,7 +61,9 @@ class IndividualTaskController extends Controller
                                  ->find($request->session()->get('currentGroupTask'));
 
       $numUsersResponded = count($task->response->groupBy('user_id'));
-      $usersInGroup = \Teamwork\User::where('group_id', \Auth::user()->group_id)->count();
+      $usersInGroup = \Teamwork\User::where('group_id', \Auth::user()->group_id)
+                                    ->where('role_id', 3)
+                                    ->count();
       if($numUsersResponded == $usersInGroup) {
         $task->completed = true;
         $task->save();
@@ -87,7 +89,7 @@ class IndividualTaskController extends Controller
       $task = new Task\Brainstorming;
 
       $prompt = unserialize($currentTask->parameters)['prompt'];
-    
+
       return view('layouts.participants.tasks.brainstorming-individual')
              ->with('prompt', $prompt);
     }
