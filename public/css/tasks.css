@@ -17,3 +17,12 @@ div.word-list span {
   display: inline-block;
   margin: 0 auto;
 }
+
+#guess-history {
+  margin-top: 120px;
+  table-layout: fixed;
+}
+
+.spacer {
+  min-height: 42px;
+}

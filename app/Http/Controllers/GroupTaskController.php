@@ -47,6 +47,9 @@ class GroupTaskController extends Controller
     public function routeTask($task) {
 
       switch($task->name) {
+        case "OptimizationTask":
+          return redirect('/optimization-group');
+
         case "UnscrambleWords":
           return redirect('/unscramble-words-intro');
 
@@ -81,7 +84,7 @@ class GroupTaskController extends Controller
 
       foreach ($request->responses as $response) {
         if(!$response) continue; // Skip any empty responses
-        
+
         $r = new Response;
         $r->group_tasks_id = $taskId;
         $r->user_id = \Auth::user()->id;

@@ -50,12 +50,24 @@ class IndividualTaskController extends Controller
     public function routeTask($task) {
       switch($task->name) {
 
+        case "OptimizationTask":
+          return redirect('/optimization-individual-intro');
+
         case "Brainstorming":
           return redirect('/brainstorming-individual-intro');
       }
     }
 
+    public function storeTaskData(Request $request) {
+
+      $data = json_decode($request->data);
+      $request->session()->put($data->key, json_decode($data->responses));
+    }
+
     public function endTask(Request $request) {
+
+      dump($request->session->get('currentTaskData'));
+      return;
 
       $task = \Teamwork\GroupTask::with('response')
                                  ->find($request->session()->get('currentGroupTask'));
@@ -76,6 +88,32 @@ class IndividualTaskController extends Controller
 
     public function endExperiment() {
       return view('layouts.participants.participant-experiment-end');
+    }
+
+    public function optimizationIntro() {
+      return view('layouts.participants.tasks.optimization-individual-intro');
+    }
+
+    public function optimization(Request $request) {
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $function = unserialize($currentTask->parameters)['function'];
+      return view('layouts.participants.tasks.optimization-individual')
+             ->with('function', $function);
+    }
+
+    public function saveOptimizationGuess(Request $request) {
+
+      $groupTaskId = $request->session()->get('currentGroupTask');
+      $individualTaskId = $request->session()->get('currentIndividualTask');
+
+      $r = new Response;
+      $r->group_tasks_id = $groupTaskId;
+      $r->individual_tasks_id = $individualTaskId;
+      $r->user_id = \Auth::user()->id;
+      $r->prompt = $request->function;
+      $r->response = $request->guess;
+      $r->save();
+
     }
 
     public function brainstormingIntro() {

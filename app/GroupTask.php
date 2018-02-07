@@ -9,6 +9,8 @@ class GroupTask extends Model
     protected $fillable = ['group_id', 'name', 'parameters', 'order'];
 
     private static $TASKS = [
+                      ['name' => 'OptimizationTask',
+                       'hasIndividuals' => true],
                       ['name' => 'UnscrambleWords',
                        'hasIndividuals' => false],
                       ['name' => 'Brainstorming',
@@ -57,6 +59,9 @@ class GroupTask extends Model
       $parameters = [];
       if($taskName == 'Brainstorming') {
         $parameters = ['prompt' => (new \Teamwork\Tasks\Brainstorming)->getRandomPrompt()];
+      }
+      if($taskName == 'OptimizationTask') {
+        $parameters = ['function' => (new \Teamwork\Tasks\Optimization)->getRandomFunction()];
       }
       return $parameters;
     }

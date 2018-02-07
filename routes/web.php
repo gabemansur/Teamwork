@@ -44,6 +44,12 @@ Route::get('/end-individual-task', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/store-task-data', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@storeTaskData',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/participant-experiment-end', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@endExperiment',
@@ -86,6 +92,23 @@ Route::post('/brainstorming-individual', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/optimization-individual-intro', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@optimizationIntro',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/optimization-individual', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@optimization',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::post('/optimization-individual', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@saveOptimizationGuess',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
 
 Route::get('/participant-login', [
 	'uses' => 'LoginController@participantLogin',
