@@ -61,7 +61,8 @@ class GroupTask extends Model
         $parameters = ['prompt' => (new \Teamwork\Tasks\Brainstorming)->getRandomPrompt()];
       }
       if($taskName == 'OptimizationTask') {
-        $parameters = ['function' => (new \Teamwork\Tasks\Optimization)->getRandomFunction()];
+        $parameters = ['function' => (new \Teamwork\Tasks\Optimization)->getRandomFunction(),
+                       'maxResponses' => 6];
       }
       return $parameters;
     }

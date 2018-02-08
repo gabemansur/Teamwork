@@ -58,24 +58,19 @@ class IndividualTaskController extends Controller
       }
     }
 
-    public function storeTaskData(Request $request) {
-
-      $data = json_decode($request->data);
-      $request->session()->put($data->key, json_decode($data->responses));
-    }
-
     public function endTask(Request $request) {
 
-      dump($request->session->get('currentTaskData'));
-      return;
 
       $task = \Teamwork\GroupTask::with('response')
                                  ->find($request->session()->get('currentGroupTask'));
 
       $numUsersResponded = count($task->response->groupBy('user_id'));
+
+
       $usersInGroup = \Teamwork\User::where('group_id', \Auth::user()->group_id)
                                     ->where('role_id', 3)
                                     ->count();
+
       if($numUsersResponded == $usersInGroup) {
         $task->completed = true;
         $task->save();
@@ -96,9 +91,12 @@ class IndividualTaskController extends Controller
 
     public function optimization(Request $request) {
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
-      $function = unserialize($currentTask->parameters)['function'];
+      $parameters = unserialize($currentTask->parameters);
+      $function = $parameters['function'];
+      $maxResponses = $parameters['maxResponses'];
       return view('layouts.participants.tasks.optimization-individual')
-             ->with('function', $function);
+             ->with('function', $function)
+             ->with('maxResponses', $maxResponses);
     }
 
     public function saveOptimizationGuess(Request $request) {

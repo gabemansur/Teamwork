@@ -20,5 +20,11 @@
                 integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
                 crossorigin="anonymous">
         </script>
+        <script>
+          // Disable auto-complete for all forms
+          $(document).ready(function(){
+            $('form,input,select,textarea').attr("autocomplete", "off");
+          });
+        </script>
     </body>
 </html>

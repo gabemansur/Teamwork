@@ -44,9 +44,28 @@ Route::get('/end-individual-task', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
-Route::get('/store-task-data', [
+Route::post('/mark-individual-response-complete', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
-	'uses' => 'IndividualTaskController@storeTaskData',
+	'uses' => 'AjaxController@markIndividualResponseComplete',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+
+Route::get('/group-login-allowed', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'AjaxController@groupLoginAllowed',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/check-task-completion', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'AjaxController@checkTaskCompletion',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::post('/store-task-data', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'AjaxController@storeTaskData',
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
@@ -108,6 +127,18 @@ Route::post('/optimization-individual', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@saveOptimizationGuess',
 	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/optimization-group', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@optimization',
+	'roles' => ['Group'] // Only a logged in user can view this page
+]);
+
+Route::post('/optimization-group', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@saveOptimization',
+	'roles' => ['Group'] // Only a logged in user can view this page
 ]);
 
 Route::get('/participant-login', [

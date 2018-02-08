@@ -15,36 +15,60 @@
 <script>
 
 $( document ).ready(function() {
-  var functionName = "{{ $function }}"
+  var functionName = "{{ $function }}";
+  var MAX_RESPONSES = "{{ $maxResponses }}";
   var f = taskFunctions.{{ $function }};
   var guessNumber = 0;
-  var responses = [],
+  var responses = [];
 
   $("#timer-container").hide();
   $("#guess-prompt").hide();
 
   $("#continue").on("click", function(event){
-      $.post('/store-task-data', {
-          _token: "{{ csrf_token() }}",
-          data: JSON.stringify{
-            key: "currentTaskData",
-            value: JSON.stringify(responses)
-          }
-      });
-    });
 
-    window.location = '/end-individual-task';
+    $.get( "/check-task-completion", function( response ) {
+      if(response == true) {
+        window.location = '/get-individual-task';
+      }
+
+      else {
+        $(".modal-title").html('Please wait for the rest of the group to finish their responses.');
+      }
+    });
   });
 
   $("#group-login").on("click", function(event) {
-    window.location = '/group-login';
+
+    $.get( "/group-login-allowed", function( response ) {
+      if(response == true) {
+        $.post('/store-task-data', {
+            _token: "{{ csrf_token() }}",
+            data: JSON.stringify(responses)
+        });
+        window.location = '/group-login';
+      }
+
+      else {
+        $(".modal-title").html('Please wait for the rest of the group to finish their responses.');
+      }
+
+    });
+
   });
 
   $("#submit-guess").on("click", function(event) {
 
-    guessNumber++;
+    $("#warning").hide();
 
     var n = $("#guess").val();
+
+    if(n < 0 || n > 300 || n == '') {
+      $("#warning").show();
+      return;
+    }
+
+    guessNumber++;
+
     var result = rnorm(1, f(n), 20);
 
     responses.push({guess: n, result: result});
@@ -60,14 +84,24 @@ $( document ).ready(function() {
         guess: n
       } );
 
+    if(guessNumber == MAX_RESPONSES) {
 
-    if(guessNumber == 6) {
-      $('#group-prompt').modal();
+      $.post("/mark-individual-response-complete", {
+          _token: "{{ csrf_token() }}",
+          maxResponses: MAX_RESPONSES,
+          completeGroupTaskAlso: 0
+        });
+
+      $('#group-prompt').modal({
+        backdrop: 'static',
+        keyboard: false
+      });
     }
 
     else {
 
       initializeTimer(5, function() {
+        $("#warning").hide();
         $("#guess").prop( "readonly", false );
         $("#timer-container").hide();
         $("#guess-prompt").show();
@@ -107,6 +141,9 @@ $( document ).ready(function() {
           <h4 class="text-primary">
             Make your next guess now
           </h4>
+        </div>
+        <div class="alert alert-danger" id="warning" role="alert">
+          Your guess must be between 0 and 300.
         </div>
       </div>
     </div>
@@ -150,19 +187,18 @@ $( document ).ready(function() {
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title text-center">
-          You have reached the maximum number of guesses.
-          When all members of the group are finished guessing
-          decide which member will log in to input the group's
-          final, best answer.
+        You have reached the maximum number of guesses. Decide which member will log in to input the final
+        answer for the group.<br>
+        The other members of the group can click the 'Continue' button once the group answer has been submitted.
         </h4>
       </div>
       <div class="modal-body text-center">
           <button class="btn btn-lg btn-primary pull-left" id="group-login" type="button">Group Sign In</button>
           <button class="btn btn-lg btn-primary pull-right" id="continue" type="button">Continue</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
 
 
 @stop

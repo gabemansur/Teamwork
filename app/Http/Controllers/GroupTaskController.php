@@ -109,4 +109,32 @@ class GroupTaskController extends Controller
              ->with('result', $numCorrect);
 
     }
+
+    public function optimization(Request $request) {
+      $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $function = $parameters['function'];
+
+      return view('layouts.participants.tasks.optimization-group')
+             ->with('function', $function);
+    }
+
+    public function saveOptimization(Request $request) {
+      $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
+
+      $r = new Response;
+      $r->group_tasks_id = $currentTask->id;
+      $r->individual_tasks_id = $request->session()->get('currentIndividualTask');
+      $r->user_id = \Auth::user()->id;
+      $r->prompt = $request->function;
+      $r->response = $request->guess;
+      $r->save();
+
+      $currentTask->completed = true;
+      $currentTask->save();
+
+      return view('layouts.participants.tasks.group-task-results')
+             ->with('taskName', "Optimization Task")
+             ->with('result', false);;
+    }
 }
