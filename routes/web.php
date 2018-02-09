@@ -157,6 +157,14 @@ Route::post('/group-login', [
 	'uses' => 'LoginController@postGroupLogin',
 ]);
 
+Route::get('/group-create', [
+	'uses' => 'LoginController@groupCreateLogin',
+]);
+
+Route::post('/group-create', [
+	'uses' => 'LoginController@postGroupCreateLogin',
+]);
+
 // Testing Routes
 
 Route::get('/optimization-test', [

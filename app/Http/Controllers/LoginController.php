@@ -52,4 +52,25 @@ class LoginController extends Controller
 
       return redirect('/get-group-task');
     }
+
+    public function groupCreateLogin() {
+      return view('layouts.participants.group-create-login');
+    }
+
+    public function postGroupCreateLogin(Request $request) {
+
+      $group = Group::firstOrCreate(['group_number' => $request->group_id]);
+      $group->save();
+
+      // Find or create a group user, for authentication purposes
+      $user = User::firstOrCreate(['group_id' => $group->id,
+                                   'role_id' => 4],
+                                  ['name' => 'group',
+                                   'participant_id' => null,
+                                   'password' => bcrypt('group')]);
+
+      \Teamwork\GroupTask::initializeTasks($group->id, $request->tasks);
+      \Session::flash('message','Group ' .$request->group_id. ' was created.');
+      return view('layouts.participants.group-create-login');
+    }
 }

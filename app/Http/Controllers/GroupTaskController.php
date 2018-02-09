@@ -9,6 +9,7 @@ use \Teamwork\Tasks as Task;
 
 class GroupTaskController extends Controller
 {
+
     public function getTask(Request $request) {
       $group_id = \Auth::user()->group_id;
 

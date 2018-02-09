@@ -11,12 +11,10 @@ class GroupTask extends Model
     private static $TASKS = [
                       ['name' => 'OptimizationTask',
                        'hasIndividuals' => true],
-                       /*
                       ['name' => 'UnscrambleWords',
                        'hasIndividuals' => false],
                       ['name' => 'Brainstorming',
                        'hasIndividuals' => true]
-                       */
                     ];
 
     public function group() {
@@ -48,6 +46,34 @@ class GroupTask extends Model
 
         if($task['hasIndividuals']) {
           \Teamwork\IndividualTask::create(['group_task_id' => $g->id]);
+        }
+      }
+
+      return GroupTask::where('group_id', $group_id)
+                      ->with('individualTasks')
+                      ->orderBy('order', 'ASC')
+                      ->get();
+    }
+
+    public static function initializeTasks($group_id, $requiredTasks, $randomize = true) {
+
+      $tasks = Self::$TASKS;
+
+      if($randomize) shuffle($tasks);
+
+      foreach($tasks as $key => $task) {
+
+        if(in_array($task['name'], $requiredTasks)) {
+          $g = new GroupTask;
+          $g->group_id = $group_id;
+          $g->name = $task['name'];
+          $g->order = $key + 1;
+          $g->parameters = serialize(Self::setDefaultTaskParameters($task['name']));
+          $g->save();
+
+          if($task['hasIndividuals']) {
+            \Teamwork\IndividualTask::create(['group_task_id' => $g->id]);
+          }
         }
       }
 
