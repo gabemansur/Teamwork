@@ -25,7 +25,7 @@
             <input type="text" class="form-control" name="group_id"
                    value="{{ old('group_id') }}">
           </div>
-          <h5 class="text-center">Include the follwing tasks</h5>
+          <h5 class="text-center">Include the following tasks</h5>
           <div class="ml-5">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="OptimizationTask" name="tasks[]" value="OptimizationTask">
