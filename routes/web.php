@@ -156,3 +156,9 @@ Route::get('/group-login', [
 Route::post('/group-login', [
 	'uses' => 'LoginController@postGroupLogin',
 ]);
+
+// Testing Routes
+
+Route::get('/optimization-test', [
+  'uses' => 'AjaxController@testOptimization',
+]);

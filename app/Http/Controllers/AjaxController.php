@@ -79,4 +79,8 @@ class AjaxController extends Controller
      $task = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
      echo $task->completed;
    }
+
+   public function testOptimization() {
+     return view('layouts.test.optimization');
+   }
 }

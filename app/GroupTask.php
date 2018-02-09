@@ -11,10 +11,12 @@ class GroupTask extends Model
     private static $TASKS = [
                       ['name' => 'OptimizationTask',
                        'hasIndividuals' => true],
+                       /*
                       ['name' => 'UnscrambleWords',
                        'hasIndividuals' => false],
                       ['name' => 'Brainstorming',
                        'hasIndividuals' => true]
+                       */
                     ];
 
     public function group() {
