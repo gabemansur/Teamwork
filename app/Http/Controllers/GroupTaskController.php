@@ -48,6 +48,10 @@ class GroupTaskController extends Controller
     public function routeTask($task) {
 
       switch($task->name) {
+
+        case "OptimizationTask":
+          return redirect('/cryptography-intro');
+
         case "OptimizationTask":
           return redirect('/optimization-group');
 
@@ -137,5 +141,14 @@ class GroupTaskController extends Controller
       return view('layouts.participants.tasks.group-task-results')
              ->with('taskName', "Optimization Task")
              ->with('result', false);;
+    }
+
+    public function cryptographyIntro() {
+      return view('layouts.participants.tasks.cryptography-group-intro');
+    }
+
+    public function cryptography() {
+      
+      return view('layouts.participants.tasks.cryptography-group');
     }
 }

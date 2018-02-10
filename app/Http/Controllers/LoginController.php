@@ -54,7 +54,9 @@ class LoginController extends Controller
     }
 
     public function groupCreateLogin() {
-      return view('layouts.participants.group-create-login');
+      $tasks = \Teamwork\GroupTask::getTasks();
+      return view('layouts.participants.group-create-login')
+             ->with('tasks', $tasks);
     }
 
     public function postGroupCreateLogin(Request $request) {

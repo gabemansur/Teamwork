@@ -27,18 +27,12 @@
           </div>
           <h5 class="text-center">Include the following tasks</h5>
           <div class="ml-5">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="OptimizationTask" name="tasks[]" value="OptimizationTask">
-              <label class="form-check-label" for="OptimizationTask">Optimization</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="UnscrambleWords" name="tasks[]" value="UnscrambleWords">
-              <label class="form-check-label" for="UnscrambleWords">Unscramble Words</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="Brainstorming" name="tasks[]" value="Brainstorming">
-              <label class="form-check-label" for="Brainstorming">Brainstorming</label>
-            </div>
+            @foreach($tasks as $key => $task)
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="{{ $task['name'] }}" name="tasks[]" value="{{ $task['name'] }}">
+                <label class="form-check-label" for="{{ $task['name'] }}">{{ $task['name'] }}</label>
+              </div>
+            @endforeach
           </div>
           <div class="text-center">
             <button class="btn btn-lg btn-primary" type="submit">Create</button>

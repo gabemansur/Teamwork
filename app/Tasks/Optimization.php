@@ -8,7 +8,7 @@ class Optimization {
 
 
   public function getFunctions() {
-    return $this->prompts;
+    return $this->functions;
   }
 
   public function setFunctions($functions) {

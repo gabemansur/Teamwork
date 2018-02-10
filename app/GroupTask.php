@@ -9,6 +9,8 @@ class GroupTask extends Model
     protected $fillable = ['group_id', 'name', 'parameters', 'order'];
 
     private static $TASKS = [
+                      ['name' => 'CryptographyTask',
+                       'hasIndividuals' => false],
                       ['name' => 'OptimizationTask',
                        'hasIndividuals' => true],
                       ['name' => 'UnscrambleWords',
@@ -27,6 +29,10 @@ class GroupTask extends Model
 
     public function response() {
       return $this->hasMany('\Teamwork\Response', 'group_tasks_id', 'id');
+    }
+
+    public static function getTasks() {
+      return Self::$TASKS;
     }
 
     public static function initializeDefaultTasks($group_id, $randomize) {
@@ -92,6 +98,11 @@ class GroupTask extends Model
         $parameters = ['function' => (new \Teamwork\Tasks\Optimization)->getRandomFunction(),
                        'maxResponses' => 6];
       }
+      if($taskName == 'CryptographyTask') {
+        $parameters = ['mapping' => (new \Teamwork\Tasks\Cryptography)->randomizeMapping(),
+                       'maxResponses' => 6];
+      }
+
       return $parameters;
     }
 }
