@@ -72,7 +72,11 @@ class LoginController extends Controller
                                    'password' => bcrypt('group')]);
 
       \Teamwork\GroupTask::initializeTasks($group->id, $request->tasks);
+
+      $tasks = \Teamwork\GroupTask::getTasks();
+
       \Session::flash('message','Group ' .$request->group_id. ' was created.');
-      return view('layouts.participants.group-create-login');
+      return view('layouts.participants.group-create-login')
+             ->with('tasks', $tasks);
     }
 }

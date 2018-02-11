@@ -99,8 +99,8 @@ class GroupTask extends Model
                        'maxResponses' => 6];
       }
       if($taskName == 'CryptographyTask') {
-        $parameters = ['mapping' => (new \Teamwork\Tasks\Cryptography)->randomizeMapping(),
-                       'maxResponses' => 6];
+        $parameters = ['mapping' => (new \Teamwork\Tasks\Cryptography)->randomMapping(),
+                       'maxResponses' => 10];
       }
 
       return $parameters;

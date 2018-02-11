@@ -24,7 +24,7 @@ $( document ).ready(function() {
   <div class="row vertical-center">
     <div class="col-md-4 offset-md-4 text-center">
       <h3>
-        CRYPTOGRAPHY
+        Enter your group's guess below.
       </h3>
       <form name="optimization" action="/optimization-group" method="post">
         {{ csrf_field() }}

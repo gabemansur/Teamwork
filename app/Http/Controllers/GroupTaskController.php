@@ -49,7 +49,7 @@ class GroupTaskController extends Controller
 
       switch($task->name) {
 
-        case "OptimizationTask":
+        case "CryptographyTask":
           return redirect('/cryptography-intro');
 
         case "OptimizationTask":
@@ -147,8 +147,15 @@ class GroupTaskController extends Controller
       return view('layouts.participants.tasks.cryptography-group-intro');
     }
 
-    public function cryptography() {
-      
-      return view('layouts.participants.tasks.cryptography-group');
+    public function cryptography(Request $request) {
+      $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $mapping = $parameters['mapping'];
+      $maxResponses = $parameters['maxResponses'];
+
+      dump($mapping);
+      return view('layouts.participants.tasks.cryptography-group')
+             ->with('mapping',json_encode($mapping))
+             ->with('maxResponses', $maxResponses);
     }
 }

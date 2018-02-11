@@ -17,7 +17,8 @@ class Cryptography {
 
 
   public function randomMapping() {
-    return shuffle($this->letters);
+    shuffle($this->letters);
+    return $this->letters;
   }
 
 
