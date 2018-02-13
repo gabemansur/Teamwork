@@ -18,32 +18,36 @@ var Cryptography = class Cryptography {
     eq = eq.replace(/\s+/g, ''); // Remove whitespace
     eq = eq.toUpperCase();
     eq = eq.trim();
+    var arr = eq.split('');
 
-    function parse(str, allowedChars) {
-      var c = str.charAt(0);
-      var i = allowedChars.indexOf(c);
+    function parse(eq, allowedChars, mapping) {
 
-      if(c == '+'){
-        return parseInt(0 + (parse(str.substr(1), allowedChars)));
+      for(var i = 0; i < eq.length; i++) {
+
+        var x = allowedChars.indexOf(eq[i]);
+
+        if(allowedChars.indexOf(eq[i]) >= 0) {
+          if(mapping.indexOf(eq[i]) >= 0)
+            eq[i] = x;
+        }
+        else throw new Error("'" + eq[i] + "' is not an allowed character");
       }
-      else if(c == '-') {
-        return parseInt(-1 * (parse(str.substr(1), allowedChars)));
-      }
-      else if(i >= 0) {
-        return parseInt(i  + (parse(str.substr(1), allowedChars))).toString();
-      }
-      else if(!c){
-        return 0;
-      }
-      else {
-        throw new Error(c + " is not an allowed character");
-      }
+      return eq.join('');
     }
-    var n = parse(eq, this.allowedChars);
+
+    var parsed = parse(arr, this.allowedChars, this.mapping);
+
+    var n = eval(parsed);
 
     var answer = '';
+    var sign = '';
 
     if(n == 0) return this.mapping[n];
+
+    if(n < 0) {
+      sign = '-';
+      n = Math.abs(n);
+    }
 
     while(n > 0) {
 
@@ -51,6 +55,11 @@ var Cryptography = class Cryptography {
       n = parseInt(n / 10);
     }
 
-    return answer;
+    return sign + answer;
+
+  }
+
+  testHypothesis(key, val) {
+    return this.mapping.indexOf(key) == val;
   }
 }

@@ -143,8 +143,12 @@ class GroupTaskController extends Controller
              ->with('result', false);;
     }
 
-    public function cryptographyIntro() {
-      return view('layouts.participants.tasks.cryptography-group-intro');
+    public function cryptographyIntro(Request $request) {
+      $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $maxResponses = $parameters['maxResponses'];
+      return view('layouts.participants.tasks.cryptography-group-intro')
+             ->with('maxResponses', $maxResponses);
     }
 
     public function cryptography(Request $request) {
@@ -152,10 +156,32 @@ class GroupTaskController extends Controller
       $parameters = unserialize($currentTask->parameters);
       $mapping = $parameters['mapping'];
       $maxResponses = $parameters['maxResponses'];
-
+      $sorted = $mapping;
+      sort($sorted);
+      dump($sorted);
       dump($mapping);
       return view('layouts.participants.tasks.cryptography-group')
              ->with('mapping',json_encode($mapping))
+             ->with('sorted', $sorted)
              ->with('maxResponses', $maxResponses);
+    }
+
+    public function saveCryptographyResponse(Request $request) {
+      $groupTaskId = $request->session()->get('currentGroupTask');
+
+      $r = new Response;
+      $r->group_tasks_id = $groupTaskId;
+      $r->user_id = \Auth::user()->id;
+      $r->prompt = $request->prompt;
+      $r->response = $request->guess;
+      $r->save();
+    }
+
+    public function endCryptographyTask(Request $request) {
+      $task = GroupTask::find($request->session()->get('currentGroupTask'));
+      $task->points = $request->task_result;
+      $task->completed = true;
+      $task->save();
+      return redirect('/get-group-task');
     }
 }

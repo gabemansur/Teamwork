@@ -1,3 +1,8 @@
+div.inst h3,
+div.inst ol li{
+  margin-bottom: 24px;
+}
+
 div.word-list {
   background-color: #eeeeee;
   padding: 6px;
@@ -29,4 +34,29 @@ div.word-list span {
 
 #warning {
   display: none;
+}
+
+#hypothesis {
+  width: 100%;
+  position: relative;
+  clear: both;
+  margin-bottom: 18px;
+}
+
+#hypothesis select,
+#hypothesis span,
+#guess-full-mapping select {
+  width: 56px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+#guess-full-mapping span {
+  width: 36px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+#answers {
+  margin-top: 12px;
 }
