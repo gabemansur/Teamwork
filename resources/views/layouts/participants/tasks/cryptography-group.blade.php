@@ -34,10 +34,15 @@ $( document ).ready(function() {
 
     if(trialStage == 1) {
 
+      var equation = $("#equation").val().toUpperCase();
+      if(equation == '') {
+        event.preventDefault();
+        return;
+      };
+
       $("#hypothesis").hide();
       trialStage++;
 
-      var equation = $("#equation").val().toUpperCase();
 
       try {
         var answer = crypto.parseEquation(equation);
@@ -110,6 +115,7 @@ $( document ).ready(function() {
       else {
         $("#crypto-form").hide();
         $("#task-end").show();
+        $("#success").hide();
         $("#fail").show();
       }
     }
