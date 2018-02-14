@@ -157,6 +157,7 @@ class GroupTaskController extends Controller
       $mapping = $parameters['mapping'];
       $maxResponses = $parameters['maxResponses'];
       $sorted = $mapping;
+      sort($sorted);
 
       return view('layouts.participants.tasks.cryptography-group')
              ->with('mapping',json_encode($mapping))
