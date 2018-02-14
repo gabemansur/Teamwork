@@ -69,14 +69,18 @@ $( document ).ready(function() {
 
     guessNumber++;
 
-    var result = rnorm(1, f(n), 20);
+    //var result = rnorm(1, f(n), 20);
 
-    responses.push({guess: n, result: result});
-    $("#guess-history").append("<tr><td>" + guessNumber + "</td><td>" + n + "</td><td>" + result + "</td></tr>");
-    $("#guess").val('');
-    $("#guess").prop( "readonly", true );
-    $("#guess-prompt").hide();
-    $("#timer-container").show();
+    $.get( "/get-prob-val", { mean: f(n) } )
+        .done(function( data ) {
+          result = Number.parseFloat(data).toFixed(4);
+          responses.push({guess: n, result: result});
+          $("#guess-history").append("<tr><td>" + guessNumber + "</td><td>" + n + "</td><td>" + result + "</td></tr>");
+          $("#guess").val('');
+          $("#guess").prop( "readonly", true );
+          $("#guess-prompt").hide();
+          $("#timer-container").show();
+        });
 
     $.post("/optimization-individual", {
         _token: "{{ csrf_token() }}",
