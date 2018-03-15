@@ -16,8 +16,7 @@
         event.preventDefault();
       });
 
-      initializeTimer(120, function() {
-        $("input").prop( "readonly", true );
+      initializeTimer(180, function() {
         $('#submitPrompt').modal();
       });
 
@@ -75,7 +74,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="submitPrompt">
+<div class="modal fade" id="submitPrompt" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
