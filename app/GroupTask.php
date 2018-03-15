@@ -16,7 +16,9 @@ class GroupTask extends Model
                       ['name' => 'UnscrambleWords',
                        'hasIndividuals' => false],
                       ['name' => 'Brainstorming',
-                       'hasIndividuals' => true]
+                       'hasIndividuals' => true],
+                      ['name' => 'ShapesTask',
+                       'hasIndividuals' => true],
                     ];
 
     public function group() {

@@ -51,11 +51,24 @@ class IndividualTaskController extends Controller
       switch($task->name) {
 
         case "OptimizationTask":
+          request()->session()->put('currentIndividualTaskName', 'Optimization Task');
           return redirect('/optimization-individual-intro');
 
         case "Brainstorming":
+          request()->session()->put('currentIndividualTaskName', 'Brainstorming Task');
           return redirect('/brainstorming-individual-intro');
+
+        case "ShapesTask":
+          request()->session()->put('currentIndividualTaskName', 'Shapes Task');
+          return redirect('/shapes-individual-intro');
       }
+    }
+
+    public function showTaskResults(Request $request) {
+      return view('layouts.participants.tasks.participant-task-results')
+             ->with('taskName', $request->session()->get('currentIndividualTaskName'))
+             ->with('result', $request->session()->get('currentIndividualTaskResult'));
+
     }
 
     public function endTask(Request $request) {
@@ -147,9 +160,47 @@ class IndividualTaskController extends Controller
         $r->save();
       }
 
+      $request->session()->put('currentIndividualTaskResult', false);
+      $request->session()->put('currentIndividualTaskName', 'Brainstorming Task');
 
-      return view('layouts.participants.tasks.participant-task-results')
-             ->with('taskName', "Brainstorming Task")
-             ->with('result', false);
+      return redirect('\individual-task-results');
     }
+
+    public function shapesIntro() {
+      return view('layouts.participants.tasks.shapes-individual-intro');
+    }
+
+    public function shapesIndividual() {
+      $task = new Task\Shapes;
+      $shapes = $task->getShapes();
+      return view('layouts.participants.tasks.shapes-individual')
+             ->with('shapes', $shapes['subtest1']);
+    }
+
+    public function saveShapesIndividual(Request $request) {
+      $task = new Task\Shapes;
+      $shapes = $task->getShapes();
+      $answers = $shapes['subtest1']['answers'];
+      $correct = 0;
+
+      foreach ($request->all() as $key => $input) {
+        if($key != '_token' && $input == $answers[$key - 1]) {
+          $correct++;
+        }
+      }
+
+
+      $r = new Response;
+      $r->group_tasks_id = $request->session()->get('currentGroupTask');
+      $r->individual_tasks_id = $request->session()->get('currentIndividualTask');
+      $r->user_id = \Auth::user()->id;
+      $r->prompt = 'subtest1';
+      $r->response = json_encode($request->all());
+      $r->points = $correct;
+      $r->save();
+      $request->session()->put('currentIndividualTaskResult', $correct);
+      $request->session()->put('currentIndividualTaskName', 'Shapes Task');
+      return redirect('\individual-task-results');
+    }
+
 }

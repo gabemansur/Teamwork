@@ -38,6 +38,12 @@ Route::get('/get-individual-task', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/individual-task-results', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@showTaskResults',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/end-individual-task', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@endTask',
@@ -126,6 +132,30 @@ Route::get('/optimization-individual', [
 Route::post('/optimization-individual', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@saveOptimizationGuess',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/shapes-individual-intro', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@shapesIntro',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/shapes-individual', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@shapesIndividual',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::post('/shapes-individual', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@saveShapesIndividual',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/shapes-individual-result', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@shapesIndividualResult',
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
