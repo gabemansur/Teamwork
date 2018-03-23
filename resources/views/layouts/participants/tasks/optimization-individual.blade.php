@@ -68,8 +68,7 @@ $( document ).ready(function() {
     }
 
     guessNumber++;
-
-    //var result = rnorm(1, f(n), 20);
+    console.log(f(n));
 
     $.get( "/get-prob-val", { mean: f(n) } )
         .done(function( data ) {
