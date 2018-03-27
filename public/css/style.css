@@ -5,3 +5,12 @@
   display: flex;
   align-items: center;
 }
+
+label.task-params-select {
+  margin-left: 20%;
+}
+
+select.task-params-select {
+  width: 30%;
+  margin-left: 20%;
+}

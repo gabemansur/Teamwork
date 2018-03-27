@@ -55,6 +55,12 @@ class LoginController extends Controller
 
     public function groupCreateLogin() {
       $tasks = \Teamwork\GroupTask::getTasks();
+      foreach ($tasks as $key => $task) {
+        $class = "\Teamwork\Tasks\\".$task['name'];
+        //$tasks[$key]['params'] = \Teamwork\Tasks\Cryptography::getAvailableParams();
+        $tasks[$key]['params'] = $class::getAvailableParams();
+      }
+      dump($tasks);
       return view('layouts.participants.group-create-login')
              ->with('tasks', $tasks);
     }

@@ -5,6 +5,7 @@ class Optimization {
 
 
   private $functions = ['a'];
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['true', 'false'], 'function' => ['random']];
 
 
   public function getFunctions() {
@@ -20,5 +21,8 @@ class Optimization {
     return $this->functions[array_rand($this->functions)];
   }
 
-
+  public static function getAvailableParams()
+  {
+    return Self::$avaialbleParams;
+  }
 }

@@ -9,15 +9,16 @@ class GroupTask extends Model
     protected $fillable = ['group_id', 'name', 'parameters', 'order'];
 
     private static $TASKS = [
-                      ['name' => 'CryptographyTask',
+                      ['name' => 'Cryptography',
+                       'params' => [],
                        'hasIndividuals' => false],
-                      ['name' => 'OptimizationTask',
+                      ['name' => 'Optimization',
                        'hasIndividuals' => true],
                       ['name' => 'UnscrambleWords',
                        'hasIndividuals' => false],
                       ['name' => 'Brainstorming',
                        'hasIndividuals' => true],
-                      ['name' => 'ShapesTask',
+                      ['name' => 'Shapes',
                        'hasIndividuals' => true],
                     ];
 
@@ -96,11 +97,11 @@ class GroupTask extends Model
       if($taskName == 'Brainstorming') {
         $parameters = ['prompt' => (new \Teamwork\Tasks\Brainstorming)->getRandomPrompt()];
       }
-      if($taskName == 'OptimizationTask') {
+      if($taskName == 'Optimization') {
         $parameters = ['function' => (new \Teamwork\Tasks\Optimization)->getRandomFunction(),
                        'maxResponses' => 6];
       }
-      if($taskName == 'CryptographyTask') {
+      if($taskName == 'Cryptography') {
         $parameters = ['mapping' => (new \Teamwork\Tasks\Cryptography)->randomMapping(),
                        'maxResponses' => 10];
       }

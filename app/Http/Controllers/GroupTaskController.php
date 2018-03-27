@@ -49,10 +49,10 @@ class GroupTaskController extends Controller
 
       switch($task->name) {
 
-        case "CryptographyTask":
+        case "Cryptography":
           return redirect('/cryptography-intro');
 
-        case "OptimizationTask":
+        case "Optimization":
           return redirect('/optimization-group');
 
         case "UnscrambleWords":

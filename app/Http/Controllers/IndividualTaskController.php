@@ -50,7 +50,7 @@ class IndividualTaskController extends Controller
     public function routeTask($task) {
       switch($task->name) {
 
-        case "OptimizationTask":
+        case "Optimization":
           request()->session()->put('currentIndividualTaskName', 'Optimization Task');
           return redirect('/optimization-individual-intro');
 
@@ -58,7 +58,7 @@ class IndividualTaskController extends Controller
           request()->session()->put('currentIndividualTaskName', 'Brainstorming Task');
           return redirect('/brainstorming-individual-intro');
 
-        case "ShapesTask":
+        case "Shapes":
           request()->session()->put('currentIndividualTaskName', 'Shapes Task');
           return redirect('/shapes-individual-intro');
       }

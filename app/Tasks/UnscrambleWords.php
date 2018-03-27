@@ -10,6 +10,8 @@ class UnscrambleWords {
     'joint', 'displace', 'arrange', 'telephone', 'ambulance', 'pencil'
   ];
 
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['true', 'false'], 'wordList' => ['default']];
+
 
   public function getWords() {
     return $this->words;
@@ -41,5 +43,9 @@ class UnscrambleWords {
     return in_array(strtolower($response), $this->words);
   }
 
+  public static function getAvailableParams()
+  {
+    return Self::$avaialbleParams;
+  }
 
 }

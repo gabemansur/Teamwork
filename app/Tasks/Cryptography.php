@@ -5,7 +5,7 @@ class Cryptography {
 
 
   private $letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H','I', 'J'];
-
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['true', 'false'], 'mapping' => ['random']];
 
   public function getLetters() {
     return $this->letters;
@@ -19,6 +19,11 @@ class Cryptography {
   public function randomMapping() {
     shuffle($this->letters);
     return $this->letters;
+  }
+
+  public static function getAvailableParams()
+  {
+    return Self::$avaialbleParams;
   }
 
 

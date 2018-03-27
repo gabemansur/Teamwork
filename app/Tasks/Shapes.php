@@ -12,9 +12,16 @@ class Shapes {
     'subtest4' => ['length' => 12]
   ];
 
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['true', 'false'], 'subtest' => ['1', '2', '3', '4']];
+
 
   public function getShapes() {
     return $this->shapes;
+  }
+
+  public static function getAvailableParams()
+  {
+    return Self::$avaialbleParams;
   }
 
 }

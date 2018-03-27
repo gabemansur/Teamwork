@@ -8,6 +8,7 @@ class Brainstorming {
     'List as many words as possible that start with S and end in N',
   ];
 
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['true', 'false'], 'prompt' => ['brick', 'Start with S, ends with N', 'random']];
 
   public function getPrompts() {
     return $this->prompts;
@@ -27,5 +28,9 @@ class Brainstorming {
     return $numCorrect;
   }
 
+  public static function getAvailableParams()
+  {
+    return Self::$avaialbleParams;
+  }
 
 }
