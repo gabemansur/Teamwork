@@ -9,6 +9,9 @@ class GroupTask extends Model
     protected $fillable = ['group_id', 'name', 'parameters', 'order'];
 
     private static $TASKS = [
+                      ['name' => 'TeamRole',
+                       'params' => [],
+                       'hasIndividuals' => false],
                       ['name' => 'Cryptography',
                        'params' => [],
                        'hasIndividuals' => false],
@@ -35,7 +38,13 @@ class GroupTask extends Model
     }
 
     public static function getTasks() {
-      return Self::$TASKS;
+      $tasks = [];
+      foreach (Self::$TASKS as $key => $task) {
+        $class = "\Teamwork\Tasks\\".$task['name'];
+        $tasks[$key]['name'] = $task['name'];
+        $tasks[$key]['params'] = $class::getAvailableParams();
+      }
+      return $tasks;
     }
 
     public static function initializeDefaultTasks($group_id, $randomize) {
@@ -64,25 +73,19 @@ class GroupTask extends Model
                       ->get();
     }
 
-    public static function initializeTasks($group_id, $requiredTasks, $randomize = true) {
+    public static function initializeTasks($group_id, $requiredTasks, $randomize = false) {
 
-      $tasks = Self::$TASKS;
+      $tasks = json_decode($requiredTasks);
+      foreach ($tasks as $key => $task) {
+        $g = new GroupTask;
+        $g->group_id = $group_id;
+        $g->name = $task->taskName;
+        $g->order = $key + 1;
+        $g->parameters = serialize($task->taskParams);
+        $g->save();
 
-      if($randomize) shuffle($tasks);
-
-      foreach($tasks as $key => $task) {
-
-        if(in_array($task['name'], $requiredTasks)) {
-          $g = new GroupTask;
-          $g->group_id = $group_id;
-          $g->name = $task['name'];
-          $g->order = $key + 1;
-          $g->parameters = serialize(Self::setDefaultTaskParameters($task['name']));
-          $g->save();
-
-          if($task['hasIndividuals']) {
-            \Teamwork\IndividualTask::create(['group_task_id' => $g->id]);
-          }
+        if($task->taskParams->hasIndividuals == 'true') {
+          \Teamwork\IndividualTask::create(['group_task_id' => $g->id]);
         }
       }
 
@@ -90,6 +93,7 @@ class GroupTask extends Model
                       ->with('individualTasks')
                       ->orderBy('order', 'ASC')
                       ->get();
+
     }
 
     public static function setDefaultTaskParameters($taskName) {

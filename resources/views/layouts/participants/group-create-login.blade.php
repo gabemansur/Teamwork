@@ -6,7 +6,12 @@
 
 @section('content')
 <div class="container">
-  <div class="row justify-content-center vertical-center">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div id="task-list"></div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
     <div class="col-md-6 p-4">
       @if($errors)
         @foreach ($errors->all() as $error)
@@ -20,7 +25,7 @@
         {{ $message }}
       </div>
       @endif
-      <form action="group-create" method="post">
+      <form action="/group-create" method="post">
         {{ csrf_field() }}
         <fieldset class="bg-light p-4 rounded">
           <div class="form-group">
@@ -29,23 +34,36 @@
                    value="{{ old('group_id') }}">
           </div>
           <h5 class="text-center">Add tasks for this group:</h5>
-          <div class="ml-5">
+
+            <div class="form-group">
+              <label for="task">Task:</label>
+              <select class="form-control" id="task" name="task">
+                  <option>---------------------</option>
+                @foreach($tasks as $key => $task)
+                  <option value="{{ $task['name'] }}">{{ $task['name'] }}</option>
+                @endforeach
+              </select>
+            </div>
+
             @foreach($tasks as $key => $task)
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="{{ $task['name'] }}" name="tasks[]" value="{{ $task['name'] }}">
-                <label class="form-check-label" for="{{ $task['name'] }}">{{ $task['name'] }}</label><br>
-                  @foreach($task['params'] as $key => $param)
+              <div id="{{ $task['name'] }}" class="task-params row">
+                <div class="col-md-12">
+                  <h6>Task Parameters</h6>
+                </div>
+                @foreach($task['params'] as $key => $param)
+                  <div class="params col-md-4">
                     <label class="task-params-select" for="{{ $task['name'].'_'.$key }}">{{ $key }}</label>
-                    <select class="form-control form-control-sm task-params-select" id="{{ $task['name'].'_'.$key }}">
+                    <select class="form-control form-control-sm task-params-select" data-name="{{ $key }}" id="{{ $task['name'].'_'.$key }}">
                       @foreach($param as $option)
                         <option>{{ $option }}</option>
-                      @endforeach
-                    </select>
-                  @endforeach
+                        @endforeach
+                      </select>
+                  </div>
+                @endforeach
               </div>
             @endforeach
-          </div>
-          <input type="hidden" id="taskJSON" name="taskJSON">
+
+          <input type="hidden" id="taskArray" name="taskArray" value="">
           <div class="text-center">
             <button class="btn btn-lg btn-primary" id="addTask" type="button">Add</button>
           </div>

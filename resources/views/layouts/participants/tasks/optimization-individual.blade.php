@@ -17,6 +17,7 @@
 $( document ).ready(function() {
   var functionName = "{{ $function }}";
   var MAX_RESPONSES = "{{ $maxResponses }}";
+  var hasGroup = "{{ $hasGroup }};"
   var f = taskFunctions.{{ $function }};
   var guessNumber = 0;
   var responses = [];
@@ -95,10 +96,19 @@ $( document ).ready(function() {
           completeGroupTaskAlso: 0
         });
 
-      $('#group-prompt').modal({
-        backdrop: 'static',
-        keyboard: false
-      });
+      if(hasGroup == 'true'){
+        $('#group-prompt').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+
+      }
+      else {
+        $('#individual-prompt').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+      }
     }
 
     else {
@@ -184,6 +194,30 @@ $( document ).ready(function() {
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="individual-prompt">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center">
+        You have reached the maximum number of guesses. You will now input
+        your final answer.
+        </h4>
+      </div>
+      <div class="modal-body text-center">
+        <form action="/optimization-individual-final" method="post">
+          {{ csrf_field() }}
+          <div class="form-group">
+            <label for="final">Your final answer:</label>
+            <input class="form-control" type="text" name="final">
+            <input type="hidden" name="function" value="{{ $function }}">
+          </div>
+          <button class="btn btn-lg btn-primary pull-right" id="continue" type="submit">Submit</button>
+        </form>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
 
 <div class="modal fade" id="group-prompt">
   <div class="modal-dialog">

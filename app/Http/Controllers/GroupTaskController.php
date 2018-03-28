@@ -154,8 +154,8 @@ class GroupTaskController extends Controller
     public function cryptography(Request $request) {
       $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
-      $mapping = $parameters['mapping'];
-      $maxResponses = $parameters['maxResponses'];
+      $mapping = (new \Teamwork\Tasks\Cryptography)->getMapping($parameters->mapping);
+      $maxResponses = $parameters->maxResponses;
       $sorted = $mapping;
       sort($sorted);
 
@@ -181,6 +181,7 @@ class GroupTaskController extends Controller
       $task->points = $request->task_result;
       $task->completed = true;
       $task->save();
-      return redirect('/get-group-task');
+      if(\Auth::user()->role_id == 3) return redirect('/end-individual-task');
+      else return redirect('/get-group-task');
     }
 }

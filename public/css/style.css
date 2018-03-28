@@ -6,11 +6,15 @@
   align-items: center;
 }
 
-label.task-params-select {
-  margin-left: 20%;
+.task-params .params {
+  /*display: inline-block;*/
 }
 
-select.task-params-select {
-  width: 30%;
-  margin-left: 20%;
+.selected-task {
+  padding: 4px;
+
+}
+
+.selected-task .delete {
+  cursor: pointer;
 }

@@ -84,7 +84,7 @@ class AjaxController extends Controller
      $ch = curl_init();
      curl_setopt($ch, CURLOPT_HEADER, 0);
      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-     curl_setopt($ch, CURLOPT_URL, 'http://hellogabe.me:8080?mean='.$request->mean);
+     curl_setopt($ch, CURLOPT_URL, 'http://hellogabe.me:3100?mean='.$request->mean);
      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
      $data = curl_exec($ch);
      curl_close($ch);

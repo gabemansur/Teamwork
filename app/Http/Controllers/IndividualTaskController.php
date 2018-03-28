@@ -42,13 +42,19 @@ class IndividualTaskController extends Controller
         return $this->routeTask($currentTask);
       }
 
+
       else {
         return view('layouts.participants.participant-group-task');
       }
     }
 
     public function routeTask($task) {
+      dump($task->name);
       switch($task->name) {
+
+        case "Cryptography":
+          request()->session()->put('currentIndividualTaskName', 'Cryptography Task');
+          return redirect('/cryptography-individual-intro');
 
         case "Optimization":
           request()->session()->put('currentIndividualTaskName', 'Optimization Task');
@@ -76,6 +82,16 @@ class IndividualTaskController extends Controller
 
       $task = \Teamwork\GroupTask::with('response')
                                  ->find($request->session()->get('currentGroupTask'));
+      dump($task);
+      // If this is an individual-only task, mark it as done
+      $parameters = unserialize($task->parameters);
+      if($parameters->hasGroup == 'false') {
+        dump('completed');
+        $task->completed = true;
+        $task->save();
+
+        return redirect('/get-individual-task');
+      }
 
       $numUsersResponded = count($task->response->groupBy('user_id'));
 
@@ -98,6 +114,14 @@ class IndividualTaskController extends Controller
       return view('layouts.participants.participant-experiment-end');
     }
 
+    public function cryptographyIntro(Request $request) {
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $maxResponses = $parameters->maxResponses;
+      return view('layouts.participants.tasks.cryptography-individual-intro')
+             ->with('maxResponses', $maxResponses);
+    }
+
     public function optimizationIntro() {
       return view('layouts.participants.tasks.optimization-individual-intro');
     }
@@ -105,11 +129,12 @@ class IndividualTaskController extends Controller
     public function optimization(Request $request) {
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
-      $function = $parameters['function'];
-      $maxResponses = $parameters['maxResponses'];
+      $function = (new \Teamwork\Tasks\Optimization)->getFunction($parameters->function);
+      $maxResponses = $parameters->maxResponses;
       return view('layouts.participants.tasks.optimization-individual')
              ->with('function', $function)
-             ->with('maxResponses', $maxResponses);
+             ->with('maxResponses', $maxResponses)
+             ->with('hasGroup', $parameters->hasGroup);
     }
 
     public function saveOptimizationGuess(Request $request) {
@@ -124,6 +149,23 @@ class IndividualTaskController extends Controller
       $r->prompt = $request->function;
       $r->response = $request->guess;
       $r->save();
+
+    }
+
+    public function saveOptimizationFinalGuess(Request $request) {
+
+      $groupTaskId = $request->session()->get('currentGroupTask');
+      $individualTaskId = $request->session()->get('currentIndividualTask');
+
+      $r = new Response;
+      $r->group_tasks_id = $groupTaskId;
+      $r->individual_tasks_id = $individualTaskId;
+      $r->user_id = \Auth::user()->id;
+      $r->prompt = $request->function .": final";
+      $r->response = $request->final;
+      $r->save();
+
+      return redirect('/end-individual-task');
 
     }
 

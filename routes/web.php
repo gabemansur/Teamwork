@@ -135,6 +135,12 @@ Route::post('/optimization-individual', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::post('/optimization-individual-final', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@saveOptimizationFinalGuess',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/shapes-individual-intro', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@shapesIntro',
@@ -183,22 +189,28 @@ Route::get('/cryptography-intro', [
 	'roles' => ['Group'] // Only a logged in user can view this page
 ]);
 
+Route::get('/cryptography-individual-intro', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@cryptographyIntro',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/cryptography', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'GroupTaskController@cryptography',
-	'roles' => ['Group'] // Only a logged in user can view this page
+	'roles' => ['Group', 'Participant'] // Only a logged in user can view this page
 ]);
 
 Route::post('/cryptography', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'GroupTaskController@saveCryptographyResponse',
-	'roles' => ['Group'] // Only a logged in user can view this page
+	'roles' => ['Group', 'Participant'] // Only a logged in user can view this page
 ]);
 
 Route::post('/cryptography-end', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'GroupTaskController@endCryptographyTask',
-	'roles' => ['Group'] // Only a logged in user can view this page
+	'roles' => ['Group', 'Participant'] // Only a logged in user can view this page
 ]);
 
 Route::get('/participant-login', [
