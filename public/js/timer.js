@@ -72,7 +72,7 @@ function timer(callback, cookie){
 function createCookie(name, value) {
 
 		var date = new Date();
-		date.setTime(date.getTime()+ (24*60*60*1000) ); // expires in 1 day
+		date.setTime(date.getTime()+ (10 * 60 * 1000) ); // expires in 10 mins
 		var expires = "; expires="+date.toGMTString();
 
 
