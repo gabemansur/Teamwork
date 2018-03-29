@@ -10,7 +10,7 @@ class UnscrambleWords {
     'joint', 'displace', 'arrange', 'telephone', 'ambulance', 'pencil'
   ];
 
-  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['true', 'false'], 'wordList' => ['default']];
+  private static $avaialbleParams = ['hasIndividuals' => ['false'], 'hasGroup' => ['true'], 'wordList' => ['default']];
 
 
   public function getWords() {

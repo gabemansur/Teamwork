@@ -12,7 +12,7 @@ class Shapes {
     'subtest4' => ['length' => 12]
   ];
 
-  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['true', 'false'], 'subtest' => ['1', '2', '3', '4']];
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'subtest' => ['1']];
 
 
   public function getShapes() {

@@ -1,4 +1,4 @@
-function initializeTimer(sec, callback){
+function initializeTimer(sec, callback, cookie = 'task-timer'){
 
 		if(isNaN(sec)){
 
@@ -6,7 +6,7 @@ function initializeTimer(sec, callback){
 			return;
 		}
 
-		if(!readCookie('task_timer')) {
+		if(!readCookie(cookie)) {
 
 			// convert start time from seconds to milliseconds
 			var time = sec * 1000;
@@ -16,17 +16,17 @@ function initializeTimer(sec, callback){
 			var startTime = currentTime.getTime();
 			var endTime = new Date(currentTime.getTime() + time);
 
-			createCookie('task_timer', endTime);
-			
+			createCookie(cookie, endTime);
+
 		}
 
 		setTimeout(function() {
-			timer(callback)
+			timer(callback, cookie)
 		}, 1000);
 
 }
 
-function timer(callback){
+function timer(callback, cookie){
 
 	// Subtracts the current time from the initial time value stored in the cookie
 	time_now = new Date();
@@ -48,7 +48,7 @@ function timer(callback){
 		}
 
 		setTimeout(function() {
-			timer(callback);
+			timer(callback, cookie);
 		}, 1000);
 
 	}
@@ -56,7 +56,7 @@ function timer(callback){
 	// If no time is left, the timer is set to display zero
 	else {
 
-		deleteCookie('task_timer');
+		deleteCookie(cookie);
 
 		if(clock){
 				clock.innerHTML = '00:00';
@@ -69,7 +69,7 @@ function timer(callback){
 
 }
 
-function createCookie(name,value) {
+function createCookie(name, value) {
 
 		var date = new Date();
 		date.setTime(date.getTime()+ (24*60*60*1000) ); // expires in 1 day

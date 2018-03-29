@@ -4,9 +4,9 @@ namespace Teamwork\Tasks;
 class TeamRole {
 
 
-  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'],
+  private static $avaialbleParams = ['hasIndividuals' => ['true'],
                                      'hasGroup' => ['false'],
-                                     'function' => ['random']];
+                                     'scenarios' => ['all']];
 
 
   private $scenarios = [
@@ -28,7 +28,7 @@ class TeamRole {
                       'scoring' => 'normal'],
                       ['response' => 'Avoid being overly assertive in the new '
                         .'team and let others determine the team’s direction, '
-                        .'because it is important that the younger members take'
+                        .'because it is important that the younger members take '
                         .'the lead.',
                       'scoring' => 'reverse'],
                       ['response' => 'Quickly decide to continue with your '
@@ -60,32 +60,26 @@ class TeamRole {
                         .'not produced an order so quickly in the past, you are '
                         .'confident that by staying focused your team can ship '
                         .'the rush order on time.',
+                      'scoring' => 'normal'],
+                      ['response' => 'Suggest that the deadline is unreasonable, '
+                        .'and you will simply have to do your best without '
+                        .'worrying about meeting the unrealistic shipment date '
+                        .'to which the Sales department committed themselves.',
                       'scoring' => 'reverse'],
-]                   ]
+                    ]
+        ]
 
-  ]
+  ];
 
 
-  public function getFunctions() {
-    return $this->functions;
+  public function getScenarios() {
+    return $this->scenarios;
   }
 
-  public function setFunctions($functions) {
-    $this->functions = $functions;
+  public function setScenario($key) {
+    return $this->scenarios[$key];
   }
 
-
-  public function getRandomFunction() {
-    return $this->functions[array_rand($this->functions)];
-  }
-
-  public function getFunction($functionType) {
-    switch ($functionType) {
-      case 'random':
-        return $this->functions[array_rand($this->functions)];
-        break;
-    }
-  }
 
   public static function getAvailableParams()
   {

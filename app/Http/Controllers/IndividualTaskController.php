@@ -49,8 +49,16 @@ class IndividualTaskController extends Controller
     }
 
     public function routeTask($task) {
-      dump($task->name);
+
       switch($task->name) {
+
+        case "TeamRole":
+          request()->session()->put('currentIndividualTaskName', 'Team Role Task');
+          return redirect('/team-role-intro');
+
+        case "BigFive":
+          request()->session()->put('currentIndividualTaskName', 'Big Five Task');
+          return redirect('/big-five');
 
         case "Cryptography":
           request()->session()->put('currentIndividualTaskName', 'Cryptography Task');
@@ -82,11 +90,11 @@ class IndividualTaskController extends Controller
 
       $task = \Teamwork\GroupTask::with('response')
                                  ->find($request->session()->get('currentGroupTask'));
-      dump($task);
+
       // If this is an individual-only task, mark it as done
       $parameters = unserialize($task->parameters);
       if($parameters->hasGroup == 'false') {
-        dump('completed');
+
         $task->completed = true;
         $task->save();
 
@@ -112,6 +120,50 @@ class IndividualTaskController extends Controller
 
     public function endExperiment() {
       return view('layouts.participants.participant-experiment-end');
+    }
+
+    public function teamRoleIntro(Request $request) {
+      return view('layouts.participants.tasks.team-role-intro');
+    }
+
+    public function teamRole(Request $request) {
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $scenarios = (new \Teamwork\Tasks\TeamRole)->getScenarios();
+      return view('layouts.participants.tasks.team-role')
+             ->with('scenarios', $scenarios);
+    }
+
+    public function saveTeamRole(Request $request) {
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $scenarios = (new \Teamwork\Tasks\TeamRole)->getScenarios();
+      // NEED TO SCORE AND SAVE
+      return redirect('/team-role-end');
+    }
+
+    public function teamRoleEnd(Request $request) {
+      return view('layouts.participants.tasks.team-role-end');
+    }
+
+    public function bigFive(Request $request) {
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $statements = (new \Teamwork\Tasks\BigFive)->getStatements($parameters->statementOrder);
+      return view('layouts.participants.tasks.big-five')
+             ->with('statements', $statements);
+    }
+
+    public function saveBigFive(Request $request) {
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $statements = (new \Teamwork\Tasks\BigFive)->getStatements('ordered');
+      // NEED TO SCORE AND SAVE
+      return redirect('/big-five-end');
+    }
+
+    public function bigFiveEnd(Request $request) {
+      return view('layouts.participants.tasks.big-five-end');
     }
 
     public function cryptographyIntro(Request $request) {
@@ -179,7 +231,7 @@ class IndividualTaskController extends Controller
 
       $task = new Task\Brainstorming;
 
-      $prompt = unserialize($currentTask->parameters)['prompt'];
+      $prompt = unserialize($currentTask->parameters)->prompt;
 
       return view('layouts.participants.tasks.brainstorming-individual')
              ->with('prompt', $prompt);

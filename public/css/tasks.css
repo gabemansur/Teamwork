@@ -60,3 +60,59 @@ div.word-list span {
 #answers {
   margin-top: 12px;
 }
+
+/* Team Role Task */
+
+td.blank {
+  background-color: #fff;
+  border: 0;
+}
+
+td.desc {
+  background-color: #fff;
+}
+
+th.key {
+  rgba(0,0,0,.05);
+  border-right: 1px solid #cccccc;
+}
+
+th.rotate {
+  height: 140px;
+  white-space: nowrap;
+}
+
+th.rotate > div {
+  transform:
+      translate(-2px, 200px)
+      rotate(270deg);
+  width: 30px;
+}
+
+th.rotate > div > span {
+  padding: 5px 10px;
+}
+
+
+
+td.input {
+  border: 1px solid #e9ecef;
+}
+
+td.input input {
+  margin-left: -0.25rem!important;
+}
+
+/* Big Five */
+
+form#big-five-form th.rotate {
+  height: 200px;
+  white-space: nowrap;
+}
+
+form#big-five-form th.rotate > div {
+  transform:
+        translate(20px, 160px)
+        rotate(270deg);
+  width: 30px;
+}

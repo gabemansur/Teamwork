@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('js')
-  <script src="{{ URL::asset('js/timer.js') }}"></script>
   <script src="{{ URL::asset('js/cryptography.js') }}"></script>
 
 @stop
@@ -198,7 +197,7 @@ $( document ).ready(function() {
       <div id="task-end">
         <form action="/cryptography-end" method="post">
           {{ csrf_field() }}
-          <input type="hidden" name="task_result" id="task-result" val="0">
+          <input type="hidden" name="task_result" id="task-result" value="0">
           <h3 id="success">Congratulations, you solved the task!</h3>
           <h3 id="fail">This is the end of this task.</h3>
           <div class="text-center">

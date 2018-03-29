@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('js')
-  <script src="{{ URL::asset('js/timer.js') }}"></script>
   <script src="{{ URL::asset('js/optimization.js') }}"></script>
   <script src="{{ URL::asset('js/probability-distributions.js') }}"></script>
 

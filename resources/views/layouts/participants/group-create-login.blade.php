@@ -27,7 +27,7 @@
       @endif
       <form action="/group-create" method="post">
         {{ csrf_field() }}
-        <fieldset class="bg-light p-4 rounded">
+        <fieldset class="bg-light p-4 rounded mb-lg-2">
           <div class="form-group">
             <label for="group_id">Group ID</label>
             <input type="text" class="form-control" name="group_id"
@@ -65,7 +65,7 @@
 
           <input type="hidden" id="taskArray" name="taskArray" value="">
           <div class="text-center">
-            <button class="btn btn-lg btn-primary" id="addTask" type="button">Add</button>
+            <button class="btn btn-lg btn-primary mt-lg-2" id="addTask" type="button">Add</button>
           </div>
         </fieldset>
         <div class="text-center">

@@ -24,7 +24,7 @@ $( document ).ready(function() {
   initializeTimer(120, function() {
     $("input").prop( "readonly", true );
     $('#submitPrompt').modal();
-  });
+  }, 'unscramble-cookie');
 });
 
 </script>

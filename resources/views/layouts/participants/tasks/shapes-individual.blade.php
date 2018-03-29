@@ -18,7 +18,7 @@
 
       initializeTimer(180, function() {
         $('#submitPrompt').modal();
-      });
+      }, 'shapes-cookie');
 
       instructionPaginator(function(){
 

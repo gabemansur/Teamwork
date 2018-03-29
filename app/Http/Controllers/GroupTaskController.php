@@ -118,7 +118,7 @@ class GroupTaskController extends Controller
     public function optimization(Request $request) {
       $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
-      $function = $parameters['function'];
+      $function = $parameters->function;
 
       return view('layouts.participants.tasks.optimization-group')
              ->with('function', $function);

@@ -9,9 +9,12 @@ class GroupTask extends Model
     protected $fillable = ['group_id', 'name', 'parameters', 'order'];
 
     private static $TASKS = [
+                      ['name' => 'BigFive',
+                       'params' => [],
+                       'hasIndividuals' => true],
                       ['name' => 'TeamRole',
                        'params' => [],
-                       'hasIndividuals' => false],
+                       'hasIndividuals' => true],
                       ['name' => 'Cryptography',
                        'params' => [],
                        'hasIndividuals' => false],

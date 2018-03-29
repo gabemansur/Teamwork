@@ -17,7 +17,7 @@
 $( document ).ready(function() {
   var functionName = "{{ $function }}";
   var MAX_RESPONSES = "{{ $maxResponses }}";
-  var hasGroup = "{{ $hasGroup }};"
+  var hasGroup = "{{ $hasGroup }}";
   var f = taskFunctions.{{ $function }};
   var guessNumber = 0;
   var responses = [];

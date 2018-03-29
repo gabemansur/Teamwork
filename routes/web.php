@@ -81,6 +81,48 @@ Route::get('/participant-experiment-end', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/team-role-intro', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@teamRoleIntro',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/team-role', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@teamRole',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::post('/team-role', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@saveTeamRole',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/team-role-end', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@teamRoleEnd',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/big-five', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@bigFive',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::post('/big-five', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@saveBigFive',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/big-five-end', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@bigFiveEnd',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/unscramble-words-intro', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'GroupTaskController@unscrambleWordsIntro',
