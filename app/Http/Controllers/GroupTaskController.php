@@ -146,7 +146,7 @@ class GroupTaskController extends Controller
     public function cryptographyIntro(Request $request) {
       $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
-      $maxResponses = $parameters['maxResponses'];
+      $maxResponses = $parameters->maxResponses;
       return view('layouts.participants.tasks.cryptography-group-intro')
              ->with('maxResponses', $maxResponses);
     }
