@@ -6,36 +6,19 @@ function initializeTimer(sec, callback, cookie = 'task-timer'){
 			return;
 		}
 
-		if(!readCookie(cookie)) {
-
-			// convert start time from seconds to milliseconds
-			var time = sec * 1000;
-
-			var currentTime = new Date();
-
-			var startTime = currentTime.getTime();
-			var endTime = new Date(currentTime.getTime() + time);
-
-			createCookie(cookie, endTime);
-
-		}
+		time = sec * 1000;
 
 		setTimeout(function() {
-			timer(callback, cookie)
+			timer(callback)
 		}, 1000);
 
 }
 
-function timer(callback, cookie){
+function timer(callback){
 
-	// Subtracts the current time from the initial time value stored in the cookie
-	time_now = new Date();
-	time_num = time_now.getTime();
-
-	the_end = readCookie('task_timer');
-	the_end = new Date(the_end);
-	ending = the_end.getTime();
-	remaining = ending - time_num;
+	var ending = time;
+	var remaining = ending - 1000;
+	time = remaining;
 
 	clock = document.getElementById('timer');
 
@@ -48,15 +31,13 @@ function timer(callback, cookie){
 		}
 
 		setTimeout(function() {
-			timer(callback, cookie);
+			timer(callback);
 		}, 1000);
 
 	}
 
 	// If no time is left, the timer is set to display zero
 	else {
-
-		deleteCookie(cookie);
 
 		if(clock){
 				clock.innerHTML = '00:00';

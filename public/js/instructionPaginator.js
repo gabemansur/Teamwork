@@ -21,13 +21,6 @@ function instructionPaginator(callback) {
 
     // If we've reached the end of instructions, go to redirect url
 
-    if(page_count == $(".inst").length) {
-      $("#instr_nav #next").hide();
-    }
-
-    else {
-      $("#instr_nav #next").show();
-    }
 
     if(page_count > $(".inst").length){
 

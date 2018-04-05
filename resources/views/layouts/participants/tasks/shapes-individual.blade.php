@@ -33,7 +33,7 @@
       <div class="pull-right text-primary" id="timer"></div>
     </div>
   </div>
-  <div class="row vertical-center">
+  <div class="row">
     <div class="col-md-12 text-center">
       <form id="shapes-form" action="/shapes-individual" method="post">
         {{ csrf_field() }}

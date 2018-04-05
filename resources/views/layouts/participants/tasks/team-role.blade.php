@@ -2,6 +2,7 @@
 
 @section('js')
   <script src="{{ URL::asset('js/instructionPaginator.js') }}"></script>
+
 @stop
 
 @section('css')
