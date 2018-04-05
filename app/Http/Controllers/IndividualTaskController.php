@@ -58,7 +58,7 @@ class IndividualTaskController extends Controller
 
         case "BigFive":
           request()->session()->put('currentIndividualTaskName', 'Big Five Task');
-          return redirect('/big-five');
+          return redirect('/big-five-intro');
 
         case "Cryptography":
           request()->session()->put('currentIndividualTaskName', 'Cryptography Task');
@@ -146,6 +146,10 @@ class IndividualTaskController extends Controller
       return view('layouts.participants.tasks.team-role-end');
     }
 
+    public function bigFiveIntro(Request $request) {
+      return view('layouts.participants.tasks.big-five-intro');
+    }
+
     public function bigFive(Request $request) {
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
@@ -170,8 +174,10 @@ class IndividualTaskController extends Controller
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
       $maxResponses = $parameters->maxResponses;
+      $mapping = (new \Teamwork\Tasks\Cryptography)->getMapping('random');
       return view('layouts.participants.tasks.cryptography-individual-intro')
-             ->with('maxResponses', $maxResponses);
+             ->with('maxResponses', $maxResponses)
+             ->with('mapping', json_encode($mapping));
     }
 
     public function optimizationIntro() {

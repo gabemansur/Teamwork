@@ -75,6 +75,7 @@ td.desc {
 th.key {
   rgba(0,0,0,.05);
   border-right: 1px solid #cccccc;
+  font-size: 80%;
 }
 
 th.rotate {

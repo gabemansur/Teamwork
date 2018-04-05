@@ -11,16 +11,14 @@
 @section('content')
 <script>
 $( document ).ready(function() {
-
 });
-
 </script>
 
 <div class="container">
   <div class="row vertical-center">
     <div class="col-md-10 offset-md-1 text-center inst">
       <h3>
-        The letters A-J have been randomly mapped to
+        This is a group task. The letters A-J have been randomly mapped to
         the numbers 0-9. The goal for your group is to decipher this
         mapping in the minimum number of "trials".
       </h3>
@@ -43,9 +41,9 @@ $( document ).ready(function() {
           </li>
           <li>
             <em>Guess Full Mapping:</em>
-            at the end of each trial, you will guess at the whole
+            at the end of each trial, the group guesses at the whole
             mapping. If you are correct, the task is complete. Otherwise a new
-            trial begins. You will have {{ $maxResponses }} trials to
+            trial begins. The group will have {{ $maxResponses }} trials to
             complete the task.
           </li>
         </ol>

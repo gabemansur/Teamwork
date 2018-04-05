@@ -20,7 +20,17 @@ function instructionPaginator(callback) {
     page_count = (dir == 'next') ? page_count += 1 : page_count -= 1;
 
     // If we've reached the end of instructions, go to redirect url
+
+    if(page_count == $(".inst").length) {
+      $("#instr_nav #next").hide();
+    }
+
+    else {
+      $("#instr_nav #next").show();
+    }
+
     if(page_count > $(".inst").length){
+
       if($(this).attr('type') == 'submit') {
         $('.instr_nav').hide();
         $("#waiting").show();

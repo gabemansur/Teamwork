@@ -105,6 +105,12 @@ Route::get('/team-role-end', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/big-five-intro', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@bigFiveIntro',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/big-five', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@bigFive',
