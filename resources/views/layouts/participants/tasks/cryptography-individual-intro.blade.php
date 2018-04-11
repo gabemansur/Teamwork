@@ -20,36 +20,37 @@ $( document ).ready(function() {
 
   instructionPaginator(function(){});
 
+  var crypto = new Cryptography(mapping);
+
 
   $(".submit-equation").on("click", function(event) {
-
-    var target = $(this).attr('id');
-
+    console.log(trialStage);
     $(".alert").hide();
 
-    if(trialStage == 1) {
+    var equation = $("#equation-" + trialStage).val().toUpperCase();
+    console.log(equation);
+    if(equation == '') {
+      console.log('in if');
+      event.preventDefault();
+      return;
+    };
 
-      var equation = $("#equation").val().toUpperCase();
-      if(equation == '') {
-        event.preventDefault();
-        return;
-      };
+    try {
+      console.log('in try');
+      var answer = crypto.parseEquation(equation);
 
-      $("#hypothesis").hide();
+      console.log(answer);
+      $("#result-" + trialStage).html(equation + ' = ' + answer);
       trialStage++;
-
-
-      try {
-        var answer = crypto.parseEquation(equation);
-        $("#result-" + target).html(equation + ' = ' + answer);
-      }
-
-      catch(e) {
-        trialStage = 1;
-        $("#alert-" + target).html(e);
-        $("#alert-" + target).show();
-      }
     }
+
+    catch(e) {
+      $("#alert-" + trialStage).html(e);
+      $("#alert-" + trialStage).show();
+    }
+
+    event.preventDefault();
+
   });
 });
 
@@ -84,28 +85,36 @@ $( document ).ready(function() {
           You might propose A+C. The computer will then tell you A+C=D <br>
           You could also propose CC-A. The computer will then tell you CC-A=CA
         </h5>
-        <h5>
-          Practice: enter an equation!<br>
-          <div id="alert" class="alert alert-danger" id="alert-submit-equation-2" role="alert"></div>
-          <div class="form-group text-center">
-            <input type="text" class="form-control form-control-lg" name="equation" id="equation" style="width:40%; margin: 0 auto;">
+        <div id="practice-1" class="mb-lg-5">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <h4 class="text-warning">
+                Practice: enter an equation!
+              </h4>
+              <div id="alert" class="alert alert-danger" id="alert-1" role="alert"></div>
+              <form class="form-inline">
+                <input type="text" class="form-control form-control-lg mr-lg-5 ml-lg-5" name="equation" id="equation-1">
+                <button class="btn btn-lg btn-primary submit-equation" id="submit-equation-1" class="submit-equation" type="submit">Submit</button>
+              </form>
+              <h3 class="text-success" id="result-1"></h3>
+            </div>
           </div>
-          <h3 class="text-success" id="result-submit-equation-1"></h3>
-          <div class="text-center">
-            <button class="btn btn-lg btn-primary submit-equation" id="submit-equation-1" class="submit-equation" type="submit">Submit</button>
+        </div>
+        <div id="practice-2">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <h4 class="text-warning">
+                Try another equation:<br>
+              </h4>
+              <div id="alert" class="alert alert-danger" id="alert-2" role="alert"></div>
+              <form class="form-inline">
+                <input type="text" class="form-control form-control-lg mr-lg-5 ml-lg-5" name="equation" id="equation-2">
+                <button class="btn btn-lg btn-primary submit-equation" id="submit-equation-2" class="submit-equation" type="submit">Submit</button>
+              </form>
+              <h3 class="text-success" id="result-2"></h3>
+            </div>
           </div>
-        </h5>
-        <h5>
-          Try another equation:<br>
-          <div id="alert" class="alert alert-danger" id="alert-submit-equation-2" role="alert"></div>
-          <div class="form-group text-center">
-            <input type="text" class="form-control form-control-lg" name="equation" id="equation" style="width:40%; margin: 0 auto;">
-          </div>
-          <h3 class="text-success" id="result-submit-equation-2"></h3>
-          <div class="text-center">
-            <button class="btn btn-lg btn-primary submit-equation" id="submit-equation-2" type="submit">Submit</button>
-          </div>
-        </h5>
+        </div>
       </div>
       <div id="instr_nav" class="text-center">
         <input class="btn btn-primary instr_nav btn-lg" type="button" name="back" id="back" value="&#8678; Back">
