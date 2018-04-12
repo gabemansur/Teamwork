@@ -46,7 +46,7 @@ div.word-list span {
 #hypothesis select,
 #hypothesis span,
 #guess-full-mapping select {
-  width: 56px;
+  width: 64px;
   display: inline-block;
   margin-bottom: 12px;
 }

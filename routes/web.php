@@ -129,6 +129,18 @@ Route::get('/big-five-end', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/memory-individual-intro', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@memoryIntro',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/memory-individual', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@memory',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/unscramble-words-intro', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'GroupTaskController@unscrambleWordsIntro',

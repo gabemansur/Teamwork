@@ -68,6 +68,10 @@ class IndividualTaskController extends Controller
           request()->session()->put('currentIndividualTaskName', 'Optimization Task');
           return redirect('/optimization-individual-intro');
 
+        case "Memory":
+          request()->session()->put('currentIndividualTaskName', 'Memory Task');
+          return redirect('/memory-individual');
+
         case "Brainstorming":
           request()->session()->put('currentIndividualTaskName', 'Brainstorming Task');
           return redirect('/brainstorming-individual-intro');
@@ -175,9 +179,15 @@ class IndividualTaskController extends Controller
       $parameters = unserialize($currentTask->parameters);
       $maxResponses = $parameters->maxResponses;
       $mapping = (new \Teamwork\Tasks\Cryptography)->getMapping('random');
+      $aSorted = $mapping;
+      asort($aSorted); // Sort, but preserve key order
+      $sorted = $mapping;
+      sort($sorted); // Sort and re-index
       return view('layouts.participants.tasks.cryptography-individual-intro')
              ->with('maxResponses', $maxResponses)
-             ->with('mapping', json_encode($mapping));
+             ->with('mapping', json_encode($mapping))
+             ->with('aSorted', $aSorted)
+             ->with('sorted', $aSorted);
     }
 
     public function optimizationIntro() {
@@ -225,6 +235,22 @@ class IndividualTaskController extends Controller
 
       return redirect('/end-individual-task');
 
+    }
+
+    public function memoryIntro(Request $request) {
+      return view('layouts.participants.tasks.memory-individual-intro');
+    }
+
+    public function memory(Request $request) {
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $tests = [];
+      foreach ($parameters->test as $key => $test) {
+        $tests[] = (new \Teamwork\Tasks\Memory)->getTest($test);
+      }
+      dump($tests);
+      return view('layouts.participants.tasks.memory-individual')
+             ->with('tests', $tests);
     }
 
     public function brainstormingIntro() {

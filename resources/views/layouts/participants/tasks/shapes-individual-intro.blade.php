@@ -7,11 +7,9 @@
 @section('content')
 
 <script>
-
     $( document ).ready(function() {
       instructionPaginator(function(){ window.location = '/shapes-individual';});
     });
-
 </script>
 
 <div class="container">

@@ -172,20 +172,24 @@ $( document ).ready(function() {
         <div class="text-primary" id="hypothesis-result"></div>
 
         <div id="guess-full-mapping">
-          <h4 class="text-primary">3. Guess the full mapping</h4>
-          <h5>
-            Use the drop-downs to guess a value for each element.
-          </h5>
-          @foreach($sorted as $key => $el)
-            <span>{{ $el }} = </span>
-            <select class="form-control full-mapping" name="{{ $el }}">
-                <option>---</option>
-                @for($i = 0; $i < count($sorted); $i++)
-                  <option>{{ $i }}</option>
-                @endfor
-            </select>
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <h4 class="text-primary">3. Guess the full mapping</h4>
+              <h5>
+                Use the drop-downs to guess a value for each element.
+              </h5>
+              @foreach($sorted as $key => $el)
+                <span>{{ $el }} = </span>
+                <select class="form-control full-mapping" name="{{ $el }}">
+                    <option>---</option>
+                    @for($i = 0; $i < count($sorted); $i++)
+                      <option>{{ $i }}</option>
+                    @endfor
+                </select>
 
-          @endforeach
+              @endforeach
+            </div>
+          </div>
         </div>
 
         <div class="text-center">

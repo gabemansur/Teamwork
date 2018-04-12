@@ -53,10 +53,21 @@
                 @foreach($task['params'] as $key => $param)
                   <div class="params col-md-4">
                     <label class="task-params-select" for="{{ $task['name'].'_'.$key }}">{{ $key }}</label>
-                    <select class="form-control form-control-sm task-params-select" data-name="{{ $key }}" id="{{ $task['name'].'_'.$key }}">
-                      @foreach($param as $option)
-                        <option>{{ $option }}</option>
+                    <select class="form-control form-control-sm task-params-select" data-name="{{ $key }}"
+                            id="{{ $task['name'].'_'.$key }}"
+                            @if(array_key_exists('allows_multiples', $param))
+                              multiple
+                            @endif
+                    >
+                      @if(array_key_exists('allows_multiples', $param))
+                        @foreach($param['allows_multiples'] as $option)
+                          <option>{{ $option }}</option>
                         @endforeach
+                      @else
+                        @foreach($param as $option)
+                          <option>{{ $option }}</option>
+                        @endforeach
+                      @endif
                       </select>
                   </div>
                 @endforeach
