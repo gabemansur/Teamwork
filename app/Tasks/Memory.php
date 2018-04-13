@@ -9,24 +9,23 @@ class Memory {
       'directory' => '/img/memory-task/faces/',
 
       'practices' => [
-
-                      ['intro' => [
-                          'text' => 'Look at these 6 faces for a few seconds. We\'ll call these "target faces". Press "next" when you are ready to continue.',
-                          'img' => 'p0_targets_1.png',
-                          'review_time' => -1,
-                        ],
-                      ],
-                      ['tests' =>
-                          ['type' => 'select_one',
-                            'prompt' => 'Which of the follwing faces is a "target" face?',
-                            'img' => 'p0_test_1.png',
-                            'correct' => [1]],
-                          ['type' => 'select_one',
-                            'prompt' => 'Which of the follwing faces is a "target" face?',
-                            'img' => 'p0_test_2.png',
-                            'correct' => [3]]
+                          ['intro' => [
+                                        'text' => 'Look at these 6 faces for a few seconds. We\'ll call these "target faces". Press "next" when you are ready to continue.',
+                                        'img' => 'p0_targets_1.png',
+                                        'review_time' => -1,
+                                      ],
                           ],
-                        ],
+                          ['tests' =>
+                            ['type' => 'select_one',
+                              'prompt' => 'Which of the follwing faces is a "target" face?',
+                              'img' => 'p0_test_1.png',
+                              'correct' => [1]],
+                            ['type' => 'select_one',
+                              'prompt' => 'Which of the follwing faces is a "target" face?',
+                              'img' => 'p0_test_2.png',
+                              'correct' => [3]]
+                            ],
+                          ],
 
       'tests' => [
                     ['intro' => [
@@ -35,9 +34,9 @@ class Memory {
                                         in profile. Focus on each target face and
                                         try to remember it.',
                         'img' => ['1_targets_1.png', '1_targets_2.png', '1_targets_3.png'],
-                        'review_time' => 'review_time' => 20,
+                         'review_time' => 20,
                       ],
-
+                    ],
                       ['tests' =>
 
                         ['type' => 'select_one',
@@ -118,7 +117,7 @@ class Memory {
                       ],
 
     ],
-  ],
+
     'words' => [
       'task_type' => 'words',
       'practices' => [
@@ -145,11 +144,11 @@ class Memory {
                     ],
       'tests' => [
                       ['intro' => [
-                          'text' => 'Next you will review 6 target faces for
-                                          20 seconds. You can see them front-on, or
-                                          in profile. Focus on each target face and
-                                          try to remember it.',
-                          'img' => ['1_targets_1.png', '1_targets_2.png', '1_targets_3.png'],
+                          'text' => 'You will now be presented with 12 target
+                          words. Try to remember all of them. Each word will
+                          show up separately. In total, you have 20 seconds
+                          to remember the words.
+                          You’re not allowed to write anything down.',
                           'review_time' => 1.66,
                           'words' => ['horse', 'cave', 'lion', 'opal', 'tiger',
                                       'pearl', 'hut', 'emerald', 'saphire',
@@ -189,17 +188,20 @@ class Memory {
                       'prompt' => 'Which of the following are target words',
                       'choices' => ['lion', 'saphire', 'cave'],
                       'correct' => [1, 2]],
-      ],
-    ],
+              ],
+        ],
+
     'story' => [
         'task_type' => 'story',
-        'practices' => ['intro' => 'The last memory task asks you to remember
-                          a very short story. Once again, we’ll start with a
-                          practice. In the practice round, you only have to
-                          remember one sentence.',
-
-                        'story' => 'Peter was hungry, so he went to the store on the corner of his street and bought a hamburger.',
-                        'tests' => ['type' => 'select_one',
+        'practices' => [
+                        'intro' => [
+                          'text' => 'The last memory task asks you to remember
+                                          a very short story. Once again, we’ll start with a
+                                          practice. In the practice round, you only have to
+                                          remember one sentence.',
+                          'story' => 'Peter was hungry, so he went to the store on the corner of his street and bought a hamburger.',
+                        ],
+                        ['tests' => ['type' => 'select_one',
                                     'prompt' => 'Why did Peter go to the store?',
                                     'choices' => ['Because he was hungry',
                                                   'To get coffee',
@@ -211,70 +213,82 @@ class Memory {
                                                     'To get coffee',
                                                     'To buy food for his dog'],
                                       'correct' => [1]],
-                                  ],
-        'target_groups' => ['review_time' => 30,
-                            'story' => 'Anna Thompson of South Boston, employed
-                            as a cook in a school cafeteria, reported at the
-                            police station that she had been held up on State
-                            Street the night before and robbed of $56. She had
-                            four small children, the rent was due, and they had
-                            not eaten for two days. The police, touched by the
-                            woman’s story, collected money for her.',
-                            'tests' => ['type' => 'select_one',
-                                        'prompt' => 'What was the name of the main character?',
-                                        'choices' => ['Anna Thompson',
-                                                      'Anna Tompkins',
-                                                      'Hanna Tompkins'],
-                                        'correct' => [1]],
-                                        ['type' => 'select_one',
-                                          'prompt' => 'How many children did she have?',
-                                          'choices' => ['4',
-                                                        '5',
-                                                        '6'],
-                                          'correct' => [1]],
-                                        ['type' => 'select_one',
-                                          'prompt' => 'On what street was she robbed?',
-                                          'choices' => ['South Street',
-                                                        'State Street',
-                                                        'Sixth Street'],
-                                            'correct' => [2]],
-                                          ['type' => 'select_one',
-                                            'prompt' => 'What was her job?',
-                                            'choices' => ['Cook',
-                                                          'She didn\'t have a job',
-                                                          'Janitor'],
-                                            'correct' => [1]],
-                                          ['type' => 'select_one',
-                                            'prompt' => 'When did she report being robbed?',
-                                            'choices' => ['One night after the robbery',
-                                                          'Two nights after the robbery',
-                                                          'A week after the robbery'],
-                                            'correct' => [1]],
-                                          ['type' => 'select_one',
-                                            'prompt' => 'How much money was stolen?',
-                                            'choices' => ['$65',
-                                                          '$56',
-                                                          '$66'],
-                                            'correct' => [2]],
-                                          ['type' => 'select_one',
-                                            'prompt' => 'How long had the family not eaten for?',
-                                            'choices' => ['2 days',
-                                                          '1 day',
-                                                          'They missed 2 meals'],
-                                            'correct' => [1]],
-                                          ['type' => 'select_one',
-                                            'prompt' => 'What did the police do?',
-                                            'choices' => ['Arrest the thief',
-                                                          'Collect money for the woman',
-                                                          'Give the woman food'],
-                                            'correct' => [2]],
-                                          ['type' => 'select_one',
-                                            'prompt' => 'Where did the story take place?',
-                                            'choices' => ['South Boston',
-                                                          'Somerville',
-                                                          'North Boston'],
-                                            'correct' => [1]]
-                                        ]
+                          ],
+                        ],
+        'tests' => [
+                            ['intro' => [
+                                'text' => 'Now for the actual task. You will be
+                                presented with a slightly longer story. You
+                                will have 30 seconds to read it. Try to take
+                                in as much information as possible. After the 30
+                                 seconds are up, we’ll ask you some questions
+                                 about the story. Your answers are important.',
+                                 'review_time' => 30,
+                                 'story' => 'Anna Thompson of South Boston, employed
+                                 as a cook in a school cafeteria, reported at the
+                                 police station that she had been held up on State
+                                 Street the night before and robbed of $56. She had
+                                 four small children, the rent was due, and they had
+                                 not eaten for two days. The police, touched by the
+                                 woman’s story, collected money for her.',
+                              ],
+                            ],
+
+                            ['type' => 'select_one',
+                              'prompt' => 'What was the name of the main character?',
+                              'choices' => ['Anna Thompson',
+                                            'Anna Tompkins',
+                                            'Hanna Tompkins'],
+                              'correct' => [1]],
+                              ['type' => 'select_one',
+                                'prompt' => 'How many children did she have?',
+                                'choices' => ['4',
+                                              '5',
+                                              '6'],
+                                'correct' => [1]],
+                              ['type' => 'select_one',
+                                'prompt' => 'On what street was she robbed?',
+                                'choices' => ['South Street',
+                                              'State Street',
+                                              'Sixth Street'],
+                                  'correct' => [2]],
+                                ['type' => 'select_one',
+                                  'prompt' => 'What was her job?',
+                                  'choices' => ['Cook',
+                                                'She didn\'t have a job',
+                                                'Janitor'],
+                                  'correct' => [1]],
+                                ['type' => 'select_one',
+                                  'prompt' => 'When did she report being robbed?',
+                                  'choices' => ['One night after the robbery',
+                                                'Two nights after the robbery',
+                                                'A week after the robbery'],
+                                  'correct' => [1]],
+                                ['type' => 'select_one',
+                                  'prompt' => 'How much money was stolen?',
+                                  'choices' => ['$65',
+                                                '$56',
+                                                '$66'],
+                                  'correct' => [2]],
+                                ['type' => 'select_one',
+                                  'prompt' => 'How long had the family not eaten for?',
+                                  'choices' => ['2 days',
+                                                '1 day',
+                                                'They missed 2 meals'],
+                                  'correct' => [1]],
+                                ['type' => 'select_one',
+                                  'prompt' => 'What did the police do?',
+                                  'choices' => ['Arrest the thief',
+                                                'Collect money for the woman',
+                                                'Give the woman food'],
+                                  'correct' => [2]],
+                                ['type' => 'select_one',
+                                  'prompt' => 'Where did the story take place?',
+                                  'choices' => ['South Boston',
+                                                'Somerville',
+                                                'North Boston'],
+                                  'correct' => [1]]
+                ]
 
     ]
   ];
