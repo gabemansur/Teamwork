@@ -250,7 +250,8 @@ class IndividualTaskController extends Controller
       }
       dump($tests);
       return view('layouts.participants.tasks.memory-individual')
-             ->with('tests', $tests);
+             ->with('tests', $tests)
+             ->with('enc_tests', json_encode($tests));
     }
 
     public function brainstormingIntro() {
