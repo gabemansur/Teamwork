@@ -3,6 +3,132 @@ namespace Teamwork\Tasks;
 
 class Memory {
 
+  private $memoryTests = [
+
+    'faces_1' => [
+        'task_type' => 'images',
+        'directory' => '/img/memory-task/faces/',
+        'blocks' => [
+          ['type' => 'review',
+          'text' => 'Look at these 6 faces for a few seconds. We\'ll call these
+                    "target faces". Press "next" when you are ready to
+                    continue.',
+          'targets' => ['p0_targets_1.png'],
+          'review_time' => null],
+        [ 'type' => 'practice_test',
+          'selection_type' => 'select_one',
+          'prompt' => 'Which of the follwing faces is a "target" face?',
+          'img' => 'p0_test_1.png',
+          'correct' => [1]],
+        [ 'type' => 'practice_test',
+          'type' => 'test',
+          'selection_type' => 'select_one',
+          'prompt' => 'Which of the follwing faces is a "target" face?',
+          'img' => 'p0_test_2.png',
+          'correct' => [3]],
+        ['type' => 'review',
+          'text' => 'Next you will review 6 target faces for
+                      20 seconds. You can see them front-on, or
+                      in profile. Focus on each target face and
+                      try to remember it.',
+          'targets' => ['1_targets_1.png', '1_targets_2.png', '1_targets_3.jpg'],
+          'review_time' => 20,],
+          [ 'type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_1.jpg',
+            'correct' => [3]],
+          ['type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_2.jpg',
+            'correct' => [3]],
+          ['type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_3.jpg',
+            'correct' => [1]],
+          ['type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_4.jpg',
+            'correct' => [1]],
+          ['type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_5.jpg',
+            'correct' => [3]],
+          ['type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_6.jpg',
+            'correct' => [2]],
+          ['type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_7.jpg',
+            'correct' => [3]],
+          ['type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_8.jpg',
+            'correct' => [3]],
+          ['type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_9.jpg',
+            'correct' => [1]],
+
+          ['type' => 'review',
+            'text' => 'Here’s a reminder of the faces.
+            You have 10 seconds to refresh your memory.',
+            'targets' => ['1_targets_1.png', '1_targets_2.png', '1_targets_3.jpg'],
+            'review_time' => 10,
+          ],
+
+          ['type' => 'text',
+            'text' => 'For the last six questions, some
+            of the images are deliberately blurred to make
+            things more challenging.',
+          ],
+
+          ['type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_10.jpg',
+            'correct' => [1]],
+          ['type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_11.jpg',
+            'correct' => [3]],
+          ['type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_12.jpg',
+            'correct' => [3]],
+          ['type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_13.jpg',
+            'correct' => [2]],
+          ['type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_14.jpg',
+            'correct' => [1]],
+          ['type' => 'test',
+            'selection_type' => 'select_one',
+            'prompt' => 'Which of the follwing faces is a "target" face?',
+            'img' => '1_test_15.jpg',
+            'correct' => [2]],
+
+          ], // End blocks
+
+    ], // End faces_1
+
+  ]; // End memoryTests
+
   private $tests = [
     'faces' => [
       'task_type' => 'images',
@@ -308,8 +434,7 @@ class Memory {
   }
 
   public function getTest($test) {
-    dump($this->tests);
-    return $this->tests[$test];
+    return $this->memoryTests[$test];
   }
 
 

@@ -330,4 +330,14 @@ class IndividualTaskController extends Controller
       return redirect('\individual-task-results');
     }
 
+    public function testMemory() {
+      $tests = [];
+      $tests[] = (new \Teamwork\Tasks\Memory)->getTest('faces_1');
+
+      dump($tests);
+      return view('layouts.participants.tasks.memory-individual')
+             ->with('tests', $tests)
+             ->with('enc_tests', json_encode($tests));
+    }
+
 }

@@ -14,18 +14,22 @@
       var memory = new Memory(tests);
       memory.begin();
 
-      $('.practice-nav').on('click', function(event) {
+      $('.memory-nav').on('click', function(event) {
+        console.log('advance');
         memory.advance();
         event.preventDefault();
       });
 
       // Target images
-      $('.target-img').hide();
+      $('.target').hide();
+      $('.target-nav').on('click', function(event) {
+        memory.navTarget($(this).attr('name'));
+        event.preventDefault();
+      });
 
-      $(document).keypress(function(event) {
-        console.log('Handler for .keypress() called. - ' + event.charCode);
-        var key = event.charCode;
-        if(key == 49 || key == 50 || key == 51) memory.advanceImageTest(key);
+      $(document).keydown(function(event) {
+        var key = event.key;
+        if(key == 1 || key == 2 || key == 3) memory.advanceImageTest(key);
       });
     });
 
@@ -37,50 +41,65 @@
       @foreach($tests as $key => $test)
 
         @if($test['task_type'] == 'images')
-          @foreach($test['practices'] as $p_key => $practice)
-            <div class="memory memory-practice practice-intro" id="memory_{{ $key }}_0">
-              <h2>{{ $practice['intro'] }}</h2>
-              <img src="{{ $test['directory'].$practice['images']}}">
-              <div class="text-center">
-                <input class="btn btn-primary practice-nav btn-lg" type="button" name="next" id="next" value="Next &#8680;">
-              </div>
-            </div>
 
-            @foreach($practice['tests'] as $t_key => $t)
-              <div class="memory memory-practice" id="memory_{{ $key }}_{{ $t_key + 1 }}">
-                <h2> {{ $t['prompt'] }}</h2>
-                <img src="{{ $test['directory'].$t['img'] }}">
-                <div class="row text-center">
-                  <div class="col-md-2 offset-md-3">
-                    <h4>1</h4>
+          @foreach($test['blocks'] as $b_key => $block)
+
+            @if($block['type'] == 'review')
+              <div class="memory memory-review review" id="memory_{{ $key }}_{{ $b_key }}">
+                <h4>{{ $block['text'] }}</h4>
+                @if(count($block['targets']) == 1)
+                  <img src="{{ $test['directory'].$block['targets'][0] }}">
+                  <div class="text-center mt-lg-2">
+                    <input class="btn btn-primary memory-nav btn-lg mt-lg-4"
+                           type="button" name="next"
+                           id="continue_{{ $key }}_{{ $b_key }}"
+                           value="Continue">
                   </div>
-                  <div class="col-md-2">
-                    <h4>2</h4>
+                @else
+                  @foreach($block['targets'] as $img_key => $img)
+                    <img class="target-img target target-{{ $img_key }}" src="{{ $test['directory'].$img }}">
+                  @endforeach
+
+                  <div class="text-center mt-lg-2">
+                    <input class="btn btn-primary target-nav target-nav-back btn-lg" type="button" name="back" id="back" value="&#8678; Back">
+                    <input class="btn btn-primary target-nav target-nav-next btn-lg" type="button" name="next" id="next" value="Next &#8680;">
                   </div>
-                  <div class="col-md-2">
-                    <h4>3</h4>
-                  </div>
+                @endif {{-- End multiple images --}}
+              </div>
+            @endif {{-- End if blocktype = review --}}
+
+            @if($block['type'] == 'practice_test')
+              <div class="memory test practice-test" id="memory_{{ $key }}_{{ $b_key }}">
+                <h2>{{ $block['prompt'] }}</h2>
+                <h2>Type [1], [2], or [3]</h2>
+                <img src="{{ $test['directory'].$block['img'] }}">
+              </div>
+            @endif {{-- End if blocktype = practice_test --}}
+
+            @if($block['type'] == 'test')
+              <div class="memory test" id="memory_{{ $key }}_{{ $b_key }}">
+                <h2>{{ $block['prompt'] }}</h2>
+                <img src="{{ $test['directory'].$block['img'] }}">
+                <input type="hidden" name="response_{{ $key }}_{{ $b_key }}"
+                       id="selection_{{ $key }}_{{ $b_key }}">
+              </div>
+            @endif {{-- End if blocktype = test --}}
+
+            @if($block['type'] == 'text')
+              <div class="memory memory-text text" id="memory_{{ $key }}_{{ $b_key }}">
+                <h2>{{ $block['text'] }}</h2>
+                <div class="text-center">
+                  <input class="btn btn-primary memory-nav btn-lg"
+                         type="button" name="next"
+                         id="continue_{{ $key }}_{{ $b_key }}"
+                         value="Continue">
                 </div>
               </div>
-            @endforeach
-          @endforeach
+            @endif {{-- End if blocktype = text --}}
 
-          @foreach($test['target_groups'] as $g_key => $group)
-            <div class="memory memory-test memory-intro" id="memory_{{ $key }}_0">
-              <h2>{{ $group['intro'] }}</h2>
-              @foreach($group['images'] as $g_img_key => $g_img)
-                <img class="target-img" src="{{ $test['directory'].$g_img }}">
-              @endforeach
-              <div class="text-center">
-                <input class="btn btn-primary target-img-nav btn-lg" type="button" name="back" id="back" value="&#8678; Back">
-                <input class="btn btn-primary target-img-nav btn-lg" type="button" name="next" id="next" value="Next &#8680;">
-              </div>
-            </div>
-
-          @endforeach
-        @endif
-
-      @endforeach
+          @endforeach {{-- End foreach block --}}
+        @endif {{-- End if type = images --}}
+      @endforeach {{-- End foreach test --}}
 
     </div>
   </div>

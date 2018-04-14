@@ -302,3 +302,7 @@ Route::post('/group-create', [
 Route::get('/optimization-test', [
   'uses' => 'AjaxController@testOptimization',
 ]);
+
+Route::get('/memory-test', [
+  'uses' => 'IndividualTaskController@testMemory',
+]);
