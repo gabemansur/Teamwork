@@ -117,3 +117,12 @@ form#big-five-form th.rotate > div {
         rotate(270deg);
   width: 30px;
 }
+
+/* Memory */
+.target-word {
+  height: 200px;
+}
+
+.word-choices {
+  margin-top: 64px;
+}

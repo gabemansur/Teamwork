@@ -254,6 +254,57 @@ class IndividualTaskController extends Controller
              ->with('enc_tests', json_encode($tests));
     }
 
+    public function saveMemory(Request $request) {
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $tests = [];
+      foreach ($parameters->test as $key => $test) {
+        $tests[] = (new \Teamwork\Tasks\Memory)->getTest($test);
+      }
+
+      // Retrieve all responses
+      $responses = array_where($request->request->all(), function ($value, $key) {
+        return strpos($key, 'response') !== false;
+      });
+
+
+      foreach ($tests as $key => $t) {
+        $testCount = count(array_where($t['blocks'], function($b, $k){
+          return $b['type'] == 'test';
+        }));
+
+        $correct[$key] = ['name' => $t['test_name'],
+                          'correct'  => 0,
+                          'count' =>$testCount];
+      }
+
+      dump($responses);
+
+      // Look up the test based on the response key
+      foreach ($responses as $key => $response) {
+        $indices = explode('_', $key);
+        $test = $tests[$indices[1]]['blocks'][$indices[2]];
+
+        // If the response is a single item
+        if($test['selection_type'] == 'select_one') {
+          if($test['correct'][0] == $response) $correct[$indices[1]]['correct']++;
+        }
+
+        // Otherwise, process arrays of responses against arrays of correct answers
+        else {
+          $isCorrect = true;
+          foreach($response as $selected) {
+            if(!in_array($selected, $test['correct'])) $isCorrect = false;
+          }
+          if($isCorrect) $correct[$indices[1]]['correct']++;
+        }
+
+      }
+
+      dump($correct);
+
+    }
+
     public function brainstormingIntro() {
       return view('layouts.participants.tasks.brainstorming-individual-intro');
     }

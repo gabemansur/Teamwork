@@ -1,10 +1,10 @@
 var Memory = class Memory {
 
-  constructor(tests) {
+  constructor(tests, callback) {
     this.tests = tests;
     this.blockIndex = 0;
     this.testIndex = 0;
-    this.callback = null;
+    this.callback = callback;
 
     this.navTargetPosition = 0;
 
@@ -13,6 +13,7 @@ var Memory = class Memory {
   begin() {
     $(".memory").hide();
     $(`#memory_${this.testIndex}_${this.blockIndex}`).show();
+    this.initializeBlock();
   }
 
   advance() {
@@ -24,6 +25,7 @@ var Memory = class Memory {
   }
 
   advanceImageTest(val) {
+    console.log(`Saving ${val} to response_${this.testIndex}_${this.blockIndex}`);
     $(`#response_${this.testIndex}_${this.blockIndex}`).val(val)
     $(`#memory_${this.testIndex}_${this.blockIndex}`).hide();
     this.blockIndex++;
@@ -60,7 +62,7 @@ var Memory = class Memory {
     if(this.blockIndex > this.tests[this.testIndex].blocks.length - 1) {
       if(this.testIndex + 1 > this.tests.length - 1) {
         // Do callback to redirect?
-        console.log('END OF TESTS');
+        this.callback();
         return;
       }
       else {
@@ -78,9 +80,14 @@ var Memory = class Memory {
       $('.target-nav-back').hide();
       $('.target').hide();
       $('.target-' + this.navTargetPosition).show();
+
+      // If there is a review time per target, advance the target after that time?
+      //
+      // If there is a review time set, advance after that time
       if(this.tests[this.testIndex].blocks[this.blockIndex].review_time) {
         setTimeout(this.advance.bind(this), tests[this.testIndex].blocks[this.blockIndex].review_time * 1000);
       }
+
     }
   }
 

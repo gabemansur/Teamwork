@@ -6,12 +6,13 @@ class Memory {
   private $memoryTests = [
 
     'faces_1' => [
+        'test_name' => 'faces_1',
         'task_type' => 'images',
         'directory' => '/img/memory-task/faces/',
         'blocks' => [
           ['type' => 'review',
           'text' => 'Look at these 6 faces for a few seconds. We\'ll call these
-                    "target faces". Press "next" when you are ready to
+                    "target faces". Press "Continue" when you are ready to
                     continue.',
           'targets' => ['p0_targets_1.png'],
           'review_time' => null],
@@ -21,7 +22,6 @@ class Memory {
           'img' => 'p0_test_1.png',
           'correct' => [1]],
         [ 'type' => 'practice_test',
-          'type' => 'test',
           'selection_type' => 'select_one',
           'prompt' => 'Which of the follwing faces is a "target" face?',
           'img' => 'p0_test_2.png',
@@ -126,6 +126,90 @@ class Memory {
           ], // End blocks
 
     ], // End faces_1
+
+    'words_1' => [
+          'test_name' => 'words_1',
+          'task_type' => 'words',
+          'blocks' => [
+              ['type' => 'text',
+               'text' => 'Next, we’ll test word memory. In this task,
+                        you’ll be presented with a set of ‘target words’.  Word
+                        will appear for a maximum of 2 seconds. We’ll start
+                        with a practice. In the practice round, you only have
+                        to remember 3 target words.',],
+              ['type' => 'review',
+              'text' => '',
+              'targets' => ['blue', 'yellow', 'red'],
+              'review_time_each' => 2,
+              'review_time' => 2],
+              [ 'type' => 'practice_test',
+                'selection_type' => 'select_all',
+                'prompt' => 'Which of the following are target words?',
+                'choices' => ['red', 'rust', 'blue'],
+                'correct' => [1, 3]],
+              [ 'type' => 'practice_test',
+                'selection_type' => 'select_all',
+                'prompt' => 'Which of the following are target words?',
+                'choices' => ['green', 'baseball', 'egg'],
+                'correct' => []],
+              ['type' => 'text',
+              'text' => 'You will now be presented with 12 target
+                          words. Try to remember all of them. Each word will
+                          show up separately. In total, you have 20 seconds
+                          to remember the words.
+                          You’re not allowed to write anything down.',],
+              ['type' => 'review',
+              'text' => '',
+              'targets' => ['horse', 'cave', 'lion', 'opal', 'tiger',
+                          'pearl', 'hut', 'emerald', 'saphire',
+                          'tent', 'hotel', 'cow'],
+              'review_time_each' => 1.66,
+              'review_time' => 20],
+              ['type' => 'test',
+               'selection_type' => 'select_all',
+               'prompt' => 'Which of the following are target words',
+               'choices' => ['house', 'tiger', 'hut'],
+               'correct' => [2, 3]],
+              ['type' => 'test',
+                'selection_type' => 'select_all',
+                'prompt' => 'Which of the following are target words',
+                'choices' => ['hotel', 'coffee', 'mountain'],
+                'correct' => [1]],
+              ['type' => 'test',
+                'selection_type' => 'select_all',
+                'prompt' => 'Which of the following are target words',
+                'choices' => ['cow', 'dog', 'emerald'],
+                'correct' => [1, 3]],
+              ['type' => 'test',
+                'selection_type' => 'select_all',
+                'prompt' => 'Which of the following are target words',
+                'choices' => ['ruby', 'pig', 'balloon'],
+                'correct' => []],
+              ['type' => 'test',
+                'selection_type' => 'select_all',
+                'prompt' => 'Which of the following are target words',
+                'choices' => ['apartment', 'tiger', 'diamond'],
+                'correct' => [2]],
+              ['type' => 'test',
+                'selection_type' => 'select_all',
+                'prompt' => 'Which of the following are target words',
+                'choices' => ['pearl', 'scarf', 'hotel'],
+                'correct' => [3]],
+              ['type' => 'test',
+                'selection_type' => 'select_all',
+                'prompt' => 'Which of the following are target words',
+                'choices' => ['boat', 'penny', 'cat'],
+                'correct' => []],
+              ['type' => 'test',
+                'selection_type' => 'select_all',
+                'prompt' => 'Which of the following are target words',
+                'choices' => ['lion', 'saphire', 'cave'],
+                'correct' => [1, 2]],
+
+
+          ] // End blocks
+
+    ], // End words_1
 
   ]; // End memoryTests
 
@@ -419,7 +503,7 @@ class Memory {
     ]
   ];
 
-  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['true', 'false'], 'test' => ['allows_multiples' => ['faces', 'words', 'story']]];
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['true', 'false'], 'test' => ['allows_multiples' => ['faces_1', 'words_1', 'story_1']]];
 
   public function getTests() {
     return $this->prompts;
