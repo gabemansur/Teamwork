@@ -72,6 +72,10 @@ class IndividualTaskController extends Controller
           request()->session()->put('currentIndividualTaskName', 'Memory Task');
           return redirect('/memory-individual');
 
+        case "Eyes":
+          request()->session()->put('currentIndividualTaskName', 'Eyes Task');
+          return redirect('/rmet-individual');
+
         case "Brainstorming":
           request()->session()->put('currentIndividualTaskName', 'Brainstorming Task');
           return redirect('/brainstorming-individual-intro');
@@ -85,7 +89,7 @@ class IndividualTaskController extends Controller
     public function showTaskResults(Request $request) {
       return view('layouts.participants.tasks.participant-task-results')
              ->with('taskName', $request->session()->get('currentIndividualTaskName'))
-             ->with('result', $request->session()->get('currentIndividualTaskResult'));
+             ->with('results', $request->session()->get('currentIndividualTaskResult'));
 
     }
 
@@ -143,7 +147,11 @@ class IndividualTaskController extends Controller
       $parameters = unserialize($currentTask->parameters);
       $scenarios = (new \Teamwork\Tasks\TeamRole)->getScenarios();
       // NEED TO SCORE AND SAVE
-      return redirect('/team-role-end');
+      $results = 'You have now completed the Team Role Test.<br>Press Continue to move on to the next task.';
+      $request->session()->put('currentIndividualTaskResult', $results);
+      $request->session()->put('currentIndividualTaskName', 'Team Role Test');
+
+      return redirect('\individual-task-results');
     }
 
     public function teamRoleEnd(Request $request) {
@@ -248,7 +256,7 @@ class IndividualTaskController extends Controller
       foreach ($parameters->test as $key => $test) {
         $tests[] = (new \Teamwork\Tasks\Memory)->getTest($test);
       }
-      dump($tests);
+
       return view('layouts.participants.tasks.memory-individual')
              ->with('tests', $tests)
              ->with('enc_tests', json_encode($tests));
@@ -278,16 +286,20 @@ class IndividualTaskController extends Controller
                           'count' =>$testCount];
       }
 
-      dump($responses);
-
       // Look up the test based on the response key
       foreach ($responses as $key => $response) {
         $indices = explode('_', $key);
         $test = $tests[$indices[1]]['blocks'][$indices[2]];
 
+        $saveCorrect = 0; // Holds the value for is_correct in the responses table;
+
         // If the response is a single item
         if($test['selection_type'] == 'select_one') {
-          if($test['correct'][0] == $response) $correct[$indices[1]]['correct']++;
+
+          if($test['correct'][0] == $response) {
+            $saveCorrect = 1;
+            $correct[$indices[1]]['correct']++;
+          }
         }
 
         // Otherwise, process arrays of responses against arrays of correct answers
@@ -296,13 +308,50 @@ class IndividualTaskController extends Controller
           foreach($response as $selected) {
             if(!in_array($selected, $test['correct'])) $isCorrect = false;
           }
-          if($isCorrect) $correct[$indices[1]]['correct']++;
+          if($isCorrect){
+            $correct[$indices[1]]['correct']++;
+            $saveCorrect = 1;
+          }
         }
-
+        $response = new Response;
+        $response->prompt = $test;
+        $response->response = $selected;
+        $response->is_correct = $saveCorrect;
+        $response->save();
       }
 
-      dump($correct);
+      $results = '';
+      foreach($correct as $c) {
+        $results .= 'Test: '.$c['name'].' Result: '.$c['correct'].' out of '.$c['count'].'<br>';
+      }
+      $request->session()->put('currentIndividualTaskResult', $results);
+      $request->session()->put('currentIndividualTaskName', 'Memory Test');
 
+      return redirect('\individual-task-results');
+
+    }
+
+    public function eyes(Request $request) {
+      $tests = (new \Teamwork\Tasks\Eyes)->getTest();
+
+      $dir = (new \Teamwork\Tasks\Eyes)->getDirectory();
+      return view('layouts.participants.tasks.eyes-individual')
+             ->with('dir', $dir)
+             ->with('tests', $tests);
+    }
+
+    public function saveEyes(Request $request) {
+      $tests = (new \Teamwork\Tasks\Eyes)->getTest();
+
+      dump($request);
+      foreach ($request->all() as $key => $value) {
+        if($key == '_token') continue;
+        $response = new Response;
+        $response->prompt = $tests[$key]['img'];
+        $response->response = $value;
+        $reponse->is_correct = ($value == $tests[$key]['correct']) ? 1 : 0;
+        $response->save();
+      }
     }
 
     public function brainstormingIntro() {
@@ -376,7 +425,9 @@ class IndividualTaskController extends Controller
       $r->response = json_encode($request->all());
       $r->points = $correct;
       $r->save();
-      $request->session()->put('currentIndividualTaskResult', $correct);
+
+      $results = 'You earned '.$correct.' points for this task.';
+      $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Shapes Task');
       return redirect('\individual-task-results');
     }

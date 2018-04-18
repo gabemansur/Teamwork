@@ -126,3 +126,9 @@ form#big-five-form th.rotate > div {
 .word-choices {
   margin-top: 64px;
 }
+
+/* Eyes */
+img.eyes {
+  width: 724px;
+  height: auto;
+}

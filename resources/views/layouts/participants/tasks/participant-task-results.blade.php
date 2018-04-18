@@ -8,14 +8,13 @@
       <h3>
         You have completed the {{ $taskName }}.
       </h3>
-      @if($result === false)
+      @if($results === false)
         <h3>
           Your results are being evaluated by the researchers.
         </h3>
       @else
         <h3>
-          You will contribute {{ $result }} points to your
-          group's total points for this task.
+          {!! $results !!}
         </h3>
       @endif
       <div class="text-center">

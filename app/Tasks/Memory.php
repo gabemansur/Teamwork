@@ -211,6 +211,120 @@ class Memory {
 
     ], // End words_1
 
+    'story_1' => [
+        'test_name' => 'story_1',
+        'task_type' => 'story',
+        'directory' => '/img/memory-task/faces/',
+        'blocks' => [
+            ['type' => 'text',
+             'text' => 'The last memory task asks you to remember
+                             a very short story. Once again, we’ll start with a
+                             practice. In the practice round, you only have to
+                             remember one sentence.'],
+            ['type' => 'review',
+            'text' => 'Practice story:',
+            'targets' => ['Peter was hungry, so he went to the store on the
+                            corner of his street and bought a hamburger.'],
+            'review_time' => null],
+            [ 'type' => 'practice_test',
+              'selection_type' => 'select_one',
+              'prompt' => 'Why did Peter go to the store?',
+              'choices' => ['Because he was hungry',
+                            'To get coffee',
+                            'To buy food for his dog'],
+              'correct' => [1]],
+            [ 'type' => 'practice_test',
+              'selection_type' => 'select_one',
+              'prompt' => 'What did Peter eat?',
+              'choices' => ['Hamburger',
+                            'Sandwich',
+                            'Fries'],
+              'correct' => [1]],
+            ['type' => 'text',
+             'text' => 'Now for the actual task. You will be
+                         presented with a slightly longer story. You
+                         will have 30 seconds to read it. Try to take
+                         in as much information as possible. After the 30
+                         seconds are up, we’ll ask you some questions
+                         about the story. Your answers are important.'],
+            ['type' => 'review',
+            'text' => '',
+            'targets' => ['Anna Thompson of South Boston, employed
+                            as a cook in a school cafeteria, reported at the
+                            police station that she had been held up on State
+                            Street the night before and robbed of $56. She had
+                            four small children, the rent was due, and they had
+                            not eaten for two days. The police, touched by the
+                            woman’s story, collected money for her.',],
+            'review_time' => 30],
+
+            [ 'type' => 'test',
+              'selection_type' => 'select_one',
+              'prompt' => 'What was the name of the main character?',
+              'choices' => ['Anna Thompson',
+                            'Anna Tompkins',
+                            'Hanna Tompkins'],
+              'correct' => [1]],
+            [ 'type' => 'test',
+              'selection_type' => 'select_one',
+              'prompt' => 'How many children did she have?',
+              'choices' => ['4',
+                            '5',
+                            '6'],
+              'correct' => [1]],
+            [ 'type' => 'test',
+              'selection_type' => 'select_one',
+              'prompt' => 'On what street was she robbed?',
+              'choices' => ['South Street',
+                            'State Street',
+                            'Sixth Street'],
+                'correct' => [2]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'What was her job?',
+                'choices' => ['Cook',
+                              'She didn\'t have a job',
+                              'Janitor'],
+                'correct' => [1]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'When did she report being robbed?',
+                'choices' => ['One night after the robbery',
+                              'Two nights after the robbery',
+                              'A week after the robbery'],
+                'correct' => [1]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'How much money was stolen?',
+                'choices' => ['$65',
+                              '$56',
+                              '$66'],
+                'correct' => [2]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'How long had the family not eaten for?',
+                'choices' => ['2 days',
+                              '1 day',
+                              'They missed 2 meals'],
+                'correct' => [1]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'What did the police do?',
+                'choices' => ['Arrest the thief',
+                              'Collect money for the woman',
+                              'Give the woman food'],
+                'correct' => [2]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'Where did the story take place?',
+                'choices' => ['South Boston',
+                              'Somerville',
+                              'North Boston'],
+                'correct' => [1]]
+
+        ] // End blocks
+    ], // End story_1
+
   ]; // End memoryTests
 
   private $tests = [

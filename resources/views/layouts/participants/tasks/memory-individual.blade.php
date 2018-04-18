@@ -182,6 +182,67 @@
             @endforeach {{-- End for each block --}}
           @endif {{-- End if type = words --}}
 
+          @if($test['task_type'] == 'story')
+            @foreach($test['blocks'] as $b_key => $block)
+
+              @if($block['type'] == 'review')
+                <div class="memory memory-review review" id="memory_{{ $key }}_{{ $b_key }}">
+                  <h4>{{ $block['text'] }}</h4>
+                  <h4>{{ $block['targets'][0] }}</h4>
+                  <div class="text-center mt-lg-2">
+                    <input class="btn btn-primary memory-nav btn-lg mt-lg-4"
+                           type="button" name="next"
+                           id="continue_{{ $key }}_{{ $b_key }}"
+                           value="Continue">
+                  </div>
+                </div>
+              @endif {{-- End if blocktype = review --}}
+
+              @if($block['type'] == 'text')
+                <div class="memory memory-text text" id="memory_{{ $key }}_{{ $b_key }}">
+                  <h2>{{ $block['text'] }}</h2>
+                  <div class="text-center">
+                    <input class="btn btn-primary memory-nav btn-lg"
+                           type="button" name="next"
+                           id="continue_{{ $key }}_{{ $b_key }}"
+                           value="Continue">
+                  </div>
+                </div>
+              @endif {{-- End if blocktype = text --}}
+
+              @if($block['type'] == 'practice_test')
+                <div class="memory test practice-test" id="memory_{{ $key }}_{{ $b_key }}">
+                  <h2>{{ $block['prompt'] }}</h2>
+                  <h2>Type [1], [2], or [3]</h2>
+                  @foreach($block['choices'] as $c_key => $choice)
+                    <div class="">
+                      <h2>
+                        {{ $c_key + 1 }}) {{ $choice }}
+                      </h2>
+                    </div>
+                  @endforeach
+                </div>
+              @endif {{-- End if blocktype = practice_test --}}
+
+              @if($block['type'] == 'test')
+              <div class="memory test practice-test" id="memory_{{ $key }}_{{ $b_key }}">
+                <h2>{{ $block['prompt'] }}</h2>
+                <h2>Type [1], [2], or [3]</h2>
+                @foreach($block['choices'] as $c_key => $choice)
+                  <div class="">
+                    <h2>
+                      {{ $c_key + 1 }}) {{ $choice }}
+                    </h2>
+                  </div>
+                @endforeach
+                <input type="hidden" name="response_{{ $key }}_{{ $b_key }}"
+                       id="response_{{ $key }}_{{ $b_key }}">
+              </div>
+              @endif {{-- End if blocktype = test --}}
+
+            @endforeach {{-- End for each block --}}
+          @endif {{-- End if type = story --}}
+
         @endforeach {{-- End foreach test --}}
 
       </form>
