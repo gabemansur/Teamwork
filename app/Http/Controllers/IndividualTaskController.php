@@ -288,6 +288,7 @@ class IndividualTaskController extends Controller
 
       // Look up the test based on the response key
       foreach ($responses as $key => $response) {
+
         $indices = explode('_', $key);
         $test = $tests[$indices[1]]['blocks'][$indices[2]];
 
@@ -313,11 +314,18 @@ class IndividualTaskController extends Controller
             $saveCorrect = 1;
           }
         }
-        $response = new Response;
-        $response->prompt = $test;
-        $response->response = $selected;
-        $response->is_correct = $saveCorrect;
-        $response->save();
+        /*
+        $r = new Response;
+        $r->prompt = $test;
+        if(is_array($response)) {
+          dump($response.' is an array');
+          $r->response = json_encode($response);
+        }
+
+        else $r->response = $response;
+        $r->is_correct = $saveCorrect;
+        $r->save();
+        */
       }
 
       $results = '';
@@ -342,16 +350,29 @@ class IndividualTaskController extends Controller
 
     public function saveEyes(Request $request) {
       $tests = (new \Teamwork\Tasks\Eyes)->getTest();
+      $correct = 0;
 
-      dump($request);
       foreach ($request->all() as $key => $value) {
         if($key == '_token') continue;
+        $isCorrect = 0;
+        if($value == $tests[$key]['correct']){
+          $isCorrect = 1;
+          $correct++;
+        }
+        /*
         $response = new Response;
         $response->prompt = $tests[$key]['img'];
         $response->response = $value;
-        $reponse->is_correct = ($value == $tests[$key]['correct']) ? 1 : 0;
+        $reponse->is_correct = $isCorrect;
         $response->save();
+        */
       }
+
+      $results = 'You scored '.$correct.' out of '.count($tests);
+
+      $request->session()->put('currentIndividualTaskResult', $results);
+      $request->session()->put('currentIndividualTaskName', 'Memory Test');
+      return redirect('\individual-task-results');
     }
 
     public function brainstormingIntro() {

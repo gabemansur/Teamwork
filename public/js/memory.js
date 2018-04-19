@@ -22,6 +22,7 @@ var Memory = class Memory {
     this.blockIndex++;
     this.checkPosition();
     $(`#memory_${this.testIndex}_${this.blockIndex}`).show();
+    console.log('ADVANCING: ' + this.blockIndex);
   }
 
   advanceImageTest(val) {
@@ -32,7 +33,6 @@ var Memory = class Memory {
     this.checkPosition();
     $(`#memory_${this.testIndex}_${this.blockIndex}`).show();
 
-    this.checkPosition();
   }
 
   navTarget(dir) {
@@ -85,6 +85,7 @@ var Memory = class Memory {
       //
       // If there is a review time set, advance after that time
       if(this.tests[this.testIndex].blocks[this.blockIndex].review_time) {
+
         setTimeout(this.advance.bind(this), tests[this.testIndex].blocks[this.blockIndex].review_time * 1000);
       }
 

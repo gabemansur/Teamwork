@@ -141,7 +141,7 @@ class Memory {
               'text' => '',
               'targets' => ['blue', 'yellow', 'red'],
               'review_time_each' => 2,
-              'review_time' => 2],
+              'review_time' => 6],
               [ 'type' => 'practice_test',
                 'selection_type' => 'select_all',
                 'prompt' => 'Which of the following are target words?',
