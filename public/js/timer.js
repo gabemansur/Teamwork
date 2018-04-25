@@ -1,4 +1,6 @@
-function initializeTimer(sec, callback, cookie = 'task-timer'){
+var t;
+
+function initializeTimer(sec, callback){
 
 		if(isNaN(sec)){
 
@@ -8,9 +10,11 @@ function initializeTimer(sec, callback, cookie = 'task-timer'){
 
 		time = sec * 1000;
 
-		setTimeout(function() {
+		t = setInterval(function() {
 			timer(callback)
 		}, 1000);
+
+		return t;
 
 }
 
@@ -30,15 +34,11 @@ function timer(callback){
 				clock.innerHTML = display;
 		}
 
-		setTimeout(function() {
-			timer(callback);
-		}, 1000);
-
 	}
 
 	// If no time is left, the timer is set to display zero
 	else {
-
+		clearInterval(t);
 		if(clock){
 				clock.innerHTML = '00:00';
 		}
@@ -50,31 +50,6 @@ function timer(callback){
 
 }
 
-function createCookie(name, value) {
-
-		var date = new Date();
-		date.setTime(date.getTime()+ (10 * 60 * 1000) ); // expires in 10 mins
-		var expires = "; expires="+date.toGMTString();
-
-
-	document.cookie = name+"="+value+expires+"; path=/";
-
-}
-
-function readCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0;i < ca.length;i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') c = c.substring(1,c.length);
-		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-	}
-	return false;
-}
-
-function deleteCookie(name) {
-    document.cookie = name+'=; Max-Age=-99999999;';
-}
 
 
 

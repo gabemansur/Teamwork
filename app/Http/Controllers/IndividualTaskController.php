@@ -5,6 +5,7 @@ namespace Teamwork\Http\Controllers;
 use Illuminate\Http\Request;
 use \Teamwork\Tasks as Task;
 use Teamwork\Response;
+use \Teamwork\Time;
 
 class IndividualTaskController extends Controller
 {
@@ -138,6 +139,13 @@ class IndividualTaskController extends Controller
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
       $scenarios = (new \Teamwork\Tasks\TeamRole)->getScenarios();
+
+      // Record the start time for this task
+      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
+                                'group_tasks_id' => $request->session()->get('currentGroupTask'),
+                                'individual_tasks_id' => $request->session()->get('currentIndividualTask')]);
+      $time->recordStartTime();
+
       return view('layouts.participants.tasks.team-role')
              ->with('scenarios', $scenarios);
     }
@@ -147,6 +155,13 @@ class IndividualTaskController extends Controller
       $parameters = unserialize($currentTask->parameters);
       $scenarios = (new \Teamwork\Tasks\TeamRole)->getScenarios();
       // NEED TO SCORE AND SAVE
+      //
+      // Record the end time for this task
+      $time = Time::where('user_id', '=', \Auth::user()->id)
+                  ->where('group_tasks_id', '=', $currentTask->id)
+                  ->first();
+      $time->recordEndTime();
+      
       $results = 'You have now completed the Team Role Test.<br>Press Continue to move on to the next task.';
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Team Role Test');
@@ -166,15 +181,39 @@ class IndividualTaskController extends Controller
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
       $statements = (new \Teamwork\Tasks\BigFive)->getStatements($parameters->statementOrder);
+
+      // Record the start time for this task
+      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
+                                'group_tasks_id' => $request->session()->get('currentGroupTask'),
+                                'individual_tasks_id' => $request->session()->get('currentIndividualTask')]);
+      $time->recordStartTime();
+
       return view('layouts.participants.tasks.big-five')
              ->with('statements', $statements);
     }
 
     public function saveBigFive(Request $request) {
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $individualTaskId = $request->session()->get('currentIndividualTask');
       $parameters = unserialize($currentTask->parameters);
       $statements = (new \Teamwork\Tasks\BigFive)->getStatements('ordered');
-      // NEED TO SCORE AND SAVE
+
+      // Record the end time for this task
+      $time = Time::where('user_id', '=', \Auth::user()->id)
+                  ->where('group_tasks_id', '=', $currentTask->id)
+                  ->first();
+      $time->recordEndTime();
+
+      foreach ($statements as $key => $statement) {
+        $r = new Response;
+        $r->group_tasks_id = $currentTask->id;
+        $r->individual_tasks_id = $individualTaskId;
+        $r->user_id = \Auth::user()->id;
+        $r->prompt = $statement['statement'];
+        $r->response = $request[$statement['number']];
+        $r->save();
+      }
+
       return redirect('/big-five-end');
     }
 

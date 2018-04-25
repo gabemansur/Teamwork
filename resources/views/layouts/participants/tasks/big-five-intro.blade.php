@@ -22,7 +22,7 @@ $( document ).ready(function() {
         We’ll start with some basic questions about personality.
       </h3>
       <h3>
-        This will take about 10 minutes. Remember, you answers will be kept
+        This will take about 10 minutes. Remember, your answers will be kept
         in absolute confidence, and deleted at the conclusion of the study.
       </h3>
       <h3>

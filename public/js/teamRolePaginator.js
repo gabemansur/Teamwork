@@ -1,15 +1,12 @@
+var page_count =  1;
+
 function instructionPaginator(callback) {
-  var page_count =  1;
+
   $(".inst").hide();
   $("#instr_nav #back").hide();
   $("#inst_"+page_count).show();
 
-  if(page_count > 1) $("#instr_nav #back").show();
-
-  function goToPage(page) {
-    page_count = page;
-    console.log('at page ' + page_count);
-  }
+  if(page_count > 1) $("#back").show();
 
   /*
     Handles click events for instruction navigation buttons
@@ -51,10 +48,22 @@ function instructionPaginator(callback) {
       $("#instr_nav #back").show();
     }
 
+    // If they are on page 3 (the start of the second scenario)
+    // we don't want them to go back
+    if(page_count == 3) $("#back").hide();
+
     // If there is a page # display, update it
     if($("#pagination-display").length) {
 
       $("#curr-page").html(page_count);
+    }
+
+    if(page_count % 2 == 0) {
+      $("#back").attr('value', 'Back to scenario description');
+    }
+
+    else {
+      $("#back").attr('value', 'Back');
     }
 
     event.preventDefault();
@@ -62,4 +71,8 @@ function instructionPaginator(callback) {
 
   });
 
+}
+
+function goToPage(page) {
+  page_count = page;
 }
