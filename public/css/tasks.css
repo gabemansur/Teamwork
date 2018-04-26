@@ -151,6 +151,10 @@ form#big-five-form th.rotate > div {
   padding: 10px;
 }
 
+.no-selection {
+  display: none;
+}
+
 .timer {
   font-size: 150%;
 }
