@@ -29,7 +29,7 @@ $( document ).ready(function() {
             than one word is applicable but please choose just one word, the word
             which you consider to be most suitable. Before making your choice, make
             sure that you have read all 4 words. You should try to do the task as
-            quickly as possible but you will not be timed. If you really dont know
+            quickly as possible but you will not be timed. If you really don't know
             what a word means you can look it up in the definition handout.
           </h2>
         </div>
@@ -38,7 +38,7 @@ $( document ).ready(function() {
             <div class="text-center">
               <img class="eyes" src="{{ $dir.$test['img'] }}">
             </div>
-            <div class="row">
+            <div class="row mt-md-4">
               <div class="col-md-2 offset-md-5">
                 @foreach($test['choices'] as $c_key => $choice)
                   <div class="form-check">
@@ -53,7 +53,7 @@ $( document ).ready(function() {
           </div>
         @endforeach
       </form>
-      <div id="instr_nav" class="text-center">
+      <div id="instr_nav" class="text-center mt-md-4">
         <input class="btn btn-primary instr_nav btn-lg" type="button" name="next" id="next" value="Next &#8680;"><br />
       </div>
     </div>

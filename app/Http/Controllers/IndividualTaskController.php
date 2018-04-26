@@ -71,7 +71,7 @@ class IndividualTaskController extends Controller
 
         case "Memory":
           request()->session()->put('currentIndividualTaskName', 'Memory Task');
-          return redirect('/memory-individual');
+          return redirect('/memory-individual-intro');
 
         case "Eyes":
           request()->session()->put('currentIndividualTaskName', 'Eyes Task');
@@ -152,16 +152,31 @@ class IndividualTaskController extends Controller
 
     public function saveTeamRole(Request $request) {
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $individualTaskId = $request->session()->get('currentIndividualTask');
       $parameters = unserialize($currentTask->parameters);
       $scenarios = (new \Teamwork\Tasks\TeamRole)->getScenarios();
-      // NEED TO SCORE AND SAVE
-      //
+
       // Record the end time for this task
       $time = Time::where('user_id', '=', \Auth::user()->id)
                   ->where('group_tasks_id', '=', $currentTask->id)
                   ->first();
       $time->recordEndTime();
-      
+
+      // Save each response
+      foreach ($request->all() as $key => $answer) {
+        if($key == '_token') continue;
+        $indices = explode('_', $key);
+        $scenario = $scenarios[$indices[1]]['responses'][$indices[3]];
+
+        $r = new Response;
+        $r->group_tasks_id = $currentTask->id;
+        $r->individual_tasks_id = $individualTaskId;
+        $r->user_id = \Auth::user()->id;
+        $r->prompt = $scenario['response'];
+        $r->response = $answer;
+        $r->save();
+      }
+
       $results = 'You have now completed the Team Role Test.<br>Press Continue to move on to the next task.';
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Team Role Test');
@@ -290,6 +305,13 @@ class IndividualTaskController extends Controller
 
     public function memory(Request $request) {
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+
+      // Record the start time for this task
+      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
+                                'group_tasks_id' => $currentTask->id,
+                                'individual_tasks_id' => $request->session()->get('currentIndividualTask')]);
+      $time->recordStartTime();
+
       $parameters = unserialize($currentTask->parameters);
       $tests = [];
       foreach ($parameters->test as $key => $test) {
@@ -304,6 +326,13 @@ class IndividualTaskController extends Controller
     public function saveMemory(Request $request) {
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
+
+      // Record the end time for this task
+      $time = Time::where('user_id', '=', \Auth::user()->id)
+                  ->where('group_tasks_id', '=', $currentTask->id)
+                  ->first();
+      $time->recordEndTime();
+
       $tests = [];
       foreach ($parameters->test as $key => $test) {
         $tests[] = (new \Teamwork\Tasks\Memory)->getTest($test);
@@ -321,8 +350,9 @@ class IndividualTaskController extends Controller
         }));
 
         $correct[$key] = ['name' => $t['test_name'],
-                          'correct'  => 0,
-                          'count' =>$testCount];
+                          'points'  => 0,
+                          'count' =>$testCount,
+                          'task_type' => $t['task_type']];
       }
 
       // Look up the test based on the response key
@@ -331,48 +361,64 @@ class IndividualTaskController extends Controller
         $indices = explode('_', $key);
         $test = $tests[$indices[1]]['blocks'][$indices[2]];
 
-        $saveCorrect = 0; // Holds the value for is_correct in the responses table;
+        $points = 0;
 
         // If the response is a single item
         if($test['selection_type'] == 'select_one') {
 
           if($test['correct'][0] == $response) {
-            $saveCorrect = 1;
-            $correct[$indices[1]]['correct']++;
+            $correct[$indices[1]]['points'] += 3;
+            $points = 3;
           }
         }
 
         // Otherwise, process arrays of responses against arrays of correct answers
         else {
-          $isCorrect = true;
+
           foreach($response as $selected) {
-            if(!in_array($selected, $test['correct'])) $isCorrect = false;
+            if($selected == '0' && count($test['correct']) == 0) {
+              $points = 3;
+              $correct[$indices[1]]['points'] += 3;
+              continue;
+            }
+            if(in_array($selected, $test['correct'])){
+              $points++;
+              $correct[$indices[1]]['points']++;
+            }
           }
-          if($isCorrect){
-            $correct[$indices[1]]['correct']++;
-            $saveCorrect = 1;
-          }
-        }
-        /*
-        $r = new Response;
-        $r->prompt = $test;
-        if(is_array($response)) {
-          dump($response.' is an array');
-          $r->response = json_encode($response);
         }
 
+        $r = new Response;
+        $r->user_id = \Auth::user()->id;
+        $r->group_tasks_id = $currentTask->id;
+        $r->individual_tasks_id = $request->session()->get('currentIndividualTask');
+        $r->prompt = serialize($test);
+        if(is_array($response)) {
+          $r->response = serialize($response);
+        }
         else $r->response = $response;
-        $r->is_correct = $saveCorrect;
+        $r->points = $points;
         $r->save();
-        */
+
       }
 
       $results = '';
+      $bestTest['test'] = '';
+      $bestTest['score'] = 0;
+      $bestTest['task_type'] = '';
+
       foreach($correct as $c) {
-        $results .= 'Test: '.$c['name'].' Result: '.$c['correct'].' out of '.$c['count'].'<br>';
+        if($c['points'] / 3 > $bestTest['score']) {
+          $bestTest['score'] = $c['points'] / 3;
+          $bestTest['test'] = $c['name'];
+          $bestTest['task_type'] = $c['task_type'];
+
+        }
+        $results .= 'You performed best on the '. $bestTest['task_type'] .' test.<br>';
       }
+
       $request->session()->put('currentIndividualTaskResult', $results);
-      $request->session()->put('currentIndividualTaskName', 'Memory Test');
+      $request->session()->put('currentIndividualTaskName', 'Memory Task');
 
       return redirect('\individual-task-results');
 
@@ -382,35 +428,55 @@ class IndividualTaskController extends Controller
       $tests = (new \Teamwork\Tasks\Eyes)->getTest();
 
       $dir = (new \Teamwork\Tasks\Eyes)->getDirectory();
+
+      // Record the start time for this task
+      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
+                                'group_tasks_id' => $request->session()->get('currentGroupTask'),
+                                'individual_tasks_id' => $request->session()->get('currentIndividualTask')]);
+      $time->recordStartTime();
+
       return view('layouts.participants.tasks.eyes-individual')
              ->with('dir', $dir)
              ->with('tests', $tests);
     }
 
     public function saveEyes(Request $request) {
+      $groupTaskId = $request->session()->get('currentGroupTask');
+      $individualTaskId = $request->session()->get('currentIndividualTask');
+
+      // Record the end time for this task
+      $time = Time::where('user_id', '=', \Auth::user()->id)
+                  ->where('group_tasks_id', '=', $groupTaskId)
+                  ->first();
+      $time->recordEndTime();
+
       $tests = (new \Teamwork\Tasks\Eyes)->getTest();
       $correct = 0;
+      $isCorrect = false;
 
       foreach ($request->all() as $key => $value) {
         if($key == '_token') continue;
-        $isCorrect = 0;
+        $isCorrect = false;
         if($value == $tests[$key]['correct']){
-          $isCorrect = 1;
+          $isCorrect = true;
           $correct++;
         }
-        /*
+
         $response = new Response;
+        $response->user_id = \Auth::user()->id;
+        $response->group_tasks_id = $groupTaskId;
+        $response->individual_tasks_id = $individualTaskId;
         $response->prompt = $tests[$key]['img'];
         $response->response = $value;
-        $reponse->is_correct = $isCorrect;
+        $response->correct = $isCorrect;
         $response->save();
-        */
+
       }
 
       $results = 'You scored '.$correct.' out of '.count($tests);
 
       $request->session()->put('currentIndividualTaskResult', $results);
-      $request->session()->put('currentIndividualTaskName', 'Memory Test');
+      $request->session()->put('currentIndividualTaskName', 'Eyes Task');
       return redirect('\individual-task-results');
     }
 

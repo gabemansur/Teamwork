@@ -23,8 +23,6 @@
         </h3>
       </div>
 
-
-
       <div id="instr_nav" class="text-center">
         <input class="btn btn-primary instr_nav btn-lg" type="button" name="next" id="next" value="Next &#8680;"><br />
       </div>

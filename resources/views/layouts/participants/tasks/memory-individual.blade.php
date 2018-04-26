@@ -28,6 +28,11 @@
         event.preventDefault();
       });
 
+      $('.select-all').on('change', function(event) {
+        var response = $(this).attr('name');
+        $('.no-selection[name="'+response+'"]').prop('checked', false);
+      });
+
       // Target images
       $('.target-nav').on('click', function(event) {
         memory.navTarget($(this).attr('name'));
@@ -53,11 +58,14 @@
 
             @foreach($test['blocks'] as $b_key => $block)
 
-              @if($block['type'] == 'review')
+              @if($block['type'] == 'review' || $block['type'] == 'practice_review')
                 <div class="memory memory-review review" id="memory_{{ $key }}_{{ $b_key }}">
                   <h4>{{ $block['text'] }}</h4>
                   @if(count($block['targets']) == 1)
-                    <img src="{{ $test['directory'].$block['targets'][0] }}">
+                    <img class="target-img" src="{{ $test['directory'].$block['targets'][0] }}">
+                    @if($block['type'] == 'practice_review')
+                      <h4>Press continue when you’re ready!</h4>
+                    @endif
                     <div class="text-center mt-lg-2">
                       <input class="btn btn-primary memory-nav btn-lg mt-lg-4"
                              type="button" name="next"
@@ -80,12 +88,12 @@
               @if($block['type'] == 'practice_test')
                 <div class="memory test practice-test" id="memory_{{ $key }}_{{ $b_key }}">
                   <h2>{{ $block['prompt'] }}</h2>
-                  <h2>Type [1], [2], or [3]</h2>
-                  <img src="{{ $test['directory'].$block['img'] }}">
-                  <div class="row">
-                    <div class="col-md-2 offset-md-3"><h2>1</h2></div>
-                    <div class="col-md-2"><h2>2</h2></div>
-                    <div class="col-md-2"><h2>3</h2></div>
+                  <h4>Type [1], [2], or [3]</h4>
+                  <img class="memory-img mt-lg-4" src="{{ $test['directory'].$block['img'] }}">
+                  <div class="row text-center justify-content-center">
+                    <div class="col-sm-3"><h2>1</h2></div>
+                    <div class="col-sm-3"><h2>2</h2></div>
+                    <div class="col-sm-3"><h2>3</h2></div>
                   </div>
                 </div>
               @endif {{-- End if blocktype = practice_test --}}
@@ -93,12 +101,12 @@
               @if($block['type'] == 'test')
                 <div class="memory test" id="memory_{{ $key }}_{{ $b_key }}">
                   <h2>{{ $block['prompt'] }}</h2>
-                  <h2>Type [1], [2], or [3]</h2>
-                  <img src="{{ $test['directory'].$block['img'] }}">
-                  <div class="row">
-                    <div class="col-md-2 offset-md-3"><h2>1</h2></div>
-                    <div class="col-md-2"><h2>2</h2></div>
-                    <div class="col-md-2"><h2>3</h2></div>
+                  <h4>Type [1], [2], or [3]</h4>
+                  <img class="memory-img mt-lg-4" src="{{ $test['directory'].$block['img'] }}">
+                  <div class="row text-center justify-content-center">
+                    <div class="col-md-3"><h2>1</h2></div>
+                    <div class="col-md-3"><h2>2</h2></div>
+                    <div class="col-md-3"><h2>3</h2></div>
                   </div>
                   <input type="hidden" name="response_{{ $key }}_{{ $b_key }}"
                          id="response_{{ $key }}_{{ $b_key }}">
@@ -131,11 +139,6 @@
                       <h1 class="text-center">{{ $word }}</h1>
                     </div>
                   @endforeach
-                  <div class="text-center mt-lg-2">
-                    <input class="btn btn-primary target-nav target-nav-back btn-lg" type="button" name="back" id="back" value="&#8678; Back">
-                    <input class="btn btn-primary target-nav target-nav-next btn-lg" type="button" name="next" id="next" value="Next &#8680;">
-                  </div>
-
                 </div>
               @endif {{-- End if blocktype = review --}}
 
@@ -153,8 +156,8 @@
 
               @if($block['type'] == 'test' || $block['type'] == 'practice_test')
                 <div class="memory test" id="memory_{{ $key }}_{{ $b_key }}">
-                  <h2>{{ $block['prompt'] }}</h2>
-                  <h2>Select all that apply, then click "Next"</h2>
+                  <h2>{{ $block['prompt'] }}</h4>
+                  <h4>Select all that apply, then click "Next"</h2>
                   <div class="row justify-content-md-center word-choices">
                     @foreach($block['choices'] as $c_key => $choice)
                       <div class="col-md-3 form-group">
@@ -163,12 +166,15 @@
                                for="response_{{ $key }}_{{ $b_key }}">
                                {{ $choice }}
                         </label><br>
-                        <input class="checkbox" type="checkbox"
+                        <input class="checkbox select-all" type="checkbox"
                                name="response_{{ $key }}_{{ $b_key }}[]"
                                value="{{ $c_key + 1 }}">
                         </h2>
                       </div>
                     @endforeach
+                    <input type="checkbox" class="no-selection"
+                           name="response_{{ $key }}_{{ $b_key }}[]"
+                           value="0" checked>
                   </div>
                   <div class="text-center">
                     <input class="btn btn-primary memory-nav btn-lg"
@@ -187,8 +193,9 @@
 
               @if($block['type'] == 'review')
                 <div class="memory memory-review review" id="memory_{{ $key }}_{{ $b_key }}">
+                  <div class="float-right text-primary timer" id="timer_{{ $key }}_{{ $b_key }}"></div><br>
                   <h4>{{ $block['text'] }}</h4>
-                  <h4>{{ $block['targets'][0] }}</h4>
+                  <h2 class="text-left mt-lg-4">{{ $block['targets'][0] }}</h2>
                   <div class="text-center mt-lg-2">
                     <input class="btn btn-primary memory-nav btn-lg mt-lg-4"
                            type="button" name="next"
@@ -213,30 +220,34 @@
               @if($block['type'] == 'practice_test')
                 <div class="memory test practice-test" id="memory_{{ $key }}_{{ $b_key }}">
                   <h2>{{ $block['prompt'] }}</h2>
-                  <h2>Type [1], [2], or [3]</h2>
-                  @foreach($block['choices'] as $c_key => $choice)
-                    <div class="">
-                      <h2>
-                        {{ $c_key + 1 }}) {{ $choice }}
-                      </h2>
+                  <h4>Type [1], [2], or [3]</h4>
+                  <div class="row">
+                    <div class="col-md-6 offset-md-3 text-left story-choices">
+                      @foreach($block['choices'] as $c_key => $choice)
+                          <h2 >
+                            {{ $c_key + 1 }}) {{ $choice }}
+                          </h2>
+                      @endforeach
                     </div>
-                  @endforeach
+                  </div>
                 </div>
               @endif {{-- End if blocktype = practice_test --}}
 
               @if($block['type'] == 'test')
               <div class="memory test practice-test" id="memory_{{ $key }}_{{ $b_key }}">
                 <h2>{{ $block['prompt'] }}</h2>
-                <h2>Type [1], [2], or [3]</h2>
-                @foreach($block['choices'] as $c_key => $choice)
-                  <div class="">
-                    <h2>
-                      {{ $c_key + 1 }}) {{ $choice }}
-                    </h2>
-                  </div>
-                @endforeach
-                <input type="hidden" name="response_{{ $key }}_{{ $b_key }}"
-                       id="response_{{ $key }}_{{ $b_key }}">
+                <h4>Type [1], [2], or [3]</h4>
+                <div class="row">
+                  <div class="col-md-6 offset-md-3 text-left story-choices">
+                    @foreach($block['choices'] as $c_key => $choice)
+                        <h2>
+                          {{ $c_key + 1 }}) {{ $choice }}
+                        </h2>
+                    @endforeach
+                    <input type="hidden" name="response_{{ $key }}_{{ $b_key }}"
+                           id="response_{{ $key }}_{{ $b_key }}">
+                 </div>
+               </div>
               </div>
               @endif {{-- End if blocktype = test --}}
 

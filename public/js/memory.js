@@ -7,7 +7,7 @@ var Memory = class Memory {
     this.callback = callback;
 
     this.navTargetPosition = 0;
-
+    this.autoNavInterval;
   }
 
   begin() {
@@ -22,7 +22,6 @@ var Memory = class Memory {
     this.blockIndex++;
     this.checkPosition();
     $(`#memory_${this.testIndex}_${this.blockIndex}`).show();
-    console.log('ADVANCING: ' + this.blockIndex);
   }
 
   advanceImageTest(val) {
@@ -36,6 +35,8 @@ var Memory = class Memory {
   }
 
   navTarget(dir) {
+
+    if(!dir) dir = 'next';
     $('.target-' + this.navTargetPosition).hide();
     // Increment or decrement the page count, based on nav button clicked
     this.navTargetPosition = (dir == 'next') ? this.navTargetPosition += 1 : this.navTargetPosition -= 1;
@@ -56,6 +57,21 @@ var Memory = class Memory {
 
     $('.target-' + this.navTargetPosition).show();
 
+  }
+
+  autoNavTarget() {
+
+    $('.target-' + this.navTargetPosition).hide();
+    this.navTargetPosition++;
+
+    //  If there are no other targets
+    if(this.navTargetPosition > this.tests[this.testIndex].blocks[this.blockIndex].targets.length) {
+      clearInterval(this.autoNavInterval);
+      this.advance();
+    }
+    else {
+      $('.target-' + this.navTargetPosition).show();
+    }
   }
 
   checkPosition() {
@@ -82,14 +98,27 @@ var Memory = class Memory {
       $('.target-' + this.navTargetPosition).show();
 
       // If there is a review time per target, advance the target after that time?
-      //
+      if(this.tests[this.testIndex].blocks[this.blockIndex].review_time_each) {
+        this.autoNavInterval = setInterval(this.autoNavTarget.bind(this), tests[this.testIndex].blocks[this.blockIndex].review_time_each * 1000);
+      }
+
       // If there is a review time set, advance after that time
       if(this.tests[this.testIndex].blocks[this.blockIndex].review_time) {
+        var timer = $("#timer_"+this.testIndex+"_"+this.blockIndex);
 
+        timer.html(tests[this.testIndex].blocks[this.blockIndex].review_time);
+        setInterval(function(){
+          var time = parseInt(timer.html()) - 1;
+          timer.html(time);
+        }, 1000)
         setTimeout(this.advance.bind(this), tests[this.testIndex].blocks[this.blockIndex].review_time * 1000);
       }
 
     }
+  }
+
+  getTaskType() {
+    return this.tests[this.testIndex].task_type;
   }
 
 }

@@ -10,10 +10,9 @@ class Memory {
         'task_type' => 'images',
         'directory' => '/img/memory-task/faces/',
         'blocks' => [
-          ['type' => 'review',
+          ['type' => 'practice_review',
           'text' => 'Look at these 6 faces for a few seconds. We\'ll call these
-                    "target faces". Press "Continue" when you are ready to
-                    continue.',
+                    "target faces".',
           'targets' => ['p0_targets_1.png'],
           'review_time' => null],
         [ 'type' => 'practice_test',
@@ -141,7 +140,7 @@ class Memory {
               'text' => '',
               'targets' => ['blue', 'yellow', 'red'],
               'review_time_each' => 2,
-              'review_time' => 6],
+              'review_time' => null],
               [ 'type' => 'practice_test',
                 'selection_type' => 'select_all',
                 'prompt' => 'Which of the following are target words?',
@@ -164,7 +163,7 @@ class Memory {
                           'pearl', 'hut', 'emerald', 'saphire',
                           'tent', 'hotel', 'cow'],
               'review_time_each' => 1.66,
-              'review_time' => 20],
+              'review_time' => null],
               ['type' => 'test',
                'selection_type' => 'select_all',
                'prompt' => 'Which of the following are target words',
@@ -316,7 +315,7 @@ class Memory {
                 'correct' => [2]],
               [ 'type' => 'test',
                 'selection_type' => 'select_one',
-                'prompt' => 'Where did the story take place?',
+                'prompt' => 'Where does the main character live?',
                 'choices' => ['South Boston',
                               'Somerville',
                               'North Boston'],
@@ -336,7 +335,7 @@ class Memory {
                           ['intro' => [
                                         'text' => 'Look at these 6 faces for a few seconds. We\'ll call these "target faces". Press "next" when you are ready to continue.',
                                         'img' => 'p0_targets_1.png',
-                                        'review_time' => -1,
+                                        'review_time' => null,
                                       ],
                           ],
                           ['tests' =>

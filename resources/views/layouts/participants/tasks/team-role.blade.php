@@ -19,14 +19,17 @@
 
       $(".alert-danger").hide();
 
-      var timer = initializeTimer(10, function(){
+      var timer = initializeTimer(300, function(){
         $("#timerComplete").modal();
       });
 
-      instructionPaginator(function(){});
+      instructionPaginator(function(){
+        $(".container").hide();
+        $("#team-role-responses")[0].submit();
+      });
 
       $("#next").on('click', function(event) {
-        /*
+        /* Form validation
         $('.input:visible .form-check-input').each(function(){
           var name = $(this).attr("name");
           if ($("input:radio[name=" + name + "]:checked").length == 0) {
@@ -60,14 +63,13 @@
           $("#next").click();
           $("#timerComplete").modal('toggle');
           $(".modal-title").html('Your time is up. You must submit your answers now.');
-          initializeTimer(20, function(){
+          initializeTimer(540, function(){
             $("#timerComplete").modal();
           });
         }
 
         else {
-          console.log('submit me!');
-          $("#team-role-responses").submit();
+          $("#team-role-responses")[0].submit();
         }
 
         event.preventDefault();
@@ -80,7 +82,7 @@
           $(".inst").hide();
           $("#next").click();
           $("#scenario1Complete").modal('toggle');
-          initializeTimer(20, function(){
+          initializeTimer(540, function(){
             $("#timerComplete").modal();
           });
         }
@@ -96,7 +98,7 @@
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
       <div class="float-right text-primary" id="timer"></div><br>
-      <form id="team-role-responses" action="/team-role" method="post">
+      <form id="team-role-responses" name="team-role-responses" action="/team-role" method="post">
         {{ csrf_field() }}
 
 
@@ -119,6 +121,7 @@
             </ul>
           </div>
           <div id="inst_{{ $i * 2 }}" class="inst responses">
+            <h3 class="text-center">Scenario {{ $i }}</h2>
             <table class="team-role table table-striped table-sm">
               <tr>
                 <td class="blank"></td>
@@ -150,13 +153,6 @@
             </table>
           </div>
         @endfor
-        <div id="inst_{{ count($scenarios) * 2 + 1 }}" class="inst mb-lg-4">
-          <h3>
-            You may submit your answers for this test, or use the back button
-            to review and change your answers.
-          </h3>
-          <input class="btn btn-primary btn-lg" type="submit" value="Submit Answers" id="submit"><br />
-        </div>
       </form>
       <div class="alert alert-danger">
         <h6>Please be sure to answer each question before continuing.</h6>

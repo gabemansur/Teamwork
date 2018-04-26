@@ -119,12 +119,40 @@ form#big-five-form th.rotate > div {
 }
 
 /* Memory */
+.target-img {
+  width: 460px;
+  height: auto;
+}
+
+.memory-img {
+  width: 646px;
+  height: auto;
+}
+
 .target-word {
   height: 200px;
 }
 
-.word-choices {
-  margin-top: 24px;
+.word-choices, .story-choices {
+  margin-top: 64px;
+}
+
+.word-choices label {
+  font-size: 150%;
+}
+
+.word-choices input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  padding: 10px;
+}
+
+.timer {
+  font-size: 150%;
 }
 
 /* Eyes */
