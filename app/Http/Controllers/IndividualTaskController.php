@@ -473,7 +473,7 @@ class IndividualTaskController extends Controller
 
       }
 
-      $results = 'You scored '.$correct.' out of '.count($tests);
+      $results = 'You scored '.$correct.' out of '.count($tests) - 1;
 
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Eyes Task');
