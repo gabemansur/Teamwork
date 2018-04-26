@@ -5,7 +5,7 @@ class Eyes {
 
   private $DIRECTORY = '/img/rmet/';
   private $test = [
-        ['img' => 'eyes0.png',
+        ['img' => 'Eyes0.png',
         'choices' => ['jealous', 'panicked', 'arrogant', 'hateful'],
         'correct' => ''],
         ['img' => 'eyes1.png',
