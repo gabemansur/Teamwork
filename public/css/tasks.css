@@ -36,6 +36,8 @@ div.word-list span {
   display: none;
 }
 
+/* Cryptography */
+
 #hypothesis {
   width: 100%;
   position: relative;
@@ -59,6 +61,13 @@ div.word-list span {
 
 #answers {
   margin-top: 12px;
+}
+
+#mapping-list span {
+  /*background-color: #f8f9fa;*/
+  float: left;
+  clear: both;
+  font-weight: bold;
 }
 
 /* Team Role Task */

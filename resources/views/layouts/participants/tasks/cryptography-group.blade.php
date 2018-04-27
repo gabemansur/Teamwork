@@ -85,11 +85,15 @@ $( document ).ready(function() {
       trialStage = 1;
       var result = true;
       var guessStr = '';
+      var mappingList = '';
 
       $(".full-mapping").each(function(i, el){
+        mappingList += '<span>' + $(el).attr('name') + ' = ' + $(el).val() + '</span>';
         guessStr += $(el).attr('name') + '=' + $(el).val() + ',';
         if(crypto.testHypothesis($(el).attr('name'), $(el).val()) == false) result = false;
       });
+
+      $("#mapping-list").html(mappingList);
 
       $.post("/cryptography", {
           _token: "{{ csrf_token() }}",
@@ -129,7 +133,26 @@ $( document ).ready(function() {
 
 <div class="container">
   <div class="row vertical-center">
-    <div class="col-md-8 offset-md-2 text-center">
+    @if(Auth::user()->role_id == 3)
+      <div class="col-md-1">
+        <h5>Mapping</h5>
+        <div id="mapping-list">
+          <span>A = ---</span>
+          <span>B = ---</span>
+          <span>C = ---</span>
+          <span>D = ---</span>
+          <span>E = ---</span>
+          <span>F = ---</span>
+          <span>G = ---</span>
+          <span>H = ---</span>
+          <span>I = ---</span>
+          <span>J = ---</span>
+        </div>
+      </div>
+      <div class="col-md-8 offset-md-1 text-center">
+    @else
+      <div class="col-md-8 offset-md-2 text-center">
+    @endif
       <h3>
         Cryptography Task
       </h3>

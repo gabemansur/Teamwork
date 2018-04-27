@@ -18,6 +18,7 @@
 
 $( document ).ready(function() {
   $(".alert").hide();
+  $(".next-prompt").hide();
 
   instructionPaginator(function(){window.location = '/cryptography';});
 
@@ -27,10 +28,10 @@ $( document ).ready(function() {
   $(".submit-equation").on("click", function(event) {
 
     $(".alert").hide();
-    var equation = $("#equation-" + trialStage).val().toUpperCase();
+    var equation = $("#equation").val().toUpperCase();
     if(equation == '' || !equation) {
-      $("#alert-" + trialStage).html('Enter your equation in the box below!');
-      $("#alert-" + trialStage).show();
+      $("#alert").html('Enter your equation in the box below!');
+      $("#alert").show();
       event.preventDefault();
       return;
     };
@@ -38,8 +39,14 @@ $( document ).ready(function() {
     try {
       var answer = crypto.parseEquation(equation);
       console.log(answer);
-      $("#result-" + trialStage).html(equation + ' = ' + answer);
+      $("#result").append('<br>' + equation + ' = ' + answer);
+      $("#equation").val('');
+      $(".next-prompt").show();
       trialStage++;
+      if(trialStage > 2) {
+        $("#submit-equation").prop("disabled",true);
+        $(".next-prompt").hide();
+      }
     }
 
     catch(e) {
@@ -48,7 +55,6 @@ $( document ).ready(function() {
     }
 
     event.preventDefault();
-
   });
 
   $(".submit-hypothesis").on("click", function(event) {
@@ -71,61 +77,46 @@ $( document ).ready(function() {
 <div class="container">
   <div class="row vertical-center">
     <div class="col-md-10 offset-md-1 text-center">
-      <h2 class="text-primary">Cryptography Task</h2>
       <div id="inst_1" class="inst">
+        <h2 class="text-primary">Cryptography Task</h2>
         <h5>
           In this task, letters each correspond to a number. The goal of the
-          task is to find out which letter corresponds to each number.
+          task is to find out which letter corresponds to each number. We’ll
+          start with a practice. To make things clear, say the correspondence
+          [which you won’t know] is as follows: 
         </h5>
         <h5>
           We’ll start with a practice. To make things clear, say the
           correspondence [which you won’t know] is as follows: <br><br>
           <span class="bg-light p-md-2 mt-md-4">
-            @foreach($aSorted as $key => $val)
-              {{ $val }} = {{ $key }};&nbsp;
-            @endforeach
+            A = 6;  B = 5;  C = 7;  D = 4;  E = 1;  F = 8;  G = 3;  H = 2;  I = 9;  J = 0
           </span>
         </h5>
         <h5>
           Your goal is to uncover this mapping with the minimum number of
-          "trials". A trial involves three steps: EQUATION; HYPOTHESIS; GUESS.
+          "trials". A trial involves three steps. The first step is to propose
+          an equation: this is a combination of letters (with + and -). For
+          example, you might propose A+B. A is 6, B is 5, and E is 1, so the
+          computer would tell you A+B=EE. As another example, you might say
+          F-G. Here the computer would say F-G=B
         </h5>
         <h5>
           1. 1)	First, let’s look at “EQUATION”. Write a combination of letters
           (with + and -).
         </h5>
-        <h5>
-          For example: <br>
-          You might propose A+C. The computer will then tell you A+C=D <br>
-          You could also propose CC-A. The computer will then tell you CC-A=CA
-        </h5>
-        <div id="practice-1" class="mb-lg-5">
+        <div id="practice" class="mb-lg-5">
           <div class="row">
-            <div class="col-md-6 offset-md-3">
+            <div class="col-md-8 offset-md-2">
               <h4 class="text-warning">
                 Practice: enter an equation!
               </h4>
-              <div class="alert alert-danger" id="alert-1" role="alert"></div>
+              <div class="alert alert-danger" id="alert" role="alert"></div>
               <form class="form-inline">
-                <input type="text" class="form-control form-control-lg mr-lg-5 ml-lg-5" name="equation" id="equation-1">
-                <button class="btn btn-lg btn-primary submit-equation" id="submit-equation-1" type="submit">Submit</button>
+                <input type="text" class="form-control form-control-lg mr-lg-5 ml-lg-5" name="equation" id="equation">
+                <button class="btn btn-lg btn-primary submit-equation" id="submit-equation" type="submit">Submit</button>
               </form>
-              <h3 class="text-success" id="result-1"></h3>
-            </div>
-          </div>
-        </div>
-        <div id="practice-2">
-          <div class="row">
-            <div class="col-md-6 offset-md-3">
-              <h4 class="text-warning">
-                Try another equation:<br>
-              </h4>
-              <div class="alert alert-danger" id="alert-2" role="alert"></div>
-              <form class="form-inline">
-                <input type="text" class="form-control form-control-lg mr-lg-5 ml-lg-5" name="equation" id="equation-2">
-                <button class="btn btn-lg btn-primary submit-equation" id="submit-equation-2" type="submit">Submit</button>
-              </form>
-              <h3 class="text-success" id="result-2"></h3>
+              <h3 class="text-success" id="result"></h3>
+              <h3 class="text-warning next-prompt">Now, try entering another equation.</h3>
             </div>
           </div>
         </div>
