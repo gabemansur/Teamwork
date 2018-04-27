@@ -177,7 +177,7 @@ class IndividualTaskController extends Controller
         $r->save();
       }
 
-      $results = 'You have now completed the Team Role Test.<br>Press Continue to move on to the next task.';
+      $results = 'You have now completed the Team Role Test.';
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Team Role Test');
 
@@ -414,9 +414,8 @@ class IndividualTaskController extends Controller
           $bestTest['task_type'] = $c['task_type'];
 
         }
-        $results .= 'You performed best on the '. $bestTest['task_type'] .' test.<br>';
       }
-
+      $results .= 'You have completed the Memory Task.<br>You performed best on the '. $bestTest['task_type'] .' test.';
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Memory Task');
 
@@ -473,7 +472,7 @@ class IndividualTaskController extends Controller
 
       }
 
-      $results = 'You scored '.$correct.' out of '.count($tests) - 1;
+      $results = 'You have completed the Eyes Task.<br>You scored '.$correct.' out of '.(count($tests) - 1);
 
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Eyes Task');

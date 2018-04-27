@@ -6,17 +6,11 @@
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
       <h3>
-        You have completed the {{ $taskName }}.
+        {!! $results !!}
       </h3>
-      @if($results === false)
-        <h3>
-          Your results are being evaluated by the researchers.
-        </h3>
-      @else
-        <h3>
-          {!! $results !!}
-        </h3>
-      @endif
+      <h3>
+        Press the button below to continue.
+      </h3>
       <div class="text-center">
         <a class="btn btn-lg btn-primary"
            role="button"

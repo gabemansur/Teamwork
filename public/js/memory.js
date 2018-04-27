@@ -8,6 +8,7 @@ var Memory = class Memory {
 
     this.navTargetPosition = 0;
     this.autoNavInterval;
+    this.popupTimeout;
   }
 
   begin() {
@@ -91,6 +92,13 @@ var Memory = class Memory {
 
   initializeBlock() {
 
+    if(this.tests[this.testIndex].blocks[this.blockIndex].popup_text) {
+      $("#popup-text").html(this.tests[this.testIndex].blocks[this.blockIndex].popup_text);
+      this.popupTimeout = setTimeout(function(){
+        $("#popup").modal();
+      }, this.tests[this.testIndex].blocks[this.blockIndex].popup_display_time * 1000);
+    }
+
     if(this.tests[this.testIndex].blocks[this.blockIndex].type == 'review') {
       this.navTargetPosition = 0;
       $('.target-nav-back').hide();
@@ -119,6 +127,15 @@ var Memory = class Memory {
 
   getTaskType() {
     return this.tests[this.testIndex].task_type;
+  }
+
+  hasPopup() {
+    if(this.tests[this.testIndex].blocks[this.blockIndex].popup_text) {
+      clearTimeout(this.popupTimeout);
+      $("#popup").modal();
+      return true;
+    }
+    else return false;
   }
 
 }

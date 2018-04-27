@@ -24,6 +24,9 @@
       memory.begin();
 
       $('.memory-nav').on('click', function(event) {
+        if(memory.hasPopup()) {
+          event.stopImmediatePropogation();
+        }
         memory.advance();
         event.preventDefault();
       });
@@ -43,6 +46,11 @@
         var key = event.key;
         if(key == 1 || key == 2 || key == 3) memory.advanceImageTest(key);
       });
+
+      $("#popup-continue").on('click', function(event) {
+        $("#popup").modal('toggle');
+        memory.advance();
+      })
     });
 
 </script>
@@ -133,6 +141,7 @@
 
               @if($block['type'] == 'review')
                 <div class="memory memory-review review" id="memory_{{ $key }}_{{ $b_key }}">
+                  <div class="float-right text-primary timer" id="timer_{{ $key }}_{{ $b_key }}"></div><br>
                   <h4>{{ $block['text'] }}</h4>
                   @foreach($block['targets'] as $word_key => $word)
                     <div class="target-word target target-{{ $word_key }}">
@@ -260,4 +269,18 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="popup" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center" id="popup-text"></h4>
+      </div>
+      <div class="modal-body text-center">
+          <button class="btn btn-lg btn-primary" id="popup-continue" type="button">Continue</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 @stop

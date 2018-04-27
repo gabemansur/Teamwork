@@ -150,7 +150,9 @@ class Memory {
                 'selection_type' => 'select_all',
                 'prompt' => 'Which of the following are target words?',
                 'choices' => ['green', 'baseball', 'egg'],
-                'correct' => []],
+                'correct' => [],
+                'popup_text' => 'Sometimes, none of the words will be a target word.<br>In that case, just click "next"!',
+                'popup_display_time' => 5],
               ['type' => 'text',
               'text' => 'You will now be presented with 12 target
                           words. Try to remember all of them. Each word will
