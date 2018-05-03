@@ -81,9 +81,7 @@ $( document ).ready(function() {
         <h2 class="text-primary">Cryptography Task</h2>
         <h5>
           In this task, letters each correspond to a number. The goal of the
-          task is to find out which letter corresponds to each number. We’ll
-          start with a practice. To make things clear, say the correspondence
-          [which you won’t know] is as follows: 
+          task is to find out which letter corresponds to each number.
         </h5>
         <h5>
           We’ll start with a practice. To make things clear, say the
@@ -101,7 +99,7 @@ $( document ).ready(function() {
           F-G. Here the computer would say F-G=B
         </h5>
         <h5>
-          1. 1)	First, let’s look at “EQUATION”. Write a combination of letters
+          First, let’s look at “EQUATION”. Write a combination of letters
           (with + and -).
         </h5>
         <div id="practice" class="mb-lg-5">
@@ -160,30 +158,10 @@ $( document ).ready(function() {
 
       <div id="inst_3" class="inst">
         <h5>
-          Third, and last, at the end of each trial, the group guesses at the
-          whole mapping. If you are correct, the task is complete! If not, we
-          start another trial.
+          Third, and last, at the end of each trial, you will guess at the
+          whole mapping. If you are correct, the task is complete! If not,
+          we start another trial.
         </h5>
-        <div id="guess-full-mapping">
-          <div class="row">
-            <div class="col-md-6 offset-md-3 text-center">
-              <h4 class="text-primary">3. Guess the full mapping</h4>
-              <h5>
-                Use the drop-downs to guess a value for each element.
-              </h5>
-              @foreach($sorted as $key => $el)
-                <span>{{ $el }} = </span>
-                <select class="form-control full-mapping" name="{{ $el }}">
-                    <option>---</option>
-                    @for($i = 0; $i < count($sorted); $i++)
-                      <option>{{ $i }}</option>
-                    @endfor
-                </select>
-
-              @endforeach
-            </div>
-          </div>
-        </div>
       </div> <!-- End inst_3 -->
 
       <div id="inst_4" class="inst">
@@ -195,19 +173,11 @@ $( document ).ready(function() {
           the cryptography task. Each trial has three elements:
         </h5>
         <div class="row">
-          <div class="col-md-6 offset-md-3">
+          <div class="col-md-6 offset-md-3 text-left">
             <h5>
-              <ul>
-                <li>
-                  Propose an equation (e.g. CC+B-A = ?)
-                </li>
-                <li>
-                  Hypothesis (e.g. C=1)
-                </li>
-                <li>
-                  Guess the mapping
-                </li>
-              </ul>
+              1. Propose an equation (e.g. CC+B-A = ?)<br>
+              2. Hypothesis (e.g. C=1)<br>
+              3. Guess the mapping
             </h5>
           </div>
         </div>

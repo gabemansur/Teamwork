@@ -156,15 +156,14 @@ class Memory {
               ['type' => 'text',
               'text' => 'You will now be presented with 12 target
                           words. Try to remember all of them. Each word will
-                          show up separately. In total, you have 20 seconds
-                          to remember the words.
+                          show up separately for 2 seconds.
                           You’re not allowed to write anything down.',],
               ['type' => 'review',
               'text' => '',
               'targets' => ['horse', 'cave', 'lion', 'opal', 'tiger',
                           'pearl', 'hut', 'emerald', 'saphire',
                           'tent', 'hotel', 'cow'],
-              'review_time_each' => 1.66,
+              'review_time_each' => 2,
               'review_time' => null],
               ['type' => 'test',
                'selection_type' => 'select_all',
@@ -226,7 +225,7 @@ class Memory {
             'text' => 'Practice story:',
             'targets' => ['Peter was hungry, so he went to the store on the
                             corner of his street and bought a hamburger.'],
-            'review_time' => null],
+            'review_time' => 15],
             [ 'type' => 'practice_test',
               'selection_type' => 'select_one',
               'prompt' => 'Why did Peter go to the store?',
@@ -247,7 +246,7 @@ class Memory {
                          will have 30 seconds to read it. Try to take
                          in as much information as possible. After the 30
                          seconds are up, we’ll ask you some questions
-                         about the story. Your answers are important.'],
+                         about the story.'],
             ['type' => 'review',
             'text' => '',
             'targets' => ['Anna Thompson of South Boston, employed

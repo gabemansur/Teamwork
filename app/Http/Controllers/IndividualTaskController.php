@@ -21,6 +21,7 @@ class IndividualTaskController extends Controller
        return $value->completed == false;
      });
 
+
      if(count($groupTasksAll) > 0 && count($groupTasks) == 0) {
        // The experiment is over
        return redirect('/participant-experiment-end');
@@ -103,10 +104,8 @@ class IndividualTaskController extends Controller
       // If this is an individual-only task, mark it as done
       $parameters = unserialize($task->parameters);
       if($parameters->hasGroup == 'false') {
-
         $task->completed = true;
         $task->save();
-
         return redirect('/get-individual-task');
       }
 
@@ -415,7 +414,7 @@ class IndividualTaskController extends Controller
 
         }
       }
-      $results .= 'You have completed the Memory Task.<br>You performed best on the '. $bestTest['task_type'] .' test.';
+      $results .= 'You have completed the Memory Task.<br><br><h1>You performed best on the <u>'. $bestTest['task_type'] .'</u> test.</h1>';
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Memory Task');
 
@@ -472,7 +471,7 @@ class IndividualTaskController extends Controller
 
       }
 
-      $results = 'You have completed the Eyes Task.<br>You scored '.$correct.' out of '.(count($tests) - 1);
+      $results = 'You have completed the Eyes Task.';
 
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Eyes Task');

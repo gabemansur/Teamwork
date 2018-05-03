@@ -75,7 +75,7 @@ $( document ).ready(function() {
         .done(function( data ) {
           result = Number.parseFloat(data).toFixed(4);
           responses.push({guess: n, result: result});
-          $("#guess-history").append("<tr><td>" + guessNumber + "</td><td>" + n + "</td><td>" + result + "</td></tr>");
+          $("#guess-history").append("<tr><td>" + guessNumber + " of " + MAX_RESPONSES +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
           $("#guess").val('');
           $("#guess").prop( "readonly", true );
           $("#guess-prompt").hide();
@@ -183,7 +183,7 @@ $( document ).ready(function() {
   </div>
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <table class="table table-bordered" id="guess-history">
+      <table class="table table-bordered table-sm" id="guess-history">
         <tr class="text-center">
           <th>Guess #</th>
           <th>Your guess</th>

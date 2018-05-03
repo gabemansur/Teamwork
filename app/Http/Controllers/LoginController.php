@@ -76,7 +76,32 @@ class LoginController extends Controller
       $tasks = \Teamwork\GroupTask::getTasks();
 
       \Session::flash('message','Group ' .$request->group_id. ' was created.');
-      return view('layouts.participants.group-create-login')
-             ->with('tasks', $tasks);
+      return redirect('/group-create');
+    }
+
+    public function groupAddParticipants() {
+      return view('layouts.participants.group-add-participants');
+    }
+
+    public function postGroupAddParticipants(Request $request) {
+
+      $group = Group::firstOrCreate(['group_number' => $request->group_id]);
+      $group->save();
+
+      $participants = explode(';', $request->participant_ids);
+
+      foreach ($participants as $key => $participant_id) {
+        $user = User::firstOrCreate(['participant_id' => trim($participant_id)],
+                                    ['name' => 'partipant',
+                                     'participant_id' => trim($participant_id),
+                                     'password' => bcrypt('participant'),
+                                     'role_id' => 3,
+                                     'group_id' => $group->id]);
+        $user->save();
+      }
+
+      \Session::flash('message', 'Participant IDs '.$request->participant_ids. ' were added to group '.$group->id);
+      return redirect('/group-add-participants');
+
     }
 }

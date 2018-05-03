@@ -19,19 +19,21 @@ $( document ).ready(function() {
 <div class="container">
   <div class="row vertical-center">
     <div class="col-md-12">
-
+      <h2 class="text-primary text-center">
+        Reading the Mind in the Eyes Task
+      </h2>
       <form name="eyes-responses" id="eyes-responses" action="/rmet-individual" method="post">
         {{ csrf_field() }}
         <div id="inst_1" class="inst">
-          <h2>
+          <h3>
             For each set of eyes, select which word best describes what
             the person in the picture is thinking or feeling. You may feel that more
             than one word is applicable but please choose just one word, the word
             which you consider to be most suitable. Before making your choice, make
             sure that you have read all 4 words. You should try to do the task as
-            quickly as possible but you will not be timed. If you really don't know
+            quickly as possible but you will not be timed. If you really don't know
             what a word means you can look it up in the definition handout.
-          </h2>
+          </h3>
         </div>
         @foreach($tests as $key => $test)
           <div id="inst_{{ $key + 2 }}" class="inst">

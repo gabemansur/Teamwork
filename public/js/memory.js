@@ -26,7 +26,6 @@ var Memory = class Memory {
   }
 
   advanceImageTest(val) {
-    console.log(`Saving ${val} to response_${this.testIndex}_${this.blockIndex}`);
     $(`#response_${this.testIndex}_${this.blockIndex}`).val(val)
     $(`#memory_${this.testIndex}_${this.blockIndex}`).hide();
     this.blockIndex++;
@@ -66,7 +65,7 @@ var Memory = class Memory {
     this.navTargetPosition++;
 
     //  If there are no other targets
-    if(this.navTargetPosition > this.tests[this.testIndex].blocks[this.blockIndex].targets.length) {
+    if(this.navTargetPosition == this.tests[this.testIndex].blocks[this.blockIndex].targets.length) {
       clearInterval(this.autoNavInterval);
       this.advance();
     }

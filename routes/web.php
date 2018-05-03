@@ -315,6 +315,14 @@ Route::post('/group-create', [
 	'uses' => 'LoginController@postGroupCreateLogin',
 ]);
 
+Route::get('/group-add-participants', [
+	'uses' => 'LoginController@groupAddParticipants',
+]);
+
+Route::post('/group-add-participants', [
+	'uses' => 'LoginController@postGroupAddParticipants',
+]);
+
 // Testing Routes
 
 Route::get('/optimization-test', [

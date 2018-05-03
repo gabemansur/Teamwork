@@ -16,8 +16,8 @@
       </h3>
       <h3>
         You will be presented with several different situations. You will have
-        5 minutes for the first situation (see the timer in the top left of
-        the screen). The time will start when you hit “Next”.
+        a maximum of 5 minutes for the first situation (see the timer in the top
+        right of the screen). The time will start when you hit “Next”.
       </h3>
       <div class="text-center">
         <a class="btn btn-lg btn-primary"
