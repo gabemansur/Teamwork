@@ -33,6 +33,31 @@ class LoginController extends Controller
        return redirect('/get-individual-task');
     }
 
+    public function individualLogin() {
+      return view('layouts.participants.individual-only-login');
+    }
+
+    public function postIndividualLogin(Request $request) {
+
+      $group = Group::firstOrCreate(['group_number' => uniqid()]);
+      $group->save();
+
+      $user = User::firstOrCreate(['participant_id' => $request->participant_id],
+                                  ['name' => 'partipant',
+                                   'participant_id' => $request->participant_id,
+                                   'password' => bcrypt('participant'),
+                                   'role_id' => 3,
+                                   'group_id' => $group->id]);
+      $user->save();
+      \Auth::login($user);
+
+       if($group->id != $user->group_id) {
+         return redirect()->back()->withInput()->withErrors('It appears that you already belong to another group.');
+       }
+
+       return redirect('/get-individual-task');
+    }
+
     public function groupLogin() {
       return view('layouts.participants.group-login');
     }

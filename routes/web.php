@@ -299,6 +299,14 @@ Route::post('/participant-login', [
 	'uses' => 'LoginController@postParticipantLogin',
 ]);
 
+Route::get('/individual-login', [
+	'uses' => 'LoginController@individualLogin',
+]);
+
+Route::post('/individual-login', [
+	'uses' => 'LoginController@postIndividualLogin',
+]);
+
 Route::get('/group-login', [
 	'uses' => 'LoginController@groupLogin',
 ]);

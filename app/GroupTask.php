@@ -58,6 +58,10 @@ class GroupTask extends Model
 
     public static function initializeDefaultTasks($group_id, $randomize) {
 
+      $taskArray = '[{"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":"all"}},{"taskName":"BigFive","taskParams":{"hasIndividuals":"true","hasGroup":"false","statementOrder":"random"}},{"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},{"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"10"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"random","maxResponses":"6"}},{"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"1"}}]';
+      return Self::initializeTasks($group_id, $taskArray, $randomize);
+
+      /*
       $tasks = Self::$TASKS;
 
       if($randomize) shuffle($tasks);
@@ -80,6 +84,7 @@ class GroupTask extends Model
                       ->with('individualTasks')
                       ->orderBy('order', 'ASC')
                       ->get();
+      */
     }
 
     public static function initializeTasks($group_id, $requiredTasks, $randomize = false) {
@@ -102,7 +107,6 @@ class GroupTask extends Model
                       ->with('individualTasks')
                       ->orderBy('order', 'ASC')
                       ->get();
-
     }
 
     public static function setDefaultTaskParameters($taskName) {

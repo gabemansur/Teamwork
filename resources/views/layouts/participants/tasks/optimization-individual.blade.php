@@ -22,8 +22,17 @@ $( document ).ready(function() {
   var guessNumber = 0;
   var responses = [];
 
+  // Let's put the function as a string into the final submission form
+  $("#final-function").val(f.toString());
+
   $("#timer-container").hide();
   $("#guess-prompt").hide();
+
+  $("#submit-final").on("click", function(event){
+    $("#final-result").val(f($("#final-guess").val()));
+    $("#optimization-final-form").submit();
+    event.preventDefault();
+  });
 
   $("#continue").on("click", function(event){
 
@@ -205,14 +214,15 @@ $( document ).ready(function() {
         </h4>
       </div>
       <div class="modal-body text-center">
-        <form action="/optimization-individual-final" method="post">
+        <form action="/optimization-individual-final" id="optimization-final-form" method="post">
           {{ csrf_field() }}
           <div class="form-group">
             <label for="final">Your final answer:</label>
-            <input class="form-control" type="text" name="final">
-            <input type="hidden" name="function" value="{{ $function }}">
+            <input class="form-control" type="text" name="final" id="final-guess">
+            <input type="hidden" name="final_result" id="final-result">
+            <input type="hidden" name="function" id="final-function" value="{{ $function }}">
           </div>
-          <button class="btn btn-lg btn-primary pull-right" id="continue" type="submit">Submit</button>
+          <button class="btn btn-lg btn-primary pull-right" id="submit-final" type="submit">Submit</button>
         </form>
       </div>
     </div><!-- modal-content -->

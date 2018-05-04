@@ -31,7 +31,7 @@ class IndividualTaskController extends Controller
      else if(count($groupTasksAll) == 0) {
        // Alternately, we could display a message for the user to login as a group
        // because the following code is duplicated in the group task controller
-       $groupTasks = \Teamwork\GroupTask::initializeDefaultTasks(\Auth::user()->group_id, $randomize = true);
+       $groupTasks = \Teamwork\GroupTask::initializeDefaultTasks(\Auth::user()->group_id, $randomize = false);
      }
 
       $currentTask = $groupTasks->first();
@@ -290,8 +290,8 @@ class IndividualTaskController extends Controller
       $r->group_tasks_id = $groupTaskId;
       $r->individual_tasks_id = $individualTaskId;
       $r->user_id = \Auth::user()->id;
-      $r->prompt = $request->function .": final";
-      $r->response = $request->final;
+      $r->prompt = 'final: '.$request->function;
+      $r->response = $request->final_result;
       $r->save();
 
       return redirect('/end-individual-task');
@@ -450,7 +450,6 @@ class IndividualTaskController extends Controller
 
       $tests = (new \Teamwork\Tasks\Eyes)->getTest();
       $correct = 0;
-      $isCorrect = false;
 
       foreach ($request->all() as $key => $value) {
         if($key == '_token') continue;
