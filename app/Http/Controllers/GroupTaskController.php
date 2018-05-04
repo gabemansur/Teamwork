@@ -158,7 +158,7 @@ class GroupTaskController extends Controller
       $maxResponses = $parameters->maxResponses;
       $sorted = $mapping;
       sort($sorted);
-
+      dump($mapping);
       return view('layouts.participants.tasks.cryptography-group')
              ->with('mapping',json_encode($mapping))
              ->with('sorted', $sorted)
@@ -167,12 +167,31 @@ class GroupTaskController extends Controller
 
     public function saveCryptographyResponse(Request $request) {
       $groupTaskId = $request->session()->get('currentGroupTask');
+      $correct = true;
+
+      if($request->prompt == "Guess Full Mapping") {
+        $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
+        $parameters = unserialize($currentTask->parameters);
+        $mapping = (new \Teamwork\Tasks\Cryptography)->getMapping($parameters->mapping);
+        $guesses = explode(',', $request->guess);
+        dump($mapping);
+        foreach ($guesses as $key => $guess) {
+          $g = explode('=', $guess);
+          dump($g);
+          if(count($g) == 2 && $g[0] != $mapping[$g[1]]){
+            $correct = false;
+          }
+        }
+      }
 
       $r = new Response;
       $r->group_tasks_id = $groupTaskId;
       $r->user_id = \Auth::user()->id;
       $r->prompt = $request->prompt;
       $r->response = $request->guess;
+      if($request->prompt == "Guess Full Mapping") {
+        $r->correct = $correct;
+      }
       $r->save();
     }
 
