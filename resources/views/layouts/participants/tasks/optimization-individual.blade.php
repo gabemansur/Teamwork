@@ -82,7 +82,7 @@ $( document ).ready(function() {
 
     $.get( "/get-prob-val", { mean: f(n) } )
         .done(function( data ) {
-          result = Number.parseFloat(data).toFixed(4);
+          result = Math.round(Number.parseFloat(data));
           responses.push({guess: n, result: result});
           $("#guess-history").append("<tr><td>" + guessNumber + " of " + MAX_RESPONSES +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
           $("#guess").val('');

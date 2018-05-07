@@ -12,9 +12,11 @@
 
 @section('content')
 <script>
-  var mapping = <?php echo  $mapping; ?>;
+  var mapping = ['J', 'E', 'H', 'G', 'D', 'B', 'A', 'C', 'F', 'I'];
   var trialStage = 1;
   var hypothesisCount = 0;
+
+  console.log(mapping);
 
 $( document ).ready(function() {
   $(".alert").hide();

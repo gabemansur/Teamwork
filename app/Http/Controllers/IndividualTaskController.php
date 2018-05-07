@@ -286,6 +286,10 @@ class IndividualTaskController extends Controller
       $groupTaskId = $request->session()->get('currentGroupTask');
       $individualTaskId = $request->session()->get('currentIndividualTask');
 
+      $currentTask = \Teamwork\GroupTask::find($groupTaskId);
+      $parameters = unserialize($currentTask->parameters);
+      $function = (new \Teamwork\Tasks\Optimization)->getFunction($parameters->function);
+
       $r = new Response;
       $r->group_tasks_id = $groupTaskId;
       $r->individual_tasks_id = $individualTaskId;
@@ -294,7 +298,22 @@ class IndividualTaskController extends Controller
       $r->response = $request->final_result;
       $r->save();
 
-      return redirect('/end-individual-task');
+      $best = '';
+      switch($function) {
+        case 'a':
+          $best = "The actual best answer is 240, which is typically associated with an output of 163";
+          break;
+        case 'b':
+          $best = "The actual best answer is 21, which is typically associated with an output of 140";
+          break;
+      }
+
+
+      $results = 'You have completed the Optimization Task.<br>'.$best;
+      $request->session()->put('currentIndividualTaskResult', $results);
+      $request->session()->put('currentIndividualTaskName', 'Optimization Task');
+
+      return redirect('/individual-task-results');
 
     }
 
@@ -418,7 +437,7 @@ class IndividualTaskController extends Controller
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Memory Task');
 
-      return redirect('\individual-task-results');
+      return redirect('/individual-task-results');
 
     }
 
@@ -474,7 +493,7 @@ class IndividualTaskController extends Controller
 
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Eyes Task');
-      return redirect('\individual-task-results');
+      return redirect('/individual-task-results');
     }
 
     public function brainstormingIntro() {
@@ -513,7 +532,7 @@ class IndividualTaskController extends Controller
       $request->session()->put('currentIndividualTaskResult', false);
       $request->session()->put('currentIndividualTaskName', 'Brainstorming Task');
 
-      return redirect('\individual-task-results');
+      return redirect('/individual-task-results');
     }
 
     public function shapesIntro() {
@@ -549,10 +568,10 @@ class IndividualTaskController extends Controller
       $r->points = $correct;
       $r->save();
 
-      $results = 'You earned '.$correct.' points for this task.';
+      $results = 'You have completed the Shapes Task.';
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Shapes Task');
-      return redirect('\individual-task-results');
+      return redirect('/individual-task-results');
     }
 
     public function testMemory() {

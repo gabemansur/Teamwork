@@ -26,7 +26,7 @@ $( document ).ready(function() {
         in absolute confidence, and deleted at the conclusion of the study.
       </h3>
       <h3>
-        Remember to describe yourself as you generally are now, not as you
+        Describe yourself as you generally are now, not as you
         wish to be in the future. Describe yourself as honestly as you can,
         compared to other people you know of roughly the same age and sex.
       </h3>

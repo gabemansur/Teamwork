@@ -58,33 +58,9 @@ class GroupTask extends Model
 
     public static function initializeDefaultTasks($group_id, $randomize) {
 
-      $taskArray = '[{"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":"all"}},{"taskName":"BigFive","taskParams":{"hasIndividuals":"true","hasGroup":"false","statementOrder":"random"}},{"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},{"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"10"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"random","maxResponses":"6"}},{"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"1"}}]';
+      $taskArray = '[{"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":"all"}},{"taskName":"BigFive","taskParams":{"hasIndividuals":"true","hasGroup":"false","statementOrder":"random"}},{"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},{"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"10"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"a","maxResponses":"6"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"b","maxResponses":"6"}},{"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"1"}},{"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":["faces_1","words_1","story_1"]}}]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
 
-      /*
-      $tasks = Self::$TASKS;
-
-      if($randomize) shuffle($tasks);
-
-      foreach($tasks as $key => $task) {
-
-        $g = new GroupTask;
-        $g->group_id = $group_id;
-        $g->name = $task['name'];
-        $g->order = $key + 1;
-        $g->parameters = serialize(Self::setDefaultTaskParameters($task['name']));
-        $g->save();
-
-        if($task['hasIndividuals']) {
-          \Teamwork\IndividualTask::create(['group_task_id' => $g->id]);
-        }
-      }
-
-      return GroupTask::where('group_id', $group_id)
-                      ->with('individualTasks')
-                      ->orderBy('order', 'ASC')
-                      ->get();
-      */
     }
 
     public static function initializeTasks($group_id, $requiredTasks, $randomize = false) {

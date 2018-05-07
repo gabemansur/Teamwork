@@ -132,8 +132,8 @@ class Memory {
           'blocks' => [
               ['type' => 'text',
                'text' => 'Next, we’ll test word memory. In this task,
-                        you’ll be presented with a set of ‘target words’.  Word
-                        will appear for a maximum of 2 seconds. We’ll start
+                        you’ll be presented with a set of "target words".  Each word
+                        will show up separately for 2 seconds. We’ll start
                         with a practice. In the practice round, you only have
                         to remember 3 target words.',],
               ['type' => 'review',
