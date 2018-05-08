@@ -24,7 +24,7 @@ div.word-list span {
 }
 
 #guess-history {
-  margin-top: 160px;
+  margin-top: 60px;
   table-layout: fixed;
 }
 
@@ -170,6 +170,11 @@ form#big-five-form th.rotate > div {
 
 /* Eyes */
 img.eyes {
-  width: 724px;
+  width: 524px;
   height: auto;
+}
+
+/* Shapes */
+img.img-fluid {
+  max-width: 40%!important;
 }

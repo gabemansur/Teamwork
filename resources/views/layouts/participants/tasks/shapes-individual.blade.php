@@ -5,6 +5,10 @@
   <script src="{{ URL::asset('js/timer.js') }}"></script>
 @stop
 
+@section('css')
+  <link rel="stylesheet" href="{{ URL::asset('css/tasks.css') }}">
+@stop
+
 @section('content')
 
 <script>

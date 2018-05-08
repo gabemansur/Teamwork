@@ -201,6 +201,12 @@ Route::get('/optimization-individual-intro', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/optimization-individual-alt-intro', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@optimizationAltIntro',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/optimization-individual', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@optimization',

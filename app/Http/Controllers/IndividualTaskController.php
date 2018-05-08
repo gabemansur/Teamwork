@@ -251,8 +251,15 @@ class IndividualTaskController extends Controller
              ->with('sorted', $aSorted);
     }
 
-    public function optimizationIntro() {
-      return view('layouts.participants.tasks.optimization-individual-intro');
+    public function optimizationIntro(Request $request) {
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      if($parameters->useAltIntro == 'yes') return redirect('/optimization-individual-alt-intro');
+      else return view('layouts.participants.tasks.optimization-individual-intro');
+    }
+
+    public function optimizationALtIntro(Request $request) {
+      return view('layouts.participants.tasks.optimization-individual-alt-intro');
     }
 
     public function optimization(Request $request) {
@@ -433,7 +440,7 @@ class IndividualTaskController extends Controller
 
         }
       }
-      $results .= 'You have completed the Memory Task.<br><br><h1>You performed best on the <u>'. $bestTest['task_type'] .'</u> test.</h1>';
+      $results .= 'You have completed the Memory Task.<br><br><h1>You performed best on the <span class="text-primary">'. $bestTest['task_type'] .'</span> test.</h1>';
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Memory Task');
 

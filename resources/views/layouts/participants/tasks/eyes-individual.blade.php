@@ -31,8 +31,8 @@ $( document ).ready(function() {
             than one word is applicable but please choose just one word, the word
             which you consider to be most suitable. Before making your choice, make
             sure that you have read all 4 words. You should try to do the task as
-            quickly as possible but you will not be timed. If you really don't know
-            what a word means you can look it up in the definition handout.
+            quickly as possible but you will not be timed. If you don't know
+            what a word means you can look it up.
           </h3>
         </div>
         @foreach($tests as $key => $test)

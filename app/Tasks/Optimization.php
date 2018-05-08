@@ -8,6 +8,7 @@ class Optimization {
   private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'],
                                      'hasGroup' => ['true', 'false'],
                                      'function' => ['a', 'b'],
+                                     'useAltIntro' => ['yes', 'no'],
                                      'maxResponses' => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]];
 
 
