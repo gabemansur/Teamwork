@@ -37,6 +37,11 @@ class LoginController extends Controller
       return view('layouts.participants.individual-only-login');
     }
 
+    public function individualPackageLogin($package) {
+      return view('layouts.participants.individual-only-login')
+             ->with('package', $package);
+    }
+
     public function postIndividualLogin(Request $request) {
 
       $group = Group::firstOrCreate(['group_number' => uniqid()]);
@@ -53,6 +58,11 @@ class LoginController extends Controller
 
        if($group->id != $user->group_id) {
          return redirect()->back()->withInput()->withErrors('It appears that you already belong to another group.');
+       }
+
+       if(isset($request->task_package)) {
+         if($request->task_package == 'eq') \Teamwork\GroupTask::initializeEQTasks(\Auth::user()->group_id, $randomize = false);
+         if($request->task_package == 'iq') \Teamwork\GroupTask::initializeIQTasks(\Auth::user()->group_id, $randomize = false);
        }
 
        return redirect('/get-individual-task');

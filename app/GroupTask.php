@@ -63,6 +63,16 @@ class GroupTask extends Model
 
     }
 
+    public static function initializeIQTasks($group_id, $randomize) {
+      $taskArray = '[{"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"1"}},{"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"15"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"c","useAltIntro":"no","maxResponses":"6"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"f","useAltIntro":"yes","maxResponses":"6"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"e","useAltIntro":"yes","maxResponses":"6"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"a","useAltIntro":"yes","maxResponses":"6"}},{"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":["faces_1","words_1","story_1"]}}]';
+      return Self::initializeTasks($group_id, $taskArray, $randomize);
+    }
+
+    public static function initializeEQTasks($group_id, $randomize) {
+      $taskArray = '[{"taskName":"BigFive","taskParams":{"hasIndividuals":"true","hasGroup":"false","statementOrder":"random"}},{"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},{"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":"all"}}]';
+      return Self::initializeTasks($group_id, $taskArray, $randomize);
+    }
+
     public static function initializeTasks($group_id, $requiredTasks, $randomize = false) {
 
       $tasks = json_decode($requiredTasks);

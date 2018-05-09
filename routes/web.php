@@ -315,6 +315,10 @@ Route::get('/individual-login', [
 	'uses' => 'LoginController@individualLogin',
 ]);
 
+Route::get('/individual-login/{package}', [
+	'uses' => 'LoginController@individualPackageLogin',
+]);
+
 Route::post('/individual-login', [
 	'uses' => 'LoginController@postIndividualLogin',
 ]);
@@ -341,6 +345,12 @@ Route::get('/group-add-participants', [
 
 Route::post('/group-add-participants', [
 	'uses' => 'LoginController@postGroupAddParticipants',
+]);
+
+Route::get('/admin', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'AdminController@getResponses',
+	'roles' => ['Researcher'] // Only a logged in user can view this page
 ]);
 
 // Testing Routes

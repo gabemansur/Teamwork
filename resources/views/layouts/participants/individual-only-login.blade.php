@@ -19,6 +19,9 @@
             <label for="participant_id">Participant ID</label>
             <input type="text" class="form-control" name="participant_id"
                    value="{{ old('participant_id') }}">
+            @if(isset($package))
+              <input type="hidden" name="task_package" value="{{ $package }}">
+            @endif
           </div>
           <div class="text-center">
             <button class="btn btn-lg btn-primary" type="submit">Sign In</button>

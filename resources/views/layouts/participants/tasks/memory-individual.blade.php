@@ -25,7 +25,7 @@
 
       $('.memory-nav').on('click', function(event) {
         if(memory.hasPopup()) {
-          event.stopImmediatePropogation();
+          event.stopImmediatePropagation();
         }
         memory.advance();
         event.preventDefault();
