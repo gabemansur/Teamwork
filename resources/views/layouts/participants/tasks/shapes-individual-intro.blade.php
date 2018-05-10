@@ -18,7 +18,7 @@
       <div id="inst_1" class="inst">
         <h2 class="text-primary">Shapes Task</h2>
         <h3>
-          Next we have a task where you will try to understand patterns and
+          First we have a task where you will try to understand patterns and
           shapes. You will have to identify what comes next. We’ll start with
           a practice.
         </h3>
@@ -73,7 +73,7 @@
           correctly go in the empty box and type in your answer in the answer
           box, as you did in the example. You may not have time to finish them
           all, but work as quickly and carefully as you can. There are 12 problems
-          and the total time is 6 minutes. There is a timer on the top right.
+          and the total time is 3 minutes. There is a timer on the top right.
           You may change your answer if you change your mind, but not after the time is over.
         </h3>
       </div>

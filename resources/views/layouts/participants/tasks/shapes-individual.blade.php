@@ -20,7 +20,7 @@
         event.preventDefault();
       });
 
-      initializeTimer(360, function() {
+      initializeTimer(180, function() {
         $('#submitPrompt').modal();
       }, 'shapes-cookie');
 

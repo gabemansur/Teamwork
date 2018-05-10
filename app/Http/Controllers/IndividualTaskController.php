@@ -267,6 +267,13 @@ class IndividualTaskController extends Controller
       $parameters = unserialize($currentTask->parameters);
       $function = (new \Teamwork\Tasks\Optimization)->getFunction($parameters->function);
       $maxResponses = $parameters->maxResponses;
+
+      // Record the start time for this task
+      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
+                                'group_tasks_id' => $request->session()->get('currentGroupTask'),
+                                'individual_tasks_id' => $request->session()->get('currentIndividualTask')]);
+      $time->recordStartTime();
+
       return view('layouts.participants.tasks.optimization-individual')
              ->with('function', $function)
              ->with('maxResponses', $maxResponses)
@@ -305,6 +312,12 @@ class IndividualTaskController extends Controller
       $r->response = $request->final_result;
       $r->save();
 
+      // Record the end time for this task
+      $time = Time::where('user_id', '=', \Auth::user()->id)
+                  ->where('group_tasks_id', '=', $currentTask->id)
+                  ->first();
+      $time->recordEndTime();
+
       $best = '';
       switch($function) {
         case 'a':
@@ -316,7 +329,7 @@ class IndividualTaskController extends Controller
       }
 
 
-      $results = 'You have completed the Optimization Task.<br>'.$best;
+      $results = $best;
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Optimization Task');
 
@@ -549,6 +562,13 @@ class IndividualTaskController extends Controller
     public function shapesIndividual() {
       $task = new Task\Shapes;
       $shapes = $task->getShapes();
+
+      // Record the start time for this task
+      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
+                                'group_tasks_id' => $request->session()->get('currentGroupTask'),
+                                'individual_tasks_id' => $request->session()->get('currentIndividualTask')]);
+      $time->recordStartTime();
+
       return view('layouts.participants.tasks.shapes-individual')
              ->with('shapes', $shapes['subtest1']);
     }
@@ -574,6 +594,12 @@ class IndividualTaskController extends Controller
       $r->response = json_encode($request->all());
       $r->points = $correct;
       $r->save();
+
+      // Record the end time for this task
+      $time = Time::where('user_id', '=', \Auth::user()->id)
+                  ->where('group_tasks_id', '=', $groupTaskId)
+                  ->first();
+      $time->recordEndTime();
 
       $results = 'You have completed the Shapes Task.';
       $request->session()->put('currentIndividualTaskResult', $results);

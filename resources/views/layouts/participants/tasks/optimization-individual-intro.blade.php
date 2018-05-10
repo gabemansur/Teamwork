@@ -23,7 +23,7 @@ $( document ).ready(function() {
       <h3>
         The goal of this task is to try to find the number (between 0 and 300)
         that results in your computer returning the biggest possible value.
-        You will have [6] guesses, which you enter into your own laptop.
+        You will have [9] guesses, which you enter into your own laptop.
         A guess can be any number between [0] and [300].
       </h3>
       <h3>
@@ -35,7 +35,7 @@ $( document ).ready(function() {
         Usually, numbers that are close to each other will receive outputs.
       </h3>
       <h3>
-        After your 6 guesses, you will be asked to enter the number that you
+        After your 9 guesses, you will be asked to enter the number that you
         believe gives the highest response.
       </h3>
       <div class="text-center">

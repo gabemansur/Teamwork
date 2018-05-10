@@ -172,10 +172,10 @@ $( document ).ready(function() {
   </div>
   <div class="row">
     <div class="col-md-12 text-center">
-      <h3>
+      <h5>
         Enter your guess below to try to find the number <br>that generates
         the biggest possible output.
-      </h3>
+      </h5>
     </div>
   </div>
   <div class="row">

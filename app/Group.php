@@ -17,4 +17,8 @@ class Group extends Model
     public function groupTasks() {
       return $this->hasMany('\Teamwork\GroupTask');
     }
+
+    public function responses() {
+      return $this->hasManyThrough('Teamwork\Response', 'Teamwork\GroupTask');
+    }
 }
