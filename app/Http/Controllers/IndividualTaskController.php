@@ -559,7 +559,7 @@ class IndividualTaskController extends Controller
       return view('layouts.participants.tasks.shapes-individual-intro');
     }
 
-    public function shapesIndividual() {
+    public function shapesIndividual(Request $request) {
       $task = new Task\Shapes;
       $shapes = $task->getShapes();
 
