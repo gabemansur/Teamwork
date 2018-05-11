@@ -597,7 +597,7 @@ class IndividualTaskController extends Controller
 
       // Record the end time for this task
       $time = Time::where('user_id', '=', \Auth::user()->id)
-                  ->where('group_tasks_id', '=', $groupTaskId)
+                  ->where('group_tasks_id', '=', $request->session()->get('currentGroupTask'))
                   ->first();
       $time->recordEndTime();
 
