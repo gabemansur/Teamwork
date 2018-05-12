@@ -178,7 +178,7 @@ class GroupTaskController extends Controller
 
         foreach ($guesses as $key => $guess) {
           $g = explode('=', $guess);
-          if($g[1] == '---') continue; // If the guess for this letter is blank
+          if(count($g) < 2 || $g[1] == '---') continue; // If the guess for this letter is blank
           if(count($g) == 2 && $g[0] != $mapping[$g[1]]){
             $correct = false;
           }
@@ -189,7 +189,7 @@ class GroupTaskController extends Controller
       $r->group_tasks_id = $groupTaskId;
       $r->user_id = \Auth::user()->id;
       if($request->prompt == "Guess Full Mapping") {
-        $r->prompt = $request->mapping;
+        $r->prompt = json_encode($request->mapping);
       }
       else {
         $r->prompt = $request->prompt;
