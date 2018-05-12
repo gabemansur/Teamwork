@@ -560,8 +560,11 @@ class IndividualTaskController extends Controller
     }
 
     public function shapesIndividual(Request $request) {
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+
       $task = new Task\Shapes;
-      $shapes = $task->getShapes();
+      $shapes = $task->getShapes($parameters->subtest);
 
       // Record the start time for this task
       $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
@@ -570,30 +573,40 @@ class IndividualTaskController extends Controller
       $time->recordStartTime();
 
       return view('layouts.participants.tasks.shapes-individual')
-             ->with('shapes', $shapes['subtest1']);
+             ->with('shapes', $shapes);
     }
 
     public function saveShapesIndividual(Request $request) {
+
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $individualTask = $request->session()->get('currentIndividualTask');
+      $parameters = unserialize($currentTask->parameters);
+
       $task = new Task\Shapes;
-      $shapes = $task->getShapes();
-      $answers = $shapes['subtest1']['answers'];
-      $correct = 0;
+      $shapes = $task->getShapes($parameters->subtest);
+
+      $answers = $shapes['answers'];
 
       foreach ($request->all() as $key => $input) {
-        if($key != '_token' && $input == $answers[$key - 1]) {
-          $correct++;
+        if($key == '_token') continue;
+
+        if($input == $answers[$key - 1]) {
+          $correct = 1;
         }
+
+        else $correct = 0;
+
+        $r = new Response;
+        $r->group_tasks_id = $currentTask->id;
+        $r->individual_tasks_id = $individualTask;
+        $r->user_id = \Auth::user()->id;
+        $r->prompt = $parameters->subtest.' : '.$key;
+        $r->response = $input;
+        $r->correct = $correct;
+        $r->points = $correct;
+        $r->save();
+
       }
-
-
-      $r = new Response;
-      $r->group_tasks_id = $request->session()->get('currentGroupTask');
-      $r->individual_tasks_id = $request->session()->get('currentIndividualTask');
-      $r->user_id = \Auth::user()->id;
-      $r->prompt = 'subtest1';
-      $r->response = json_encode($request->all());
-      $r->points = $correct;
-      $r->save();
 
       // Record the end time for this task
       $time = Time::where('user_id', '=', \Auth::user()->id)

@@ -7,71 +7,6 @@ use Excel;
 
 class AdminController extends Controller
 {
-    public function xgetResponses() {
-
-      $users = \Teamwork\User::where('role_id', 3)
-                             ->with('group')
-                             ->get();
-
-      $userData = [];
-
-      foreach ($users as $key => $user) {
-
-        $groupTasks = \Teamwork\GroupTask::with('response')
-                                    ->find($user->group->id)
-                                    ->get();
-
-        $uData = ['user' => $user->id,
-                  'group'=> $user->group->id,
-                  'tasks' => []];
-
-        foreach ($groupTasks as $k => $task) {
-
-          $time = \DB::table('times')
-                     ->where('user_id', $user->id)
-                     ->where('group_tasks_id', $task->id)
-                     ->first();
-
-          if($time) {
-            $t = strtotime($time->end_time) - strtotime($time->start_time);
-          }
-
-          else $t = null;
-
-
-          try {
-            $params = unserialize($task->parameters);
-          }
-
-          catch(\Exception $e) {
-            $params = null;
-          }
-
-
-          $taskData = ['name' => $task->name,
-                       'parameters' => $params,
-                       'time' => $t,
-                       'responses' => []];
-
-          $responses = [];
-          foreach ($task->response as $response) {
-            $responses[] = ['prompt' => $response->prompt,
-                            'response' => $response->response,
-                            'correct' => $response->correct,
-                            'points' => $response->points,
-                            'time' => $response->time];
-
-          }
-          array_push($taskData['responses'], $responses);
-          //dump($taskData);
-          array_push($uData['tasks'], $taskData);
-        }
-
-        array_push($userData, $uData);
-      }
-      //dump($userData);
-
-    }
 
     public function xxgetResponses() {
 
@@ -101,16 +36,15 @@ class AdminController extends Controller
 
     public function getResponses() {
       $users = \Teamwork\User::where('role_id', 3)
-                             ->where('id', '<', 20)
                              ->with('group');
 
       $userData = [];
 
+      // Pass reference to userData so we can push to it inside the closure
       $users->chunk(1, function ($users) use(&$userData) {
             array_push($userData, $this->collectResponses($users));
       });
 
-      dump($userData);
       /*
       foreach($userData as $data) {
         foreach($data as $user) {
@@ -136,7 +70,7 @@ class AdminController extends Controller
                     'tasks' => []];
 
           $groupTasks = \Teamwork\GroupTask::with('response')
-                                           ->find($user->group->id)
+                                           ->where('group_id', $user->group->id)
                                            ->get();
 
           foreach ($groupTasks as $k => $task) {
@@ -173,7 +107,7 @@ class AdminController extends Controller
                               'response' => $response->response,
                               'correct' => $response->correct,
                               'points' => $response->points,
-                              'time' => $response->time];
+                              'time' => $response->created_at];
 
             }
             array_push($taskData['responses'], $responses);

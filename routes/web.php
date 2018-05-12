@@ -362,3 +362,7 @@ Route::get('/optimization-test', [
 Route::get('/memory-test', [
   'uses' => 'IndividualTaskController@testMemory',
 ]);
+
+Route::get('/cryptography-save-test', [
+  'uses' => 'GroupTaskController@testCryptograhySave',
+]);

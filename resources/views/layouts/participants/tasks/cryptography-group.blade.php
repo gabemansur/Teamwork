@@ -94,10 +94,10 @@ $( document ).ready(function() {
       });
 
       $("#mapping-list").html(mappingList);
-
       $.post("/cryptography", {
           _token: "{{ csrf_token() }}",
           prompt: "Guess Full Mapping",
+          mapping: mapping,
           guess: guessStr
         } );
 
