@@ -171,15 +171,13 @@ class GroupTaskController extends Controller
 
       if($request->prompt == "Guess Full Mapping") {
 
-        $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
-        $parameters = unserialize($currentTask->parameters);
-        $mapping = (new \Teamwork\Tasks\Cryptography)->getMapping($parameters->mapping);
         $guesses = explode(',', $request->guess);
-
+        $mapping = json_decode($request->mapping);
+        $correct = true;
         foreach ($guesses as $key => $guess) {
           $g = explode('=', $guess);
           if(count($g) < 2 || $g[1] == '---') continue; // If the guess for this letter is blank
-          if(count($g) == 2 && $g[0] != $mapping[$g[1]]){
+          if($g[0] != $mapping[$g[1]]){
             $correct = false;
           }
         }
@@ -189,7 +187,7 @@ class GroupTaskController extends Controller
       $r->group_tasks_id = $groupTaskId;
       $r->user_id = \Auth::user()->id;
       if($request->prompt == "Guess Full Mapping") {
-        $r->prompt = json_encode($request->mapping);
+        $r->prompt = "Guess Full Mapping: ".json_encode($request->mapping);
       }
       else {
         $r->prompt = $request->prompt;
@@ -212,28 +210,32 @@ class GroupTaskController extends Controller
     }
 
     public function testCryptograhySave(Request $request) {
-      $groupTaskId = $request->session()->get('currentGroupTask');
+      //$groupTaskId = $request->session()->get('currentGroupTask');
 
       $correct = true;
-
+      dump($request->mapping);
       if($request->prompt == "Guess Full Mapping") {
 
-        $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
+        //$currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
         $parameters = unserialize($currentTask->parameters);
-        $mapping = (new \Teamwork\Tasks\Cryptography)->getMapping($parameters->mapping);
+        $mapping = json_decode($request->mapping);
+        dump($mapping);
+        $correct = true;
         $guesses = explode(',', $request->guess);
         foreach ($guesses as $key => $guess) {
           $g = explode('=', $guess);
           if(count($g) < 2 || $g[1] == '---') continue; // If the guess for this letter is blank
-          if(count($g) == 2 && $g[0] != $mapping[$g[1]]){
+          dump('Guess: '.$g[0]. ' Mapped to: '.$mapping[$g[1]]);
+          if($g[0] != $mapping[$g[1]]){
+            dump('not equal');
             $correct = false;
           }
         }
       }
 
       $r = new Response;
-      $r->group_tasks_id = $groupTaskId;
-      $r->user_id = \Auth::user()->id;
+      //$r->group_tasks_id = $groupTaskId;
+      //$r->user_id = \Auth::user()->id;
       if($request->prompt == "Guess Full Mapping") {
         $r->prompt = $request->mapping;
       }
@@ -245,6 +247,7 @@ class GroupTaskController extends Controller
       if($request->prompt == "Guess Full Mapping") {
         $r->correct = $correct;
       }
-      $r->save();
+      //$r->save();
+      //dump($r);
     }
 }

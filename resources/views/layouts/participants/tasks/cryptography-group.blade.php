@@ -27,6 +27,8 @@ $( document ).ready(function() {
 
   var crypto = new Cryptography(mapping);
 
+  console.log(JSON.stringify(mapping));
+
   $("#submit-equation").on("click", function(event) {
 
     $("#alert").hide();
@@ -97,7 +99,7 @@ $( document ).ready(function() {
       $.post("/cryptography", {
           _token: "{{ csrf_token() }}",
           prompt: "Guess Full Mapping",
-          mapping: mapping,
+          mapping: JSON.stringify(mapping),
           guess: guessStr
         } );
 
