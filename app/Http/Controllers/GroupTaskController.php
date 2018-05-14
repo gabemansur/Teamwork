@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Teamwork\GroupTask;
 use Teamwork\Response;
 use \Teamwork\Tasks as Task;
+use \Teamwork\Time;
 
 class GroupTaskController extends Controller
 {
@@ -158,6 +159,13 @@ class GroupTaskController extends Controller
       $maxResponses = $parameters->maxResponses;
       $sorted = $mapping;
       sort($sorted);
+
+      // Record the start time for this task
+      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
+                                'group_tasks_id' => $currentTask->id,
+                                'individual_tasks_id' => $request->session()->get('currentIndividualTask')]);
+      $time->recordStartTime();
+
       return view('layouts.participants.tasks.cryptography-group')
              ->with('mapping',json_encode($mapping))
              ->with('sorted', $sorted)
@@ -176,7 +184,14 @@ class GroupTaskController extends Controller
         $correct = true;
         foreach ($guesses as $key => $guess) {
           $g = explode('=', $guess);
-          if(count($g) < 2 || $g[1] == '---') continue; // If the guess for this letter is blank
+          if(count($g) < 2 ){ // This is the trailing comma
+            continue;
+          }
+          if($g[1] == '---') { // If the guess for this letter is blank
+            $correct = false;
+            continue;
+
+          }
           if($g[0] != $mapping[$g[1]]){
             $correct = false;
           }
@@ -205,6 +220,13 @@ class GroupTaskController extends Controller
       $task->points = $request->task_result;
       $task->completed = true;
       $task->save();
+
+      // Record the end time for this task
+      $time = Time::where('user_id', '=', \Auth::user()->id)
+                  ->where('group_tasks_id', '=', $task->id)
+                  ->first();
+      $time->recordEndTime();
+
       if(\Auth::user()->role_id == 3) return redirect('/end-individual-task');
       else return redirect('/get-group-task');
     }
