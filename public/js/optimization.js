@@ -10,7 +10,7 @@ var taskFunctions = {
 
     c: function(x) {
 
-      return -1 * ( Math.pow( (150 - x) , 2 ) / 150 );
+      return 150 - ( Math.pow( (150 - x) , 2 ) / 150 );
     },
 
     d: function(x) {
