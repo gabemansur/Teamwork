@@ -161,7 +161,7 @@ class Memory {
               ['type' => 'review',
               'text' => '',
               'targets' => ['horse', 'cave', 'lion', 'opal', 'tiger',
-                          'pearl', 'hut', 'emerald', 'saphire',
+                          'pearl', 'hut', 'emerald', 'sapphire',
                           'tent', 'hotel', 'cow'],
               'review_time_each' => 2,
               'review_time' => null],

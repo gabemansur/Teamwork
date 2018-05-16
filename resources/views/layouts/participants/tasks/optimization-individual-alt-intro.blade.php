@@ -21,8 +21,9 @@ $( document ).ready(function() {
     <div class="col-md-12 text-center">
       <h2 class="text-primary">Optimization Task</h2>
       <h3>
-        Now you'll perform the task again but with a different relationship
-        between the number you enter and the output you receive.
+        Now you'll perform the task again. Enter numbers between 0 and 300.
+        This time, there's a different relationship between the number you
+        enter and the output you receive.
       </h3>
       <div class="text-center">
         <a class="btn btn-lg btn-primary"

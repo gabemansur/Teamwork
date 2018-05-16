@@ -24,7 +24,7 @@ div.word-list span {
 }
 
 #guess-history {
-  margin-top: 12px;
+  margin-top: 120px;
   table-layout: fixed;
   font-size: 14px;
 }

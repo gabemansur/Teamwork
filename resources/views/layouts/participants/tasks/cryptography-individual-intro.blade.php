@@ -130,7 +130,7 @@ $( document ).ready(function() {
         </h5>
         <div id="hypothesis">
           <h4 class="text-warning">
-            Practice: enter an equation!
+            Practice: enter a hypothesis!
           </h4>
           <h5>
             Use the drop-downs to propose a mapping for one of the letters.

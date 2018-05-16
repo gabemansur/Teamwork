@@ -318,19 +318,7 @@ class IndividualTaskController extends Controller
                   ->first();
       $time->recordEndTime();
 
-      $best = '';
-      switch($function) {
-        case 'a':
-          $best = "The actual best answer is 240, which is typically associated with an output of 163";
-          break;
-        case 'b':
-          $best = "The actual best answer is 21, which is typically associated with an output of 140";
-          break;
-      }
-
-
-      $results = $best;
-      $request->session()->put('currentIndividualTaskResult', $results);
+      $request->session()->put('currentIndividualTaskResult', '');
       $request->session()->put('currentIndividualTaskName', 'Optimization Task');
 
       return redirect('/individual-task-results');
