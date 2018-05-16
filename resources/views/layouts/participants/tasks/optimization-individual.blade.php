@@ -86,9 +86,7 @@ $( document ).ready(function() {
           responses.push({guess: n, result: result});
           $("#guess-history").append("<tr><td>" + guessNumber + " of " + MAX_RESPONSES +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
           $("#guess").val('');
-          $("#guess").prop( "readonly", true );
           $("#guess-prompt").hide();
-          $("#timer-container").show();
         });
 
     $.post("/optimization-individual", {
@@ -121,13 +119,14 @@ $( document ).ready(function() {
     }
 
     else {
-
+      /*
       initializeTimer(5, function() {
         $("#warning").hide();
         $("#guess").prop( "readonly", false );
         $("#timer-container").hide();
         $("#guess-prompt").show();
       });
+    */
     }
 
     event.preventDefault();

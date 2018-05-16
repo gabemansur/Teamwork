@@ -32,7 +32,8 @@ $( document ).ready(function() {
         the number you receive, but the relationship may be difficult to
         understand. Every time you enter the same number, the output you
         receive will be similar (but there is some randomness added in).
-        Usually, numbers that are close to each other will receive outputs.
+        Usually, numbers that are close to each other will receive
+        very similar outputs.
       </h3>
       <h3>
         After your 9 guesses, you will be asked to enter the number that you
