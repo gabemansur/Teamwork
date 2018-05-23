@@ -13,6 +13,7 @@
 
 <script>
 
+    var numShapes = {{ $shapes['length'] }};
     $( document ).ready(function() {
 
       $("#timer-submit").on("click", function(event) {
@@ -22,7 +23,21 @@
 
       initializeTimer(180, function() {
         $('#submitPrompt').modal();
-      }, 'shapes-cookie');
+      });
+
+      $("#back").on('click', function(event) {
+        if(parseInt($("#curr-page").html() - 1) <= numShapes) {
+          $("#next").show();
+          $("#pagination-display").show();
+        }
+      });
+
+      $("#next").on('click', function(event) {
+        if(parseInt($("#curr-page").html()) == numShapes) {
+          $("#next").hide();
+          $("#pagination-display").hide();
+        }
+      });
 
       instructionPaginator(function(){
 
@@ -73,6 +88,9 @@
       <div id="instr_nav" class="text-center">
         <input class="btn btn-primary instr_nav btn-lg" type="button" name="back" id="back" value="&#8678; Back">
         <input class="btn btn-primary instr_nav btn-lg" type="button" name="next" id="next" value="Next &#8680;"><br />
+        <span class="text-primary ml-md-4 text-lg" id="pagination-display">
+          <span id="curr-page">1</span> / {{ $shapes['length'] }}
+        </span>
       </div>
     </div>
   </div>

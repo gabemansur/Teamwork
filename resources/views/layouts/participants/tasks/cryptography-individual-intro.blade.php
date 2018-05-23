@@ -65,7 +65,7 @@ $( document ).ready(function() {
       hypothesisCount++;
       var result = crypto.testHypothesis($("#hypothesis-left").val(), $("#hypothesis-right").val());
       var output = (result) ? "true" : "false";
-      $("#hypothesis-result").append('<h4>' + $("#hypothesis-left").val() + " = " + $("#hypothesis-right").val() + " is " + output + '</h4>');
+      $("#hypothesis-result").append('<h6>' + $("#hypothesis-left").val() + " = " + $("#hypothesis-right").val() + " is " + output + '</h6>');
       $("#alert-hypothesis").html('Have another practice.');
       if(hypothesisCount < 2){
         $("#alert-hypothesis").show();
@@ -97,12 +97,9 @@ $( document ).ready(function() {
           "trials". A trial involves three steps. The first step is to propose
           an equation: this is a combination of letters (with + and -). For
           example, you might propose A+B. A is 6, B is 5, and E is 1, so the
-          computer would tell you A+B=EE. As another example, you might say
-          F-G. Here the computer would say F-G=B
-        </h5>
-        <h5>
-          First, let’s look at “EQUATION”. Write a combination of letters
-          (with + and -).
+          computer would tell you A+B=EE.<br> As another example, you might say
+          F-G. Here the computer would say F-G=B.<br> Last, you might say BB-HJ
+          and the computer would say BB-HJ = GB.
         </h5>
         <div id="practice" class="mb-lg-5">
           <div class="row">

@@ -23,13 +23,10 @@
         $("#timerComplete").modal();
       });
 
-      instructionPaginator(function(){
-        $(".container").hide();
-        $("#team-role-responses")[0].submit();
-      });
 
       $("#next").on('click', function(event) {
-        /* Form validation
+        //Form validation
+        $(".alert-danger").hide();
         $('.input:visible .form-check-input').each(function(){
           var name = $(this).attr("name");
           if ($("input:radio[name=" + name + "]:checked").length == 0) {
@@ -38,20 +35,24 @@
             return;
           }
         })
-        */
+        event.preventDefault();
+      });
 
-        // If next is clicked they are now on a scenario (because they are seeing a ul)
-        if($("ul").is(":visible")) {
-
+      // If next is clicked when they leave a question section
+      $("#next").on('click', function(event) {
+        if($("table.team-role").is(":visible")) {
+          // Show popup alerting them there are more scenarios
           if(scenario == 1) {
             $("#scenario1Complete").modal();
             clearInterval(timer);
             event.stopImmediatePropagation();
           }
-
         }
+      });
 
-        event.preventDefault();
+      instructionPaginator(function(){
+        $(".container").hide();
+        $("#team-role-responses")[0].submit();
       });
 
       $("#timer-complete").on('click', function(event){

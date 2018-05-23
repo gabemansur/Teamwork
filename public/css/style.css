@@ -22,3 +22,23 @@
 .text-lg {
   font-size: 150%;
 }
+
+.text-warning {
+  color: #ff8205!important;
+}
+
+.btn-primary {
+  background-color: #809dba!important;
+  border-color: #809dba!important;
+}
+
+/* Gray (Bootstrap's text-secondary)
+.btn-primary {
+  background-color: #6c757d!important;
+  border-color: #6c757d!important;
+}
+
+.text-primary {
+  color: #6c757d!important;
+}
+*/

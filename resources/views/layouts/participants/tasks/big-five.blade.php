@@ -16,29 +16,36 @@
 
       $(".alert-danger").hide();
 
-      $("#submit").on('click', function(event) {
+      // Form validation
+      // Comes before instructionPaginator so the on click handler is bound first
+      $("#next").on('click', function(event) {
+        $(".alert-danger").hide();
         $('.input:visible .form-check-input').each(function(){
           var name = $(this).attr("name");
           if ($("input:radio[name=" + name + "]:checked").length == 0) {
             $(".alert-danger").show();
-            event.preventDefault();
+            event.stopImmediatePropagation();
             return;
           }
         })
-
       });
-
 
 
       instructionPaginator(function(){
         $(".container").hide();
         $("#big-five-form").submit();
       });
+
     });
 
 </script>
 
 <div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <div class="alert alert-danger" role="alert">Please make sure you answer all questions before continuing.</div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-12 text-center">
       <h5 class="mb-lg-4">
@@ -50,7 +57,7 @@
             @for($i = 0; $i < count($statements); $i++)
               @if($i == 0 || $i % 10 == 0)
                 <div id="inst_{{ intdiv($i, 10) + 1}}" class="inst">
-                  <table class="table table-striped table-sm mt-lg-4">
+                  <table class="table table-striped table-sm mt-lg-4 big-five">
                     <tr>
                       <td class="blank"></td>
                       <th class="key">
@@ -87,6 +94,7 @@
             @endfor
       </form>
       <div id="instr_nav" class="text-center">
+        <input class="btn btn-primary instr_nav btn-lg" type="button" name="back" id="back" value="&#8678; Back">
         <input class="btn btn-primary instr_nav btn-lg" type="button" name="next" id="next" value="Next &#8680;">
         <span class="text-primary ml-md-4 text-lg" id="pagination-display">
           <span id="curr-page">1</span> / {{ count($statements) / 10 }}

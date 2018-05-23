@@ -32,9 +32,7 @@
         </h3>
         <h3>
           The correct answer has been
-          given to you in this first example. It’s the tree in the third box,
-          because that’s the one that has tilted over more than the last one
-          in the boxes on the left.
+          given to you in this first example. It’s the tree in the third box.
         </h3>
         <img src="/img/shapes-task/subtest1/example_01.png" class="img-fluid">
       </div>
@@ -45,24 +43,6 @@
           The correct answer for the second example is e.
         </h3>
         <img src="/img/shapes-task/subtest1/example_02.png" class="img-fluid">
-        <div class="row">
-          <div class="col-md-2 offset-md-5">
-            <form class="form mb-lg-5">
-              <div class="form-group mb-lg-2">
-                <label for="example">Your answer:</label>
-                <select class="form-control ml-lg-2" name="exanple">
-                  <option>------</option>
-                  <option value="a">a</option>
-                  <option value="b">b</option>
-                  <option value="c">c</option>
-                  <option value="d">d</option>
-                  <option value="e">e</option>
-                  <option value="f">f</option>
-                </select>
-              </div>
-            </form>
-          </div>
-        </div>
       </div>
       <div id="inst_4" class="inst">
         <h3>

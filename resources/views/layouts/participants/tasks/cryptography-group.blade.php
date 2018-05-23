@@ -2,7 +2,7 @@
 
 @section('js')
   <script src="{{ URL::asset('js/cryptography.js') }}"></script>
-
+  <script src="{{ URL::asset('js/timer.js') }}"></script>
 @stop
 
 @section('css')
@@ -29,6 +29,13 @@ $( document ).ready(function() {
 
   console.log(JSON.stringify(mapping));
 
+  initializeTimer(9000, function() {
+    $("#crypto-form").hide();
+    $("#task-end").show();
+    $("#success").hide();
+    $("#fail").show();
+  });
+
   $("#submit-equation").on("click", function(event) {
 
     $("#alert").hide();
@@ -47,7 +54,7 @@ $( document ).ready(function() {
 
       try {
         var answer = crypto.parseEquation(equation);
-        $("#answers").append('<h3>' + equation + ' = ' + answer + '</h3>');
+        $("#answers").append('<p>' + equation + ' = ' + answer + '</p>');
         $("#equation").val('');
         $('#hypothesis-left option:eq(0)').prop('selected', true);
         $('#hypothesis-right option:eq(0)').prop('selected', true);
@@ -134,7 +141,12 @@ $( document ).ready(function() {
 </script>
 
 <div class="container">
-  <div class="row vertical-center">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <div class="float-right text-primary" id="timer"></div>
+    </div>
+  </div>
+  <div class="row">
     @if(Auth::user()->role_id == 3)
       <div class="col-md-1">
         <h5>Mapping</h5>
@@ -151,9 +163,9 @@ $( document ).ready(function() {
           <span>J = ---</span>
         </div>
       </div>
-      <div class="col-md-8 offset-md-1 text-center">
+      <div class="col-md-5 text-center">
     @else
-      <div class="col-md-8 offset-md-2 text-center">
+    <!--  <div class="col-md-6 offset-md-1 text-center"> -->
     @endif
       <h3>
         Cryptography Task
@@ -194,11 +206,9 @@ $( document ).ready(function() {
               @endfor
           </select>
         </div>
-        <div class="text-primary" id="hypothesis-result"></div>
+        <!-- <div class="text-primary" id="hypothesis-result"></div> -->
 
         <div id="guess-full-mapping">
-          <div class="row">
-            <div class="col-md-6 offset-md-3">
               <h4 class="text-primary">3. Guess the full mapping</h4>
               <h5>
                 Use the drop-downs to guess a value for each element.
@@ -213,15 +223,23 @@ $( document ).ready(function() {
                 </select>
 
               @endforeach
-            </div>
-          </div>
         </div>
 
         <div class="text-center">
           <button class="btn btn-lg btn-primary" id="submit-equation" type="submit">Submit</button>
         </div>
-        <div id="answers"></div>
+        <!-- <div id="answers"></div> -->
       </form>
+      </div>
+      <div class="col-md-4">
+        <h4 class="text-primary">Equations</h4>
+        <div id="answers"></div>
+      </div>
+
+      <div class="col-md-2">
+        <h4 class="text-primary">Hypotheses</h4>
+        <div class="text-primary" id="hypothesis-result"></div>
+      </div>
 
       <div id="task-end">
         <form action="/cryptography-end" method="post">
@@ -237,5 +255,4 @@ $( document ).ready(function() {
 
     </div>
   </div>
-
 @stop
