@@ -39,6 +39,18 @@ div.word-list span {
 
 /* Cryptography */
 
+.text-equation {
+  color: #ff4000!important;
+}
+
+.text-hypothesis {
+  color: #4CAF55!important;
+}
+
+.text-guess {
+  color: #8000ff!important;
+}
+
 #hypothesis {
   width: 100%;
   position: relative;
@@ -69,6 +81,11 @@ div.word-list span {
   float: left;
   clear: both;
   font-weight: bold;
+  font-size: 1.25rem
+}
+
+div.crypto-result {
+  border-left: 1px solid #DCDCDC;
 }
 
 /* Team Role Task */

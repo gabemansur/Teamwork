@@ -54,7 +54,7 @@ $( document ).ready(function() {
 
       try {
         var answer = crypto.parseEquation(equation);
-        $("#answers").append('<p>' + equation + ' = ' + answer + '</p>');
+        $("#answers").append('<h5>' + equation + ' = ' + answer + '</h5>');
         $("#equation").val('');
         $('#hypothesis-left option:eq(0)').prop('selected', true);
         $('#hypothesis-right option:eq(0)').prop('selected', true);
@@ -79,7 +79,7 @@ $( document ).ready(function() {
       trialStage++;
       var result = crypto.testHypothesis($("#hypothesis-left").val(), $("#hypothesis-right").val());
       var output = (result) ? "true" : "false";
-      $("#hypothesis-result").append('<h4>' + $("#hypothesis-left").val() + " = " + $("#hypothesis-right").val() + " is " + output + '</h4>');
+      $("#hypothesis-result").append('<h5>' + $("#hypothesis-left").val() + " = " + $("#hypothesis-right").val() + " is " + output + '</h5>');
       $("#hypothesis").slideUp();
       $("#guess-full-mapping").slideDown();
 
@@ -147,26 +147,8 @@ $( document ).ready(function() {
     </div>
   </div>
   <div class="row">
-    @if(Auth::user()->role_id == 3)
-      <div class="col-md-1">
-        <h5>Mapping</h5>
-        <div id="mapping-list">
-          <span>A = ---</span>
-          <span>B = ---</span>
-          <span>C = ---</span>
-          <span>D = ---</span>
-          <span>E = ---</span>
-          <span>F = ---</span>
-          <span>G = ---</span>
-          <span>H = ---</span>
-          <span>I = ---</span>
-          <span>J = ---</span>
-        </div>
-      </div>
-      <div class="col-md-5 text-center">
-    @else
-    <!--  <div class="col-md-6 offset-md-1 text-center"> -->
-    @endif
+
+      <div class="col-md-6 text-center">
       <h3>
         Cryptography Task
       </h3>
@@ -175,7 +157,7 @@ $( document ).ready(function() {
 
         <div id="propose-equation">
           <h4 class="text-primary" id="mapping-result"></h4>
-          <h4 class="text-primary">1. Propose an equation</h4>
+          <h4 class="text-equation">1. Propose an equation</h4>
           <h5>Enter the left-hand side of an equation, using letters, addition and
             subtraction: e.g. “A+B”. Please only use the letters A-J plus '+' and '-'.
           </h5>
@@ -186,7 +168,7 @@ $( document ).ready(function() {
         </div>
 
         <div id="hypothesis">
-          <h4 class="text-primary">2. Propose a hypothesis</h4>
+          <h4 class="text-hypothesis">2. Propose a hypothesis</h4>
           <h5>
             Use the drop-downs to propose a mapping for one of the letters.
           </h5>
@@ -209,7 +191,7 @@ $( document ).ready(function() {
         <!-- <div class="text-primary" id="hypothesis-result"></div> -->
 
         <div id="guess-full-mapping">
-              <h4 class="text-primary">3. Guess the full mapping</h4>
+              <h4 class="text-guess">3. Guess the full mapping</h4>
               <h5>
                 Use the drop-downs to guess a value for each element.
               </h5>
@@ -231,16 +213,33 @@ $( document ).ready(function() {
         <!-- <div id="answers"></div> -->
       </form>
       </div>
-      <div class="col-md-4">
-        <h4 class="text-primary">Equations</h4>
+      <div class="col-md-2 crypto-result">
+        <h4 class="text-equation">Equations</h4>
         <div id="answers"></div>
       </div>
 
-      <div class="col-md-2">
-        <h4 class="text-primary">Hypotheses</h4>
-        <div class="text-primary" id="hypothesis-result"></div>
+      <div class="col-md-2 crypto-result">
+        <h4 class="text-hypothesis">Hypotheses</h4>
+        <div id="hypothesis-result"></div>
       </div>
 
+      @if(Auth::user()->role_id == 3)
+        <div class="col-md-2 crypto-result">
+          <h4 class="text-guess">Current Guesses</h4>
+          <div id="mapping-list">
+            <span>A = ---</span>
+            <span>B = ---</span>
+            <span>C = ---</span>
+            <span>D = ---</span>
+            <span>E = ---</span>
+            <span>F = ---</span>
+            <span>G = ---</span>
+            <span>H = ---</span>
+            <span>I = ---</span>
+            <span>J = ---</span>
+          </div>
+        </div>
+      @endif
       <div id="task-end">
         <form action="/cryptography-end" method="post">
           {{ csrf_field() }}

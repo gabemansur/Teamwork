@@ -65,7 +65,7 @@ $( document ).ready(function() {
       hypothesisCount++;
       var result = crypto.testHypothesis($("#hypothesis-left").val(), $("#hypothesis-right").val());
       var output = (result) ? "true" : "false";
-      $("#hypothesis-result").append('<h6>' + $("#hypothesis-left").val() + " = " + $("#hypothesis-right").val() + " is " + output + '</h6>');
+      $("#hypothesis-result").append('<h3>' + $("#hypothesis-left").val() + " = " + $("#hypothesis-right").val() + " is " + output + '</h3>');
       $("#alert-hypothesis").html('Have another practice.');
       if(hypothesisCount < 2){
         $("#alert-hypothesis").show();
@@ -81,57 +81,57 @@ $( document ).ready(function() {
     <div class="col-md-10 offset-md-1 text-center">
       <div id="inst_1" class="inst">
         <h2 class="text-primary">Cryptography Task</h2>
-        <h5>
+        <h3>
           In this task, letters each correspond to a number. The goal of the
           task is to find out which letter corresponds to each number.
-        </h5>
-        <h5>
+        </h3>
+        <h3>
           We’ll start with a practice. To make things clear, say the
           correspondence [which you won’t know] is as follows: <br><br>
           <span class="bg-light p-md-2 mt-md-4">
             A = 6;  B = 5;  C = 7;  D = 4;  E = 1;  F = 8;  G = 3;  H = 2;  I = 9;  J = 0
           </span>
-        </h5>
-        <h5>
+        </h3>
+        <h3>
           Your goal is to uncover this mapping with the minimum number of
           "trials". A trial involves three steps. The first step is to propose
-          an equation: this is a combination of letters (with + and -). For
+          an <span class="text-equation">equation</span>: this is a combination of letters (with + and -). For
           example, you might propose A+B. A is 6, B is 5, and E is 1, so the
           computer would tell you A+B=EE.<br> As another example, you might say
           F-G. Here the computer would say F-G=B.<br> Last, you might say BB-HJ
           and the computer would say BB-HJ = GB.
-        </h5>
+        </h3>
         <div id="practice" class="mb-lg-5">
           <div class="row">
             <div class="col-md-8 offset-md-2">
-              <h4 class="text-warning">
+              <h3 class="text-equation">
                 Practice: enter an equation!
-              </h4>
+              </h3>
               <div class="alert alert-danger" id="alert" role="alert"></div>
               <form class="form-inline">
                 <input type="text" class="form-control form-control-lg mr-lg-5 ml-lg-5" name="equation" id="equation">
                 <button class="btn btn-lg btn-primary submit-equation" id="submit-equation" type="submit">Submit</button>
               </form>
               <h3 class="text-success" id="result"></h3>
-              <h3 class="text-warning next-prompt">Now, try entering another equation.</h3>
+              <h3 class="text-equation next-prompt">Now, try entering another equation.</h3>
             </div>
           </div>
         </div>
       </div> <!-- End inst_1 -->
 
       <div id="inst_2" class="inst">
-        <h5>
-          Second you can suggest a HYPOTHESIS. For example: C=3. If this were
-          your hypothesis, the computer would tell you “FALSE”. If you had
+        <h3>
+          Second you can suggest a <span class="text-hypothesis">HYPOTHESIS</span>. For example: C=3. If this were
+          your <span class="text-hypothesis">hypothesis</span>, the computer would tell you “FALSE”. If you had
           proposed C=2 then, in this case the computer would say “TRUE”
-        </h5>
+        </h3>
         <div id="hypothesis">
-          <h4 class="text-warning">
+          <h3 class="text-hypothesis">
             Practice: enter a hypothesis!
-          </h4>
-          <h5>
+          </h3>
+          <h3>
             Use the drop-downs to propose a mapping for one of the letters.
-          </h5>
+          </h3>
           <select class="form-control propose" id="hypothesis-left">
               <option>---</option>
               @foreach($sorted as $key => $el)
@@ -156,35 +156,35 @@ $( document ).ready(function() {
       </div> <!-- End inst_2 -->
 
       <div id="inst_3" class="inst">
-        <h5>
-          Third, and last, at the end of each trial, you will guess at the
-          whole mapping. If you are correct, the task is complete! If not,
+        <h3>
+          Third, and last, at the end of each trial, you will <span class="text-guess">guess at the
+          whole mapping</span>. If you are correct, the task is complete! If not,
           we start another trial.
-        </h5>
+        </h3>
       </div> <!-- End inst_3 -->
 
       <div id="inst_4" class="inst">
-        <h5>
+        <h2 class="text-primary">>
           To review:
-        </h5>
-        <h5>
+        </h2>
+        <h3>
           You will have a maximum of 15 trials and 10 minutes to solve
           the cryptography task. Each trial has three elements:
-        </h5>
+        </h3>
         <div class="row">
           <div class="col-md-6 offset-md-3 text-left">
-            <h5>
-              1. Propose an equation (e.g. CC+B-A = ?)<br>
-              2. Hypothesis (e.g. C=1)<br>
-              3. Guess the mapping
-            </h5>
+            <h3>
+              1. Propose an <span class="text-equation">equation</span> (e.g. CC+B-A = ?)<br>
+              2. <span class="text-hypothesis">Hypothesis</span> (e.g. C=1)<br>
+              3. <span class="text-guess">Guess the mapping</span>
+            </h3>
           </div>
         </div>
-        <h5>
+        <h3>
           The overall goal is to solve the whole puzzle in the minimum number
           of trials. If you don’t solve the task, you will get some points for
           each letter-number combination you correctly identify.
-        </h5>
+        </h3>
       </div> <!-- End inst_4 -->
       <div id="instr_nav" class="text-center">
         <input class="btn btn-primary instr_nav btn-lg" type="button" name="back" id="back" value="&#8678; Back">

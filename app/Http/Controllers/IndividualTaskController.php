@@ -254,8 +254,22 @@ class IndividualTaskController extends Controller
     public function optimizationIntro(Request $request) {
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
-      if($parameters->useAltIntro == 'yes') return redirect('/optimization-individual-alt-intro');
-      else return view('layouts.participants.tasks.optimization-individual-intro');
+
+      $totalTasks = \Teamwork\GroupTask::where('group_id', \Auth::user()->group_id)
+                                       ->where('name', 'Optimization')
+                                       ->get();
+      $completedTasks = $totalTasks->filter(function($task){
+        if($task->completed) { return $task; }
+      });
+
+      if($parameters->useAltIntro == 'yes') {
+        return redirect('/optimization-individual-alt-intro')
+               ->with('totalTasks', $totalTasks)
+               ->with('completedTasks', $completedTasks);
+      }
+      else return view('layouts.participants.tasks.optimization-individual-intro')
+                  ->with('totalTasks', $totalTasks)
+                  ->with('completedTasks', $completedTasks);;
     }
 
     public function optimizationALtIntro(Request $request) {

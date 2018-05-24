@@ -39,6 +39,7 @@ $( document ).ready(function() {
         After your 9 guesses, you will be asked to enter the number that you
         believe gives the highest response.
       </h3>
+      <h3>In total, you will perform this task {{ count($totalTasks) }} times with {{ count($totalTasks) }} different functions.</h3>
       <div class="text-center">
         <a class="btn btn-lg btn-primary"
            role="button"
