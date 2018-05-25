@@ -19,7 +19,7 @@ $( document ).ready(function() {
 <div class="container">
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
-      <h2 class="text-primary">Optimization Task</h2>
+      <h2 class="text-primary">Optimization Task {{ count($completedTasks) + 1 }} of {{ count($totalTasks) }}</h2>
       <h3>
         Now you'll perform the task again. Enter numbers between 0 and 300.
         This time, there's a different relationship between the number you

@@ -263,17 +263,30 @@ class IndividualTaskController extends Controller
       });
 
       if($parameters->useAltIntro == 'yes') {
-        return redirect('/optimization-individual-alt-intro')
-               ->with('totalTasks', $totalTasks)
-               ->with('completedTasks', $completedTasks);
+        return redirect('/optimization-individual-alt-intro');
       }
       else return view('layouts.participants.tasks.optimization-individual-intro')
                   ->with('totalTasks', $totalTasks)
-                  ->with('completedTasks', $completedTasks);;
+                  ->with('completedTasks', $completedTasks)
+                  ->with('function', 'a')
+                  ->with('maxResponses', $parameters->maxResponses);
     }
 
     public function optimizationALtIntro(Request $request) {
-      return view('layouts.participants.tasks.optimization-individual-alt-intro');
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+
+      $totalTasks = \Teamwork\GroupTask::where('group_id', \Auth::user()->group_id)
+                                       ->where('name', 'Optimization')
+                                       ->get();
+      $completedTasks = $totalTasks->filter(function($task){
+        if($task->completed) { return $task; }
+      });
+
+      return view('layouts.participants.tasks.optimization-individual-alt-intro')
+              ->with('totalTasks', $totalTasks)
+              ->with('completedTasks', $completedTasks)
+              ->with('maxResponses', $parameters->maxResponses);
     }
 
     public function optimization(Request $request) {
@@ -332,8 +345,15 @@ class IndividualTaskController extends Controller
                   ->first();
       $time->recordEndTime();
 
-      $request->session()->put('currentIndividualTaskResult', '');
+      $request->session()->put('currentIndividualTaskResult', 'You have completed the Optimization Task.');
       $request->session()->put('currentIndividualTaskName', 'Optimization Task');
+
+      $nextTask = \Teamwork\GroupTask::where('group_id', $currentTask->group_id)
+                                     ->where('order', $currentTask->order + 1)
+                                     ->first();
+
+      // If there is another Optimization task coming, skip the task results page
+      if($nextTask && $nextTask->name == 'Optimization') return redirect('/end-individual-task');
 
       return redirect('/individual-task-results');
 

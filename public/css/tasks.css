@@ -37,6 +37,19 @@ div.word-list span {
   display: none;
 }
 
+form.optimization-practice {
+  margin-left: 80px;
+}
+
+form.optimization-practice input {
+  width: 110px!important;
+  margin-right: 18px;
+}
+
+table.optimization-practice {
+  margin-top: 12px!important;
+}
+
 /* Cryptography */
 
 .text-equation {

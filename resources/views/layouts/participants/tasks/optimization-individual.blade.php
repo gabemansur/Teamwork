@@ -74,6 +74,7 @@ $( document ).ready(function() {
 
     if(n < 0 || n > 300 || n == '') {
       $("#warning").show();
+      event.preventDefault();
       return;
     }
 
@@ -115,38 +116,20 @@ $( document ).ready(function() {
           backdrop: 'static',
           keyboard: false
         });
+        $("#guess-prompt").html('Enter your final answer');
       }
     }
 
-    else {
-      /*
-      initializeTimer(5, function() {
-        $("#warning").hide();
-        $("#guess").prop( "readonly", false );
-        $("#timer-container").hide();
-        $("#guess-prompt").show();
-      });
-    */
+    // Their final guess
+    else if(guessNumber > MAX_RESPONSES) {
+      $("#final-guess").val($("#guess").val());
+      $("#final-result").val(f($("#guess").val()));
+      $("#optimization-final-form").submit();
     }
 
     event.preventDefault();
   });
 
-  /*
-  $("#timer-submit").on("click", function(event) {
-    $("#brainstorming-responses").submit();
-    event.preventDefault();
-  });
-
-  $("#manual-submit").on("click", function(event) {
-    deleteCookie('task_timer');
-  });
-
-  initializeTimer(120, function() {
-    $("input").prop( "readonly", true );
-    $('#submitPrompt').modal();
-  });
-  */
 });
 
 </script>
@@ -171,7 +154,7 @@ $( document ).ready(function() {
   </div>
   <div class="row">
     <div class="col-md-12 text-center">
-      <h5>
+      <h5 id="guess-prompt">
         Enter your guess below to try to find the number <br>that generates
         the biggest possible output.
       </h5>
@@ -189,7 +172,7 @@ $( document ).ready(function() {
       </form>
     </div>
   </div>
-  <div class="row">
+  <div class="row text-center">
     <div class="col-md-6 offset-md-3">
       <table class="table table-bordered table-sm" id="guess-history">
         <tr class="text-center">
@@ -208,21 +191,12 @@ $( document ).ready(function() {
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title text-center">
-        You have reached the maximum number of guesses. You will now input
-        your final answer.
+        Your next guess is your final answer. Based on your previous {{ $maxResponses }} guesses,
+        type the number that you think will result in the biggest value.
         </h4>
       </div>
       <div class="modal-body text-center">
-        <form action="/optimization-individual-final" id="optimization-final-form" method="post">
-          {{ csrf_field() }}
-          <div class="form-group">
-            <label for="final">Your final answer:</label>
-            <input class="form-control" type="text" name="final" id="final-guess">
-            <input type="hidden" name="final_result" id="final-result">
-            <input type="hidden" name="function" id="final-function" value="{{ $function }}">
-          </div>
-          <button class="btn btn-lg btn-primary pull-right" id="submit-final" type="submit">Submit</button>
-        </form>
+        <button class="btn btn-lg btn-primary pull-right" id="ok-final" data-dismiss="modal" type="button">Ok</button>
       </div>
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
@@ -246,5 +220,13 @@ $( document ).ready(function() {
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
+<form action="/optimization-individual-final" id="optimization-final-form" style="display:none;" method="post">
+          {{ csrf_field() }}
+          <div class="form-group">
+            <input class="form-control" type="text" name="final_guess" id="final-guess">
+            <input type="hidden" name="final_result" id="final-result">
+            <input type="hidden" name="function" id="final-function" value="{{ $function }}">
+          </div>
+</form>
 
 @stop
