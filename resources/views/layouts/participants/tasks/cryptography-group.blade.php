@@ -29,7 +29,7 @@ $( document ).ready(function() {
 
   console.log(JSON.stringify(mapping));
 
-  initializeTimer(9000, function() {
+  initializeTimer(600, function() {
     $("#crypto-form").hide();
     $("#task-end").show();
     $("#success").hide();

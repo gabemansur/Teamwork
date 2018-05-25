@@ -81,10 +81,19 @@ $( document ).ready(function() {
     guessNumber++;
     console.log(f(n));
 
+    if(guessNumber > MAX_RESPONSES) {
+      $("#final-guess").val($("#guess").val());
+      $("#final-result").val(f($("#guess").val()));
+      $("#optimization-final-form").submit();
+      event.preventDefault();
+      return;
+    }
+
     $.get( "/get-prob-val", { mean: f(n) } )
         .done(function( data ) {
           result = Math.round(Number.parseFloat(data));
           responses.push({guess: n, result: result});
+
           $("#guess-history").append("<tr><td>" + guessNumber + " of " + MAX_RESPONSES +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
           $("#guess").val('');
           $("#guess-prompt").hide();
@@ -118,13 +127,6 @@ $( document ).ready(function() {
         });
         $("#guess-prompt").html('Enter your final answer');
       }
-    }
-
-    // Their final guess
-    else if(guessNumber > MAX_RESPONSES) {
-      $("#final-guess").val($("#guess").val());
-      $("#final-result").val(f($("#guess").val()));
-      $("#optimization-final-form").submit();
     }
 
     event.preventDefault();
@@ -181,9 +183,11 @@ $( document ).ready(function() {
           <th>Result</th>
         </tr>
       </table>
+      <button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#instructions" type="button">Review instructions</button>
       </div>
     </div>
   </div>
+
 </div>
 
 <div class="modal fade" id="individual-prompt">
@@ -215,6 +219,41 @@ $( document ).ready(function() {
       <div class="modal-body text-center">
           <button class="btn btn-lg btn-primary pull-left" id="group-login" type="button">Group Sign In</button>
           <button class="btn btn-lg btn-primary pull-right" id="continue" type="button">Continue</button>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+<div class="modal fade" id="instructions">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center text-primary">
+          Optimization Task Instructions
+        </h4>
+      </div>
+      <div class="modal-body text-center">
+          <h6>
+            The goal of this task is to try to find the number
+            (between 0 and 300) that results in your computer returning
+            the biggest possible value. You will have {{ $maxResponses }} guesses, which
+            you enter into your own laptop. A guess can be any number
+            between 0 and 300.
+          </h6>
+          <h6>
+            After you enter your guess, the computer will give you back a
+            number. There is a systematic relationship between the number
+            you guess, and the number you receive, but the relationship
+            may be difficult to understand. Every time you enter the same
+            number, the output you receive will be similar (but there is
+            some randomness added in). Usually, numbers that are close
+            to each other will receive very similar outputs.
+          </h6>
+          <h6>
+            After your {{ $maxResponses }} guesses, you will be asked to enter
+            the number that you believe gives the highest response.
+          </h6>
+          <button class="btn btn-lg btn-primary pull-right" data-dismiss="modal" type="button">Ok</button>
       </div>
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->

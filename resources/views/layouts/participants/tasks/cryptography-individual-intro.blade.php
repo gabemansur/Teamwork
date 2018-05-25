@@ -121,9 +121,9 @@ $( document ).ready(function() {
 
       <div id="inst_2" class="inst">
         <h3>
-          Second you can suggest a <span class="text-hypothesis">HYPOTHESIS</span>. For example: C=3. If this were
+          Second you can suggest a <span class="text-hypothesis">HYPOTHESIS</span>. For example: C = 3. If this were
           your <span class="text-hypothesis">hypothesis</span>, the computer would tell you “FALSE”. If you had
-          proposed C=2 then, in this case the computer would say “TRUE”
+          proposed C = 7 then, in this case the computer would say “TRUE”
         </h3>
         <div id="hypothesis">
           <h3 class="text-hypothesis">
@@ -172,10 +172,10 @@ $( document ).ready(function() {
           the cryptography task. Each trial has three elements:
         </h3>
         <div class="row">
-          <div class="col-md-6 offset-md-3 text-left">
+          <div class="col-md-8 offset-md-2 text-left">
             <h3>
-              1. Propose an <span class="text-equation">equation</span> (e.g. CC+B-A = ?)<br>
-              2. <span class="text-hypothesis">Hypothesis</span> (e.g. C=1)<br>
+              1. Propose an <span class="text-equation">equation</span> (e.g. CC + B - A = ?)<br>
+              2. <span class="text-hypothesis">Hypothesis</span> (e.g. C = 1)<br>
               3. <span class="text-guess">Guess the mapping</span>
             </h3>
           </div>
