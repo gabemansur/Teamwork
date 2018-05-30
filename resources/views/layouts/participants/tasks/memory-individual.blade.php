@@ -44,7 +44,7 @@
 
       $(document).keydown(function(event) {
         var key = event.key;
-        if(key == 1 || key == 2 || key == 3) memory.advanceImageTest(key);
+        if((key == 1 || key == 2 || key == 3) && ($(".memory-img").is(":visible") || $(".story-choices").is(":visible"))) memory.advanceImageTest(key);
       });
 
       $("#popup-continue").on('click', function(event) {

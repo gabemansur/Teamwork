@@ -54,7 +54,7 @@ $( document ).ready(function() {
 
       try {
         var answer = crypto.parseEquation(equation);
-        $("#answers").append('<h5>' + equation + ' = ' + answer + '</h5>');
+        $("#answers").append('<h5 class="answer">' + equation + ' = ' + answer + '</h5>');
         $("#equation").val('');
         $('#hypothesis-left option:eq(0)').prop('selected', true);
         $('#hypothesis-right option:eq(0)').prop('selected', true);
@@ -113,6 +113,7 @@ $( document ).ready(function() {
       if(result) {
         $("#crypto-form").hide();
         $("#task-end").show();
+        $("#fail").hide();
         $("#success").show();
         $("#task-result").val(1);
       }

@@ -157,8 +157,7 @@ $( document ).ready(function() {
   <div class="row">
     <div class="col-md-12 text-center">
       <h5 id="guess-prompt">
-        Enter your guess below to try to find the number <br>that generates
-        the biggest possible output.
+        Type a number and hit enter.
       </h5>
     </div>
   </div>
@@ -169,7 +168,7 @@ $( document ).ready(function() {
           <input type="number" class="form-control" id="guess" min="0" max="300">
         </div>
         <div class="text-center">
-          <button class="btn btn-lg btn-primary" id="submit-guess" type="submit">Guess</button>
+          <button class="btn btn-lg btn-primary" id="submit-guess" type="submit">Enter</button>
         </div>
       </form>
     </div>

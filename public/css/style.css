@@ -32,6 +32,12 @@
   border-color: #809dba!important;
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 /* Gray (Bootstrap's text-secondary)
 .btn-primary {
   background-color: #6c757d!important;

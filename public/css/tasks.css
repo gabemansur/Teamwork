@@ -24,7 +24,7 @@ div.word-list span {
 }
 
 #guess-history {
-  margin-top: 120px;
+  margin-top: 20px;
   table-layout: fixed;
   font-size: 14px;
 }
@@ -87,6 +87,10 @@ table.optimization-practice {
 
 #answers {
   margin-top: 12px;
+}
+
+#answers .answer {
+  word-wrap:break-word;
 }
 
 #mapping-list span {
