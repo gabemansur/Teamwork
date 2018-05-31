@@ -203,7 +203,7 @@ class Memory {
               ['type' => 'test',
                 'selection_type' => 'select_all',
                 'prompt' => 'Which of the following are target words',
-                'choices' => ['lion', 'saphire', 'cave'],
+                'choices' => ['lion', 'sapphire', 'cave'],
                 'correct' => [1, 2]],
 
 
@@ -475,7 +475,7 @@ class Memory {
                           You’re not allowed to write anything down.',
                           'review_time' => 1.66,
                           'words' => ['horse', 'cave', 'lion', 'opal', 'tiger',
-                                      'pearl', 'hut', 'emerald', 'saphire',
+                                      'pearl', 'hut', 'emerald', 'sapphire',
                                       'tent', 'hotel', 'cow'],
                           ],
                       ],
@@ -510,7 +510,7 @@ class Memory {
                       'correct' => []],
                       ['type' => 'select_all',
                       'prompt' => 'Which of the following are target words',
-                      'choices' => ['lion', 'saphire', 'cave'],
+                      'choices' => ['lion', 'sapphire', 'cave'],
                       'correct' => [1, 2]],
               ],
         ],

@@ -27,14 +27,20 @@ $( document ).ready(function() {
 
   var crypto = new Cryptography(mapping);
 
-  console.log(JSON.stringify(mapping));
 
   initializeTimer(600, function() {
     $("#crypto-form").hide();
     $("#task-end").show();
     $("#success").hide();
     $("#fail").show();
+    $('#time-up').modal();
   });
+
+  $("#ok-time-up").on('click', function(event) {
+    $("#task-result").val(0);
+    $("#cryptography-end-form").submit();
+    event.preventDefault();
+  })
 
   $("#submit-equation").on("click", function(event) {
 
@@ -111,7 +117,7 @@ $( document ).ready(function() {
         } );
 
       if(result) {
-        $("#crypto-form").hide();
+        $("#crypto-ui").hide();
         $("#task-end").show();
         $("#fail").hide();
         $("#success").show();
@@ -126,7 +132,7 @@ $( document ).ready(function() {
         $("#propose-equation").slideDown();
       }
       else {
-        $("#crypto-form").hide();
+        $("#crypto-ui").hide();
         $("#task-end").show();
         $("#success").hide();
         $("#fail").show();
@@ -145,20 +151,19 @@ $( document ).ready(function() {
   <div class="row">
     <div class="col-md-12 text-center">
       <div class="float-right text-primary" id="timer"></div>
-    </div>
-  </div>
-  <div class="row">
-
-      <div class="col-md-6 text-center">
-      <h3>
+      <h3 class="mb-lg-4">
         Cryptography Task
       </h3>
+    </div>
+  </div>
+  <div class="row" id="crypto-ui">
+      <div class="col-md-5 text-center">
       <h5>Trial <span id="trial-counter">1</span> of {{ $maxResponses }}</h5>
       <form name="cryptography" id="crypto-form">
 
         <div id="propose-equation">
           <h4 class="text-primary" id="mapping-result"></h4>
-          <h4 class="text-equation">1. Propose an equation</h4>
+          <h4 class="text-equation">Propose an equation</h4>
           <h5>Enter the left-hand side of an equation, using letters, addition and
             subtraction: e.g. “A+B”. Please only use the letters A-J plus '+' and '-'.
           </h5>
@@ -169,7 +174,7 @@ $( document ).ready(function() {
         </div>
 
         <div id="hypothesis">
-          <h4 class="text-hypothesis">2. Propose a hypothesis</h4>
+          <h4 class="text-hypothesis">Propose a hypothesis</h4>
           <h5>
             Use the drop-downs to propose a mapping for one of the letters.
           </h5>
@@ -192,9 +197,9 @@ $( document ).ready(function() {
         <!-- <div class="text-primary" id="hypothesis-result"></div> -->
 
         <div id="guess-full-mapping">
-              <h4 class="text-guess">3. Guess the full mapping</h4>
+              <h4 class="text-guess">Guess the full letters</h4>
               <h5>
-                Use the drop-downs to guess a value for each element.
+                Use the drop-downs to guess a value for each letter.
               </h5>
               @foreach($sorted as $key => $el)
                 <span>{{ $el }} = </span>
@@ -214,7 +219,7 @@ $( document ).ready(function() {
         <!-- <div id="answers"></div> -->
       </form>
       </div>
-      <div class="col-md-2 crypto-result">
+      <div class="col-md-3 crypto-result">
         <h4 class="text-equation">Equations</h4>
         <div id="answers"></div>
       </div>
@@ -241,18 +246,34 @@ $( document ).ready(function() {
           </div>
         </div>
       @endif
-      <div id="task-end">
-        <form action="/cryptography-end" method="post">
+    </div>
+    <div class="row" id="task-end">
+      <div class="col-md-8 offset-md-2">
+        <form action="/cryptography-end" id="cryptography-end-form" method="post">
           {{ csrf_field() }}
           <input type="hidden" name="task_result" id="task-result" value="0">
-          <h3 id="success">Congratulations, you solved the task!</h3>
-          <h3 id="fail">This is the end of this task.</h3>
+          <h3 class="text-center" id="success">Congratulations, you solved the task!</h3>
+          <h3 class="text-center" id="fail">This is the end of this task.</h3>
           <div class="text-center">
             <button class="btn btn-lg btn-primary" id="continue" type="submit">Continue</button>
           </div>
         </form>
       </div>
-
-    </div>
   </div>
+
+  <div class="modal fade" id="time-up">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-center">
+          Your time is up. You will get points for your current guesses
+          that are correct.
+          </h4>
+        </div>
+        <div class="modal-body text-center">
+          <button class="btn btn-lg btn-primary pull-right" id="ok-time-up" data-dismiss="modal" type="button">Ok</button>
+        </div>
+      </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+  </div><!-- modal -->
 @stop

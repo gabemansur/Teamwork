@@ -38,7 +38,7 @@
       </div>
       <div id="inst_3" class="inst">
         <h3>
-          Look at the second example. The black part comes down lower and lower
+          Here's another example. The black part comes down lower and lower
           each time. So at the next step it would come more than half way down.
           The correct answer for the second example is e.
         </h3>
@@ -46,15 +46,18 @@
       </div>
       <div id="inst_4" class="inst">
         <h3>
-          After clicking the “next” button you will be asked to complete the rest yourself.
+          After clicking the “next” button you will be asked to complete the
+          rest yourself. As in the practices, select the box that continues
+          the pattern!
         </h3>
         <h3>
-          In each row, choose just one of the boxes on the right which would
-          correctly go in the empty box and type in your answer in the answer
-          box, as you did in the example. You may not have time to finish them
-          all, but work as quickly and carefully as you can. There are 12 problems
-          and the total time is 3 minutes. There is a timer on the top right.
-          You may change your answer if you change your mind, but not after the time is over.
+          There are 13 questions and you have 3 minutes. You may not have time
+          to finish all the questions, but work as quickly and carefully as you
+          can. There will be a timer in the top right of your screen.
+        </h3>
+        <h3>
+          You may change your answer if you change your mind, but not after the
+          3 minutes is up.
         </h3>
       </div>
       <div id="instr_nav" class="text-center">

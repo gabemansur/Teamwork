@@ -15,7 +15,7 @@ var Cryptography = class Cryptography {
   }
 
   parseEquation(eq) {
-    //eq = eq.replace(/\s+/g, ''); // Remove whitespace (throwing error when EEEEE was entered)
+    eq = eq.replace(/\s+/g, ''); // Removes whitespace (throwing error when EEEEE was entered)
     eq = eq.toUpperCase();
     eq = eq.trim();
     var arr = eq.split('');

@@ -18,9 +18,9 @@
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
       <div id="inst_1" class="inst">
-        <h3>
-          Next are some tests of memory. We’ll start with a quick practice.
-        </h3>
+        <h4>
+          Next are some tests of memory. We’ll start with a practice.
+        </h4>
       </div>
 
       <div id="instr_nav" class="text-center">

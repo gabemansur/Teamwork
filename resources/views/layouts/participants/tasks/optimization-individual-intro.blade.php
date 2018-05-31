@@ -87,12 +87,12 @@ $( document ).ready(function() {
       <div id="inst_2" class="inst">
         <h2 class="text-primary">Optimization Practice</h2>
         <h4>
-          Let&#39;s start with a quick practice. Say the underlying relationship
+          Let&#39;s start with a practice. Say the underlying relationship
           (which you won’t know) looks like this:
         </h4>
         <img src="/img/optimization-task/function-example.png" class="img-fluid">
         <h4>
-          For example, if you look at the graph you can see that when you enter
+          If you look at the graph you can see that when you enter
           the number 50, the output will be close to 100. From the graph, you
           can also see that you will get the biggest output when you enter 240.
           Last, if you enter a number close to 140 the computer will give you

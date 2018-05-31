@@ -1,3 +1,7 @@
+#timer, .timer {
+  width: 45px;
+}
+
 div.inst h3,
 div.inst ol li{
   margin-bottom: 24px;

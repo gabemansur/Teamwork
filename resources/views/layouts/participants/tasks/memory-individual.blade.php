@@ -26,6 +26,7 @@
       $('.memory-nav').on('click', function(event) {
         if(memory.hasPopup()) {
           event.stopImmediatePropagation();
+          return;
         }
         memory.advance();
         event.preventDefault();
@@ -96,7 +97,7 @@
 
               @if($block['type'] == 'practice_test')
                 <div class="memory test practice-test" id="memory_{{ $key }}_{{ $b_key }}">
-                  <h2>{{ $block['prompt'] }}</h2>
+                  <h4>{{ $block['prompt'] }}</h4>
                   <h4>Type [1], [2], or [3]</h4>
                   <img class="memory-img mt-lg-4" src="{{ $test['directory'].$block['img'] }}">
                   <div class="row text-center justify-content-center">
@@ -109,7 +110,7 @@
 
               @if($block['type'] == 'test')
                 <div class="memory test" id="memory_{{ $key }}_{{ $b_key }}">
-                  <h2>{{ $block['prompt'] }}</h2>
+                  <h4>{{ $block['prompt'] }}</h4>
                   <h4>Type [1], [2], or [3]</h4>
                   <img class="memory-img mt-lg-4" src="{{ $test['directory'].$block['img'] }}">
                   <div class="row text-center justify-content-center">
@@ -124,7 +125,7 @@
 
               @if($block['type'] == 'text')
                 <div class="memory memory-text text" id="memory_{{ $key }}_{{ $b_key }}">
-                  <h2>{{ $block['text'] }}</h2>
+                  <h4>{{ $block['text'] }}</h4>
                   <div class="text-center">
                     <input class="btn btn-primary memory-nav btn-lg"
                            type="button" name="next"
@@ -154,7 +155,7 @@
 
               @if($block['type'] == 'text')
                 <div class="memory memory-text text" id="memory_{{ $key }}_{{ $b_key }}">
-                  <h2>{{ $block['text'] }}</h2>
+                  <h4>{{ $block['text'] }}</h4>
                   <div class="text-center">
                     <input class="btn btn-primary memory-nav btn-lg"
                            type="button" name="next"
@@ -166,8 +167,8 @@
 
               @if($block['type'] == 'test' || $block['type'] == 'practice_test')
                 <div class="memory test" id="memory_{{ $key }}_{{ $b_key }}">
-                  <h2>{{ $block['prompt'] }}</h4>
-                  <h4>Select all that apply, then click "Next"</h2>
+                  <h4>{{ $block['prompt'] }}</h4>
+                  <h4>Select all that apply, then click "Next"</h4>
                   <div class="row justify-content-md-center word-choices">
                     @foreach($block['choices'] as $c_key => $choice)
                       <div class="col-md-3 form-group">
@@ -229,7 +230,7 @@
 
               @if($block['type'] == 'practice_test')
                 <div class="memory test practice-test" id="memory_{{ $key }}_{{ $b_key }}">
-                  <h2>{{ $block['prompt'] }}</h2>
+                  <h4>{{ $block['prompt'] }}</h4>
                   <h4>Type [1], [2], or [3]</h4>
                   <div class="row">
                     <div class="col-md-6 offset-md-3 text-left story-choices">
@@ -245,7 +246,7 @@
 
               @if($block['type'] == 'test')
               <div class="memory test practice-test" id="memory_{{ $key }}_{{ $b_key }}">
-                <h2>{{ $block['prompt'] }}</h2>
+                <h4>{{ $block['prompt'] }}</h4>
                 <h4>Type [1], [2], or [3]</h4>
                 <div class="row">
                   <div class="col-md-6 offset-md-3 text-left story-choices">
