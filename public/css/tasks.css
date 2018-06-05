@@ -56,6 +56,12 @@ table.optimization-practice {
 
 /* Cryptography */
 
+.btn-equation {
+  color: #fff;
+  background-color: #ff4000;
+  border-color: #ff4000;
+}
+
 .text-equation {
   color: #ff4000!important;
 }
@@ -223,6 +229,7 @@ img.eyes {
 }
 
 /* Shapes */
-img.img-fluid {
-  max-width: 40%!important;
+.shapes-img {
+  width: 556px!important;
+  height: auto!important;
 }

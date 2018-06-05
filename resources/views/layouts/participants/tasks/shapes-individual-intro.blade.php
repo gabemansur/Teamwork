@@ -32,7 +32,7 @@
         </h3>
         <h3>
           The correct answer has been
-          given to you in this first example. It’s the tree in the third box.
+          given to you in this first example. It’s box c.
         </h3>
         <img src="/img/shapes-task/subtest1/example_01.png" class="img-fluid">
       </div>
@@ -40,7 +40,7 @@
         <h3>
           Here's another example. The black part comes down lower and lower
           each time. So at the next step it would come more than half way down.
-          The correct answer for the second example is e.
+          The correct answer for the second example is box e.
         </h3>
         <img src="/img/shapes-task/subtest1/example_02.png" class="img-fluid">
       </div>
@@ -53,7 +53,8 @@
         <h3>
           There are 13 questions and you have 3 minutes. You may not have time
           to finish all the questions, but work as quickly and carefully as you
-          can. There will be a timer in the top right of your screen.
+          can. The questions will get harder as you progress. There will be a
+          timer in the top right of your screen.
         </h3>
         <h3>
           You may change your answer if you change your mind, but not after the

@@ -130,7 +130,12 @@ $( document ).ready(function() {
         $("#mapping-result").show();
         $("#guess-full-mapping").slideUp();
         $("#propose-equation").slideDown();
+
+        if(trials == maxResponses) {
+          $('#last-trial').modal();
+        }
       }
+
       else {
         $("#crypto-ui").hide();
         $("#task-end").show();
@@ -163,7 +168,7 @@ $( document ).ready(function() {
 
         <div id="propose-equation">
           <h4 class="text-primary" id="mapping-result"></h4>
-          <h4 class="text-equation">Propose an equation</h4>
+          <h4 class="text-equation">Enter an equation</h4>
           <h5>Enter the left-hand side of an equation, using letters, addition and
             subtraction: e.g. “A+B”. Please only use the letters A-J plus '+' and '-'.
           </h5>
@@ -174,9 +179,9 @@ $( document ).ready(function() {
         </div>
 
         <div id="hypothesis">
-          <h4 class="text-hypothesis">Propose a hypothesis</h4>
+          <h4 class="text-hypothesis">Make a hypothesis</h4>
           <h5>
-            Use the drop-downs to propose a mapping for one of the letters.
+            Hypothesize the value of a single letter (e.g. F = 7)
           </h5>
           <select class="form-control propose" id="hypothesis-left">
               <option>---</option>
@@ -197,9 +202,10 @@ $( document ).ready(function() {
         <!-- <div class="text-primary" id="hypothesis-result"></div> -->
 
         <div id="guess-full-mapping">
-              <h4 class="text-guess">Guess the full letters</h4>
+              <h4 class="text-guess">Guess the letter values</h4>
               <h5>
-                Use the drop-downs to guess a value for each letter.
+                Guess as many letter values as you want, then hit subm,it to
+                start the next trial.
               </h5>
               @foreach($sorted as $key => $el)
                 <span>{{ $el }} = </span>
@@ -215,6 +221,9 @@ $( document ).ready(function() {
 
         <div class="text-center">
           <button class="btn btn-lg btn-primary" id="submit-equation" type="submit">Submit</button>
+        </div>
+        <div class="float-left mt-lg-4">
+          <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#review-instructions">Review Instructions</button>
         </div>
         <!-- <div id="answers"></div> -->
       </form>
@@ -253,13 +262,60 @@ $( document ).ready(function() {
           {{ csrf_field() }}
           <input type="hidden" name="task_result" id="task-result" value="0">
           <h3 class="text-center" id="success">Congratulations, you solved the task!</h3>
-          <h3 class="text-center" id="fail">This is the end of this task.</h3>
+          <h3 class="text-center">
+            You have completed the Cryptography Task.<br>
+            Press the button below to continue
+          </h3>
           <div class="text-center">
             <button class="btn btn-lg btn-primary" id="continue" type="submit">Continue</button>
           </div>
         </form>
       </div>
   </div>
+
+  <div class="modal fade" id="last-trial">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-center">
+          This is your last trial. The guesses you submit at the end of the
+          trial will be your final answer. Remember, you get points for all
+          the letter values you correctly identify
+          </h4>
+        </div>
+        <div class="modal-body text-center">
+          <button class="btn btn-lg btn-primary pull-right" id="ok-last-trial" data-dismiss="modal" type="button">Ok</button>
+        </div>
+      </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+  </div><!-- modal -->
+
+  <div class="modal fade" id="review-instructions">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <h5>
+          Each letter from A to J has a value from 0 to 9. Each letter has a
+          different value. Your goal is to uncover the value of each letter by
+          using “trials”. A trial has three steps. First you <span class="text-equation">enter an equation</span>
+          (e.g. “A+B”). You can only use addition and subtraction. Second, you
+          <span class="text-hypothesis">make a hypothesis</span> (e.g. “D=4”) and the computer will tell you if this
+          hypothesis is TRUE or FALSE. Third, you can <span class="text-guess">guess</span> the values of each
+          letter. You don’t have to make guesses for all the letters.
+          </h5>
+          <h5>
+            Try to find out the value of each letter WITH AS FEW TRIALS AS
+            POSSIBLE. You have 15 trials and 10 minutes. If you run out of
+            trials, or time, you will get some points for any of the letters
+            you have correctly identified.
+          </h5>
+        </div>
+        <div class="modal-body text-center">
+          <button class="btn btn-lg btn-primary pull-right" data-dismiss="modal" type="button">Ok</button>
+        </div>
+      </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+  </div><!-- modal -->
 
   <div class="modal fade" id="time-up">
     <div class="modal-dialog">
