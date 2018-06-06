@@ -18,8 +18,10 @@
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
       <div id="inst_1" class="inst">
+        <h2 class="text-primary">Memory Task</h2>
         <h4>
-          Next are some tests of memory. We’ll start with a practice.
+          Last are some tests of memory. We’ll start with a practice.<br>
+          Please do not write anything down during these tasks.
         </h4>
       </div>
 

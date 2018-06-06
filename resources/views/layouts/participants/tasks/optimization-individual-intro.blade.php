@@ -13,7 +13,7 @@
 @section('content')
 <script>
 $( document ).ready(function() {
-  instructionPaginator(function(){ window.location = '/optimization-individual';});
+  $("#alert").hide();
 
   var functionName = "{{ $function }}";
   var MAX_RESPONSES = 9;
@@ -23,8 +23,16 @@ $( document ).ready(function() {
 
   $("#guess-prompt").hide();
 
-  $("#submit-guess").on("click", function(event) {
+  $("#next").on('click', function(event) {
+    if($(".optimization-practice").is(":visible") && guessNumber == 0) {
+      $("#alert").html('Enter a number between 0 and 300 before continuing!');
+      $("#alert").show();
+      event.stopImmediatePropagation();
+    }
+  });
 
+  $("#submit-guess").on("click", function(event) {
+    $("#alert").hide();
     var n = $("#guess").val();
 
     if(n < 0 || n > 300 || n == '') {
@@ -55,6 +63,8 @@ $( document ).ready(function() {
 
     event.preventDefault();
   });
+
+  instructionPaginator(function(){ window.location = '/optimization-individual';});
 });
 </script>
 
@@ -80,7 +90,8 @@ $( document ).ready(function() {
         </h4>
         <h4>
           After your 9 guesses, you will be asked to enter the number that you
-          believe gives the highest response.
+          believe gives the highest response. <strong>It is only this final guess
+          that determines your score!</strong>
         </h4>
       </div>
 
@@ -90,25 +101,27 @@ $( document ).ready(function() {
           Let&#39;s start with a practice. Say the underlying relationship
           (which you won’t know) looks like this:
         </h4>
-        <img src="/img/optimization-task/function-example.png" class="img-fluid">
+        <img src="/img/optimization-task/function-example.png" style="width:400px; height: auto;">
         <h4>
           If you look at the graph you can see that when you enter
-          the number 50, the output will be close to 100. From the graph, you
+          the number 50, the output will be close to 100. You
           can also see that you will get the biggest output when you enter 240.
           Last, if you enter a number close to 140 the computer will give you
           a negative number.
         </h4>
         <h4 class="text-warning" id="practice-prompt">
-          Practice: enter a number between 0 and 300
+          Practice: enter a number between 0 and 300 and click "Enter Practice Guess".<br>
+          When you&#39;re finished practicing, click "Next".
         </h4>
+        <div class="alert alert-danger" id="alert" role="alert"></div>
         <div class="row text-center">
-          <div class="col-md-4 offset-md-4">
+          <div class="col-md-6 offset-md-3 justify-content-center">
             <form class="form-inline optimization-practice" name="optimization">
               <div class="form-group">
                 <input type="number" class="form-control" id="guess" min="0" max="300">
               </div>
               <div class="form-group">
-                <button class="btn btn-primary" id="submit-guess" type="submit">Guess</button>
+                <button class="btn btn-primary" id="submit-guess" type="submit">Enter Practice Guess</button>
               </div>
             </form>
             <table class="table table-bordered table-sm optimization-practice" id="guess-history">

@@ -13,6 +13,7 @@
 <script>
 
 var mapping = <?php echo  $mapping; ?>;
+console.log(mapping);
 var maxResponses = {{ $maxResponses }};
 
 var trialStage = 1;

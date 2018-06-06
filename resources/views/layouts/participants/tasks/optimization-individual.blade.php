@@ -194,7 +194,8 @@ $( document ).ready(function() {
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title text-center">
-        Your next guess is your final answer. Based on your previous {{ $maxResponses }} guesses,
+        Your next guess is your final answer. Remember, it is only this final
+        guess that matters for your score. Based on your previous {{ $maxResponses }} guesses,
         type the number that you think will result in the biggest value.
         </h4>
       </div>
