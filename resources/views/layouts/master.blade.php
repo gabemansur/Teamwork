@@ -25,6 +25,12 @@
           $(document).ready(function(){
             $('form,input,select,textarea').attr("autocomplete", "off");
           });
+
+          // Disable back button OwO
+          history.pushState(null, null, document.URL);
+          window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+          });
         </script>
     </body>
 </html>

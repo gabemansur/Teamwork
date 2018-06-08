@@ -205,7 +205,7 @@ $( document ).ready(function() {
         <div id="guess-full-mapping">
               <h4 class="text-guess">Guess the letter values</h4>
               <h5>
-                Guess as many letter values as you want, then hit subm,it to
+                Guess as many letter values as you want, then click submit to
                 start the next trial.
               </h5>
               @foreach($sorted as $key => $el)
@@ -306,7 +306,7 @@ $( document ).ready(function() {
           </h5>
           <h5>
             Try to find out the value of each letter WITH AS FEW TRIALS AS
-            POSSIBLE. You have 15 trials and 10 minutes. If you run out of
+            POSSIBLE. You have {{ $maxResponses }} trials and 10 minutes. If you run out of
             trials, or time, you will get some points for any of the letters
             you have correctly identified.
           </h5>

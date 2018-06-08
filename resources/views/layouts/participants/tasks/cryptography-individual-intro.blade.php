@@ -26,7 +26,7 @@ $( document ).ready(function() {
   var crypto = new Cryptography(mapping);
 
   $("#next").on('click', function(event) {
-    if($("#result").html() == '') {
+    if($(".practice-equation").is(":visible") && $("#result").html() == '') {
       $("#alert").html('Enter a practice equation in the box below!');
       $("#alert").show();
       event.stopImmediatePropagation();
@@ -60,8 +60,8 @@ $( document ).ready(function() {
     }
 
     catch(e) {
-      $("#alert-" + trialStage).html(e);
-      $("#alert-" + trialStage).show();
+      $("#alert").html(e);
+      $("#alert").show();
     }
 
     event.preventDefault();
@@ -101,15 +101,30 @@ $( document ).ready(function() {
           </span>
         </h4>
         <h4 class="mt-lg-4">
-          Your goal is to uncover this mapping with the minimum number of
-          "trials". A trial involves three steps. The first step is to enter
-          an <span class="text-equation">equation</span>: this is a combination
-          of letters with + and - (you can't multiply or divide). <br><br>
-          For example, you might propose A+B. A is 6, B is 5, and E is 1, so the
-          computer would tell you A+B=EE.<br> As another example, you might say
-          F-G. Here the computer would say F-G=B.<br> Last, you might say BB-HJ
-          and the computer would say BB-HJ = GB.
+          As in the example, we’ll always use the letters A to J and the
+          numbers 0 to 9. No two letters have the same value. Your goal is to
+          find out the value of each letter. You have {{ $maxResponses }} "trials" to do this.
+          A "trial" involves three steps. In the next few pages, we will
+          describe each step.
         </h4>
+      </div> <!-- End inst_1 -->
+      <div id="inst_2" class="inst">
+        <h4>
+          The first step is to enter an
+          <span class="text-equation">equation</span>: this is a combination of
+          letters with + and - (you can't multiply or divide). For example, you
+          might enter A + B. Recall our example:<br><br>
+          <span class="bg-light p-md-2 mt-md-4 mb-lg-4">
+            A = 6;  B = 5;  C = 7;  D = 4;  E = 1;  F = 8;  G = 3;  H = 2;  I = 9;  J = 0
+          </span>
+        </h4>
+        <h4 class="mt-lg-4">
+          A is 6, B is 5, and E is 1 so the computer would tell you A + B = EE.
+        </h4>
+        <h4>
+          As another example, you might say F - G. Here the computer would say
+          F - G = B.<br>
+          Last, you might say BB - HJ = GB.
         <div id="practice" class="mb-lg-4 mt-lg-4">
           <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -119,7 +134,7 @@ $( document ).ready(function() {
                 practicing, click "Next".
               </h4>
               <div class="alert alert-danger" id="alert" role="alert"></div>
-              <form class="form-inline justify-content-center">
+              <form class="form-inline justify-content-center practice-equation">
                 <input type="text" class="form-control form-control-lg mr-lg-5 ml-lg-5" name="equation" id="equation">
                 <button class="btn btn-lg btn-equation submit-equation" id="submit-equation" type="submit">Submit Practice Equation</button>
               </form>
@@ -129,9 +144,9 @@ $( document ).ready(function() {
             </div>
           </div>
         </div>
-      </div> <!-- End inst_1 -->
+      </div> <!-- End inst_2 -->
 
-      <div id="inst_2" class="inst">
+      <div id="inst_3" class="inst">
         <h4>
           Second you can <span class="text-hypothesis">make a HYPOTHESIS</span>.
           This is the part of each "trial" where you can get feedback from the computer
@@ -168,15 +183,15 @@ $( document ).ready(function() {
                 <option>{{ $i }}</option>
               @endfor
           </select>
+          <div class="text-primary" id="hypothesis-result"></div>
           <div class="text-center">
             <button class="btn btn-lg btn-success submit-hypothesis" id="submit-hypothesis" type="submit">Submit Practice Hypothesis</button>
           </div>
         </div>
-        <div class="text-primary" id="hypothesis-result"></div>
         <div class="alert alert-success" id="alert-hypothesis" role="alert"></div>
       </div> <!-- End inst_2 -->
 
-      <div id="inst_3" class="inst">
+      <div id="inst_4" class="inst">
         <h4>
           Third, and last, at the end of each trial, you can
           <span class="text-guess">guess the letter values</span>. You can guess
@@ -186,7 +201,7 @@ $( document ).ready(function() {
         </h4>
       </div> <!-- End inst_3 -->
 
-      <div id="inst_4" class="inst">
+      <div id="inst_5" class="inst">
         <h2 class="text-primary">
           To review:
         </h2>
@@ -208,6 +223,12 @@ $( document ).ready(function() {
           of trials.<br>
           If you don’t solve the task, <strong>you will get some points for
           each letter-number combination you correctly identify</strong>.
+        </h4>
+        <h4>
+          You will have a maximum of {{ $maxResponses }} trials and 10 minutes to
+          solve the cryptography task.<br>
+          No calculators are allowed.<br>
+          When you press "Next" your 10 minutes will begin!
         </h4>
       </div> <!-- End inst_4 -->
       <div id="instr_nav" class="text-center">

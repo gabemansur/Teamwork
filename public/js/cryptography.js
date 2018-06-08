@@ -15,7 +15,7 @@ var Cryptography = class Cryptography {
   }
 
   parseEquation(eq) {
-    eq = eq.replace(/\s+/g, ''); // Removes whitespace (throwing error when EEEEE was entered)
+    eq = eq.replace(/\s+/g, '');
     eq = eq.toUpperCase();
     eq = eq.trim();
     var arr = eq.split('');
@@ -23,7 +23,6 @@ var Cryptography = class Cryptography {
     function parse(eq, allowedChars, mapping) {
 
       for(var i = 0; i < eq.length; i++) {
-
         var x = allowedChars.indexOf(eq[i]);
 
         if(allowedChars.indexOf(eq[i]) >= 0) {
@@ -32,7 +31,14 @@ var Cryptography = class Cryptography {
         }
         else throw new Error("'" + eq[i] + "' is not an allowed character");
       }
-      return eq.join('');
+
+      // We need to get rid of leading zeros, they will cause eval to error
+      var eqTranslated = eq.join('');
+      var eqNums = eqTranslated.split(/[+-]+/);
+      eqNums.forEach(function(num) {
+        eqTranslated = eqTranslated.replace(num.toString(), parseInt(num));
+      })
+      return eqTranslated;
     }
 
     var parsed = parse(arr, this.allowedChars, this.mapping);
