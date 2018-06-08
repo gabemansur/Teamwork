@@ -13,7 +13,6 @@
 <script>
 
 var mapping = <?php echo  $mapping; ?>;
-console.log(mapping);
 var maxResponses = {{ $maxResponses }};
 
 var trialStage = 1;
@@ -30,16 +29,24 @@ $( document ).ready(function() {
 
 
   initializeTimer(600, function() {
-    $("#crypto-form").hide();
+    $("#crypto-header").hide();
+    $("#crypto-ui").hide();
     $("#task-end").show();
-    $("#success").hide();
-    $("#fail").show();
+    $("#fail").hide();
     $('#time-up').modal();
   });
 
+  setTimeout(function() {
+    $("#timer-warning").modal();
+  }, 540 * 1000)
+
   $("#ok-time-up").on('click', function(event) {
     $("#task-result").val(0);
-    $("#cryptography-end-form").submit();
+    $("#crypto-header").hide();
+    $("#crypto-ui").hide();
+    $("#task-end").show();
+    $("#fail").hide();
+    $('#time-up').modal('toggle');
     event.preventDefault();
   })
 
@@ -118,10 +125,10 @@ $( document ).ready(function() {
         } );
 
       if(result) {
+        $("#crypto-header").hide();
         $("#crypto-ui").hide();
         $("#task-end").show();
         $("#fail").hide();
-        $("#success").show();
         $("#task-result").val(1);
       }
       else if(trials < maxResponses) {
@@ -138,10 +145,10 @@ $( document ).ready(function() {
       }
 
       else {
+        $("#crypto-header").hide();
         $("#crypto-ui").hide();
         $("#task-end").show();
-        $("#success").hide();
-        $("#fail").show();
+        $("#fail").hide();
       }
     }
 
@@ -154,10 +161,10 @@ $( document ).ready(function() {
 </script>
 
 <div class="container">
-  <div class="row">
+  <div class="row" id="crypto-header">
     <div class="col-md-12 text-center">
       <div class="float-right text-primary" id="timer"></div>
-      <h3 class="mb-lg-4">
+      <h3 class="mb-lg-4 header">
         Cryptography Task
       </h3>
     </div>
@@ -313,6 +320,21 @@ $( document ).ready(function() {
         </div>
         <div class="modal-body text-center">
           <button class="btn btn-lg btn-primary pull-right" data-dismiss="modal" type="button">Ok</button>
+        </div>
+      </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+  </div><!-- modal -->
+
+  <div class="modal fade" id="timer-warning">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-center">
+          You have one minute remaining.
+          </h4>
+        </div>
+        <div class="modal-body text-center">
+          <button class="btn btn-lg btn-primary pull-right" id="ok-timer-warning" data-dismiss="modal" type="button">Ok</button>
         </div>
       </div><!-- modal-content -->
     </div><!-- modal-dialog -->
