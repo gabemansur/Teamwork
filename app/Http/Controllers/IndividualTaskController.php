@@ -76,7 +76,7 @@ class IndividualTaskController extends Controller
 
         case "Eyes":
           request()->session()->put('currentIndividualTaskName', 'Eyes Task');
-          return redirect('/rmet-individual');
+          return redirect('/rmet-individual-intro');
 
         case "Brainstorming":
           request()->session()->put('currentIndividualTaskName', 'Brainstorming Task');
@@ -131,6 +131,8 @@ class IndividualTaskController extends Controller
     }
 
     public function teamRoleIntro(Request $request) {
+      $this->recordStartTime($request, 'intro');
+
       return view('layouts.participants.tasks.team-role-intro');
     }
 
@@ -139,11 +141,12 @@ class IndividualTaskController extends Controller
       $parameters = unserialize($currentTask->parameters);
       $scenarios = (new \Teamwork\Tasks\TeamRole)->getScenarios();
 
+      // Record the end time for this task's intro
+      $this->recordEndTime($request, 'intro');
+
+
       // Record the start time for this task
-      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
-                                'group_tasks_id' => $request->session()->get('currentGroupTask'),
-                                'individual_tasks_id' => $request->session()->get('currentIndividualTask')]);
-      $time->recordStartTime();
+      $this->recordStartTime($request, 'task');
 
       return view('layouts.participants.tasks.team-role')
              ->with('scenarios', $scenarios);
@@ -156,10 +159,7 @@ class IndividualTaskController extends Controller
       $scenarios = (new \Teamwork\Tasks\TeamRole)->getScenarios();
 
       // Record the end time for this task
-      $time = Time::where('user_id', '=', \Auth::user()->id)
-                  ->where('group_tasks_id', '=', $currentTask->id)
-                  ->first();
-      $time->recordEndTime();
+      $this->recordEndTime($request, 'task');
 
       // Save each response
       foreach ($request->all() as $key => $answer) {
@@ -188,19 +188,21 @@ class IndividualTaskController extends Controller
     }
 
     public function bigFiveIntro(Request $request) {
+      $this->recordStartTime($request, 'intro');
       return view('layouts.participants.tasks.big-five-intro');
     }
 
     public function bigFive(Request $request) {
+
+      // Record end time for task's intro
+      $this->recordEndTime($request, 'intro');
+
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
       $statements = (new \Teamwork\Tasks\BigFive)->getStatements($parameters->statementOrder);
 
       // Record the start time for this task
-      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
-                                'group_tasks_id' => $request->session()->get('currentGroupTask'),
-                                'individual_tasks_id' => $request->session()->get('currentIndividualTask')]);
-      $time->recordStartTime();
+      $this->recordStartTime($request, 'task');
 
       return view('layouts.participants.tasks.big-five')
              ->with('statements', $statements);
@@ -213,10 +215,7 @@ class IndividualTaskController extends Controller
       $statements = (new \Teamwork\Tasks\BigFive)->getStatements('ordered');
 
       // Record the end time for this task
-      $time = Time::where('user_id', '=', \Auth::user()->id)
-                  ->where('group_tasks_id', '=', $currentTask->id)
-                  ->first();
-      $time->recordEndTime();
+      $this->recordEndTime($request, 'task');
 
       foreach ($statements as $key => $statement) {
         $r = new Response;
@@ -236,6 +235,8 @@ class IndividualTaskController extends Controller
     }
 
     public function cryptographyIntro(Request $request) {
+      $this->recordStartTime($request, 'intro');
+
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
       $maxResponses = $parameters->maxResponses;
@@ -252,6 +253,8 @@ class IndividualTaskController extends Controller
     }
 
     public function optimizationIntro(Request $request) {
+      $this->recordStartTime($request, 'intro');
+
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
 
@@ -273,6 +276,8 @@ class IndividualTaskController extends Controller
     }
 
     public function optimizationALtIntro(Request $request) {
+      $this->recordStartTime($request, 'intro');
+
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
 
@@ -290,16 +295,15 @@ class IndividualTaskController extends Controller
     }
 
     public function optimization(Request $request) {
+      $this->recordEndTime($request, 'intro');
+
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
       $function = (new \Teamwork\Tasks\Optimization)->getFunction($parameters->function);
       $maxResponses = $parameters->maxResponses;
 
       // Record the start time for this task
-      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
-                                'group_tasks_id' => $request->session()->get('currentGroupTask'),
-                                'individual_tasks_id' => $request->session()->get('currentIndividualTask')]);
-      $time->recordStartTime();
+      $this->recordStartTime($request, 'task');
 
       return view('layouts.participants.tasks.optimization-individual')
              ->with('function', $function)
@@ -340,10 +344,7 @@ class IndividualTaskController extends Controller
       $r->save();
 
       // Record the end time for this task
-      $time = Time::where('user_id', '=', \Auth::user()->id)
-                  ->where('group_tasks_id', '=', $currentTask->id)
-                  ->first();
-      $time->recordEndTime();
+      $this->recordEndTime($request, 'task');
 
       $request->session()->put('currentIndividualTaskResult', 'You have completed the Optimization Task.');
       $request->session()->put('currentIndividualTaskName', 'Optimization Task');
@@ -360,17 +361,17 @@ class IndividualTaskController extends Controller
     }
 
     public function memoryIntro(Request $request) {
+      $this->recordStartTime($request, 'intro');
       return view('layouts.participants.tasks.memory-individual-intro');
     }
 
     public function memory(Request $request) {
+      $this->recordEndTime($request, 'intro');
+
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
 
       // Record the start time for this task
-      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
-                                'group_tasks_id' => $currentTask->id,
-                                'individual_tasks_id' => $request->session()->get('currentIndividualTask')]);
-      $time->recordStartTime();
+      $this->recordStartTime($request, 'task');
 
       $parameters = unserialize($currentTask->parameters);
       $tests = [];
@@ -388,10 +389,7 @@ class IndividualTaskController extends Controller
       $parameters = unserialize($currentTask->parameters);
 
       // Record the end time for this task
-      $time = Time::where('user_id', '=', \Auth::user()->id)
-                  ->where('group_tasks_id', '=', $currentTask->id)
-                  ->first();
-      $time->recordEndTime();
+      $this->recordEndTime($request, 'task');
 
       $tests = [];
       foreach ($parameters->test as $key => $test) {
@@ -475,7 +473,8 @@ class IndividualTaskController extends Controller
 
         }
       }
-      $results .= 'You have completed the Memory Task.<br><br><h1>You performed best on the <span class="text-primary">'. $bestTest['task_type'] .'</span> test.</h1>';
+
+      $results .= 'You have completed the Memory Task.<br><br><h1>Across the three different memory tasks, you performed best on the <span class="text-primary">'. $bestTest['task_type'] .'</span> test.</h1>';
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Memory Task');
 
@@ -483,16 +482,19 @@ class IndividualTaskController extends Controller
 
     }
 
+    public function eyesIntro(Request $request) {
+      $this->recordStartTime($request, 'intro');
+      return view('layouts.participants.tasks.eyes-individual-intro');
+    }
+
     public function eyes(Request $request) {
+      $this->recordEndTime($request, 'intro');
       $tests = (new \Teamwork\Tasks\Eyes)->getTest();
 
       $dir = (new \Teamwork\Tasks\Eyes)->getDirectory();
 
       // Record the start time for this task
-      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
-                                'group_tasks_id' => $request->session()->get('currentGroupTask'),
-                                'individual_tasks_id' => $request->session()->get('currentIndividualTask')]);
-      $time->recordStartTime();
+      $this->recordStartTime($request, 'task');
 
       return view('layouts.participants.tasks.eyes-individual')
              ->with('dir', $dir)
@@ -504,10 +506,7 @@ class IndividualTaskController extends Controller
       $individualTaskId = $request->session()->get('currentIndividualTask');
 
       // Record the end time for this task
-      $time = Time::where('user_id', '=', \Auth::user()->id)
-                  ->where('group_tasks_id', '=', $groupTaskId)
-                  ->first();
-      $time->recordEndTime();
+      $this->recordEndTime($request, 'task');
 
       $tests = (new \Teamwork\Tasks\Eyes)->getTest();
       $correct = 0;
@@ -539,23 +538,24 @@ class IndividualTaskController extends Controller
     }
 
     public function brainstormingIntro() {
+      $this->recordStartTime($request, 'intro');
       return view('layouts.participants.tasks.brainstorming-individual-intro');
     }
 
     public function brainstorming(Request $request) {
-
+      $this->recordEndTime($request, 'intro');
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
 
       $task = new Task\Brainstorming;
 
       $prompt = unserialize($currentTask->parameters)->prompt;
-
+      $this->recordStartTime($request, 'task');
       return view('layouts.participants.tasks.brainstorming-individual')
              ->with('prompt', $prompt);
     }
 
     public function scoreBrainstorming(Request $request) {
-
+      $this->recordEndTime($request, 'task');
       $groupTaskId = $request->session()->get('currentGroupTask');
       $individualTaskId = $request->session()->get('currentIndividualTask');
 
@@ -578,10 +578,12 @@ class IndividualTaskController extends Controller
     }
 
     public function shapesIntro() {
+      $this->recordStartTime($request, 'intro');
       return view('layouts.participants.tasks.shapes-individual-intro');
     }
 
     public function shapesIndividual(Request $request) {
+      $this->recordEndTime($request, 'intro');
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
 
@@ -589,10 +591,7 @@ class IndividualTaskController extends Controller
       $shapes = $task->getShapes($parameters->subtest);
 
       // Record the start time for this task
-      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
-                                'group_tasks_id' => $request->session()->get('currentGroupTask'),
-                                'individual_tasks_id' => $request->session()->get('currentIndividualTask')]);
-      $time->recordStartTime();
+      $this->recordStartTime($request, 'task');
 
       return view('layouts.participants.tasks.shapes-individual')
              ->with('shapes', $shapes);
@@ -631,10 +630,7 @@ class IndividualTaskController extends Controller
       }
 
       // Record the end time for this task
-      $time = Time::where('user_id', '=', \Auth::user()->id)
-                  ->where('group_tasks_id', '=', $request->session()->get('currentGroupTask'))
-                  ->first();
-      $time->recordEndTime();
+      $this->recordEndTime($request, 'task');
 
       $results = 'You have completed the Shapes Task.';
       $request->session()->put('currentIndividualTaskResult', $results);
@@ -644,12 +640,28 @@ class IndividualTaskController extends Controller
 
     public function testMemory() {
       $tests = [];
-      $tests[] = (new \Teamwork\Tasks\Memory)->getTest('faces_1');
+      $tests[] = (new \Teamwork\Tasks\Memory)->getTest('bikes_1');
 
-      dump($tests);
+
       return view('layouts.participants.tasks.memory-individual')
              ->with('tests', $tests)
              ->with('enc_tests', json_encode($tests));
+    }
+
+    private function recordStartTime(Request $request, $type) {
+      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
+                                'group_tasks_id' => $request->session()->get('currentGroupTask'),
+                                'individual_tasks_id' => $request->session()->get('currentIndividualTask'),
+                                'type' => $type]);
+      $time->recordStartTime();
+    }
+
+    private function recordEndTime(Request $request, $type) {
+      $time = Time::where('user_id', '=', \Auth::user()->id)
+                  ->where('group_tasks_id', '=', $request->session()->get('currentGroupTask'))
+                  ->where('type', '=', $type)
+                  ->first();
+      $time->recordEndTime();
     }
 
 }

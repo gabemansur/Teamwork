@@ -113,11 +113,13 @@
                   <h4>{{ $block['prompt'] }}</h4>
                   <h4>Type [1], [2], or [3]</h4>
                   <img class="memory-img mt-lg-4" src="{{ $test['directory'].$block['img'] }}">
-                  <div class="row text-center justify-content-center">
-                    <div class="col-md-3"><h2>1</h2></div>
-                    <div class="col-md-3"><h2>2</h2></div>
-                    <div class="col-md-3"><h2>3</h2></div>
-                  </div>
+                  @if($block['show_numbers'] == 'true')
+                    <div class="row text-center justify-content-center">
+                      <div class="col-md-3"><h2>1</h2></div>
+                      <div class="col-md-3"><h2>2</h2></div>
+                      <div class="col-md-3"><h2>3</h2></div>
+                    </div>
+                  @endif
                   <input type="hidden" name="response_{{ $key }}_{{ $b_key }}"
                          id="response_{{ $key }}_{{ $b_key }}">
                 </div>

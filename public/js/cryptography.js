@@ -24,12 +24,11 @@ var Cryptography = class Cryptography {
 
       for(var i = 0; i < eq.length; i++) {
         var x = allowedChars.indexOf(eq[i]);
-
         if(allowedChars.indexOf(eq[i]) >= 0) {
           if(mapping.indexOf(eq[i]) >= 0)
             eq[i] = x;
         }
-        else throw new Error("'" + eq[i] + "' is not an allowed character");
+        else throw new Error("'" + eq[i] + "' is not allowed. Write an equation using only the letters A to J, and the '+' or '-' symbols.");
       }
 
       // We need to get rid of leading zeros, they will cause eval to error

@@ -90,8 +90,9 @@ $( document ).ready(function() {
         </h4>
         <h4>
           After your 9 guesses, you will be asked to enter the number that you
-          believe gives the highest response. <strong>It is only this final guess
-          that determines your score!</strong>
+          believe gives the highest response. <strong>It is only this final
+          answer - which you will enter after the prompt - that determines
+          your score!</strong>
         </h4>
       </div>
 

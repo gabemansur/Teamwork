@@ -42,7 +42,7 @@ $( document ).ready(function() {
 
   $(".submit-equation").on("click", function(event) {
     $(".alert").hide();
-    var equation = $("#equation").val().toUpperCase();
+    var equation = $("#equation").val().toUpperCase().replace(/=/g, '');
     if(equation == '' || !equation) {
       $("#alert").html('Enter your equation in the box below!');
       $("#alert").show();
@@ -122,9 +122,9 @@ $( document ).ready(function() {
           A is 6, B is 5, and E is 1 so the computer would tell you A + B = EE.
         </h4>
         <h4>
-          As another example, you might say F - G. Here the computer would say
+          As another example, you might enter F - G. Here the computer would say
           F - G = B.<br>
-          Last, you might say BB - HJ = GB.
+          Last, you might ED - C. The computer would say ED - C = C.
         <div id="practice" class="mb-lg-4 mt-lg-4">
           <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -195,9 +195,11 @@ $( document ).ready(function() {
         <h4>
           Third, and last, at the end of each trial, you can
           <span class="text-guess">guess the letter values</span>. You can guess
-          as many letters as you like, but you will not get any feedback at this point.
-          You don't have to enter a guess for every letter. But, to complete the
-          task you must guess ALL the letters correctly.
+          as many letters as you like. If you enter a guess for every letter AND
+          all your guesses are correct, the computer will let you know that you
+          have completed the task! If you choose not to enter a guess for some
+          letters (or if any of your guesses were incorrect) you won't get any
+          feedback: we'll just move straight on to the next trial.
         </h4>
       </div> <!-- End inst_3 -->
 

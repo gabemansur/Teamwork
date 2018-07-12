@@ -147,6 +147,12 @@ Route::post('/memory-individual', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/rmet-individual-intro', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@eyesIntro',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/rmet-individual', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@eyes',

@@ -153,6 +153,7 @@ class GroupTaskController extends Controller
     }
 
     public function cryptography(Request $request) {
+      $this->recordEndTime($request, 'intro');
       $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
       $mapping = (new \Teamwork\Tasks\Cryptography)->getMapping($parameters->mapping);
@@ -161,10 +162,7 @@ class GroupTaskController extends Controller
       sort($sorted);
 
       // Record the start time for this task
-      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
-                                'group_tasks_id' => $currentTask->id,
-                                'individual_tasks_id' => $request->session()->get('currentIndividualTask')]);
-      $time->recordStartTime();
+      $this->recordStartTime($request, 'task');
 
       return view('layouts.participants.tasks.cryptography-group')
              ->with('mapping',json_encode($mapping))
@@ -182,6 +180,8 @@ class GroupTaskController extends Controller
         $guesses = explode(',', $request->guess);
         $mapping = json_decode($request->mapping);
         $correct = true;
+        $numCorrect = 0;
+
         foreach ($guesses as $key => $guess) {
           $g = explode('=', $guess);
           if(count($g) < 2 ){ // This is the trailing comma
@@ -192,8 +192,12 @@ class GroupTaskController extends Controller
             continue;
 
           }
-          if($g[0] != $mapping[$g[1]]){
+          else if($g[0] != $mapping[$g[1]]){ // If the guess doesn't match the mapping
             $correct = false;
+          }
+
+          else { // Otherwise, this letter is correct
+            $numCorrect++;
           }
         }
       }
@@ -208,7 +212,7 @@ class GroupTaskController extends Controller
         $r->prompt = $request->prompt;
       }
 
-      $r->response = $request->guess;
+      $r->response = $request->guess.' Correct: '.$numCorrect;
       if($request->prompt == "Guess Full Mapping") {
         $r->correct = $correct;
       }
@@ -216,6 +220,7 @@ class GroupTaskController extends Controller
     }
 
     public function endCryptographyTask(Request $request) {
+      $this->recordEndTime($request, 'task');
       $task = GroupTask::find($request->session()->get('currentGroupTask'));
       $task->points = $request->task_result;
       $task->completed = true;
@@ -271,5 +276,21 @@ class GroupTaskController extends Controller
       }
       //$r->save();
       //dump($r);
+    }
+
+    private function recordStartTime(Request $request, $type) {
+      $time = Time::firstOrNew(['user_id' => \Auth::user()->id,
+                                'group_tasks_id' => $request->session()->get('currentGroupTask'),
+                                'individual_tasks_id' => $request->session()->get('currentIndividualTask'),
+                                'type' => $type]);
+      $time->recordStartTime();
+    }
+
+    private function recordEndTime(Request $request, $type) {
+      $time = Time::where('user_id', '=', \Auth::user()->id)
+                  ->where('group_tasks_id', '=', $request->session()->get('currentGroupTask'))
+                  ->where('type', '=', $type)
+                  ->first();
+      $time->recordEndTime();
     }
 }

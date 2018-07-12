@@ -32,7 +32,6 @@ $( document ).ready(function() {
     $("#crypto-header").hide();
     $("#crypto-ui").hide();
     $("#task-end").show();
-    $("#fail").hide();
     $('#time-up').modal();
   });
 
@@ -45,7 +44,6 @@ $( document ).ready(function() {
     $("#crypto-header").hide();
     $("#crypto-ui").hide();
     $("#task-end").show();
-    $("#fail").hide();
     $('#time-up').modal('toggle');
     event.preventDefault();
   })
@@ -56,7 +54,7 @@ $( document ).ready(function() {
 
     if(trialStage == 1) {
 
-      var equation = $("#equation").val().toUpperCase();
+      var equation = $("#equation").val().toUpperCase().replace(/=/g, '');
       if(equation == '') {
         event.preventDefault();
         return;
@@ -128,7 +126,6 @@ $( document ).ready(function() {
         $("#crypto-header").hide();
         $("#crypto-ui").hide();
         $("#task-end").show();
-        $("#fail").hide();
         $("#task-result").val(1);
       }
       else if(trials < maxResponses) {
@@ -148,7 +145,6 @@ $( document ).ready(function() {
         $("#crypto-header").hide();
         $("#crypto-ui").hide();
         $("#task-end").show();
-        $("#fail").hide();
       }
     }
 
@@ -269,7 +265,6 @@ $( document ).ready(function() {
         <form action="/cryptography-end" id="cryptography-end-form" method="post">
           {{ csrf_field() }}
           <input type="hidden" name="task_result" id="task-result" value="0">
-          <h3 class="text-center" id="success">Congratulations, you solved the task!</h3>
           <h3 class="text-center">
             You have completed the Cryptography Task.<br>
             Press the button below to continue

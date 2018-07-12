@@ -103,6 +103,11 @@ class AdminController extends Controller
 
             $responses = [];
             foreach ($task->response as $response) {
+              if($task->name == 'Memory') {
+
+                $u = unserialize($response->prompt);
+                dump($u);
+              }
               $responses[] = ['prompt' => $response->prompt,
                               'response' => $response->response,
                               'correct' => $response->correct,

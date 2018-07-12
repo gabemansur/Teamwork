@@ -53,8 +53,7 @@
         <h3>
           There are 13 questions and you have 3 minutes. You may not have time
           to finish all the questions, but work as quickly and carefully as you
-          can. The questions will get harder as you progress. There will be a
-          timer in the top right of your screen.
+          can. There will be a timer in the top right of your screen.
         </h3>
         <h3>
           You may change your answer if you change your mind, but not after the
