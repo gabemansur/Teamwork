@@ -208,7 +208,10 @@
                 <div class="memory memory-review review" id="memory_{{ $key }}_{{ $b_key }}">
                   <div class="float-right text-primary timer" id="timer_{{ $key }}_{{ $b_key }}"></div><br>
                   <h4>{{ $block['text'] }}</h4>
-                  <h2 class="text-left mt-lg-4">{{ $block['targets'][0] }}</h2>
+                  @foreach($block['targets'] as $num => $target)
+                    <h2 class="text-left mt-lg-4">{{ $num + 1 }}: {{ $target }}</h2>
+                    <hr>
+                  @endforeach
                   <div class="text-center mt-lg-2">
                     <!--<input class="btn btn-primary memory-nav btn-lg mt-lg-4"
                            type="button" name="next"

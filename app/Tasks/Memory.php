@@ -1,4 +1,4 @@
-png<?php
+<?php
 namespace Teamwork\Tasks;
 
 class Memory {
@@ -338,55 +338,55 @@ class Memory {
         ],
         ['type' => 'review',
           'text' => '',
-          'targets' => ['2_targets_1.png', '2_targets_2.png', '2_targets_3.png'],
+          'targets' => ['1_targets_1.png', '1_targets_2.png', '1_targets_3.png'],
           'review_time' => 20,],
           [ 'type' => 'test',
             'selection_type' => 'select_one',
             'show_numbers' => 'true',
             'prompt' => 'Which of the following images is a "target" bicycle?',
-            'img' => '2_test_1.png',
+            'img' => '1_test_1.png',
             'correct' => [1]],
           ['type' => 'test',
             'selection_type' => 'select_one',
             'show_numbers' => 'true',
             'prompt' => 'Which of the following images is a "target" bicycle?',
-            'img' => '2_test_2.png',
+            'img' => '1_test_2.png',
             'correct' => [2]],
           ['type' => 'test',
             'selection_type' => 'select_one',
             'show_numbers' => 'true',
             'prompt' => 'Which of the following images is a "target" bicycle?',
-            'img' => '2_test_3.png',
+            'img' => '1_test_3.png',
             'correct' => [1]],
           ['type' => 'test',
             'selection_type' => 'select_one',
             'show_numbers' => 'true',
             'prompt' => 'Which of the following images is a "target" bicycle?',
-            'img' => '2_test_4.png',
+            'img' => '1_test_4.png',
             'correct' => [2]],
           ['type' => 'test',
             'selection_type' => 'select_one',
             'show_numbers' => 'true',
             'prompt' => 'Which of the following images is a "target" bicycle?',
-            'img' => '2_test_5.png',
+            'img' => '1_test_5.png',
             'correct' => [3]],
           ['type' => 'test',
             'selection_type' => 'select_one',
             'show_numbers' => 'true',
             'prompt' => 'Which of the following images is a "target" bicycle?',
-            'img' => '2_test_6.png',
+            'img' => '1_test_6.png',
             'correct' => [3]],
           ['type' => 'test',
             'selection_type' => 'select_one',
             'show_numbers' => 'true',
             'prompt' => 'Which of the following images is a "target" bicycle?',
-            'img' => '2_test_7.png',
+            'img' => '1_test_7.png',
             'correct' => [2]],
           ['type' => 'test',
             'selection_type' => 'select_one',
             'show_numbers' => 'true',
             'prompt' => 'Which of the following images is a "target" bicycle?',
-            'img' => '2_test_8.png',
+            'img' => '1_test_8.png',
             'correct' => [3]],
           ], // End blocks
 
@@ -744,12 +744,14 @@ class Memory {
             ['type' => 'text',
              'text' => 'The last memory task asks you to remember
                              two very short stories. Once again, we’ll start with a
-                             practice. In the practice round, you only have to
-                             remember one sentence.'],
+                             practice. In the practice round each "story" will only have one sentence.'],
             ['type' => 'review',
-            'text' => 'Practice story:',
+            'text' => 'Practice stories:',
             'targets' => ['Peter was hungry, so he went to the store on the
-                            corner of his street and bought a hamburger.'],
+                            corner of his street and bought a hamburger.',
+                          'Yesterday, a local woman found a 10-foot crocodile
+                          in her kitchen, an event the fire department
+                          described as "unusual".'],
             'review_time' => 15],
             [ 'type' => 'practice_test',
               'selection_type' => 'select_one',
@@ -760,94 +762,85 @@ class Memory {
               'correct' => [1]],
             [ 'type' => 'practice_test',
               'selection_type' => 'select_one',
-              'prompt' => 'What did Peter eat?',
-              'choices' => ['Hamburger',
-                            'Sandwich',
-                            'Fries'],
+              'prompt' => 'Where was a crocodile found yesterday?',
+              'choices' => ['In a kitchen in Australia',
+                            'On a roof in Manhattan',
+                            'On the moon'],
               'correct' => [1]],
             ['type' => 'text',
-             'text' => 'Now for the actual task. You will be
-                         presented with a slightly longer story. You
-                         will have 30 seconds to read it. Try to take
-                         in as much information as possible. After the 30
-                         seconds are up, we’ll ask you some questions
-                         about the story. Again, you&#39;re not allowed to
-                         write anything down. The story will
-                         appear when you click "Continue".'],
+             'text' => 'Now for the actual task. You will be presented with two longer stories.
+                        You will have 30 seconds to read them. Try to take in as much information as possible.
+                        There is a timer in the top right of the screen.
+                        After the 30 seconds are up, we’ll ask you some questions about the stories.
+                        Your 30 seconds will start when you hit continue.'],
             ['type' => 'review',
             'text' => '',
-            'targets' => ['Anna Thompson of South Boston, employed
-                            as a cook in a school cafeteria, reported at the
-                            police station that she had been held up on State
-                            Street the night before and robbed of $56. She had
-                            four small children, the rent was due, and they had
-                            not eaten for two days. The police, touched by the
-                            woman’s story, collected money for her.',],
+            'targets' => ['Anna Thompson of South Boston, a cook in a school cafeteria, reported to the police
+                          that she had been robbed of $56 on State Street the night before last. She had four
+                          small children, the rent was due, and they had not eaten for two days. The police,
+                          touched by the woman’s story, collected money for her.',
+                          'A 67 year old woman in Greensville, Florida used a black umbrella to stop an
+                          attack by two men. The woman was walking down Main Street when the attackers
+                          got out of a yellow pickup and approached her. She hit one with her umbrella and
+                          the other man fled. Both men were arrested by police.'],
             'review_time' => 30],
 
             [ 'type' => 'test',
               'selection_type' => 'select_one',
-              'prompt' => 'What was the name of the main character?',
-              'choices' => ['Anna Thompson',
-                            'Anna Tompkins',
-                            'Hanna Tompkins'],
-              'correct' => [1]],
-            [ 'type' => 'test',
-              'selection_type' => 'select_one',
-              'prompt' => 'How many children did she have?',
-              'choices' => ['4',
-                            '5',
-                            '6'],
-              'correct' => [1]],
-            [ 'type' => 'test',
-              'selection_type' => 'select_one',
-              'prompt' => 'On what street was she robbed?',
-              'choices' => ['South Street',
-                            'State Street',
+              'prompt' => 'On what street was Anna Thompson robbed?',
+              'choices' => ['State Street',
+                            'Main Street',
                             'Sixth Street'],
+              'correct' => [1]],
+            [ 'type' => 'test',
+              'selection_type' => 'select_one',
+              'prompt' => 'In which town was an attack stopped by an umbrella?',
+              'choices' => ['Greensville',
+                            'Gainessville',
+                            'Greensboro'],
+              'correct' => [1]],
+            [ 'type' => 'test',
+              'selection_type' => 'select_one',
+              'prompt' => 'How old was the woman who defended herself with an umbrella?',
+              'choices' => ['56',
+                            '57',
+                            '67'],
                 'correct' => [2]],
               [ 'type' => 'test',
                 'selection_type' => 'select_one',
-                'prompt' => 'What was her job?',
+                'prompt' => 'What was Anna Thompson\'s job?',
                 'choices' => ['Cook',
                               'She didn\'t have a job',
                               'Janitor'],
                 'correct' => [1]],
               [ 'type' => 'test',
                 'selection_type' => 'select_one',
-                'prompt' => 'When did she report being robbed?',
+                'prompt' => 'When did Anna report being robbed?',
                 'choices' => ['One night after the robbery',
                               'Two nights after the robbery',
                               'A week after the robbery'],
-                'correct' => [1]],
-              [ 'type' => 'test',
-                'selection_type' => 'select_one',
-                'prompt' => 'How much money was stolen?',
-                'choices' => ['$65',
-                              '$56',
-                              '$66'],
                 'correct' => [2]],
               [ 'type' => 'test',
                 'selection_type' => 'select_one',
-                'prompt' => 'How long had the family not eaten for?',
+                'prompt' => 'How long had it been since Anna\'s family had eaten?',
                 'choices' => ['2 days',
                               '1 day',
                               'They missed 2 meals'],
                 'correct' => [1]],
               [ 'type' => 'test',
                 'selection_type' => 'select_one',
-                'prompt' => 'What did the police do?',
-                'choices' => ['Arrest the thief',
-                              'Collect money for the woman',
-                              'Give the woman food'],
-                'correct' => [2]],
+                'prompt' => 'What color was the pickup truck used by the attackers in Florida?',
+                'choices' => ['Yellow',
+                              'Black',
+                              'It wasn\'t mentioned'],
+                'correct' => [1]],
               [ 'type' => 'test',
                 'selection_type' => 'select_one',
-                'prompt' => 'Where does the main character live?',
-                'choices' => ['South Boston',
-                              'Somerville',
-                              'North Boston'],
-                'correct' => [1]]
+                'prompt' => 'What did the police do to help Anna Thompson?',
+                'choices' => ['Make arrests',
+                              'Collect money for her',
+                              'Give her food'],
+                'correct' => [2]],
 
         ] // End blocks
     ], // End story_1
@@ -858,120 +851,338 @@ class Memory {
         'blocks' => [
             ['type' => 'text',
              'text' => 'The last memory task asks you to remember
-                             a very short story. Once again, we’ll start with a
-                             practice. In the practice round, you only have to
-                             remember one sentence.'],
+                             two very short stories. Once again, we’ll start with a
+                             practice. In the practice round each "story" will only have one sentence.'],
             ['type' => 'review',
-            'text' => 'Practice story:',
+            'text' => 'Practice stories:',
             'targets' => ['Peter was hungry, so he went to the store on the
-                            corner of his street and bought a hamburger.'],
+                           corner of his street and bought a hamburger.',
+                         'Yesterday, a local woman found a 10-foot crocodile
+                         in her kitchen, an event the fire department
+                         described as "unusual".'],
             'review_time' => 15],
             [ 'type' => 'practice_test',
-              'selection_type' => 'select_one',
-              'prompt' => 'Why did Peter go to the store?',
-              'choices' => ['Because he was hungry',
-                            'To get coffee',
-                            'To buy food for his dog'],
-              'correct' => [1]],
+             'selection_type' => 'select_one',
+             'prompt' => 'Why did Peter go to the store?',
+             'choices' => ['Because he was hungry',
+                           'To get coffee',
+                           'To buy food for his dog'],
+             'correct' => [1]],
             [ 'type' => 'practice_test',
-              'selection_type' => 'select_one',
-              'prompt' => 'What did Peter eat?',
-              'choices' => ['Hamburger',
-                            'Sandwich',
-                            'Fries'],
-              'correct' => [1]],
+             'selection_type' => 'select_one',
+             'prompt' => 'Where was a crocodile found yesterday?',
+             'choices' => ['In a kitchen in Australia',
+                           'On a roof in Manhattan',
+                           'On the moon'],
+             'correct' => [1]],
             ['type' => 'text',
-             'text' => 'Now for the actual task. You will be
-                         presented with a slightly longer story. You
-                         will have 30 seconds to read it. Try to take
-                         in as much information as possible. After the 30
-                         seconds are up, we’ll ask you some questions
-                         about the story. Again, you&#39;re not allowed to
-                         write anything down. The story will
-                         appear when you click "Continue".'],
+             'text' => 'Now for the actual task. You will be presented with two longer stories.
+                        You will have 30 seconds to read them. Try to take in as much information as possible.
+                        There is a timer in the top right of the screen.
+                        After the 30 seconds are up, we’ll ask you some questions about the stories.
+                        Your 30 seconds will start when you hit continue.'],
             ['type' => 'review',
             'text' => '',
-            'targets' => ['Anna Thompson of South Boston, employed
-                            as a cook in a school cafeteria, reported at the
-                            police station that she had been held up on State
-                            Street the night before and robbed of $56. She had
-                            four small children, the rent was due, and they had
-                            not eaten for two days. The police, touched by the
-                            woman’s story, collected money for her.',],
+            'targets' => ['A recent survey of supermarket shoppers in Baytown revealed that eight
+                          out of ten shopping carts have faulty wheels or are difficult to steer.
+                          More than half of people reported having had accidents with their carts.
+                          These included collisions with other shoppers and bumping into groceries.
+                          Retailers claim that the problem is not with the carts, but that shoppers
+                          are not using them carefully.',
+                          'There were violent scenes at Grangers, a London department store, when
+                          animal rights protesters invaded the furs section.  Two expensive mink
+                          jackets were ruined and one leather skirt was ripped.  A protester was
+                          taken to hospital after a confrontation with police.  The manager said
+                          that tomorrow, business would be back to normal.'],
             'review_time' => 30],
 
             [ 'type' => 'test',
               'selection_type' => 'select_one',
-              'prompt' => 'What was the name of the main character?',
-              'choices' => ['Anna Thompson',
-                            'Anna Tompkins',
-                            'Hanna Tompkins'],
+              'prompt' => 'More than half the respondents to the supermarket survey reported what?',
+              'choices' => ['Collisions with other shoppers',
+                            'Running into stacks of groceries',
+                            'Having accidents with their carts'],
+              'correct' => [3]],
+            [ 'type' => 'test',
+              'selection_type' => 'select_one',
+              'prompt' => 'When was the supermarket survey conducted?',
+              'choices' => ['Recently',
+                            'Last month',
+                            'A week ago'],
               'correct' => [1]],
             [ 'type' => 'test',
               'selection_type' => 'select_one',
-              'prompt' => 'How many children did she have?',
-              'choices' => ['4',
-                            '5',
-                            '6'],
-              'correct' => [1]],
-            [ 'type' => 'test',
-              'selection_type' => 'select_one',
-              'prompt' => 'On what street was she robbed?',
-              'choices' => ['South Street',
-                            'State Street',
-                            'Sixth Street'],
+              'prompt' => 'How many people were arrested after the Department store protest in London?',
+              'choices' => ['None',
+                            'One',
+                            'It\'s unclear based on the story'],
+                'correct' => [3]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'What problems did customers identify with the shopping carts?',
+                'choices' => ['They make an annoying noise',
+                              'They have faulty wheels',
+                              'They can be difficult to move'],
                 'correct' => [2]],
               [ 'type' => 'test',
                 'selection_type' => 'select_one',
-                'prompt' => 'What was her job?',
-                'choices' => ['Cook',
-                              'She didn\'t have a job',
-                              'Janitor'],
+                'prompt' => 'What was the name of the Department Store in London?',
+                'choices' => ['Grangers',
+                              'Graysons',
+                              'Greysons'],
                 'correct' => [1]],
               [ 'type' => 'test',
                 'selection_type' => 'select_one',
-                'prompt' => 'When did she report being robbed?',
-                'choices' => ['One night after the robbery',
-                              'Two nights after the robbery',
-                              'A week after the robbery'],
-                'correct' => [1]],
-              [ 'type' => 'test',
-                'selection_type' => 'select_one',
-                'prompt' => 'How much money was stolen?',
-                'choices' => ['$65',
-                              '$56',
-                              '$66'],
+                'prompt' => 'Retailers responded to the supermarket survey by:',
+                'choices' => ['Saying they will fix their shopping carts',
+                              'Claiming the problem is with the customers',
+                              'Promising they’ll look into the issue'],
                 'correct' => [2]],
               [ 'type' => 'test',
                 'selection_type' => 'select_one',
-                'prompt' => 'How long had the family not eaten for?',
-                'choices' => ['2 days',
-                              '1 day',
-                              'They missed 2 meals'],
-                'correct' => [1]],
+                'prompt' => 'What proportion of shopping carts had issues with faulty wheels or steering?',
+                'choices' => ['More than half',
+                              'Almost all',
+                              '8 out of 10'],
+                'correct' => [3]],
               [ 'type' => 'test',
                 'selection_type' => 'select_one',
-                'prompt' => 'What did the police do?',
-                'choices' => ['Arrest the thief',
-                              'Collect money for the woman',
-                              'Give the woman food'],
-                'correct' => [2]],
-              [ 'type' => 'test',
-                'selection_type' => 'select_one',
-                'prompt' => 'Where does the main character live?',
-                'choices' => ['South Boston',
-                              'Somerville',
-                              'North Boston'],
-                'correct' => [1]]
+                'prompt' => 'How were the mink jackets described?',
+                'choices' => ['Black',
+                              'Expensive',
+                              'New'],
+                'correct' => [2]]
 
         ] // End blocks
     ], // End story_2
+
+    'story_3' => [
+        'test_name' => 'story_3',
+        'task_type' => 'story',
+        'blocks' => [
+            ['type' => 'text',
+             'text' => 'The last memory task asks you to remember
+                             two very short stories. Once again, we’ll start with a
+                             practice. In the practice round each "story" will only have one sentence.'],
+            ['type' => 'review',
+            'text' => 'Practice stories:',
+            'targets' => ['Peter was hungry, so he went to the store on the
+                           corner of his street and bought a hamburger.',
+                         'Yesterday, a local woman found a 10-foot crocodile
+                         in her kitchen, an event the fire department
+                         described as "unusual".'],
+            'review_time' => 15],
+            [ 'type' => 'practice_test',
+             'selection_type' => 'select_one',
+             'prompt' => 'Why did Peter go to the store?',
+             'choices' => ['Because he was hungry',
+                           'To get coffee',
+                           'To buy food for his dog'],
+             'correct' => [1]],
+            [ 'type' => 'practice_test',
+             'selection_type' => 'select_one',
+             'prompt' => 'Where was a crocodile found yesterday?',
+             'choices' => ['In a kitchen in Australia',
+                           'On a roof in Manhattan',
+                           'On the moon'],
+             'correct' => [1]],
+            ['type' => 'text',
+             'text' => 'Now for the actual task. You will be presented with two longer stories.
+                        You will have 30 seconds to read them. Try to take in as much information as possible.
+                        There is a timer in the top right of the screen.
+                        After the 30 seconds are up, we’ll ask you some questions about the stories.
+                        Your 30 seconds will start when you hit continue.'],
+            ['type' => 'review',
+            'text' => '',
+            'targets' => ['Clothing makers in Europe and China have a problem.  The shape of the
+                          American male has changed.  American men now have slimmer waists and larger chests
+                          than they did in 1933 when the last measurements were taken.  Manufacturers will
+                          alter their designs and have promised to update their statistics more frequently.',
+                          'Michael Simpson earned a reputation for being stubborn after refusing to
+                          accept pay cheques.  Instead of cheques, he wanted his wages to be paid in
+                          cash.  He eventually collected ten thousand dollars in back pay.  His wife
+                          was pleased because she had been forced to cook on a camping stove, after
+                          services to their home were cut off eighteen months ago.'],
+            'review_time' => 30],
+
+            [ 'type' => 'test',
+              'selection_type' => 'select_one',
+              'prompt' => 'Clothing makers from which areas are mentioned in the story?',
+              'choices' => ['Europe and Mexico',
+                            'Europe and China',
+                            'China and Mexico'],
+              'correct' => [2]],
+            [ 'type' => 'test',
+              'selection_type' => 'select_one',
+              'prompt' => 'Michael had a reputation for being:',
+              'choices' => ['Stubborn',
+                            'Cheap',
+                            'Rude'],
+              'correct' => [1]],
+            [ 'type' => 'test',
+              'selection_type' => 'select_one',
+              'prompt' => 'How long ago did the services in Michael’s house get turned off?',
+              'choices' => ['18 months ago',
+                            '6 months ago',
+                            '12 months ago'],
+                'correct' => [1]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'What was Michael’s last name?',
+                'choices' => ['Simpson',
+                              'Sanderson',
+                              'Sandford'],
+                'correct' => [1]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'When did clothing makers last "measure the American male"?',
+                'choices' => ['1933',
+                              '1932',
+                              '1923'],
+                'correct' => [1]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'How much back pay did Michael receive?',
+                'choices' => ['Ten thousand dollars',
+                              'Eleven thousand dollars',
+                              'Twelve thousand dollars'],
+                'correct' => [1]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'How has the shape of the American male changed?',
+                'choices' => ['Slimmer waists and larger arms',
+                              'Larger waists and slimmer legs',
+                              'Slimmer waists and larger chests'],
+                'correct' => [3]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'How did Michael’s wife feel when he finally got paid?',
+                'choices' => ['Relieved',
+                              'Pleased',
+                              'Grateful'],
+                'correct' => [2]],
+
+        ] // End blocks
+    ], // End story_3
+
+    'story_4' => [
+        'test_name' => 'story_4',
+        'task_type' => 'story',
+        'blocks' => [
+            ['type' => 'text',
+             'text' => 'The last memory task asks you to remember
+                             two very short stories. Once again, we’ll start with a
+                             practice. In the practice round each "story" will only have one sentence.'],
+            ['type' => 'review',
+            'text' => 'Practice stories:',
+            'targets' => ['Peter was hungry, so he went to the store on the
+                           corner of his street and bought a hamburger.',
+                         'Yesterday, a local woman found a 10-foot crocodile
+                         in her kitchen, an event the fire department
+                         described as "unusual".'],
+            'review_time' => 15],
+            [ 'type' => 'practice_test',
+             'selection_type' => 'select_one',
+             'prompt' => 'Why did Peter go to the store?',
+             'choices' => ['Because he was hungry',
+                           'To get coffee',
+                           'To buy food for his dog'],
+             'correct' => [1]],
+            [ 'type' => 'practice_test',
+             'selection_type' => 'select_one',
+             'prompt' => 'Where was a crocodile found yesterday?',
+             'choices' => ['In a kitchen in Australia',
+                           'On a roof in Manhattan',
+                           'On the moon'],
+             'correct' => [1]],
+            ['type' => 'text',
+             'text' => 'Now for the actual task. You will be presented with two longer stories.
+                        You will have 30 seconds to read them. Try to take in as much information as possible.
+                        There is a timer in the top right of the screen.
+                        After the 30 seconds are up, we’ll ask you some questions about the stories.
+                        Your 30 seconds will start when you hit continue.'],
+            ['type' => 'review',
+            'text' => '',
+            'targets' => ['At 7:35pm on Monday, Joe Garcia of San Francisco was watching television as he
+                          dressed to go out. A weather bulletin interrupted the program to warn of a
+                          thunderstorm. The announcer said the storm could bring hail and up to four
+                          inches of rain. Joe decided to stay home. He took off his coat and sat down
+                          to watch old movies.',
+                          'A Tokyo barmaid is suing a customer for two hundred and twenty thousand
+                          dollars. The complaint arose after the man attempted a goodnight kiss,
+                          causing the couple to fall down a flight of stairs.  The forty six year
+                          old woman suffered facial injuries in the fall but avoided the attempted
+                          kiss.'],
+            'review_time' => 30],
+
+            [ 'type' => 'test',
+              'selection_type' => 'select_one',
+              'prompt' => 'In which city was there bad weather predicted?',
+              'choices' => ['San Jose',
+                            'San Diego',
+                            'San Francisco'],
+              'correct' => [3]],
+            [ 'type' => 'test',
+              'selection_type' => 'select_one',
+              'prompt' => 'On which day was bad weather predicted?',
+              'choices' => ['Monday',
+                            'Sunday',
+                            'Tuesday'],
+              'correct' => [1]],
+            [ 'type' => 'test',
+              'selection_type' => 'select_one',
+              'prompt' => 'How much is the Tokyo barmaid suing for?',
+              'choices' => ['$220,000',
+                            '$200,000',
+                            '$20,000'],
+                'correct' => [1]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'How much rain was the storm predicted to bring?',
+                'choices' => ['At least 4 inches',
+                              'Up to 4 inches',
+                              'More than 4 inches'],
+                'correct' => [2]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'How old was the Tokyo barmaid?',
+                'choices' => ['36',
+                              '46',
+                              '26'],
+                'correct' => [2]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'Who is the Tokyo barmaid suing?',
+                'choices' => ['Her manager',
+                              'Her employer',
+                              'Her customer'],
+                'correct' => [3]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'What did Joe do when he heard the news about bad weather?',
+                'choices' => ['Call in sick',
+                              'Watch old movies',
+                              'Go back to watching TV programs'],
+                'correct' => [2]],
+              [ 'type' => 'test',
+                'selection_type' => 'select_one',
+                'prompt' => 'How did Joe find about the weather?',
+                'choices' => ['He was watching a news program',
+                              'A weather report interrupted the program he was watching',
+                              'He saw a weather bulletin between shows'],
+                'correct' => [2]],
+
+        ] // End blocks
+    ], // End story_4
 
   ]; // End memoryTests
 
 
   private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['true', 'false'],
-                                     'test' => ['allows_multiples' => ['faces_1', 'words_1', 'story_1']]];
+                                     'test' => ['allows_multiples' => ['faces_1', 'faces_2',
+                                                'cars_1', 'bikes_1', 'words_1', 'words_2',
+                                                'words_3', 'words_4', 'story_1', 'story_2',
+                                                'story_3', 'story_4']]];
 
   public function getTests() {
     return $this->prompts;

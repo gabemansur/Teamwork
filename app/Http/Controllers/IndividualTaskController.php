@@ -640,7 +640,7 @@ class IndividualTaskController extends Controller
 
     public function testMemory() {
       $tests = [];
-      $tests[] = (new \Teamwork\Tasks\Memory)->getTest('bikes_1');
+      $tests[] = (new \Teamwork\Tasks\Memory)->getTest('story_1');
 
 
       return view('layouts.participants.tasks.memory-individual')
