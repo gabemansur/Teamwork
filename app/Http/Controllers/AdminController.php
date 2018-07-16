@@ -45,18 +45,6 @@ class AdminController extends Controller
             array_push($userData, $this->collectResponses($users));
       });
 
-      /*
-      foreach($userData as $data) {
-        foreach($data as $user) {
-          foreach($user['tasks'] as $task) {
-            foreach($task['responses'] as $response) {
-              dump($response);
-            }
-          }
-        }
-      }
-      */
-
       return view('layouts.admin.data')
              ->with('userData', $userData);
     }
@@ -75,16 +63,29 @@ class AdminController extends Controller
 
           foreach ($groupTasks as $k => $task) {
 
-            $time = \DB::table('times')
+            $taskTime = \DB::table('times')
                        ->where('user_id', $user->id)
                        ->where('group_tasks_id', $task->id)
+                       ->where('type', 'task')
                        ->first();
 
-            if($time) {
-              $t = strtotime($time->end_time) - strtotime($time->start_time);
+            if($taskTime) {
+              $taskTime = strtotime($taskTime->end_time) - strtotime($taskTime->start_time);
             }
 
-            else $t = null;
+            else $taskTime = null;
+
+            $introTime = \DB::table('times')
+                       ->where('user_id', $user->id)
+                       ->where('group_tasks_id', $task->id)
+                       ->where('type', 'intro')
+                       ->first();
+
+            if($introTime) {
+              $introTime = strtotime($introTime->end_time) - strtotime($introTime->start_time);
+            }
+
+            else $introTime = null;
 
 
             try {
@@ -98,7 +99,8 @@ class AdminController extends Controller
 
             $taskData = ['name' => $task->name,
                          'parameters' => $params,
-                         'time' => $t,
+                         'taskTime' => $taskTime,
+                         'introTime' => $introTime,
                          'responses' => []];
 
             $responses = [];
@@ -106,7 +108,7 @@ class AdminController extends Controller
               if($task->name == 'Memory') {
 
                 $u = unserialize($response->prompt);
-                dump($u);
+                
               }
               $responses[] = ['prompt' => $response->prompt,
                               'response' => $response->response,

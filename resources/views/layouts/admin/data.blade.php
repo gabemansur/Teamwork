@@ -9,7 +9,8 @@
               <th>User ID</th>
               <th>Group ID</th>
               <th>Task</th>
-              <th>Time</th>
+              <th>Instruction Time</th>
+              <th>Task Time</th>
               <th>Prompt</th>
               <th>Response</th>
               <th>Correct</th>
@@ -25,7 +26,8 @@
                       <td>{{ $user['user'] }}</td>
                       <td>{{ $user['group'] }}</td>
                       <td>{{ $task['name'] }}</td>
-                      <td>{{ $task['time'] }}</td>
+                      <td>{{ $task['introTime'] }}</td>
+                      <td>{{ $task['taskTime'] }}</td>
                       <td>{{ $response['prompt'] }}</td>
                       <td>{{ $response['response'] }}</td>
                       <td>{{ $response['correct'] }}</td>

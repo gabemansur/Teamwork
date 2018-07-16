@@ -21,7 +21,7 @@ $( document ).ready(function() {
   var f = taskFunctions.{{ $function }};
   var guessNumber = 0;
   var responses = [];
-
+  console.log(functionName);
   // Let's put the function as a string into the final submission form
   $("#final-function").val(f.toString());
 
