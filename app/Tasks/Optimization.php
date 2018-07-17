@@ -4,7 +4,8 @@ namespace Teamwork\Tasks;
 class Optimization {
 
 
-  private $functions = ['a', 'b'];
+  private $functions = ['t1', 't2', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+  private $functionLabels = ['a1', 'a2', '1', '2', '3', '4', '5', '6', '7', '8'];
   private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'],
                                      'hasGroup' => ['true', 'false'],
                                      'function' => ['a1', 'a2', '1', '2', '3', '4', '5', '6', '7', '8'],
@@ -31,11 +32,12 @@ class Optimization {
       return $this->functions[array_rand($this->functions)];
     }
 
-    else return $functionType;
+    else return $this->functions[array_search($functionType, $this->functionLabels)];
   }
 
   public static function getAvailableParams()
   {
     return Self::$avaialbleParams;
   }
+
 }

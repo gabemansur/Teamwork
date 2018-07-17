@@ -15,6 +15,7 @@
 <script>
 
 $( document ).ready(function() {
+
   var functionName = "{{ $function }}";
   var MAX_RESPONSES = "{{ $maxResponses }}";
   var hasGroup = "{{ $hasGroup }}";

@@ -215,6 +215,7 @@ class GroupTaskController extends Controller
       $r->response = $request->guess.' Correct: '.$numCorrect;
       if($request->prompt == "Guess Full Mapping") {
         $r->correct = $correct;
+        $r->points = $numCorrect;
       }
       $r->save();
     }
