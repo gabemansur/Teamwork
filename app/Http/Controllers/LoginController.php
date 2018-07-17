@@ -63,6 +63,10 @@ class LoginController extends Controller
        if(isset($request->task_package)) {
          if($request->task_package == 'eq') \Teamwork\GroupTask::initializeEQTasks(\Auth::user()->group_id, $randomize = false);
          if($request->task_package == 'iq') \Teamwork\GroupTask::initializeIQTasks(\Auth::user()->group_id, $randomize = false);
+         if($request->task_package == 'block-a') \Teamwork\GroupTask::initializeBlockATasks(\Auth::user()->group_id, $randomize = false);
+         if($request->task_package == 'block-b') \Teamwork\GroupTask::initializeBlockBTasks(\Auth::user()->group_id, $randomize = false);
+         if($request->task_package == 'block-c') \Teamwork\GroupTask::initializeBlockCTasks(\Auth::user()->group_id, $randomize = false);
+         if($request->task_package == 'block-d') \Teamwork\GroupTask::initializeBlockDTasks(\Auth::user()->group_id, $randomize = false);
        }
 
        return redirect('/get-individual-task');

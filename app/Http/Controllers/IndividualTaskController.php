@@ -139,7 +139,8 @@ class IndividualTaskController extends Controller
     public function teamRole(Request $request) {
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
-      $scenarios = (new \Teamwork\Tasks\TeamRole)->getScenarios();
+
+      $scenarios = (new \Teamwork\Tasks\TeamRole)->getScenarios($parameters->scenarios);
 
       // Record the end time for this task's intro
       $this->recordEndTime($request, 'intro');
@@ -156,7 +157,7 @@ class IndividualTaskController extends Controller
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $individualTaskId = $request->session()->get('currentIndividualTask');
       $parameters = unserialize($currentTask->parameters);
-      $scenarios = (new \Teamwork\Tasks\TeamRole)->getScenarios();
+      $scenarios = (new \Teamwork\Tasks\TeamRole)->getScenarios($parameters->scenarios);
 
       // Record the end time for this task
       $this->recordEndTime($request, 'task');
@@ -577,7 +578,7 @@ class IndividualTaskController extends Controller
       return redirect('/individual-task-results');
     }
 
-    public function shapesIntro() {
+    public function shapesIntro(Request $request) {
       $this->recordStartTime($request, 'intro');
       return view('layouts.participants.tasks.shapes-individual-intro');
     }

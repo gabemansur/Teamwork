@@ -74,22 +74,70 @@ class GroupTask extends Model
     }
 
     public static function initializeBlockATasks($group_id, $randomize) {
-      $taskArray = '[{"taskName":"BigFive","taskParams":{"hasIndividuals":"true","hasGroup":"false","statementOrder":"random"}},{"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},{"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":"all"}}]';
+      $taskArray = '[
+          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+          {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
+          {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"1","useAltIntro":"no","maxResponses":"9"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"2","useAltIntro":"yes","maxResponses":"9"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"3","useAltIntro":"yes","maxResponses":"9"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"4","useAltIntro":"yes","maxResponses":"9"}},
+          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":["faces_1","words_1","story_1"]}},
+          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":["cars_1","words_2","story_2"]}},
+          {"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":["1","2"]}}
+        ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
 
     public static function initializeBlockBTasks($group_id, $randomize) {
-      $taskArray = '[{"taskName":"BigFive","taskParams":{"hasIndividuals":"true","hasGroup":"false","statementOrder":"random"}},{"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},{"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":"all"}}]';
+      $taskArray = '[
+          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+          {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
+          {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"4","useAltIntro":"no","maxResponses":"9"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"3","useAltIntro":"yes","maxResponses":"9"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"5","useAltIntro":"yes","maxResponses":"9"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"6","useAltIntro":"yes","maxResponses":"9"}},
+          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":["cars_1","words_2","story_2"]}},
+          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":["faces_2","words_3","story_3"]}},
+          {"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":["2","3"]}}
+        ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
 
     public static function initializeBlockCTasks($group_id, $randomize) {
-      $taskArray = '[{"taskName":"BigFive","taskParams":{"hasIndividuals":"true","hasGroup":"false","statementOrder":"random"}},{"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},{"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":"all"}}]';
+      $taskArray = '[
+          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+          {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
+          {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"6","useAltIntro":"no","maxResponses":"9"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"5","useAltIntro":"yes","maxResponses":"9"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"7","useAltIntro":"yes","maxResponses":"9"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"8","useAltIntro":"yes","maxResponses":"9"}},
+          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":["faces_2","words_3","story_3"]}},
+          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":["bikes_1","words_4","story_4"]}},
+          {"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":["3","4"]}}
+        ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
 
     public static function initializeBlockDTasks($group_id, $randomize) {
-      $taskArray = '[{"taskName":"BigFive","taskParams":{"hasIndividuals":"true","hasGroup":"false","statementOrder":"random"}},{"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},{"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":"all"}}]';
+      $taskArray = '[
+          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+          {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
+          {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"8","useAltIntro":"no","maxResponses":"9"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"7","useAltIntro":"yes","maxResponses":"9"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"2","useAltIntro":"yes","maxResponses":"9"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"1","useAltIntro":"yes","maxResponses":"9"}},
+          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":["bikes_1","words_4","story_4"]}},
+          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":["faces_1","words_1","story_1"]}},
+          {"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":["4","1"]}}
+        ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
 

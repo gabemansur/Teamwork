@@ -6,7 +6,7 @@ class TeamRole {
 
   private static $avaialbleParams = ['hasIndividuals' => ['true'],
                                      'hasGroup' => ['false'],
-                                     'scenarios' => ['all']];
+                                     'scenarios' => ['allows_multiples' => ['all', '1', '2', '3', '4']]];
 
 
   private $scenarios = [
@@ -166,8 +166,12 @@ class TeamRole {
   ];
 
 
-  public function getScenarios() {
-    return $this->scenarios;
+  public function getScenarios($chosenScenarios) {
+    $scenarios = [];
+    foreach ($chosenScenarios as $s) {
+      $scenarios[] = $this->scenarios[$s - 1];
+    }
+    return $scenarios;
   }
 
   public function setScenario($key) {
