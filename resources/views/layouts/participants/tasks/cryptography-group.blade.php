@@ -260,7 +260,7 @@ $( document ).ready(function() {
         </div>
       @endif
     </div>
-    <div class="row" id="task-end">
+    <div class="row vertical-center" id="task-end">
       <div class="col-md-8 offset-md-2">
         <form action="/cryptography-end" id="cryptography-end-form" method="post">
           {{ csrf_field() }}

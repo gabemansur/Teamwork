@@ -90,25 +90,37 @@ $( document ).ready(function() {
       <div id="inst_1" class="inst">
         <h2 class="text-primary">Cryptography Task</h2>
         <h4>
-          In this task, every letter from A to J has a numerical value. The goal of the
-          task is to find out the value of each letter.
+          In the Cryptography Task, every letter from A to J has a
+          numerical value. Your goal is to find out the value of each letter.
         </h4>
         <h4>
-          We’ll start with a practice. To make things clear, say the
-          value of each letter is as follows: <br><br>
+          This task will take around 12 minutes.
+        </h4>
+        <h4>
+          Click continue to get more detailed instructions.
+        </h4>
+      </div> <!-- End inst_1 -->
+      <div id="inst_2" class="inst">
+        <h2 class="text-primary">Cryptography Task</h2>
+        <h3>Instructions and Practice</h3>
+        <h4>
+          We’ll start with a practice example. To make things clear, in the
+          example we'll give you the values of all the letters: <br><br>
           <span class="bg-light p-md-2 mt-md-4 mb-lg-4">
             A = 6;  B = 5;  C = 7;  D = 4;  E = 1;  F = 8;  G = 3;  H = 2;  I = 9;  J = 0
           </span>
         </h4>
         <h4 class="mt-lg-4">
-          As in the example, we’ll always use the letters A to J and the
-          numbers 0 to 9. No two letters have the same value. Your goal is to
-          find out the value of each letter. You have {{ $maxResponses }} "trials" to do this.
+          Note that no two letters have the same value. This is always the case.
+        </h4>
+        <h4>
+          Remember, your goal is to find out the value of each letter.
+          You have {{ $maxResponses }} "trials" to do this.
           A "trial" involves three steps. In the next few pages, we will
           describe each step.
         </h4>
-      </div> <!-- End inst_1 -->
-      <div id="inst_2" class="inst">
+      </div> <!-- End inst_2 -->
+      <div id="inst_3" class="inst">
         <h4>
           The first step is to enter an
           <span class="text-equation">equation</span>: this is a combination of
@@ -124,7 +136,7 @@ $( document ).ready(function() {
         <h4>
           As another example, you might enter F - G. Here the computer would say
           F - G = B.<br>
-          Last, you might ED - C. The computer would say ED - C = C.
+          Last, you might enter ED - C. The computer would say ED - C = C.
         <div id="practice" class="mb-lg-4 mt-lg-4">
           <div class="row">
             <div class="col-md-8 offset-md-2">
@@ -144,9 +156,9 @@ $( document ).ready(function() {
             </div>
           </div>
         </div>
-      </div> <!-- End inst_2 -->
+      </div> <!-- End inst_3 -->
 
-      <div id="inst_3" class="inst">
+      <div id="inst_4" class="inst">
         <h4>
           Second you can <span class="text-hypothesis">make a HYPOTHESIS</span>.
           This is the part of each "trial" where you can get feedback from the computer
@@ -189,9 +201,9 @@ $( document ).ready(function() {
           </div>
         </div>
         <div class="alert alert-success" id="alert-hypothesis" role="alert"></div>
-      </div> <!-- End inst_2 -->
+      </div> <!-- End inst_4 -->
 
-      <div id="inst_4" class="inst">
+      <div id="inst_5" class="inst">
         <h4>
           Third, and last, at the end of each trial, you can
           <span class="text-guess">guess the letter values</span>. You can guess
@@ -201,9 +213,9 @@ $( document ).ready(function() {
           letters (or if any of your guesses were incorrect) you won't get any
           feedback: we'll just move straight on to the next trial.
         </h4>
-      </div> <!-- End inst_3 -->
+      </div> <!-- End inst_5 -->
 
-      <div id="inst_5" class="inst">
+      <div id="inst_6" class="inst">
         <h2 class="text-primary">
           To review:
         </h2>
@@ -232,7 +244,7 @@ $( document ).ready(function() {
           No calculators are allowed.<br>
           When you press "Next" your 10 minutes will begin!
         </h4>
-      </div> <!-- End inst_4 -->
+      </div> <!-- End inst_6 -->
       <div id="instr_nav" class="text-center">
         <input class="btn btn-primary instr_nav btn-lg" type="button" name="back" id="back" value="&#8678; Back">
         <input class="btn btn-primary instr_nav btn-lg" type="button" name="next" id="next" value="Next &#8680;"><br />

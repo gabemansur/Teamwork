@@ -23,6 +23,9 @@ $( document ).ready(function() {
         {{ csrf_field() }}
         @foreach($tests as $key => $test)
           <div id="inst_{{ $key + 1 }}" class="inst">
+            <div class="text-center text-danger mb-lg-4">
+              {{ $key + 1 }}/{{ count($tests) }}
+            </div>
             <div class="text-center">
               <img class="eyes" src="{{ $dir.$test['img'] }}">
             </div>

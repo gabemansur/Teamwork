@@ -54,6 +54,10 @@ class IndividualTaskController extends Controller
 
       switch($task->name) {
 
+        case "Intro":
+          request()->session()->put('currentIndividualTaskName', 'Intro');
+          return redirect('/study-intro');
+
         case "TeamRole":
           request()->session()->put('currentIndividualTaskName', 'Team Role Task');
           return redirect('/team-role-intro');
@@ -128,6 +132,15 @@ class IndividualTaskController extends Controller
 
     public function endExperiment() {
       return view('layouts.participants.participant-experiment-end');
+    }
+
+    public function studyIntro(Request $request) {
+      $this->recordStartTime($request, 'intro');
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $introContent = (new \Teamwork\Tasks\Intro)->getIntro($parameters->type);
+      return view('layouts.participants.participant-study-intro')
+             ->with('introContent', $introContent);
     }
 
     public function teamRoleIntro(Request $request) {
