@@ -142,6 +142,9 @@ $( document ).ready(function() {
           relationship. Each time, you will have {{ $maxResponses }} guesses
           to try to find a number that gives you a big value in return.
         </h4>
+        <h4>
+          This task isn't timed, but most people take less than ten minutes in total.
+        </h4>
       </div>
 
       <div id="instr_nav" class="text-center">

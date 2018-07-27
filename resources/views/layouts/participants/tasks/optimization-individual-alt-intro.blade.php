@@ -20,11 +20,12 @@ $( document ).ready(function() {
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
       <h2 class="text-primary">Optimization Task {{ count($completedTasks) + 1 }} of {{ count($totalTasks) }}</h2>
-      <h3>
-        Now you'll perform the task again. Enter numbers between 0 and 300.
-        This time, there's a different relationship between the number you
-        enter and the output you receive.
-      </h3>
+      <h4>
+        Now you'll perform the task again. The relationship between the numbers
+        you enter and the ones you receive will be different this time. Otherwise,
+        the task is the same. Try to find a number between 0 and 300 that gives
+        you the biggest possible output.
+      </h4>
       <div class="text-center">
         <a class="btn btn-lg btn-primary"
            role="button"

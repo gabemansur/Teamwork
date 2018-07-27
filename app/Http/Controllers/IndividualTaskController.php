@@ -76,7 +76,7 @@ class IndividualTaskController extends Controller
 
         case "Memory":
           request()->session()->put('currentIndividualTaskName', 'Memory Task');
-          return redirect('/memory-individual-intro');
+          return redirect('/memory-individual');
 
         case "Eyes":
           request()->session()->put('currentIndividualTaskName', 'Eyes Task');
@@ -259,7 +259,13 @@ class IndividualTaskController extends Controller
       asort($aSorted); // Sort, but preserve key order
       $sorted = $mapping;
       sort($sorted); // Sort and re-index
-      return view('layouts.participants.tasks.cryptography-individual-intro')
+
+      if($parameters->useAltIntro == 'yes') {
+        return view('layouts.participants.tasks.cryptography-individual-alt-intro')
+               ->with('maxResponses', $maxResponses);
+      }
+
+      else return view('layouts.participants.tasks.cryptography-individual-intro')
              ->with('maxResponses', $maxResponses)
              ->with('mapping', json_encode($mapping))
              ->with('aSorted', $aSorted)
@@ -380,40 +386,53 @@ class IndividualTaskController extends Controller
     }
 
     public function memory(Request $request) {
-      $this->recordEndTime($request, 'intro');
-
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
 
       // Record the start time for this task
       $this->recordStartTime($request, 'task');
 
       $parameters = unserialize($currentTask->parameters);
-      $tests = [];
-      foreach ($parameters->test as $key => $test) {
-        $tests[] = (new \Teamwork\Tasks\Memory)->getTest($test);
+      $test = (new \Teamwork\Tasks\Memory)->getTest($parameters->test);
+
+      if($test['type'] == 'intro') {
+        $this->recordStartTime($request, 'intro');
       }
 
+      else {
+        $this->recordStartTime($request, 'task');
+      }
+
+      // Originally, there was an array of multiple tests. We've separated the
+      // different memory tasks into individual tasks but to avoid rewriting a
+      // lot of code, we'll construct a single-element array with the one test.
       return view('layouts.participants.tasks.memory-individual')
-             ->with('tests', $tests)
-             ->with('enc_tests', json_encode($tests));
+             ->with('tests', [$test])
+             ->with('enc_tests', json_encode([$test]));
     }
 
     public function saveMemory(Request $request) {
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
 
-      // Record the end time for this task
-      $this->recordEndTime($request, 'task');
+      $test = (new \Teamwork\Tasks\Memory)->getTest($parameters->test);
 
-      $tests = [];
-      foreach ($parameters->test as $key => $test) {
-        $tests[] = (new \Teamwork\Tasks\Memory)->getTest($test);
+      if($test['type'] == 'intro') {
+        $this->recordEndTime($request, 'intro');
+      }
+
+      else {
+        $this->recordEndTime($request, 'task');
       }
 
       // Retrieve all responses
       $responses = array_where($request->request->all(), function ($value, $key) {
         return strpos($key, 'response') !== false;
       });
+
+      // Originally, there was an array of multiple tests. We've separated the
+      // different memory tasks into individual tasks but to avoid rewriting a
+      // lot of code, we'll construct a single-element array with the one test.
+      $tests = [$test];
 
 
       foreach ($tests as $key => $t) {
@@ -487,6 +506,8 @@ class IndividualTaskController extends Controller
 
         }
       }
+
+      if($test['type'] == 'intro') return redirect('/end-individual-task');
 
       $results .= 'You have completed the Memory Task.<br><br><h1>Across the three different memory tasks, you performed best on the <span class="text-primary">'. $bestTest['task_type'] .'</span> test.</h1>';
       $request->session()->put('currentIndividualTaskResult', $results);

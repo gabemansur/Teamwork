@@ -220,7 +220,7 @@ $( document ).ready(function() {
           To review:
         </h2>
         <h4>
-          You will have a maximum of 15 trials and 10 minutes to solve
+          You will have a maximum of {{ $maxResponses }} trials and 10 minutes to solve
           the cryptography task. Each trial has three elements:
         </h4>
         <div class="row">
