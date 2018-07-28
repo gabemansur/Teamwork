@@ -89,6 +89,10 @@ class IndividualTaskController extends Controller
         case "Shapes":
           request()->session()->put('currentIndividualTaskName', 'Shapes Task');
           return redirect('/shapes-individual-intro');
+
+        case "Conclusion":
+          request()->session()->put('currentIndividualTaskName', 'Conclusion');
+          return redirect('/study-conclusion');
       }
     }
 
@@ -141,6 +145,20 @@ class IndividualTaskController extends Controller
       $introContent = (new \Teamwork\Tasks\Intro)->getIntro($parameters->type);
       return view('layouts.participants.participant-study-intro')
              ->with('introContent', $introContent);
+    }
+
+    public function studyConclusion(Request $request) {
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $conclusion = new \Teamwork\Tasks\Conclusion;
+      $conclusionContent = $conclusion->getConclusion($parameters->type);
+      if($parameters->hasCode) {
+        $code = $conclusion->getMturkCode();
+      }
+      else $code = null;
+      return view('layouts.participants.participant-study-conclusion')
+             ->with('conclusionContent', $conclusionContent)
+             ->with('code', $code);
     }
 
     public function teamRoleIntro(Request $request) {
@@ -388,12 +406,10 @@ class IndividualTaskController extends Controller
     public function memory(Request $request) {
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
 
-      // Record the start time for this task
-      $this->recordStartTime($request, 'task');
-
       $parameters = unserialize($currentTask->parameters);
       $test = (new \Teamwork\Tasks\Memory)->getTest($parameters->test);
 
+      if($test['task_type'] == 'results') return redirect('/memory-individual-results');
       if($test['type'] == 'intro') {
         $this->recordStartTime($request, 'intro');
       }
@@ -483,7 +499,9 @@ class IndividualTaskController extends Controller
         $r->user_id = \Auth::user()->id;
         $r->group_tasks_id = $currentTask->id;
         $r->individual_tasks_id = $request->session()->get('currentIndividualTask');
-        $r->prompt = serialize($test);
+        $r->prompt = serialize(['test' => $tests[$indices[1]]['test_name'],
+                               'block' => $indices[2],
+                               'test_type' => $tests[$indices[1]]['task_type']]);
         if(is_array($response)) {
           $r->response = serialize($response);
         }
@@ -507,9 +525,49 @@ class IndividualTaskController extends Controller
         }
       }
 
-      if($test['type'] == 'intro') return redirect('/end-individual-task');
+      return redirect('/end-individual-task');
+    }
 
-      $results .= 'You have completed the Memory Task.<br><br><h1>Across the three different memory tasks, you performed best on the <span class="text-primary">'. $bestTest['task_type'] .'</span> test.</h1>';
+    public function displayMemoryTaskResults(Request $request) {
+
+      $memTests = \Teamwork\GroupTask::where('name', 'Memory')
+                           ->where('group_id', \Auth::user()->group_id)
+                           ->pluck('id');
+
+
+      $responses = \Teamwork\Response::whereIn('group_tasks_id', $memTests)
+                           ->where('user_id', \Auth::user()->id)
+                           ->get();
+
+      $correct = [];
+
+      foreach($responses as $response) {
+        $prompt = unserialize($response->prompt);
+
+        if(isset($correct[$prompt['test']])){
+          $correct[$prompt['test']]['points'] += $response->points;
+        }
+        else {
+          $correct[$prompt['test']] = [
+            'points' => $response->points,
+            'test_type' => $prompt['test_type']
+          ];
+        }
+      }
+
+      $results = '';
+      $bestTest['test'] = '';
+      $bestTest['score'] = 0;
+      $bestTest['test_type'] = '';
+      foreach($correct as $test => $c) {
+        if($c['points'] > $bestTest['score']) {
+          $bestTest['score'] = $c['points'];
+          $bestTest['test'] = $test;
+          $bestTest['test_type'] = $c['test_type'];
+        }
+      }
+
+      $results .= 'You have completed the Memory Task.<br><br><h1>Across the three different memory tasks, you performed best on the <span class="text-primary">'. $bestTest['test_type'] .'</span> test.</h1>';
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Memory Task');
 

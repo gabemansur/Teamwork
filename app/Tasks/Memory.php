@@ -4,7 +4,7 @@ namespace Teamwork\Tasks;
 class Memory {
 
   private $memoryTests = [
-
+    'results' => ['task_type' => 'results'],
     'images_instructions' => [
       'test_name' => 'images_instructions',
       'task_type' => 'images',
@@ -43,7 +43,7 @@ class Memory {
 
     'words_instructions' => [
       'test_name' => 'words_instructions',
-      'task_type' => 'images',
+      'task_type' => 'words',
       'type' => 'intro',
       'directory' => '/img/memory-task/faces/',
       'blocks' => [
@@ -82,7 +82,7 @@ class Memory {
 
     'story_instructions' => [
       'test_name' => 'story_instructions',
-      'task_type' => 'images',
+      'task_type' => 'story',
       'type' => 'intro',
       'directory' => '/img/memory-task/',
       'blocks' => [
@@ -663,38 +663,6 @@ class Memory {
         'type' => 'task',
         'directory' => '/img/memory-task/faces/',
         'blocks' => [
-            ['type' => 'text',
-             'text' => 'The last memory task asks you to remember
-                             two very short stories. Once again, we’ll start with a
-                             practice. In the practice round each "story" will only have one sentence.'],
-            ['type' => 'review',
-            'text' => 'Practice stories:',
-            'targets' => ['Peter was hungry, so he went to the store on the
-                            corner of his street and bought a hamburger.',
-                          'Yesterday, a local woman found a 10-foot crocodile
-                          in her kitchen, an event the fire department
-                          described as "unusual".'],
-            'review_time' => 15],
-            [ 'type' => 'practice_test',
-              'selection_type' => 'select_one',
-              'prompt' => 'Why did Peter go to the store?',
-              'choices' => ['Because he was hungry',
-                            'To get coffee',
-                            'To buy food for his dog'],
-              'correct' => [1]],
-            [ 'type' => 'practice_test',
-              'selection_type' => 'select_one',
-              'prompt' => 'Where was a crocodile found yesterday?',
-              'choices' => ['In a kitchen in Australia',
-                            'On a roof in Manhattan',
-                            'On the moon'],
-              'correct' => [1]],
-            ['type' => 'text',
-             'text' => 'Now for the actual task. You will be presented with two longer stories.
-                        You will have 30 seconds to read them. Try to take in as much information as possible.
-                        There is a timer in the top right of the screen.
-                        After the 30 seconds are up, we’ll ask you some questions about the stories.
-                        Your 30 seconds will start when you hit continue.'],
             ['type' => 'review',
             'text' => '',
             'targets' => ['Anna Thompson of South Boston, a cook in a school cafeteria, reported to the police
@@ -772,38 +740,6 @@ class Memory {
         'task_type' => 'story',
         'type' => 'task',
         'blocks' => [
-            ['type' => 'text',
-             'text' => 'The last memory task asks you to remember
-                             two very short stories. Once again, we’ll start with a
-                             practice. In the practice round each "story" will only have one sentence.'],
-            ['type' => 'review',
-            'text' => 'Practice stories:',
-            'targets' => ['Peter was hungry, so he went to the store on the
-                           corner of his street and bought a hamburger.',
-                         'Yesterday, a local woman found a 10-foot crocodile
-                         in her kitchen, an event the fire department
-                         described as "unusual".'],
-            'review_time' => 15],
-            [ 'type' => 'practice_test',
-             'selection_type' => 'select_one',
-             'prompt' => 'Why did Peter go to the store?',
-             'choices' => ['Because he was hungry',
-                           'To get coffee',
-                           'To buy food for his dog'],
-             'correct' => [1]],
-            [ 'type' => 'practice_test',
-             'selection_type' => 'select_one',
-             'prompt' => 'Where was a crocodile found yesterday?',
-             'choices' => ['In a kitchen in Australia',
-                           'On a roof in Manhattan',
-                           'On the moon'],
-             'correct' => [1]],
-            ['type' => 'text',
-             'text' => 'Now for the actual task. You will be presented with two longer stories.
-                        You will have 30 seconds to read them. Try to take in as much information as possible.
-                        There is a timer in the top right of the screen.
-                        After the 30 seconds are up, we’ll ask you some questions about the stories.
-                        Your 30 seconds will start when you hit continue.'],
             ['type' => 'review',
             'text' => '',
             'targets' => ['A recent survey of supermarket shoppers in Baytown revealed that eight
@@ -884,38 +820,6 @@ class Memory {
         'task_type' => 'story',
         'type' => 'task',
         'blocks' => [
-            ['type' => 'text',
-             'text' => 'The last memory task asks you to remember
-                             two very short stories. Once again, we’ll start with a
-                             practice. In the practice round each "story" will only have one sentence.'],
-            ['type' => 'review',
-            'text' => 'Practice stories:',
-            'targets' => ['Peter was hungry, so he went to the store on the
-                           corner of his street and bought a hamburger.',
-                         'Yesterday, a local woman found a 10-foot crocodile
-                         in her kitchen, an event the fire department
-                         described as "unusual".'],
-            'review_time' => 15],
-            [ 'type' => 'practice_test',
-             'selection_type' => 'select_one',
-             'prompt' => 'Why did Peter go to the store?',
-             'choices' => ['Because he was hungry',
-                           'To get coffee',
-                           'To buy food for his dog'],
-             'correct' => [1]],
-            [ 'type' => 'practice_test',
-             'selection_type' => 'select_one',
-             'prompt' => 'Where was a crocodile found yesterday?',
-             'choices' => ['In a kitchen in Australia',
-                           'On a roof in Manhattan',
-                           'On the moon'],
-             'correct' => [1]],
-            ['type' => 'text',
-             'text' => 'Now for the actual task. You will be presented with two longer stories.
-                        You will have 30 seconds to read them. Try to take in as much information as possible.
-                        There is a timer in the top right of the screen.
-                        After the 30 seconds are up, we’ll ask you some questions about the stories.
-                        Your 30 seconds will start when you hit continue.'],
             ['type' => 'review',
             'text' => '',
             'targets' => ['Clothing makers in Europe and China have a problem.  The shape of the
@@ -1103,11 +1007,13 @@ class Memory {
   ]; // End memoryTests
 
 
-  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['true', 'false'],
-                                     'test' => ['images_instructions', 'faces_1', 'faces_2',
-                                                'cars_1', 'bikes_1', 'words_1', 'words_2',
-                                                'words_3', 'words_4', 'story_1', 'story_2',
-                                                'story_3', 'story_4']];
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false', 'true'],
+                                     'test' => ['images_instructions', 'faces_1',
+                                                'faces_2', 'cars_1', 'bikes_1',
+                                                'words_instructions', 'words_1', 'words_2',
+                                                'words_3', 'words_4',
+                                                'story_instructions', 'story_1', 'story_2',
+                                                'story_3', 'story_4', 'results']];
 
   public function getTests() {
     return $this->prompts;
@@ -1124,7 +1030,6 @@ class Memory {
   public function getTest($test) {
     return $this->memoryTests[$test];
   }
-
 
   public static function getAvailableParams()
   {

@@ -35,6 +35,9 @@ class GroupTask extends Model
                        'hasIndividuals' => true],
                       ['name' => 'Shapes',
                        'hasIndividuals' => true],
+                       ['name' => 'Conclusion',
+                       'params' => [],
+                       'hasIndividuals' => true],
                     ];
 
     public function group() {

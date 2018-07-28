@@ -87,6 +87,12 @@ Route::get('/study-intro', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/study-conclusion', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@studyConclusion',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/team-role-intro', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@teamRoleIntro',
@@ -150,6 +156,12 @@ Route::get('/memory-individual', [
 Route::post('/memory-individual', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@saveMemory',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/memory-individual-results', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@displayMemoryTaskResults',
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 

@@ -160,6 +160,9 @@
 
               @if($block['type'] == 'text')
                 <div class="memory memory-text text" id="memory_{{ $key }}_{{ $b_key }}">
+                  @if(isset($block['header']))
+                    <h2 class="text-primary">{{ $block['header'] }}</h2>
+                  @endif
                   <h4>{{ $block['text'] }}</h4>
                   <div class="text-center">
                     <input class="btn btn-primary memory-nav btn-lg"
@@ -226,7 +229,10 @@
 
               @if($block['type'] == 'text')
                 <div class="memory memory-text text" id="memory_{{ $key }}_{{ $b_key }}">
-                  <h2>{{ $block['text'] }}</h2>
+                  @if(isset($block['header']))
+                    <h2 class="text-primary">{{ $block['header'] }}</h2>
+                  @endif
+                  <h4>{{ $block['text'] }}</h4>
                   <div class="text-center">
                     <input class="btn btn-primary memory-nav btn-lg"
                            type="button" name="next"
