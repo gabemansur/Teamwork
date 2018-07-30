@@ -24,14 +24,13 @@ function instructionPaginator(callback) {
     // Increment or decrement the page count, based on nav button clicked
     page_count = (dir == 'next') ? page_count += 1 : page_count -= 1;
 
-    // If we've reached the end of instructions, go to redirect url
-
-
+    // If we've reached the end of instructions, go to redirect url or callback
     if(page_count > $(".inst").length){
 
+      $('.instr_nav').hide();
+      $("#waiting").show();
+
       if($(this).attr('type') == 'submit') {
-        $('.instr_nav').hide();
-        $("#waiting").show();
         $('form').submit();
       }
       else if(typeof(callback) === 'function') {

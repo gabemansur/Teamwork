@@ -88,8 +88,7 @@
                     @endforeach
 
                     <div class="text-center mt-lg-2">
-                      <input class="btn btn-primary target-nav target-nav-back btn-lg" type="button" name="back" id="back" value="&#8678; Change Perspective">
-                      <input class="btn btn-primary target-nav target-nav-next btn-lg" type="button" name="next" id="next" value="Change Perspective &#8680;">
+                      <input class="btn btn-primary target-nav btn-lg" type="button" name="back" id="back" value="Change Perspective">
                     </div>
                   @endif {{-- End multiple images --}}
                 </div>

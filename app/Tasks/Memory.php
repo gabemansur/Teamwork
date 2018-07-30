@@ -41,6 +41,22 @@ class Memory {
       ]// end blocks
     ], // end images_instructions
 
+    'images_short_intro' => [
+      'test_name' => 'images_short_intro',
+      'task_type' => 'images',
+      'type' => 'intro',
+      'directory' => '/img/memory-task/faces/',
+      'blocks' => [
+          ['type' => 'text',
+            'header' => 'Memory Task',
+            'text' => 'Now you\'ll perform the task again with a different set
+              of target images. When you click "Continue" a screen will appear with 6 target
+              images. You will have 20 seconds to memorize
+              these target images.'],
+        ]
+    ],
+
+
     'words_instructions' => [
       'test_name' => 'words_instructions',
       'task_type' => 'words',
@@ -79,6 +95,21 @@ class Memory {
                     begin to appear when you click "Continue".',],
       ]// end blocks
     ], // end words_instructions
+
+    'words_short_intro' => [
+      'test_name' => 'words_short_intro',
+      'task_type' => 'words',
+      'type' => 'intro',
+      'directory' => '/img/memory-task/',
+      'blocks' => [
+          ['type' => 'text',
+            'header' => 'Memory Task',
+            'text' => 'Now you\'ll perform the task again with a different set
+              of target words. When you click "Continue" You will be presented
+              with 12 new target words. Each word will
+              show up separately for 2 seconds.'],
+        ]
+    ],
 
     'story_instructions' => [
       'test_name' => 'story_instructions',
@@ -121,6 +152,20 @@ class Memory {
                     Your 30 seconds will start when you hit continue.'],
       ]// end blocks
     ], // end story_instructions
+
+    'story_short_intro' => [
+      'test_name' => 'story_short_intro',
+      'task_type' => 'story',
+      'type' => 'intro',
+      'directory' => '/img/memory-task/',
+      'blocks' => [
+          ['type' => 'text',
+            'header' => 'Memory Task',
+            'text' => 'Now you\'ll perform the task again with two different
+                       stories. When you press "Continue" you will be presented
+                       with two new stories. You will have 30 seconds to read them.'],
+        ]
+    ],
 
     'faces_1' => [
         'test_name' => 'faces_1',
@@ -976,12 +1021,13 @@ class Memory {
 
 
   private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false', 'true'],
-                                     'test' => ['images_instructions', 'faces_1',
-                                                'faces_2', 'cars_1', 'bikes_1',
-                                                'words_instructions', 'words_1', 'words_2',
-                                                'words_3', 'words_4',
-                                                'story_instructions', 'story_1', 'story_2',
-                                                'story_3', 'story_4', 'results']];
+                                     'test' => ['images_instructions', 'images_short_intro',
+                                                'faces_1', 'faces_2', 'cars_1', 'bikes_1',
+                                                'words_instructions', 'words_short_intro',
+                                                'words_1', 'words_2', 'words_3', 'words_4',
+                                                'story_instructions', 'story_short_intro',
+                                                'story_1', 'story_2', 'story_3', 'story_4',
+                                                'results']];
 
   public function getTests() {
     return $this->prompts;

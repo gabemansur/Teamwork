@@ -18,7 +18,7 @@
       <div id="inst_1" class="inst">
         <h2 class="text-primary">Shapes Task</h2>
         <h3>
-          First we have a task where you will try to understand patterns and
+          Now we have a task where you will try to understand patterns and
           shapes. You will have to identify what comes next. We’ll start with
           a practice.
         </h3>

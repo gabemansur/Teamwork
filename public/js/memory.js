@@ -36,27 +36,16 @@ var Memory = class Memory {
 
   navTarget(dir) {
 
-    if(!dir) dir = 'next';
+    // Get the number of target images to cycle through
+    var items = $('.memory-review:visible .target-img').length;
+
+    // Hide the current one
     $('.target-' + this.navTargetPosition).hide();
-    // Increment or decrement the page count, based on nav button clicked
-    this.navTargetPosition = (dir == 'next') ? this.navTargetPosition += 1 : this.navTargetPosition -= 1;
 
-    if(this.navTargetPosition == 0) {
-      $('.target-nav-back').hide();
-      $('.target-nav-next').show();
-    }
-    else if(this.navTargetPosition == tests[this.testIndex].blocks[this.blockIndex].targets.length - 1) {
-      $('.target-nav-next').hide();
-      $('.target-nav-back').show();
-    }
-
-    else {
-      $('.target-nav-back').show();
-      $('.target-nav-next').show();
-    }
+    this.navTargetPosition = (this.navTargetPosition < items - 1) ? this.navTargetPosition += 1 : 0;
 
     $('.target-' + this.navTargetPosition).show();
-
+    
   }
 
   autoNavTarget() {
@@ -100,7 +89,7 @@ var Memory = class Memory {
 
     if(this.tests[this.testIndex].blocks[this.blockIndex].type == 'review') {
       this.navTargetPosition = 0;
-      $('.target-nav-back').hide();
+      //$('.target-nav-back').hide();
       $('.target').hide();
       $('.target-' + this.navTargetPosition).show();
 

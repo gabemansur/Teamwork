@@ -170,7 +170,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title text-center">Thank you. There are three more scenarios. You have a total of 9 minutes to complete these.</h4>
+        <h4 class="modal-title text-center">Thank you.
+          @if(count($scenarios) - 1 == 1)
+            There is {{ count($scenarios) - 1 }} more scenario. You have a total of 9 minutes to complete it.
+          @else
+            There are {{ count($scenarios) - 1 }} more scenarios. You have a total of 9 minutes to complete them.
+          @endif
+        </h4>
       </div>
       <div class="modal-body text-center">
           <button class="btn btn-lg btn-primary" id="next-scenario" type="button">Continue</button>
@@ -183,7 +189,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title text-center">Your time is up.<br>You will now move on to the next scenario.</h4>
+        <h4 class="modal-title text-center">
+          Your time is up.<br>You will now move on to the next scenario.
+        </h4>
       </div>
       <div class="modal-body text-center">
           <button class="btn btn-lg btn-primary" id="timer-complete" type="button">Continue</button>
