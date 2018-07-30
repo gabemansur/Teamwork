@@ -120,7 +120,7 @@ class Memory {
                     After the 30 seconds are up, we’ll ask you some questions about the stories.
                     Your 30 seconds will start when you hit continue.'],
       ]// end blocks
-    ], // end words_instructions
+    ], // end story_instructions
 
     'faces_1' => [
         'test_name' => 'faces_1',
@@ -898,38 +898,6 @@ class Memory {
         'task_type' => 'story',
         'type' => 'task',
         'blocks' => [
-            ['type' => 'text',
-             'text' => 'The last memory task asks you to remember
-                             two very short stories. Once again, we’ll start with a
-                             practice. In the practice round each "story" will only have one sentence.'],
-            ['type' => 'review',
-            'text' => 'Practice stories:',
-            'targets' => ['Peter was hungry, so he went to the store on the
-                           corner of his street and bought a hamburger.',
-                         'Yesterday, a local woman found a 10-foot crocodile
-                         in her kitchen, an event the fire department
-                         described as "unusual".'],
-            'review_time' => 15],
-            [ 'type' => 'practice_test',
-             'selection_type' => 'select_one',
-             'prompt' => 'Why did Peter go to the store?',
-             'choices' => ['Because he was hungry',
-                           'To get coffee',
-                           'To buy food for his dog'],
-             'correct' => [1]],
-            [ 'type' => 'practice_test',
-             'selection_type' => 'select_one',
-             'prompt' => 'Where was a crocodile found yesterday?',
-             'choices' => ['In a kitchen in Australia',
-                           'On a roof in Manhattan',
-                           'On the moon'],
-             'correct' => [1]],
-            ['type' => 'text',
-             'text' => 'Now for the actual task. You will be presented with two longer stories.
-                        You will have 30 seconds to read them. Try to take in as much information as possible.
-                        There is a timer in the top right of the screen.
-                        After the 30 seconds are up, we’ll ask you some questions about the stories.
-                        Your 30 seconds will start when you hit continue.'],
             ['type' => 'review',
             'text' => '',
             'targets' => ['At 7:35pm on Monday, Joe Garcia of San Francisco was watching television as he

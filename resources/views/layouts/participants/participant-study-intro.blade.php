@@ -9,7 +9,7 @@
         @if($content['type'] == 'header')
           <h2 class="text-primary">{{ $content['content'] }}</h2>
         @elseif($content['type'] == 'paragraph')
-          <p>{{ $content['content'] }}</p>
+          <h4>{{ $content['content'] }}</h4>
         @endif
       @endforeach
       <div class="text-center">
