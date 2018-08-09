@@ -51,6 +51,8 @@ class IndividualTaskController extends Controller
     }
 
     public function routeTask($task) {
+      // Calculate how many tasks are completed, and how many more to go...
+      $this->getProgress();
 
       switch($task->name) {
 
@@ -729,6 +731,10 @@ class IndividualTaskController extends Controller
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Shapes Task');
       return redirect('/individual-task-results');
+    }
+
+    pubic function getProgress() {
+
     }
 
     public function testMemory() {
