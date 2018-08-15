@@ -5,18 +5,25 @@ class Intro {
 
   private $intro = [
     'mTurk' => [[
-                  'type' => 'paragraph',
-                  'content' => 'Welcome etc...'
+                  'type' => 'header',
+                  'content' => 'Welcome to the Harvard Study Of Intelligence and Social Skill!'
                 ],
                 [
                   'type' => 'paragraph',
-                  'content' => 'For many of these tasks, we have
-                      a PRACTICE to explain how the tasks work.
-                      They won’t be counted towards your score.
-                      But, it is important to try to get these
-                      simple questions correct, as we use them to
-                      gauge if you read and understood the
-                      instructions.'
+                  'content' => 'Over the next <strong>60-70 minutes</strong> you will complete a
+                  range of different tasks. Our goal is to understand how well
+                  you solve problems, your ability to perceive emotions in
+                  others, and your short-term memory. This is a research study
+                  and your answers are important.'
+                ],
+                [
+                  'type' => 'paragraph',
+                  'content' => 'Most tasks begin with a practice. We’ve
+                  included these practice questions to explain how our
+                  tasks work. The practice questions do NOT count towards
+                  your score. But, it is important to try to get these
+                  simple questions correct, as we use them to make sure
+                  that you’ve read and understood the instructions.'
                 ]
       ],
   ];

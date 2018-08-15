@@ -17,6 +17,9 @@
     <div class="col-md-12 text-center">
       <div id="inst_1" class="inst">
         <h2 class="text-primary">Shapes Task</h2>
+        <h3 class="text-success">
+          Task {{ Session('taskProgress')['completedTasks'] + 1 }} of {{ Session('taskProgress')['totalTasks'] }}
+        </h3>
         <h3>
           Now we have a task where you will try to understand patterns and
           shapes. You will have to identify what comes next. We’ll start with

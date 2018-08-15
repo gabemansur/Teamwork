@@ -673,6 +673,7 @@ class IndividualTaskController extends Controller
     }
 
     public function shapesIntro(Request $request) {
+      dump(/Session::get('taskProgess'));
       $this->recordStartTime($request, 'intro');
       return view('layouts.participants.tasks.shapes-individual-intro');
     }
@@ -733,8 +734,28 @@ class IndividualTaskController extends Controller
       return redirect('/individual-task-results');
     }
 
-    pubic function getProgress() {
+    public function getProgress() {
+      $taskCount = \Teamwork\GroupTask::select('name')
+                                      ->where('group_id', \Auth::user()->group_id)
+                                      ->where('name', '!=', 'Intro')
+                                      ->where('name', '!=', 'Conclusion')
+                                      ->groupBy('name')->get();
 
+      $completed = 0;
+
+      foreach ($taskCount as $t) {
+        $tasks = \Teamwork\GroupTask::where('group_id', \Auth::user()->group_id)
+                                    ->where('name', $t->name)
+                                    ->get();
+        $isComplete = true;
+        foreach ($tasks as $task) {
+          if(!$task->completed) $isComplete = false;
+        }
+
+        if($isComplete) $completed++;
+
+      }
+      \Session::put('taskProgess', ['totalTasks' => count($taskCount), 'completedTasks' => $completed]);
     }
 
     public function testMemory() {
