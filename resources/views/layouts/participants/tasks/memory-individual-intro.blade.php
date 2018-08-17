@@ -20,7 +20,7 @@
       <div id="inst_1" class="inst">
         <h2 class="text-primary">Memory Task</h2>
         <h3 class="text-success">
-          Task {{ (\Session::get('taskProgress')['completedTasks']) + 1 }} of {{ (\Session::get('taskProgress'))['totalTasks'] }}
+          Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
         </h3>
         <h4>
           Last are some tests of memory.<br>

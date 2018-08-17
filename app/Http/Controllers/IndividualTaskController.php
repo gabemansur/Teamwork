@@ -751,7 +751,8 @@ class IndividualTaskController extends Controller
         $lastTask = $task->name;
 
       }
-      \Session::put('taskProgress', ['totalTasks' => $count, 'completedTasks' => $completed]);
+      \Session::put('totalTasks', $count);
+      \Session::put('completedTasks', $completed);
     }
 
     public function testMemory() {
