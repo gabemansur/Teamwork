@@ -20,7 +20,7 @@
           Reading the Mind in the Eyes Task
         </h2>
         <h3 class="text-success">
-          Task {{ (\Session::get('taskProgress')['completedTasks']) + 1 }} of {{ (\Session::get('taskProgress'))['totalTasks'] }}
+          Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
         </h3>
         <h4>
           In this task, you’ll be presented with pictures of people's eyes.

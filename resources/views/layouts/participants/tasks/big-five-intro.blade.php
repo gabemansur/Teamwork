@@ -18,18 +18,21 @@ $( document ).ready(function() {
       <h2 class="text-primary">
         Personality Test
       </h2>
-      <h3>
-        We’ll start with some basic questions about personality.
+      <h3 class="text-success">
+        Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
       </h3>
-      <h3>
+      <h4>
+        We’ll start with some basic questions about personality.
+      </h4>
+      <h4>
         This will take about 10 minutes. Remember, your answers will be kept
         in absolute confidence, and deleted at the conclusion of the study.
-      </h3>
-      <h3>
+      </h4>
+      <h4>
         Describe yourself as you generally are now, not as you
         wish to be in the future. Describe yourself as honestly as you can,
         compared to other people you know of roughly the same age and sex.
-      </h3>
+      </h4>
       <div class="text-center">
         <a class="btn btn-lg btn-primary"
            role="button"

@@ -74,7 +74,7 @@ $( document ).ready(function() {
       <div id="inst_1" class="inst">
         <h2 class="text-primary">Optimization Task</h2>
         <h3 class="text-success">
-          Task {{ (\Session::get('taskProgress')['completedTasks']) + 1 }} of {{ (\Session::get('taskProgress'))['totalTasks'] }}
+          Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
         </h3>
         <h4>
           The goal of this task is to try to find the number (between 0 and 300)
