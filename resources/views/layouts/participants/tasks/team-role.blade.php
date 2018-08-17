@@ -64,7 +64,7 @@
           $("#next").click();
           $("#timerComplete").modal('toggle');
           $(".modal-title").html('Your time is up. You must submit your answers now.');
-          initializeTimer(540, function(){
+          initializeTimer(240, function(){
             $("#timerComplete").modal();
           });
         }
@@ -83,7 +83,7 @@
           $(".inst").hide();
           $("#next").click();
           $("#scenario1Complete").modal('toggle');
-          initializeTimer(540, function(){
+          initializeTimer(240, function(){
             $("#timerComplete").modal();
           });
         }
@@ -95,7 +95,7 @@
 
 </script>
 
-<div class="container">
+<div class="container container-large">
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
       <div class="float-right text-primary" id="timer"></div><br>
@@ -115,11 +115,13 @@
               these responses are better than others.
             </div>
             <h4>Scenario {{ $i }}</h4>
-            <ul class="text-left">
-              @foreach($scenarios[$i - 1]['desc'] as $desc)
-                <li>{{ $desc }}</li>
-              @endforeach
-            </ul>
+            <h4>
+              <ul class="text-left">
+                @foreach($scenarios[$i - 1]['desc'] as $desc)
+                  <li>{{ $desc }}</li>
+                @endforeach
+              </ul>
+            </h4>
           </div>
           <div id="inst_{{ $i * 2 }}" class="inst responses">
             <h3 class="text-center">Scenario {{ $i }}</h2>
@@ -172,9 +174,9 @@
       <div class="modal-header">
         <h4 class="modal-title text-center">Thank you.
           @if(count($scenarios) - 1 == 1)
-            There is {{ count($scenarios) - 1 }} more scenario. You have a total of 9 minutes to complete it.
+            There is {{ count($scenarios) - 1 }} more scenario. You have a total of 4 minutes to complete it.
           @else
-            There are {{ count($scenarios) - 1 }} more scenarios. You have a total of 9 minutes to complete them.
+            There are {{ count($scenarios) - 1 }} more scenarios. You have a total of 4 minutes to complete them.
           @endif
         </h4>
       </div>

@@ -19,6 +19,9 @@
         <h2 class="text-primary">
           Reading the Mind in the Eyes Task
         </h2>
+        <h3 class="text-success">
+          Task {{ (\Session::get('taskProgress')['completedTasks']) + 1 }} of {{ (\Session::get('taskProgress'))['totalTasks'] }}
+        </h3>
         <h4>
           In this task, you’ll be presented with pictures of people's eyes.
           Your job is to draw conclusions about what the person is thinking or

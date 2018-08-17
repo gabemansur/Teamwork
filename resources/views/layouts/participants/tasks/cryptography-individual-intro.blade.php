@@ -89,15 +89,15 @@ $( document ).ready(function() {
     <div class="col-md-12 text-center">
       <div id="inst_1" class="inst">
         <h2 class="text-primary">Cryptography Task</h2>
+        <h3 class="text-success">
+          Task {{ (\Session::get('taskProgress')['completedTasks']) + 1 }} of {{ (\Session::get('taskProgress'))['totalTasks'] }}
+        </h3>
         <h4>
           In the Cryptography Task, every letter from A to J has a
           numerical value. Your goal is to find out the value of each letter.
         </h4>
         <h4>
           This task will take around 12 minutes.
-        </h4>
-        <h4>
-          Click continue to get more detailed instructions.
         </h4>
       </div> <!-- End inst_1 -->
       <div id="inst_2" class="inst">

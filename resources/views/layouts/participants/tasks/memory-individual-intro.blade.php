@@ -9,7 +9,7 @@
 <script>
 
     $( document ).ready(function() {
-      instructionPaginator(function(){ window.location = '/memory-individual';});
+      instructionPaginator(function(){ window.location = '/end-individual-task';});
     });
 
 </script>
@@ -19,9 +19,30 @@
     <div class="col-md-12 text-center">
       <div id="inst_1" class="inst">
         <h2 class="text-primary">Memory Task</h2>
+        <h3 class="text-success">
+          Task {{ (\Session::get('taskProgress')['completedTasks']) + 1 }} of {{ (\Session::get('taskProgress'))['totalTasks'] }}
+        </h3>
         <h4>
-          Last are some tests of memory. We’ll start with a practice.<br>
-          Please do not write anything down during these tasks.
+          Last are some tests of memory.<br>
+          We will test three different types of memory.
+        </h4>
+        <div class="row">
+          <div class="col-md-3 offset-md-4">
+            <h4>
+              <ul>
+                <li>Image memory</li>
+                <li>Word memory</li>
+                <li>Story memory</li>
+              </ul>
+            </h4>
+          </div>
+        </div>
+        <h4>
+          To get accurate results, we will test each type of memory twice.<br>
+          The tests are short. In total, all the memory tests will take around 15 minutes.
+        </h4>
+        <h4>
+          Please do NOT write anything down during these tasks.
         </h4>
       </div>
 

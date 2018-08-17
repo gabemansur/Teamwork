@@ -410,7 +410,7 @@ class IndividualTaskController extends Controller
 
       $parameters = unserialize($currentTask->parameters);
       $test = (new \Teamwork\Tasks\Memory)->getTest($parameters->test);
-
+      if($test['task_type'] == 'intro') return redirect('/memory-individual-intro');
       if($test['task_type'] == 'results') return redirect('/memory-individual-results');
       if($test['type'] == 'intro') {
         $this->recordStartTime($request, 'intro');
@@ -673,7 +673,6 @@ class IndividualTaskController extends Controller
     }
 
     public function shapesIntro(Request $request) {
-      dump(/Session::get('taskProgess'));
       $this->recordStartTime($request, 'intro');
       return view('layouts.participants.tasks.shapes-individual-intro');
     }
@@ -735,27 +734,24 @@ class IndividualTaskController extends Controller
     }
 
     public function getProgress() {
-      $taskCount = \Teamwork\GroupTask::select('name')
-                                      ->where('group_id', \Auth::user()->group_id)
+      $tasks = \Teamwork\GroupTask::where('group_id', \Auth::user()->group_id)
                                       ->where('name', '!=', 'Intro')
                                       ->where('name', '!=', 'Conclusion')
-                                      ->groupBy('name')->get();
+                                      ->get();
 
+      $count = 0;
       $completed = 0;
+      $lastTask = null;
 
-      foreach ($taskCount as $t) {
-        $tasks = \Teamwork\GroupTask::where('group_id', \Auth::user()->group_id)
-                                    ->where('name', $t->name)
-                                    ->get();
-        $isComplete = true;
-        foreach ($tasks as $task) {
-          if(!$task->completed) $isComplete = false;
+      foreach ($tasks as $task) {
+        if($task->name != $lastTask) {
+          $count++;
+          if($task->completed) $completed++;
         }
-
-        if($isComplete) $completed++;
+        $lastTask = $task->name;
 
       }
-      \Session::put('taskProgess', ['totalTasks' => count($taskCount), 'completedTasks' => $completed]);
+      \Session::put('taskProgress', ['totalTasks' => $count, 'completedTasks' => $completed]);
     }
 
     public function testMemory() {

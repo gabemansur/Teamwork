@@ -63,6 +63,10 @@
         {{ csrf_field() }}
         @foreach($tests as $key => $test)
 
+          @if($test['task_type'] == 'intro')
+
+          @endif {{-- End if type = intro --}}
+
           @if($test['task_type'] == 'images')
 
             @foreach($test['blocks'] as $b_key => $block)
@@ -214,7 +218,7 @@
                   <div class="float-right text-primary timer" id="timer_{{ $key }}_{{ $b_key }}"></div><br>
                   <h4>{{ $block['text'] }}</h4>
                   @foreach($block['targets'] as $num => $target)
-                    <h2 class="text-left mt-lg-4">{{ $num + 1 }}: {{ $target }}</h2>
+                    <h4 class="text-left mt-lg-4">{{ $num + 1 }}: {{ $target }}</h4>
                     <hr>
                   @endforeach
                   <div class="text-center mt-lg-2">
@@ -248,9 +252,9 @@
                   <div class="row">
                     <div class="col-md-6 offset-md-3 text-left story-choices">
                       @foreach($block['choices'] as $c_key => $choice)
-                          <h2 >
+                          <h4>
                             {{ $c_key + 1 }}) {{ $choice }}
-                          </h2>
+                          </h4>
                       @endforeach
                     </div>
                   </div>
@@ -264,9 +268,9 @@
                 <div class="row">
                   <div class="col-md-6 offset-md-3 text-left story-choices">
                     @foreach($block['choices'] as $c_key => $choice)
-                        <h2>
+                        <h4>
                           {{ $c_key + 1 }}) {{ $choice }}
-                        </h2>
+                        </h4>
                     @endforeach
                     <input type="hidden" name="response_{{ $key }}_{{ $b_key }}"
                            id="response_{{ $key }}_{{ $b_key }}">

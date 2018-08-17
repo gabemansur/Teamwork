@@ -4,6 +4,7 @@ namespace Teamwork\Tasks;
 class Memory {
 
   private $memoryTests = [
+    'intro' => ['task_type' => 'intro'],
     'results' => ['task_type' => 'results'],
     'images_instructions' => [
       'test_name' => 'images_instructions',
@@ -11,12 +12,8 @@ class Memory {
       'type' => 'intro',
       'directory' => '/img/memory-task/faces/',
       'blocks' => [
-          ['type' => 'text',
-            'header' => 'Memory Task',
-            'text' => 'Next are some tests of memory. We’ll start with a practice.
-            Please do not write anything down during these tasks.'],
           ['type' => 'practice_review',
-          'text' => 'We\'ll start with a practice. Look at these 6 faces for a few seconds. We\'ll call these
+          'text' => 'Look at these 6 faces for a few seconds. We\'ll call these
                     "target faces".',
           'targets' => ['p0_targets_1.png'],
           'review_time' => null],
@@ -48,7 +45,7 @@ class Memory {
       'directory' => '/img/memory-task/faces/',
       'blocks' => [
           ['type' => 'text',
-            'header' => 'Memory Task',
+            'header' => 'Image Memory',
             'text' => 'Now you\'ll perform the task again with a different set
               of target images. When you click "Continue" a screen will appear with 6 target
               images. You will have 20 seconds to memorize
@@ -64,7 +61,7 @@ class Memory {
       'directory' => '/img/memory-task/faces/',
       'blocks' => [
         ['type' => 'text',
-         'header' => 'Memory Task',
+         'header' => 'Word Memory',
          'text' => 'Next, we’ll test word memory. In this task,
                   you’ll be presented with a set of "target words".  Each word
                   will show up separately for 2 seconds. We’ll start
@@ -103,7 +100,7 @@ class Memory {
       'directory' => '/img/memory-task/',
       'blocks' => [
           ['type' => 'text',
-            'header' => 'Memory Task',
+            'header' => 'Word Memory',
             'text' => 'Now you\'ll perform the task again with a different set
               of target words. When you click "Continue" You will be presented
               with 12 new target words. Each word will
@@ -118,7 +115,7 @@ class Memory {
       'directory' => '/img/memory-task/',
       'blocks' => [
         ['type' => 'text',
-         'header' => 'Memory Task',
+         'header' => 'Story Memory',
          'text' => 'This memory task asks you to remember
                          two very short stories. Once again, we’ll start with a
                          practice. In the practice round each "story" will only have one sentence.'],
@@ -160,7 +157,7 @@ class Memory {
       'directory' => '/img/memory-task/',
       'blocks' => [
           ['type' => 'text',
-            'header' => 'Memory Task',
+            'header' => 'Story Memory',
             'text' => 'Now you\'ll perform the task again with two different
                        stories. When you press "Continue" you will be presented
                        with two new stories. You will have 30 seconds to read them.'],

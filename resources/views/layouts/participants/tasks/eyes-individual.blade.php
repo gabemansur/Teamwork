@@ -23,9 +23,6 @@ $( document ).ready(function() {
         {{ csrf_field() }}
         @foreach($tests as $key => $test)
           <div id="inst_{{ $key + 1 }}" class="inst">
-            <div class="text-center text-danger mb-lg-4">
-              {{ $key + 1 }}/{{ count($tests) }}
-            </div>
             <div class="text-center">
               <img class="eyes" src="{{ $dir.$test['img'] }}">
             </div>
@@ -46,6 +43,9 @@ $( document ).ready(function() {
       </form>
       <div id="instr_nav" class="text-center mt-md-4">
         <input class="btn btn-primary instr_nav btn-lg" type="button" name="next" id="next" value="Next &#8680;"><br />
+        <span class="text-primary ml-md-4 text-lg" id="pagination-display">
+          <span id="curr-page">1</span> / {{ count($tests) }}
+        </span>
       </div>
     </div>
   </div>
