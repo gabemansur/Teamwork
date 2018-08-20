@@ -1,10 +1,11 @@
 <?php
 namespace Teamwork\Tasks;
+use Teamwork\ConfirmationCode;
 
 class Conclusion {
 
   private $conclusions = [
-    'mTurk' => [[
+    'mturk' => [[
                   'type' => 'sub-header',
                   'content' => 'You\'ve completed all the tasks!'
                 ],
@@ -15,16 +16,21 @@ class Conclusion {
       ],
   ];
 
-  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'type' => ['mTurk'], 'hasCode' => ['true', 'false']];
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'type' => ['mturk'], 'hasCode' => ['true', 'false']];
 
   public function getConclusion($type) {
     return $this->conclusions[$type];
   }
 
-  public function getMturkCode() {
-    // This is where we'll give them a confirmation code to enter into their MTurk survey.
-    // For now, it's just a random string...
-    return uniqid();
+  public function newConfirmationCode($type) {
+    return ConfirmationCode::where('user_id', null)
+                            ->where('type', $type)
+                            ->first();
+  }
+
+  public function getConfirmationCode($user_id) {
+    return ConfirmationCode::where('user_id', $user_id)
+                            ->first();
   }
 
   public static function getAvailableParams()

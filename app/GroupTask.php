@@ -113,7 +113,7 @@ class GroupTask extends Model
 
     public static function initializeBlockATasks($group_id, $randomize) {
       $taskArray = '[
-          {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mTurk"}},
+          {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
           {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
           {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"no","hasGroup":"false","mapping":"random","maxResponses":"15"}},
           {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
@@ -137,7 +137,7 @@ class GroupTask extends Model
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_short_intro"}},
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_2"}},
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"results"}},
-          {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mTurk","hasCode":"true"}}
+          {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
@@ -145,7 +145,7 @@ class GroupTask extends Model
     public static function initializeBlockBTasks($group_id, $randomize) {
 
       $taskArray = '[
-        {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mTurk"}},
+        {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
         {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
         {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"no","hasGroup":"false","mapping":"random","maxResponses":"15"}},
         {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
@@ -168,7 +168,7 @@ class GroupTask extends Model
         {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_short_intro"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_3"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"results"}},
-        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mTurk","hasCode":"true"}}
+        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}}
         ]';
 
       return Self::initializeTasks($group_id, $taskArray, $randomize);
@@ -176,7 +176,7 @@ class GroupTask extends Model
 
     public static function initializeBlockCTasks($group_id, $randomize) {
       $taskArray = '[
-          {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mTurk"}},
+          {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
           {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
           {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"no","hasGroup":"false","mapping":"random","maxResponses":"15"}},
           {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
@@ -199,14 +199,14 @@ class GroupTask extends Model
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_short_intro"}},
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_4"}},
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"results"}},
-          {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mTurk","hasCode":"true"}}
+          {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
 
     public static function initializeBlockDTasks($group_id, $randomize) {
       $taskArray = '[
-          {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mTurk"}},
+          {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
           {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
           {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"no","hasGroup":"false","mapping":"random","maxResponses":"15"}},
           {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
@@ -229,7 +229,7 @@ class GroupTask extends Model
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_short_intro"}},
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_1"}},
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"results"}},
-          {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mTurk","hasCode":"true"}}
+          {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }

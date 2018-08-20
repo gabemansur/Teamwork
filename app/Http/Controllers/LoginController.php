@@ -18,7 +18,7 @@ class LoginController extends Controller
       $group->save();
 
       $user = User::firstOrCreate(['participant_id' => $request->participant_id],
-                                  ['name' => 'partipant',
+                                  ['name' => 'participant',
                                    'participant_id' => $request->participant_id,
                                    'password' => bcrypt('participant'),
                                    'role_id' => 3,

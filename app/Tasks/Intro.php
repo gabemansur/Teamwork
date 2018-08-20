@@ -4,7 +4,7 @@ namespace Teamwork\Tasks;
 class Intro {
 
   private $intro = [
-    'mTurk' => [[
+    'mturk' => [[
                   'type' => 'header',
                   'content' => 'Welcome to the Harvard Study Of Intelligence and Social Skill!'
                 ],
@@ -28,7 +28,7 @@ class Intro {
       ],
   ];
 
-  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'type' => ['mTurk']];
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'type' => ['mturk']];
 
   public function getIntro($type) {
     return $this->intro[$type];

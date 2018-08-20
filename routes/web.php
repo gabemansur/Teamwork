@@ -87,6 +87,12 @@ Route::get('/study-intro', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/check-for-confirmation-code', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@checkForConfirmationCode',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/study-conclusion', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@studyConclusion',

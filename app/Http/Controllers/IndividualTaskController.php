@@ -94,7 +94,7 @@ class IndividualTaskController extends Controller
 
         case "Conclusion":
           request()->session()->put('currentIndividualTaskName', 'Conclusion');
-          return redirect('/study-conclusion');
+          return redirect('/check-for-confirmation-code');
       }
     }
 
@@ -149,18 +149,30 @@ class IndividualTaskController extends Controller
              ->with('introContent', $introContent);
     }
 
+    public function checkForConfirmationCode(Request $request) {
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $conclusion = new \Teamwork\Tasks\Conclusion;
+      if($parameters->hasCode) {
+        $code = $conclusion->newConfirmationCode($parameters->type);
+        $code->user_id = \Auth::user()->id;
+        $code->save();
+      }
+      return redirect('/study-conclusion');
+    }
+
     public function studyConclusion(Request $request) {
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
       $conclusion = new \Teamwork\Tasks\Conclusion;
       $conclusionContent = $conclusion->getConclusion($parameters->type);
       if($parameters->hasCode) {
-        $code = $conclusion->getMturkCode();
+        $code = $conclusion->getConfirmationCode(\Auth::user()->id);
       }
       else $code = null;
       return view('layouts.participants.participant-study-conclusion')
              ->with('conclusionContent', $conclusionContent)
-             ->with('code', $code);
+             ->with('code', $code->code);
     }
 
     public function teamRoleIntro(Request $request) {
