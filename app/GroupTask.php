@@ -9,6 +9,9 @@ class GroupTask extends Model
     protected $fillable = ['group_id', 'name', 'parameters', 'order'];
 
     private static $TASKS = [
+                      ['name' => 'Consent',
+                      'params' => [],
+                      'hasIndividuals' => true],
                       ['name' => 'Intro',
                       'params' => [],
                       'hasIndividuals' => true],
@@ -113,6 +116,7 @@ class GroupTask extends Model
 
     public static function initializeBlockATasks($group_id, $randomize) {
       $taskArray = '[
+          {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
           {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
           {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
           {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"no","hasGroup":"false","mapping":"random","maxResponses":"15"}},
@@ -145,6 +149,7 @@ class GroupTask extends Model
     public static function initializeBlockBTasks($group_id, $randomize) {
 
       $taskArray = '[
+        {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
         {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
         {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
         {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"no","hasGroup":"false","mapping":"random","maxResponses":"15"}},
@@ -176,6 +181,7 @@ class GroupTask extends Model
 
     public static function initializeBlockCTasks($group_id, $randomize) {
       $taskArray = '[
+          {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
           {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
           {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
           {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"no","hasGroup":"false","mapping":"random","maxResponses":"15"}},
@@ -206,6 +212,7 @@ class GroupTask extends Model
 
     public static function initializeBlockDTasks($group_id, $randomize) {
       $taskArray = '[
+          {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
           {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
           {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
           {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"no","hasGroup":"false","mapping":"random","maxResponses":"15"}},

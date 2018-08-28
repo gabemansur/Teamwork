@@ -6,7 +6,7 @@ class Intro {
   private $intro = [
     'mturk' => [[
                   'type' => 'header',
-                  'content' => 'Welcome to the Harvard Study Of Intelligence and Social Skill!'
+                  'content' => 'Welcome to the Harvard Study Of Intelligence and Social Skill'
                 ],
                 [
                   'type' => 'paragraph',
@@ -24,6 +24,12 @@ class Intro {
                   your score. But, it is important to try to get these
                   simple questions correct, as we use them to make sure
                   that you’ve read and understood the instructions.'
+                ],
+                [
+                  'type' => 'paragraph',
+                  'content' => 'There are 7 tasks to complete. Some tasks take
+                  slightly longer than others, but not more than 15 minutes.
+                  Feel free to take a break between tasks.'
                 ]
       ],
   ];

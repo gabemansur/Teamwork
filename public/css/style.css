@@ -6,6 +6,11 @@
   align-items: center;
 }
 
+.consent-em {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .task-params .params {
   /*display: inline-block;*/
 }

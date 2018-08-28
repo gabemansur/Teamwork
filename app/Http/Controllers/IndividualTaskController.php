@@ -56,6 +56,10 @@ class IndividualTaskController extends Controller
 
       switch($task->name) {
 
+        case "Consent":
+          request()->session()->put('currentIndividualTaskName', 'Consent');
+          return redirect('/study-consent');
+
         case "Intro":
           request()->session()->put('currentIndividualTaskName', 'Intro');
           return redirect('/study-intro');
@@ -138,6 +142,14 @@ class IndividualTaskController extends Controller
 
     public function endExperiment() {
       return view('layouts.participants.participant-experiment-end');
+    }
+
+    public function studyConsent(Request $request) {
+      $this->recordStartTime($request, 'intro');
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      return view('layouts.participants.participant-study-consent')
+             ->with('subjectPool', $parameters->subjectPool);
     }
 
     public function studyIntro(Request $request) {

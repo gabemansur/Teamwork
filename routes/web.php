@@ -81,6 +81,12 @@ Route::get('/participant-experiment-end', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/study-consent', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@studyConsent',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/study-intro', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@studyIntro',
