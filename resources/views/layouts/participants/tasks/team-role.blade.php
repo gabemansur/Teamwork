@@ -18,11 +18,7 @@
     $( document ).ready(function() {
 
       $(".alert-danger").hide();
-
-      var timer = initializeTimer(300, function(){
-        $("#timerComplete").modal();
-      });
-
+      $("#second-scenario-intro").hide();
 
       $("#next").on('click', function(event) {
         //Form validation
@@ -43,8 +39,10 @@
         if($("table.team-role").is(":visible")) {
           // Show popup alerting them there are more scenarios
           if(scenario == 1) {
-            $("#scenario1Complete").modal();
-            clearInterval(timer);
+            $(".inst").hide();
+            $("#instr_nav").hide();
+            $("#second-scenario-intro").show();
+            //$("#scenario1Complete").modal();
             event.stopImmediatePropagation();
           }
         }
@@ -55,39 +53,15 @@
         $("#team-role-responses")[0].submit();
       });
 
-      $("#timer-complete").on('click', function(event){
-
-        if(scenario == 1) {
-          scenario++;
-          goToPage(2); // The page that you want them to move on from
-          $(".inst").hide();
-          $("#next").click();
-          $("#timerComplete").modal('toggle');
-          $(".modal-title").html('Your time is up. You must submit your answers now.');
-          initializeTimer(240, function(){
-            $("#timerComplete").modal();
-          });
-        }
-
-        else {
-          $("#team-role-responses")[0].submit();
-        }
-
-        event.preventDefault();
-      });
-
       $("#next-scenario").on('click', function(event){
         if(scenario == 1) {
           scenario++;
           goToPage(2); // The page that you want them to move on from
           $(".inst").hide();
+          $("#second-scenario-intro").hide();
+          $("#instr_nav").show();
           $("#next").click();
-          $("#scenario1Complete").modal('toggle');
-          initializeTimer(240, function(){
-            $("#timerComplete").modal();
-          });
         }
-
         event.preventDefault();
       });
 
@@ -98,7 +72,6 @@
 <div class="container container-large">
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
-      <div class="float-right text-primary" id="timer"></div><br>
       <form id="team-role-responses" name="team-role-responses" action="/team-role" method="post">
         {{ csrf_field() }}
 
@@ -106,15 +79,9 @@
         @for($i = 1; $i <= count($scenarios); $i++)
 
           <div id="inst_{{ $i * 2 - 1 }}" class="inst scenario">
-            <div class="alert alert-secondary">
-              Instructions: The scenario below describes a situation that may
-              be encountered while working in a team.
-              {{ count($scenarios[$i - 1]['responses']) }} potential responses
-              to the situation are also listed.  Please read the scenario and
-              indicate how effective each of the responses would be.  Some of
-              these responses are better than others.
-            </div>
-            <h4>Scenario {{ $i }}</h4>
+            <h4 class="text-left mb-lg-4">
+              Please read the following scenario carefully:
+            </h4>
             <h4>
               <ul class="text-left">
                 @foreach($scenarios[$i - 1]['desc'] as $desc)
@@ -122,12 +89,24 @@
                 @endforeach
               </ul>
             </h4>
+            <h4>
+              On the next page are 10 potential responses to this situation.
+              Your job is to rate how effective each response would be.
+              If you need to, you can return to this page to refresh your
+              memory about the scenario.
+            </h4>
           </div>
           <div id="inst_{{ $i * 2 }}" class="inst responses">
-            <h3 class="text-center">Scenario {{ $i }}</h2>
+            <h3 class="text-center">
+              Scenario {{ $i }}: how <strong>effective</strong> would the
+            following actions be?
+            </h3>
+            <h5>
+              Click "Back to description" at the bottom of the screen to
+              review the scenario.
+            </h5>
             <table class="team-role table table-striped table-sm">
               <tr>
-                <td class="blank"></td>
                 <td class="blank"></td>
                 @foreach($scenarios[$i - 1]['key'] as $key)
                   <th class="key">
@@ -138,9 +117,6 @@
 
               @foreach($scenarios[$i - 1]['responses'] as $key => $response)
                 <tr>
-                  <td class="text-secondary">
-                    {{ $key + 1 }}
-                  </td>
                   <td class="text-left">
                     {{ $response['response'] }}
                   </td>
@@ -163,6 +139,16 @@
       <div id="instr_nav" class="text-center">
         <input class="btn btn-primary instr_nav btn-lg" type="button" name="back" id="back" value="Back to scenario description">
         <input class="btn btn-primary instr_nav btn-lg" type="button" name="next" id="next" value="Next"><br />
+      </div>
+
+      <div id="second-scenario-intro">
+        <h4>
+          We will now present you with the second scenario.
+        </h4>
+        <h4>Click "Next"</h4>
+        <div class="text-center">
+            <button class="btn btn-lg btn-primary" id="next-scenario" type="button">Next</button>
+        </div>
       </div>
     </div>
   </div>

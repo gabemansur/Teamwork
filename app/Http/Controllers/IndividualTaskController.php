@@ -759,6 +759,7 @@ class IndividualTaskController extends Controller
 
     public function getProgress() {
       $tasks = \Teamwork\GroupTask::where('group_id', \Auth::user()->group_id)
+                                      ->where('name', '!=', 'Consent')
                                       ->where('name', '!=', 'Intro')
                                       ->where('name', '!=', 'Conclusion')
                                       ->get();

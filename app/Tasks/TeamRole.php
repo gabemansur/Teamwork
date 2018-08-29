@@ -153,7 +153,7 @@ class TeamRole {
                                   'scoring' => 'normal'],
                                   ['response' => 'Suggest that since the team can’t reach consensus they should allow upper management to make the final decision.',
                                   'scoring' => 'reverse'],
-                                  ['response' => ') Even though you would still prefer to take on the new product line, go along with the team’s decision, because they have let you have your say in the matter.',
+                                  ['response' => 'Even though you would still prefer to take on the new product line, go along with the team’s decision, because they have let you have your say in the matter.',
                                   'scoring' => 'normal'],
                                   ['response' => 'Recognize that the team has some good arguments, but remain committed to making the team see that the benefits clearly outweigh the costs.',
                                   'scoring' => 'reverse'],

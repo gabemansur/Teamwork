@@ -18,9 +18,15 @@
         others!
       </h3>
       <h3>
-        You will be presented with several different situations. You will have
-        a maximum of 5 minutes for the first situation (see the timer in the top
-        right of the screen). The time will start when you hit “Next”.
+        You will be presented with 2 different scenarios where you face a
+        challenge at work.
+      </h3>
+      <h3>
+        The task isn't timed, but both scenarios should take a total of less
+        than 10 minutes.
+      </h3>
+      <h3>
+        Click "Next" to read the first $scenario.
       </h3>
       <div class="text-center">
         <a class="btn btn-lg btn-primary"

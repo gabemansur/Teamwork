@@ -25,12 +25,19 @@ $( document ).ready(function() {
           Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
         </h3>
         <h4>
-          You will now attempt the Cryptography Task again.<br>
+          You will now attempt the Cryptography Task again.
+        </h4>
+        <h4>
           Each of the letters from A to J has a numerical value (from 0 to 9)
-          and your job is to find out the value of each letter.<br>
+          and your job is to find out the value of each letter.
+        </h4>
+        <h4>
           This task is the exactly same as the one you did earlier. The only
-          difference is that the values of the letters have changed.<br>
+          difference is that the values of the letters have changed.
+        </h4>
+        <h4>
           On the next page, we will give a quick refresher of the instructions.<br>
+        <h4>
           Overall, this task will take no more than 11 minutes.
         </h4>
       </div>
