@@ -79,22 +79,26 @@
         @for($i = 1; $i <= count($scenarios); $i++)
 
           <div id="inst_{{ $i * 2 - 1 }}" class="inst scenario">
-            <h4 class="text-left mb-lg-4">
-              Please read the following scenario carefully:
-            </h4>
-            <h4>
-              <ul class="text-left">
-                @foreach($scenarios[$i - 1]['desc'] as $desc)
-                  <li>{{ $desc }}</li>
-                @endforeach
-              </ul>
-            </h4>
-            <h4>
-              On the next page are 10 potential responses to this situation.
-              Your job is to rate how effective each response would be.
-              If you need to, you can return to this page to refresh your
-              memory about the scenario.
-            </h4>
+            <div class="row">
+              <div class="col-md-8 offset-md-2">
+                <h4 class="text-left mb-lg-4">
+                  Please read the following scenario carefully:
+                </h4>
+                <h4>
+                  <ul class="text-left">
+                    @foreach($scenarios[$i - 1]['desc'] as $desc)
+                      <li>{{ $desc }}</li>
+                    @endforeach
+                  </ul>
+                </h4>
+                <h4>
+                  On the next page are 10 potential responses to this situation.
+                  Your job is to rate how effective each response would be.
+                  If you need to, you can return to this page to refresh your
+                  memory about the scenario.
+                </h4>
+              </div>
+            </div>
           </div>
           <div id="inst_{{ $i * 2 }}" class="inst responses">
             <h3 class="text-center">
@@ -123,7 +127,7 @@
                   @for($j = count($scenarios[$i - 1]['key']); $j > 0; $j--)
                     <td class="text-center input">
                     <!--  <div class="form-check form-check-inline"> -->
-                        <input class="form-check-input" type="radio" name="scenario_{{ $i - 1 }}_response_{{ $key }}" value="{{ $j }}">
+                        <input class="form-check-input radio-large" type="radio" name="scenario_{{ $i - 1 }}_response_{{ $key }}" value="{{ $j }}">
                     <!--   </div> -->
                     </td>
                   @endfor

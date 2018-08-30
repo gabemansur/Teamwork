@@ -1,5 +1,5 @@
 .container-large {
-  max-width: 1440px!important;
+  max-width: 95%!important;
 }
 
 #timer, .timer {
@@ -9,6 +9,10 @@
 div.inst h3,
 div.inst ol li{
   margin-bottom: 24px;
+}
+
+.radio-large {
+  transform: scale(1.25);
 }
 
 div.word-list {

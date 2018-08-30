@@ -96,6 +96,10 @@ class IndividualTaskController extends Controller
           request()->session()->put('currentIndividualTaskName', 'Shapes Task');
           return redirect('/shapes-individual-intro');
 
+        case "Feedback":
+          request()->session()->put('currentIndividualTaskName', 'Feedback');
+          return redirect('/study-feedback');
+
         case "Conclusion":
           request()->session()->put('currentIndividualTaskName', 'Conclusion');
           return redirect('/check-for-confirmation-code');
@@ -159,6 +163,30 @@ class IndividualTaskController extends Controller
       $introContent = (new \Teamwork\Tasks\Intro)->getIntro($parameters->type);
       return view('layouts.participants.participant-study-intro')
              ->with('introContent', $introContent);
+    }
+
+    public function studyFeedback(Request $request) {
+      $this->recordStartTime($request, 'intro');
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $feedbackMessage = (new \Teamwork\Tasks\Feedback)->getMessage($parameters->type);
+      return view('layouts.participants.participant-study-feedback')
+             ->with('feedbackMessage', $feedbackMessage);
+    }
+
+    public function postStudyFeedback(Request $request) {
+      $this->recordEndTime($request, 'intro');
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $individualTaskId = $request->session()->get('currentIndividualTask');
+
+      $r = new Response;
+      $r->group_tasks_id = $currentTask->id;
+      $r->individual_tasks_id = $individualTaskId;
+      $r->user_id = \Auth::user()->id;
+      $r->prompt = 'Study feedback';
+      $r->response = $request->feedback;
+      $r->save();
+      return redirect('/end-individual-task');
     }
 
     public function checkForConfirmationCode(Request $request) {
@@ -761,6 +789,7 @@ class IndividualTaskController extends Controller
       $tasks = \Teamwork\GroupTask::where('group_id', \Auth::user()->group_id)
                                       ->where('name', '!=', 'Consent')
                                       ->where('name', '!=', 'Intro')
+                                      ->where('name', '!=', 'Feedback')
                                       ->where('name', '!=', 'Conclusion')
                                       ->get();
 

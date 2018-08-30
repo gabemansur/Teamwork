@@ -137,7 +137,7 @@ class Memory {
         [ 'type' => 'practice_test',
           'selection_type' => 'select_one',
           'prompt' => 'Where was a crocodile found yesterday?',
-          'choices' => ['In a kitchen in Australia',
+          'choices' => ['In a kitchen',
                         'On a roof in Manhattan',
                         'On the moon'],
           'correct' => [1]],
@@ -414,7 +414,7 @@ class Memory {
         'blocks' => [
           ['type' => 'review',
             'text' => '',
-            'targets' => ['1_targets_1.png', '1_targets_2.png', '1_targets_3.png'],
+            'targets' => ['1_target_1.png', '1_target_2.png', '1_target_3.png'],
             'review_time' => 20,],
             [ 'type' => 'test',
               'selection_type' => 'select_one',
