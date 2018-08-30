@@ -32,7 +32,7 @@ $( document ).ready(function() {
                   <div class="form-check">
                     <input class="form-check-input" type="radio" name="{{ $key }}"  value="{{ $choice }}">
                     <label class="form-check-label" for="exampleRadios1">
-                      {{ $choice }}
+                      <a class="text-dark" href="https://www.dictionary.com/browse/{{ $choice }}?s=t" target="_blank">{{ $choice }}</a>
                     </label>
                   </div>
                 @endforeach
@@ -46,9 +46,6 @@ $( document ).ready(function() {
         <span class="text-primary ml-md-4 text-lg" id="pagination-display">
           <span id="curr-page">1</span> / {{ count($tests) }}
         </span>
-      </div>
-      <div class="float-left mt-lg-4">
-        <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#word-definitions">Word Definitions</button>
       </div>
     </div>
   </div>
