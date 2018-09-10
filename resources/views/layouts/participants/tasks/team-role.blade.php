@@ -91,8 +91,8 @@
                     @endforeach
                   </ul>
                 </h4>
-                <h4>
-                  On the next page are 10 potential responses to this situation.
+                <h4 class="text-primary">
+                  Instructions: On the next page are 10 potential responses to this situation.
                   Your job is to rate how effective each response would be.
                   If you need to, you can return to this page to refresh your
                   memory about the scenario.

@@ -47,8 +47,9 @@
         <h4>
           Before making your choice, make sure that you have read all 4 words.
           You should try to do the task as quickly as possible but you will not
-          be timed. If you don't know what a word means you can click on it to
-          view its definition (opens in a new tab).
+          be timed. If you don't know what a word means you can click on it.
+          Your computer will open a new page that defines the word. After reading
+          the definition, return to this page and continue the task.
         </h4>
         <h4>
           When you hit Next, the task will begin.

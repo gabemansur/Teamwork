@@ -12,6 +12,11 @@ class Memory {
       'type' => 'intro',
       'directory' => '/img/memory-task/faces/',
       'blocks' => [
+        ['type' => 'text',
+         'header' => 'Image Memory',
+         'text' => 'In this task, you\'ll be presented with a set of images (for
+                    example, 6 faces). There will be 6 images to memorize. We\'ll
+                    call these "target images". We\'ll start with a practice.',],
           ['type' => 'practice_review',
           'text' => 'Look at these 6 faces for a few seconds. We\'ll call these
                     "target faces".',

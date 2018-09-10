@@ -21,19 +21,16 @@
           break between tasks.
         </p>
         <p>
-          <span class="consent-em">RISKS and BENEFITS</span>: There are no risks
+          <span class="consent-em">RISKS</span>: There are no risks
           for participating in this study beyond those associated with normal
-          computer use, including fatigue and mild stress. The benefit to you
-          is the experience of participating in the study and solving novel
-          puzzles. The benefit to society is the contribution of scientific
-          knowledge.
+          computer use, including fatigue and mild stress.
         </p>
         <p>
           <span class="consent-em">COMPENSATION</span>: If you read the
-          instructions and satisfactorily complete all the tasks you will
-          receive 8 USD. MTurk does not allow for prorated compensation.
-          In the event of an incomplete HIT, you must contact the research
-          team (see contact information below) and compensation will be
+          instructions and satisfactorily complete all the tasks <strong>
+          you will receive 8 USD</strong>. MTurk does not allow for prorated
+          compensation. In the event of an incomplete HIT, you must contact
+          the research team (see contact information below) and compensation will be
           determined based on what was completed and at the researchers'
           discretion.
         </p>
@@ -67,14 +64,13 @@
         </p>
         <p>
           <span class="consent-em">CLICKING ACCEPT</span>: By clicking on the
-          "Consent" button, you indicate that you are 18 years of age or older,
+          "I Consent" button, you indicate that you are 18 years of age or older,
           that you voluntarily agree to participate in this study and that you
           understand the information in this consent form.
         </p>
       @endif
-      <div class="text-center">
-        <a href="/end-individual-task" role="button" class="btn btn-lg btn-primary">Consent</a>
-      <div>
+      <a href="/no-study-consent" role="button" class="btn btn-lg btn-warning float-left">I Do Not Consent</a>
+      <a href="/end-individual-task" role="button" class="btn btn-lg btn-success float-right">I Consent</a>
     </div>
   </div>
 </div>

@@ -156,6 +156,10 @@ class IndividualTaskController extends Controller
              ->with('subjectPool', $parameters->subjectPool);
     }
 
+    public function noStudyConsent(Request $request) {
+      return view('layouts.participants.participant-no-study-consent');
+    }
+
     public function studyIntro(Request $request) {
       $this->recordStartTime($request, 'intro');
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));

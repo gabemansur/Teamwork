@@ -19,14 +19,14 @@
       </h3>
       <h3>
         You will be presented with 2 different scenarios where you face a
-        challenge at work.
+        work-related challenge.
       </h3>
       <h3>
-        The task isn't timed, but both scenarios should take a total of less
+        The task isn't timed, but the whole task should take a total of less
         than 10 minutes.
       </h3>
       <h3>
-        Click "Next" to read the first $scenario.
+        Click "Next" to read the first scenario.
       </h3>
       <div class="text-center">
         <a class="btn btn-lg btn-primary"
