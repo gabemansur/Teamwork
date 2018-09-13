@@ -8,14 +8,21 @@ use Excel;
 class AdminController extends Controller
 {
 
-    public function xxgetResponses() {
+    public function getCSV() {
 
 
-      $data = \Teamwork\User::where('role_id', 3)
+      $users = \Teamwork\User::where('role_id', 3)
                              ->with('group');
 
+      $userData = [];
 
-      $filedate = date('Y_m_d');
+      // Pass reference to userData so we can push to it inside the closure
+      $users->chunk(1, function ($users) use(&$userData) {
+            array_push($userData, $this->collectResponses($users));
+      });
+
+      dump($userData);
+      return;
 
 
       return Excel::create('TaskData'.$filedate, function($excel) use($data){
@@ -108,7 +115,7 @@ class AdminController extends Controller
               if($task->name == 'Memory') {
 
                 $u = unserialize($response->prompt);
-                
+
               }
               $responses[] = ['prompt' => $response->prompt,
                               'response' => $response->response,

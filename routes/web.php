@@ -407,6 +407,12 @@ Route::get('/admin', [
 	'roles' => ['Researcher'] // Only a logged in user can view this page
 ]);
 
+Route::get('/download-csv', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'AdminController@getCSV',
+	'roles' => ['Researcher'] // Only a logged in user can view this page
+]);
+
 // Testing Routes
 
 Route::get('/optimization-test', [
