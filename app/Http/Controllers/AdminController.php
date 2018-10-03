@@ -4,6 +4,7 @@ namespace Teamwork\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Excel;
+use Maatwebsite\Excel\Concerns\FromView;
 
 class AdminController extends Controller
 {
@@ -21,24 +22,38 @@ class AdminController extends Controller
             array_push($userData, $this->collectResponses($users));
       });
 
-      dump($userData);
-      return;
+      $responses = [];
+      foreach($userData as $data) {
+        foreach($data as $user) {
+          foreach($user['tasks'] as $task) {
+           foreach($task['responses'] as $responses) {
+            foreach($responses as $response) {
 
+                $responses[] = ['user' => $user['user'],
+                                'group' => $user['group'],
+                                'task' => $task['name'],
+                                'introTime' => $task['introTime'],
+                                'taskTime' => $task['taskTime'],
+                                'prompt' => $response['prompt'],
+                                'response' => $response['response'],
+                                'correct' => $response['correct'],
+                                'points' => $response['points'],
+                                'time' => $response['time']];
+            }
+          }
+        }
+      }
+    }
+      $collection = collect($responses);
+      $filedate = date('Y-m-d');
 
-      return Excel::create('TaskData'.$filedate, function($excel) use($data){
+      return Excel::create('TaskData_'.$filedate, function($excel) use($collection){
 
-          $data->chunk(10, function ($users) use($excel) {
-
-                $collection = $this->collectResponses($users);
-
-                $excel->sheet('TaskResponses', function($sheet) use($collection){
-                    $sheet->fromModel($collection, null, 'A1', true);
-                });
-          });
+        $excel->sheet('TaskResponses', function($sheet) use($collection){
+            $sheet->fromModel($collection, null, 'A1', true);
+        });
 
         })->export('xls');
-
-
     }
 
     public function getResponses() {

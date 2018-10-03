@@ -44,6 +44,13 @@ class LoginController extends Controller
 
     public function postIndividualLogin(Request $request) {
 
+      // If the user already exists, load their tasks and redirect
+      $user = User::where('participant_id', $request->participant_id)->first();
+      if($user) {
+        return redirect('/get-individual-task');
+
+      }
+      // Otherwise, continue to create a group and user and load the appropriate tasks
       $group = Group::firstOrCreate(['group_number' => uniqid()]);
       $group->save();
 

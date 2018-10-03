@@ -16,7 +16,10 @@ class Memory {
          'header' => 'Image Memory',
          'text' => 'In this task, you\'ll be presented with a set of images (for
                     example, 6 faces). There will be 6 images to memorize. We\'ll
-                    call these "target images". We\'ll start with a practice.',],
+                    call these "target images". We\'ll start with a practice. This
+                    will not count toward your score, but will indicate whether
+                    you have read and understood the instructions, so please
+                    answer all questions carefully.',],
           ['type' => 'practice_review',
           'text' => 'Look at these 6 faces for a few seconds. We\'ll call these
                     "target faces".',
@@ -33,7 +36,7 @@ class Memory {
           'img' => 'p0_test_2.png',
           'correct' => [3]],
         ['type' => 'text',
-          'text' => 'When you click "Continue" a screen will appear with 6 target
+          'text' => 'Now for the actual task. When you click "Continue" a screen will appear with 6 target
                      images. The images may not be faces this time, they may be
                      some other type of object.
                      You can view the images front-on or in profile.
@@ -71,7 +74,10 @@ class Memory {
                   you’ll be presented with a set of "target words".  Each word
                   will show up separately for 2 seconds. We’ll start
                   with a practice. In the practice round, you only have
-                  to remember 3 target words.',],
+                  to remember 3 target words.  This
+                  will not count toward your score, but will indicate whether
+                  you have read and understood the instructions, so please
+                  answer all questions carefully.',],
         ['type' => 'review',
         'text' => '',
         'targets' => ['blue', 'yellow', 'red'],
@@ -123,7 +129,10 @@ class Memory {
          'header' => 'Story Memory',
          'text' => 'This memory task asks you to remember
                          two very short stories. Once again, we’ll start with a
-                         practice. In the practice round each "story" will only have one sentence.'],
+                         practice. In the practice round each "story" will only have one sentence. This
+                         will not count toward your score, but will indicate whether
+                         you have read and understood the instructions, so please
+                         answer all questions carefully.'],
         ['type' => 'review',
         'text' => 'Practice stories:',
         'targets' => ['Peter was hungry, so he went to the store on the
@@ -1045,6 +1054,24 @@ class Memory {
 
   public function getTest($test) {
     return $this->memoryTests[$test];
+  }
+
+  public function getImagesForPreloader($testName)
+  {
+    // If this isn't an images task, just return an empty array
+    if($this->memoryTests[$testName]['task_type'] != 'images') return [];
+
+    $imgs = [];
+    foreach ($this->memoryTests[$testName]['blocks'] as $key => $block) {
+      if($block['type'] == 'review') {
+        foreach ($block['targets'] as $target) {
+          $imgs[] = $this->memoryTests[$testName]['directory'].$target;
+        }
+      }
+      else
+      $imgs[] = $this->memoryTests[$testName]['directory'].$block['img'];
+    }
+    return $imgs;
   }
 
   public static function getAvailableParams()

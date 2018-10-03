@@ -1,7 +1,7 @@
 <?php
 namespace Teamwork\Tasks;
 
-class Brainstorming {
+class Consent {
 
   private $subjectPool = ['mturk', 'hdsl'];
 

@@ -88,6 +88,7 @@ class GroupTask extends Model
       $taskArray = '[
           {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
           {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
+          {"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":["3","4"]}},
           {"taskName":"Feedback","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}},
           {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}}
         ]';
@@ -98,7 +99,7 @@ class GroupTask extends Model
       $taskArray = '[
         {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"intro"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_instructions"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"faces_1"}},
+        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"bikes_1"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_short_intro"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"cars_1"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_instructions"}},

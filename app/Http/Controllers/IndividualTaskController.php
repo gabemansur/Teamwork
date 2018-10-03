@@ -263,6 +263,8 @@ class IndividualTaskController extends Controller
         $r->user_id = \Auth::user()->id;
         $r->prompt = $scenario['response'];
         $r->response = $answer;
+        if($scenario['scoring'] == 'reverse') $r->points = 3 - $answer;
+        else $r->points = $answer - 3;
         $r->save();
       }
 
@@ -465,7 +467,9 @@ class IndividualTaskController extends Controller
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
 
       $parameters = unserialize($currentTask->parameters);
-      $test = (new \Teamwork\Tasks\Memory)->getTest($parameters->test);
+      $memory = new \Teamwork\Tasks\Memory;
+      $test = $memory->getTest($parameters->test);
+      $imgsToPreload = $memory->getImagesForPreloader($test['test_name']);
       if($test['task_type'] == 'intro') return redirect('/memory-individual-intro');
       if($test['task_type'] == 'results') return redirect('/memory-individual-results');
       if($test['type'] == 'intro') {
@@ -481,7 +485,8 @@ class IndividualTaskController extends Controller
       // lot of code, we'll construct a single-element array with the one test.
       return view('layouts.participants.tasks.memory-individual')
              ->with('tests', [$test])
-             ->with('enc_tests', json_encode([$test]));
+             ->with('enc_tests', json_encode([$test]))
+             ->with('imgsToPreload', $imgsToPreload);
     }
 
     public function saveMemory(Request $request) {
@@ -640,7 +645,9 @@ class IndividualTaskController extends Controller
 
     public function eyes(Request $request) {
       $this->recordEndTime($request, 'intro');
-      $tests = (new \Teamwork\Tasks\Eyes)->getTest();
+      $eyes = new \Teamwork\Tasks\Eyes;
+      $tests = $eyes->getTest();
+      $imgsToPreload = $eyes->getImagesForPreloader();
 
       $dir = (new \Teamwork\Tasks\Eyes)->getDirectory();
 
@@ -649,7 +656,8 @@ class IndividualTaskController extends Controller
 
       return view('layouts.participants.tasks.eyes-individual')
              ->with('dir', $dir)
-             ->with('tests', $tests);
+             ->with('tests', $tests)
+             ->with('imgsToPreload', $imgsToPreload);
     }
 
     public function saveEyes(Request $request) {

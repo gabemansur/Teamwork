@@ -2,6 +2,7 @@
 
 @section('js')
   <script src="{{ URL::asset('js/memory.js') }}"></script>
+  <script src="{{ URL::asset('js/image-preloader.js') }}"></script>
 @stop
 
 @section('css')
@@ -14,11 +15,13 @@
 
     var tests = <?php echo  $enc_tests; ?>;
     $( document ).ready(function() {
-      console.log(tests);
+
+      var preloadImages = <?= json_encode($imgsToPreload); ?>
+      // Preload all images
+      preload(preloadImages);
+
       var callback = function() {
-
         $("#memory-form").submit();
-
       };
       var memory = new Memory(tests, callback);
       memory.begin();

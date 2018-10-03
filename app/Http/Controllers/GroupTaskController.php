@@ -202,6 +202,11 @@ class GroupTaskController extends Controller
         }
       }
 
+      else {
+        $correct = false;
+        $numCorrect = 'n/a';
+      }
+
       $r = new Response;
       $r->group_tasks_id = $groupTaskId;
       $r->user_id = \Auth::user()->id;
@@ -212,8 +217,9 @@ class GroupTaskController extends Controller
         $r->prompt = $request->prompt;
       }
 
-      $r->response = $request->guess.' Correct: '.$numCorrect;
+      $r->response = $request->guess;
       if($request->prompt == "Guess Full Mapping") {
+        $r->response = $request->guess.' Correct: '.$numCorrect;
         $r->correct = $correct;
         $r->points = $numCorrect;
       }
