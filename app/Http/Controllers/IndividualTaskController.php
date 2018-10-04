@@ -533,7 +533,8 @@ class IndividualTaskController extends Controller
 
         $points = 0;
 
-        // If the response is a single item
+        // If the response is a single item and they got it correct,
+        // give them 3 points
         if($test['selection_type'] == 'select_one') {
 
           if($test['correct'][0] == $response) {
@@ -542,21 +543,46 @@ class IndividualTaskController extends Controller
           }
         }
 
-        // Otherwise, process arrays of responses against arrays of correct answers
+        // Otherwise, process arrays of choices against arrays of responses and correct answers
         else {
-
+          // If they selected 'none' and there were no correct choices
+          // give them 3 points
+          if(count($response) == 1 && $response[0] == '0' && count($test['correct']) == 0) $points = 3;
+          else {
+            foreach($test['choices'] as $pos => $choice) {
+              // If in responses arr and in correct arr, +1 point
+              if(in_array($pos + 1, $response) && in_array($pos + 1, $test['correct'])) {
+                $points += 1;
+              }
+              else if(!in_array($pos + 1, $response) && !in_array($pos + 1, $test['correct'])) {
+                $points += 1;
+              }
+            }
+          }
+          $correct[$indices[1]]['points'] += $points;
+          /*
           foreach($response as $selected) {
+            // If they selected 'none' and there were no correct choices
+            // give them 3 points
             if($selected == '0' && count($test['correct']) == 0) {
               $points = 3;
               $correct[$indices[1]]['points'] += 3;
               continue;
             }
-            if(in_array($selected, $test['correct'])){
+            foreach($test['choices'] as $choice) {
+
+            }
+
+            else if(in_array($selected, $test['correct'])){
               $points++;
               $correct[$indices[1]]['points']++;
             }
           }
+          */
         }
+
+        dump('points for '.$key.' = '.$points);
+
 
         $r = new Response;
         $r->user_id = \Auth::user()->id;
@@ -573,6 +599,8 @@ class IndividualTaskController extends Controller
         $r->save();
 
       }
+
+      return;
 
       $results = '';
       $bestTest['test'] = '';
