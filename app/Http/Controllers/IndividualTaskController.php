@@ -560,29 +560,7 @@ class IndividualTaskController extends Controller
             }
           }
           $correct[$indices[1]]['points'] += $points;
-          /*
-          foreach($response as $selected) {
-            // If they selected 'none' and there were no correct choices
-            // give them 3 points
-            if($selected == '0' && count($test['correct']) == 0) {
-              $points = 3;
-              $correct[$indices[1]]['points'] += 3;
-              continue;
-            }
-            foreach($test['choices'] as $choice) {
-
-            }
-
-            else if(in_array($selected, $test['correct'])){
-              $points++;
-              $correct[$indices[1]]['points']++;
-            }
-          }
-          */
         }
-
-        dump('points for '.$key.' = '.$points);
-
 
         $r = new Response;
         $r->user_id = \Auth::user()->id;
@@ -599,8 +577,6 @@ class IndividualTaskController extends Controller
         $r->save();
 
       }
-
-      return;
 
       $results = '';
       $bestTest['test'] = '';
