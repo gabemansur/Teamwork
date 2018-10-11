@@ -27,6 +27,7 @@ function instructionPaginator(callback) {
     // If we've reached the end of instructions, go to redirect url or callback
     if(page_count > $(".inst").length){
 
+      $("#pagination-display").hide();
       $('.instr_nav').hide();
       $("#waiting").show();
 

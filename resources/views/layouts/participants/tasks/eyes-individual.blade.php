@@ -18,7 +18,8 @@ $( document ).ready(function() {
     //Form validation
     $(".alert-danger").hide();
     $('.form-check-input:visible').each(function(){
-      console.log(name);
+      console.log($(this).attr('name'));
+      name = $(this).attr('name');
       if ($("input:radio[name=" + name + "]:checked").length == 0) {
         $(".alert-danger").show();
         event.stopImmediatePropagation();
