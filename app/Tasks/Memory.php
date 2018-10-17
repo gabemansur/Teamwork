@@ -4,7 +4,7 @@ namespace Teamwork\Tasks;
 class Memory {
 
   private $memoryTests = [
-    'intro' => ['task_type' => 'intro'],
+    'intro' => ['test_name' => 'intro','task_type' => 'intro'],
     'results' => ['task_type' => 'results'],
     'images_instructions' => [
       'test_name' => 'images_instructions',
@@ -1068,8 +1068,10 @@ class Memory {
           $imgs[] = $this->memoryTests[$testName]['directory'].$target;
         }
       }
-      else
-      $imgs[] = $this->memoryTests[$testName]['directory'].$block['img'];
+      else if($block['type'] == 'test'){
+        $imgs[] = $this->memoryTests[$testName]['directory'].$block['img'];
+      }
+
     }
     return $imgs;
   }
