@@ -134,13 +134,14 @@ class Memory {
                          you have read and understood the instructions, so please
                          answer all questions carefully.'],
         ['type' => 'review',
-        'text' => 'Practice stories:',
+        'text' => 'Practice:',
+        'subtext' => 'Read these two \'stories\' quickly but carefully. When you\'re finished click continue.',
         'targets' => ['Peter was hungry, so he went to the store on the
                         corner of his street and bought a hamburger.',
                       'Yesterday, a local woman found a 10-foot crocodile
                       in her kitchen, an event the fire department
                       described as "unusual".'],
-        'review_time' => 15],
+        'review_time' => null],
         [ 'type' => 'practice_test',
           'selection_type' => 'select_one',
           'prompt' => 'Why did Peter go to the store?',

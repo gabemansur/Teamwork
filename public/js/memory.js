@@ -8,7 +8,8 @@ var Memory = class Memory {
 
     this.navTargetPosition = 0;
     this.autoNavInterval;
-    this.popupTimeout;
+    this.popupTimeout; // Holds the timeout for any current instruction popups
+    this.popupSeen = []; // Holds popups that have already been seen
   }
 
   begin() {
@@ -45,7 +46,7 @@ var Memory = class Memory {
     this.navTargetPosition = (this.navTargetPosition < items - 1) ? this.navTargetPosition += 1 : 0;
 
     $('.target-' + this.navTargetPosition).show();
-    
+
   }
 
   autoNavTarget() {
@@ -119,6 +120,9 @@ var Memory = class Memory {
 
   hasPopup() {
     if(this.tests[this.testIndex].blocks[this.blockIndex].popup_text) {
+      // If we've seen this popup before, don't show it again
+      if(this.popupSeen.indexOf(this.popupTimeout) >= 0) return false;
+      this.popupSeen.push(this.popupTimeout);
       clearTimeout(this.popupTimeout);
       $("#popup").modal();
       return true;

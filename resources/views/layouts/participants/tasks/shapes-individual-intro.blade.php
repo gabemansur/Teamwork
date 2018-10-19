@@ -21,9 +21,8 @@
           Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
         </h3>
         <h3>
-          In this task where you will try to understand patterns and
-          shapes. You will have to identify what comes next. We’ll start with
-          a practice.
+          This task is about understanding patterns and identifying what
+          comes next. We’ll start with a practice.
         </h3>
       </div>
       <div id="inst_2" class="inst">

@@ -75,7 +75,7 @@ class AdminController extends Controller
       $userData = [];
       foreach ($users as $key => $user) {
 
-          $uData = ['user' => $user->id,
+          $uData = ['user' => $user->participant_id,
                     'group'=> $user->group->id,
                     'tasks' => []];
 

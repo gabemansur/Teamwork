@@ -53,7 +53,7 @@
 
       $("#popup-continue").on('click', function(event) {
         $("#popup").modal('toggle');
-        memory.advance();
+        //memory.advance();
       })
     });
 
@@ -220,15 +220,20 @@
                 <div class="memory memory-review review" id="memory_{{ $key }}_{{ $b_key }}">
                   <div class="float-right text-primary timer" id="timer_{{ $key }}_{{ $b_key }}"></div><br>
                   <h4>{{ $block['text'] }}</h4>
+                  @if(array_key_exists('subtext', $block))
+                    <h5>{{ $block['subtext'] }}</h5>
+                  @endif
                   @foreach($block['targets'] as $num => $target)
                     <h4 class="text-left mt-lg-4">{{ $num + 1 }}: {{ $target }}</h4>
                     <hr>
                   @endforeach
                   <div class="text-center mt-lg-2">
-                    <!--<input class="btn btn-primary memory-nav btn-lg mt-lg-4"
-                           type="button" name="next"
-                           id="continue_{{ $key }}_{{ $b_key }}"
-                           value="Continue">-->
+                    @if(!$block['review_time'])
+                      <input class="btn btn-primary memory-nav btn-lg mt-lg-4"
+                             type="button" name="next"
+                             id="continue_{{ $key }}_{{ $b_key }}"
+                             value="Continue">
+                    @endif
                   </div>
                 </div>
               @endif {{-- End if blocktype = review --}}
