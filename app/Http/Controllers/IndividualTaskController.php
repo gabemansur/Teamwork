@@ -369,7 +369,7 @@ class IndividualTaskController extends Controller
       else return view('layouts.participants.tasks.optimization-individual-intro')
                   ->with('totalTasks', $totalTasks)
                   ->with('completedTasks', $completedTasks)
-                  ->with('function', 't1')
+                  ->with('optFunction', 't1')
                   ->with('maxResponses', $parameters->maxResponses);
     }
 

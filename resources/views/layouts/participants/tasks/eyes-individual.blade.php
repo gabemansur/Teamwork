@@ -53,7 +53,7 @@ $( document ).ready(function() {
               <div class="col-md-2 offset-md-5">
                 @foreach($test['choices'] as $c_key => $choice)
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="{{ $key }}"  value="{{ $choice }}">
+                    <input class="form-check-input form-check-large" type="radio" name="{{ $key }}"  value="{{ $choice }}">
                     <label class="form-check-label" for="exampleRadios1">
                       <a class="text-dark" href="https://www.dictionary.com/browse/{{ $choice }}?s=t" target="_blank">{{ $choice }}</a>
                     </label>

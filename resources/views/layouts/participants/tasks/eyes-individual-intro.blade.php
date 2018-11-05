@@ -41,13 +41,12 @@
         <h4>
           For each set of eyes, select the word that best describes what
           the person in the picture is thinking or feeling. You may feel that more
-          than one word is applicable but please choose just one word, the word
+          than one word is applicable but please choose just the word
           which you consider to be most suitable.
         </h4>
         <h4>
-          Before making your choice, make sure that you have read all 4 words.
-          You should try to do the task as quickly as possible but you will not
-          be timed. If you don't know what a word means you can click on it.
+          Before making your choice, make sure that you have read all 4 words. 
+          If you don't know what a word means you can click on it.
           Your computer will open a new page that defines the word. After reading
           the definition, return to this page and continue the task.
         </h4>

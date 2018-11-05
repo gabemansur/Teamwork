@@ -15,9 +15,9 @@
 $( document ).ready(function() {
   $("#alert").hide();
 
-  var functionName = "{{ $function }}";
-  var MAX_RESPONSES = 9;
-  var f = taskFunctions.{{ $function }};
+  var functionName = "{{ $optFunction }}";
+  var MAX_RESPONSES = {{ $maxResponses }};
+  var f = taskFunctions.{{ $optFunction }};
   var guessNumber = 0;
   var responses = [];
 
@@ -59,7 +59,7 @@ $( document ).ready(function() {
 
     }
 
-    $("#practice-prompt").html('Try entering another number between 0 and 300')
+    $("#practice-prompt").html('Try entering another number between 0 and 300');
 
     event.preventDefault();
   });
@@ -79,7 +79,7 @@ $( document ).ready(function() {
         <h4>
           The goal of this task is to try to find the number (between 0 and 300)
           that results in your computer returning the biggest possible value.
-          You will have 9 guesses.
+          You will have {{ $maxResponses }} guesses.
           A guess can be any number between 0 and 300.
         </h4>
         <h4>
@@ -92,7 +92,7 @@ $( document ).ready(function() {
           very similar outputs.
         </h4>
         <h4>
-          After your 9 guesses, you will be asked to enter the number that you
+          After your {{ $maxResponses }} guesses, you will be asked to enter the number that you
           believe gives the highest response. <strong>It is only this final
           answer - which you will enter after the prompt - that determines
           your score!</strong>
