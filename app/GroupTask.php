@@ -238,7 +238,7 @@ class GroupTask extends Model
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
 
-    public static function initializeRandomizedBlockTasks($group_id) {
+    public static function initializeAssignedBlockTasks($group_id) {
       $nextBlock = null;
       $lastBlock = \DB::table('random_block_assignments')->orderBy('created_at', 'desc')->first();
 
