@@ -238,6 +238,40 @@ class GroupTask extends Model
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
 
+    public static function initializeRandomizedBlockTasks($group_id) {
+      $nextBlock = null;
+      $lastBlock = \DB::table('random_block_assignments')->orderBy('created_at', 'desc')->first();
+
+      switch ($lastBlock->block) {
+        case 'A':
+          $nextBlock = 'B';
+          Self::initializeBlockBTasks($group_id, false);
+          break;
+
+        case 'B':
+          $nextBlock = 'C';
+          Self::initializeBlockCTasks($group_id, false);
+          break;
+
+        case 'C':
+          $nextBlock = 'D';
+          Self::initializeBlockDTasks($group_id, false);
+          break;
+
+        case 'D':
+        default:
+          $nextBlock = 'A';
+          Self::initializeBlockATasks($group_id, false);
+          break;
+      }
+
+      \DB::table('random_block_assignments')
+          ->insert(['group_id' => $group_id, 'block' => $nextBlock,
+                    'created_at' => \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()]);
+      return;
+    }
+
 
     public static function initializeTasks($group_id, $requiredTasks, $randomize = false) {
       $tasks = json_decode($requiredTasks);
