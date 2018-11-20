@@ -44,9 +44,8 @@ class IndividualTaskController extends Controller
         return $this->routeTask($currentTask);
       }
 
-
       else {
-        return view('layouts.participants.participant-group-task');
+        return redirect('/get-group-task');
       }
     }
 

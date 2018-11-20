@@ -14,7 +14,7 @@
       <div class="text-center">
         <a class="btn btn-lg btn-primary"
            role="button"
-           href="/end-individual-task">Continue
+           href="/end-group-task">Continue
         </a>
       </div>
     </div>

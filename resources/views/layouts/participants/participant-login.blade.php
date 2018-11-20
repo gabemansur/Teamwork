@@ -25,6 +25,9 @@
             <input type="text" class="form-control" name="group_id"
                    value="{{ old('group_id') }}">
           </div>
+          @if(isset($package))
+            <input type="hidden" name="package" value="{{ $package }}">
+          @endif
           <div class="text-center">
             <button class="btn btn-lg btn-primary" type="submit">Sign In</button>
           </div>

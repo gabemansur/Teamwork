@@ -12,6 +12,12 @@ class LoginController extends Controller
       return view('layouts.participants.participant-login');
     }
 
+    public function participantPackageLogin($package) {
+
+      return view('layouts.participants.participant-login')
+             ->with($package);
+    }
+
     public function postParticipantLogin(Request $request) {
 
       $group = Group::firstOrCreate(['group_number' => $request->group_id]);

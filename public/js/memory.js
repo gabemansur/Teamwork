@@ -10,6 +10,9 @@ var Memory = class Memory {
     this.autoNavInterval;
     this.popupTimeout; // Holds the timeout for any current instruction popups
     this.popupSeen = []; // Holds popups that have already been seen
+    this.groupTestReviewChoice;
+    this.navImgTargetPosition;
+    this.navWordTargetPosition;
   }
 
   begin() {
@@ -46,6 +49,44 @@ var Memory = class Memory {
     this.navTargetPosition = (this.navTargetPosition < items - 1) ? this.navTargetPosition += 1 : 0;
 
     $('.target-' + this.navTargetPosition).show();
+
+  }
+
+  navImgTarget(dir) {
+
+    // Get the number of target images to cycle through
+    var items = $('.memory-review:visible .target-img').length;
+
+    // Hide the current one
+    $('.img-target-' + this.navImgTargetPosition).hide();
+
+    this.navImgTargetPosition = (this.navImgTargetPosition < items - 1) ? this.navImgTargetPosition += 1 : 0;
+
+    $('.img-target-' + this.navImgTargetPosition).show();
+
+  }
+
+  navWordTarget(dir) {
+
+    // Get the number of target images to cycle through
+    var items = $('.memory-review:visible .target-word').length;
+
+    // Hide the current one
+    $('.word-target-' + this.navWordTargetPosition).hide();
+
+    if(dir == 'next'){
+      this.navWordTargetPosition += 1;
+      $('.memory-review:visible .back').prop('disabled', false);
+      if(this.navWordTargetPosition == items - 1) $('.memory-review:visible .next').prop('disabled', true);
+    }
+
+    if(dir == 'back'){
+      this.navWordTargetPosition -= 1;
+      $('.memory-review:visible .next').prop('disabled', false);
+      if(this.navWordTargetPosition == 0) $('.memory-review:visible .back').prop("disabled",true);
+    }
+
+    $('.word-target-' + this.navWordTargetPosition).show();
 
   }
 
@@ -101,16 +142,24 @@ var Memory = class Memory {
 
       // If there is a review time set, advance after that time
       if(this.tests[this.testIndex].blocks[this.blockIndex].review_time) {
-        var timer = $("#timer_"+this.testIndex+"_"+this.blockIndex);
-
-        timer.html(tests[this.testIndex].blocks[this.blockIndex].review_time);
-        setInterval(function(){
-          var time = parseInt(timer.html()) - 1;
-          timer.html(time);
-        }, 1000)
-        setTimeout(this.advance.bind(this), tests[this.testIndex].blocks[this.blockIndex].review_time * 1000);
+        this.setTimer();
       }
+    }
 
+    if(this.tests[this.testIndex].blocks[this.blockIndex].type == 'mixed_review') {
+      this.navImgTargetPosition = 0;
+      this.navWordTargetPosition = 0;
+      $('.mixed-mem-targets').hide();
+      $('#'+this.groupTestReviewChoice+'_'+this.testIndex+'_'+this.blockIndex).show();
+
+      $('.target').hide();
+      $('.img-target-' + this.navImgTargetPosition).show();
+      $('.word-target-' + this.navWordTargetPosition).show();
+
+      // If there is a review time set, advance after that time
+      if(this.tests[this.testIndex].blocks[this.blockIndex].review_time) {
+        this.setTimer();
+      }
     }
   }
 
@@ -128,6 +177,28 @@ var Memory = class Memory {
       return true;
     }
     else return false;
+  }
+
+  setGroupTestReviewChoice(choice) {
+    this.groupTestReviewChoice = choice;
+  }
+
+  switchMemReviewType(type) {
+    $('.mixed-mem-targets').hide();
+    this.groupTestReviewChoice = type;
+    $('#'+this.groupTestReviewChoice+'_'+this.testIndex+'_'+this.blockIndex).show();
+  }
+
+  setTimer() {
+    console.log('timer is set yo');
+    var timer = $("#timer_"+this.testIndex+"_"+this.blockIndex);
+
+    timer.html(tests[this.testIndex].blocks[this.blockIndex].review_time);
+    setInterval(function(){
+      var time = parseInt(timer.html()) - 1;
+      timer.html(time);
+    }, 1000)
+    setTimeout(this.advance.bind(this), tests[this.testIndex].blocks[this.blockIndex].review_time * 1000);
   }
 
 }

@@ -22,7 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/get-group-task', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'GroupTaskController@getTask',
-	'roles' => ['Group'] // Only a logged in user can view this page
+	'roles' => ['Participant', 'Group'] // Only a logged in user can view this page
 ]);
 
 Route::get('/group-experiment-end', [
@@ -47,6 +47,12 @@ Route::get('/individual-task-results', [
 Route::get('/end-individual-task', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@endTask',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/end-group-task', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@endTask',
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
@@ -193,6 +199,18 @@ Route::get('/memory-individual-results', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@displayMemoryTaskResults',
 	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/memory-group', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@memory',
+	'roles' => ['Group', 'Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/memory-group-intro', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@memoryGroupIntro',
+	'roles' => ['Group', 'Participant'] // Only a logged in user can view this page
 ]);
 
 Route::get('/rmet-individual-intro', [
@@ -359,6 +377,10 @@ Route::post('/cryptography-end', [
 
 Route::get('/participant-login', [
 	'uses' => 'LoginController@participantLogin',
+]);
+
+Route::get('/participant-login/{package}', [
+	'uses' => 'LoginController@participantPackageLogin',
 ]);
 
 Route::post('/participant-login', [

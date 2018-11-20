@@ -96,6 +96,14 @@ class GroupTask extends Model
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
 
+    public static function initializeGroupTestingTasks($group_id, $randomize) {
+      $taskArray = '[
+        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"true","test":"intro"}},
+        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"true","test":"group_1_instructions"}},
+        ]';
+      return Self::initializeTasks($group_id, $taskArray, $randomize);
+    }
+
     public static function initializeMemoryTasks($group_id, $randomize) {
       $taskArray = '[
         {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"intro"}},

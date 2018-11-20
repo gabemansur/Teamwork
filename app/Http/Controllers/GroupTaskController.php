@@ -48,7 +48,12 @@ class GroupTaskController extends Controller
 
     public function routeTask($task) {
 
+      $this->getProgress();
+
       switch($task->name) {
+
+        case "Memory":
+          return redirect('/memory-group');
 
         case "Cryptography":
           return redirect('/cryptography-intro');
@@ -65,8 +70,84 @@ class GroupTaskController extends Controller
 
     }
 
+    public function endTask(Request $request) {
+
+
+      $task = \Teamwork\GroupTask::with('response')
+                                 ->find($request->session()->get('currentGroupTask'));
+
+      // If this is an individual-only task, mark it as done
+      $parameters = unserialize($task->parameters);
+      if($parameters->hasGroup == 'false') {
+        $task->completed = true;
+        $task->save();
+        return redirect('/get-individual-task');
+      }
+
+      $numUsersResponded = count($task->response->groupBy('user_id'));
+
+      $usersInGroup = \Teamwork\User::where('group_id', \Auth::user()->group_id)
+                                    ->where('role_id', 3)
+                                    ->count();
+
+      if($numUsersResponded == $usersInGroup) {
+        $task->completed = true;
+        $task->save();
+        return redirect('/get-individual-task');
+      }
+      else {
+        return view('layouts.participants.tasks.waiting');
+      }
+    }
+
     public function endExperiment() {
       return view('layouts.participants.group-experiment-end');
+    }
+
+    public function memoryGroupIntro(Request $request) {
+      $this->recordStartTime($request, 'intro');
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      $memory = new \Teamwork\Tasks\Memory;
+      $intro = $memory->getTest($parameters->test);
+
+      // We'll record an empty response here so that participants will be
+      // able to move on to the next task once they are done with the intro
+      $r = new Response;
+      $r->group_tasks_id = $currentTask->id;
+      $r->user_id = \Auth::user()->id;
+      $r->prompt = 'Memory Intro';
+      $r->response = 'n/a';
+      $r->save();
+
+      return view('layouts.participants.tasks.memory-group-intro')
+             ->with('introType', $intro['test_name']);
+    }
+
+    public function memory(Request $request) {
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+
+      $parameters = unserialize($currentTask->parameters);
+      $memory = new \Teamwork\Tasks\Memory;
+      $test = $memory->getTest($parameters->test);
+      $imgsToPreload = $memory->getImagesForPreloader($test['test_name']);
+      if($test['task_type'] == 'intro') return redirect('/memory-group-intro');
+      if($test['task_type'] == 'results') return redirect('/memory-group-results');
+      if($test['type'] == 'intro') {
+        $this->recordStartTime($request, 'intro');
+      }
+
+      else {
+        $this->recordStartTime($request, 'task');
+      }
+
+      // Originally, there was an array of multiple tests. We've separated the
+      // different memory tasks into individual tasks but to avoid rewriting a
+      // lot of code, we'll construct a single-element array with the one test.
+      return view('layouts.participants.tasks.memory-group')
+             ->with('tests', [$test])
+             ->with('enc_tests', json_encode([$test]))
+             ->with('imgsToPreload', $imgsToPreload);
     }
 
     public function unscrambleWordsIntro() {
@@ -299,5 +380,29 @@ class GroupTaskController extends Controller
                   ->where('type', '=', $type)
                   ->first();
       $time->recordEndTime();
+    }
+
+    public function getProgress() {
+      $tasks = \Teamwork\GroupTask::where('group_id', \Auth::user()->group_id)
+                                      ->where('name', '!=', 'Consent')
+                                      ->where('name', '!=', 'Intro')
+                                      ->where('name', '!=', 'Feedback')
+                                      ->where('name', '!=', 'Conclusion')
+                                      ->get();
+
+      $count = 0;
+      $completed = 0;
+      $lastTask = null;
+
+      foreach ($tasks as $task) {
+        if($task->name != $lastTask) {
+          $count++;
+          if($task->completed) $completed++;
+        }
+        $lastTask = $task->name;
+
+      }
+      \Session::put('totalTasks', $count);
+      \Session::put('completedTasks', $completed);
     }
 }

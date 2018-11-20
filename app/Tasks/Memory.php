@@ -5,6 +5,7 @@ class Memory {
 
   private $memoryTests = [
     'intro' => ['test_name' => 'intro','task_type' => 'intro'],
+    'group_1_intro' => ['test_name' => 'group_1_intro','task_type' => 'intro'],
     'results' => ['task_type' => 'results'],
     'images_instructions' => [
       'test_name' => 'images_instructions',
@@ -1029,6 +1030,80 @@ class Memory {
         ] // End blocks
     ], // End story_4
 
+    // Group Memory Tasks
+    'group_1_instructions' => [
+      'test_name' => 'group_1_instructions',
+      'task_type' => 'mixed',
+      'type' => 'intro',
+      'directory' => '/img/memory-task/faces/',
+      'blocks' => [
+        ['type' => 'text',
+         'header' => 'Memory: practice round',
+         'text' => ['This practice round will not count toward your group’s score.',
+                    'Your group has <strong>20 seconds</strong> to memorize
+                    <strong>3</strong> images, <strong>6</strong> words, and
+                    <strong>2</strong> very short stories.',
+                    'During the memorization period, each person will look at
+                    their own laptop and try to memorize as much as they can.
+                    It is possible, but difficult, for one person to remember
+                    all three types of stimuli.',
+                    'There will be final instructions when all three group
+                    members have clicked "Next".'
+                   ]],
+          ['type' => 'review_choice',
+          'text' => ['This is the page where you can choose what to memorize.
+                      We will ask your group about all three types of stimuli:
+                      Images, Words and Stories.',
+                     'If you want, you can try to memorize several types of stimuli.
+                      For example, you might start with "Stories" (by clicking
+                      on the <span class="text-danger">Stories</span> button).
+                      Then, if you have time, you can return to this page and
+                      try to memorize the <span class="text-warning">Words</span>
+                      and/or the <span class="text-success">Images</span>.
+                      Alternatively, each group member can focus on memorizing
+                      one type of stimuli.',
+                     '<strong>Reminder</strong>: in this practice round there
+                     are 6 words; 3 images; and 2 very short stories.',
+                     'Your 20 seconds will begin when everyone in the group has
+                     clicked on a button below. There is a timer in the top
+                     right of the screen'],
+          'choices' => [['color' => 'success', 'type' => 'images'],
+                        ['color' => 'warning', 'type' => 'words'],
+                        ['color' => 'danger', 'type' => 'stories']],
+          'review_time' => 20],
+
+          ['type' => 'mixed_review',
+          'text' => [],
+          'types' => [
+                       ['type' => 'images', 'directory' => '/img/memory-task/bodies/',
+                        'prompt' => 'Remember these target images',
+                        'targets' => ['1_targets_1.png', '1_targets_2.png', '1_targets_3.png']
+                        ],
+                       ['type' => 'words',
+                        'prompt' => 'Remember these target words',
+                        'targets' => ['Mountain', 'Bread', 'Cat', 'Ice', 'Rabbit', 'Bun']
+                       ],
+                       ['type' => 'stories',
+                        'prompt' => 'Remember these target stories',
+                        'targets' => ['Monica was running late for a job interview
+                                       because her train broke down outside of
+                                       Chicago. The interviewer was very
+                                       understanding as the same thing had once
+                                       happened to her.',
+                                      'A student at Stone Mountain High School
+                                      named Jeff Jones, set a world record by
+                                      eating 125 hotdogs in one sitting. Jeff
+                                      said that his inspiration was his pet
+                                      golden retriever.'],
+                       ]
+          ],
+          'choices' => [['color' => 'success', 'type' => 'images'],
+                        ['color' => 'warning', 'type' => 'words'],
+                        ['color' => 'danger', 'type' => 'stories']],
+          'review_time' => 20],
+      ]// end blocks
+    ], // end images_instructions
+
   ]; // End memoryTests
 
 
@@ -1039,6 +1114,7 @@ class Memory {
                                                 'words_1', 'words_2', 'words_3', 'words_4',
                                                 'story_instructions', 'story_short_intro',
                                                 'story_1', 'story_2', 'story_3', 'story_4',
+                                                'group_1_intro', 'group_1_instructions',
                                                 'results']];
 
   public function getTests() {
