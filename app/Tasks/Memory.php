@@ -1035,7 +1035,7 @@ class Memory {
       'test_name' => 'group_1_instructions',
       'task_type' => 'mixed',
       'type' => 'intro',
-      'directory' => '/img/memory-task/faces/',
+      'directory' => '/img/memory-task/bodies/',
       'blocks' => [
         ['type' => 'text',
          'header' => 'Memory: practice round',
@@ -1101,8 +1101,302 @@ class Memory {
                         ['color' => 'warning', 'type' => 'words'],
                         ['color' => 'danger', 'type' => 'stories']],
           'review_time' => 20],
+
+          ['type' => 'text',
+           'header' => 'Memory: practice round',
+           'text' => ['Now we will ask you some questions about the stimuli.
+                       Remember, this is a practice!<br><br>
+                       You will answer as a group. When you’re answering the
+                       questions <strong>everyone should be able to see the Reporter\'s
+                       laptop</strong>.<br><br>
+                       If you are not the Reporter, leave your laptop open. You\'ll
+                       come back to it shortly.<br><br>
+                       The practice questions will begin when The Reporter clicks "Next"'
+                     ]],
+
+          ['type' => 'practice_test_stories',
+           'selection_type' => 'select_one',
+           'prompt' => 'What is the record number of hotdogs eaten in one sitting?',
+           'choices' => ['100',
+                         '150',
+                         '125'],
+           'correct' => [3]],
+
+          [ 'type' => 'practice_test_words',
+           'selection_type' => 'select_all',
+           'prompt' => 'Which of the following are target words?',
+           'choices' => ['bread', 'fish', 'pie'],
+           'correct' => [1]],
+
+          [ 'type' => 'practice_test_images',
+           'selection_type' => 'select_one',
+           'show_numbers' => 'false',
+           'prompt' => 'Which of the following faces is a "target" image?',
+           'img' => 'p0_test_1.png',
+           'correct' => [1]],
+
+          ['type' => 'practice_test_stories',
+          'selection_type' => 'select_one',
+          'prompt' => 'Monica was running late because',
+          'choices' => ['Her train broke down',
+                        'She lived in Chicago',
+                        'Her job interview ran over time'],
+          'correct' => [1]],
+
+          [ 'type' => 'practice_test_words',
+           'selection_type' => 'select_all',
+           'prompt' => 'Which of the following are target words?',
+           'choices' => ['rock', 'ice', 'rabbit'],
+           'correct' => [2, 3]],
+
       ]// end blocks
-    ], // end images_instructions
+    ], // end group_1_instructions
+
+    'group_1' => [
+      'test_name' => 'group_1',
+      'task_type' => 'mixed',
+      'type' => 'intro',
+      'directory' => '/img/memory-task/cars/',
+      'blocks' => [
+        ['type' => 'text',
+         'header' => '',
+         'text' => ['Now for the actual task. <strong>Everyone should go back to their own laptop</strong>.',
+                    'Your group will have <strong>40</strong> seconds to memorize 6 images, 12 words and 2 short
+                    stories. This will be the same as the practice, but you have twice as long to
+                    remember twice as many things.',
+                    'As in the practice, you will use your own laptop to memorize the stimuli. Again, you
+                    have the option of looking at multiple types of stimuli
+                    (e.g. <span class="text-danger">stories</span> AND
+                    <span class="text-success">images</span>). Or,
+                    you can divide the responsibilities of memorizing different things.',
+                    '<strong>Take a few seconds to discuss how you will approach this task.</strong>',
+                    'You will receive some final instructions when each group member has clicked "Continue".'
+                   ]],
+          ['type' => 'review_choice',
+          'text' => ['You will have <strong>40</strong> seconds to memorize everything as a group. There
+                      is a timer in the top right of the screen.',
+                     'Remember: if you want, you can click back to this page during the
+                      40 seconds to see a different type of stimulus.',
+                     '<strong>You’re NOT allowed to write anything down.</strong>',
+                     'The time starts when everyone has clicked on one of the buttons.'],
+          'choices' => [['color' => 'success', 'type' => 'images'],
+                        ['color' => 'warning', 'type' => 'words'],
+                        ['color' => 'danger', 'type' => 'stories']],
+          'review_time' => 40],
+
+          ['type' => 'mixed_review',
+          'text' => [],
+          'types' => [
+                       ['type' => 'images', 'directory' => '/img/memory-task/cars/',
+                        'prompt' => 'Remember these target images',
+                        'targets' => ['1_targets_1.jpg', '1_targets_2.jpg', '1_targets_3.jpg']
+                        ],
+                       ['type' => 'words',
+                        'prompt' => 'Remember these target words',
+                        'targets' => ['pistol', 'fork', 'pot', 'sword', 'vodka',
+                                    'rum', 'bomb', 'pan', 'wine',
+                                    'spatula', 'bourbon', 'rifle']
+                       ],
+                       ['type' => 'stories',
+                        'prompt' => 'Remember these target stories',
+                        'targets' => ['A recent survey of supermarket shoppers in Baytown revealed that eight
+                                      out of ten shopping carts have faulty wheels or are difficult to steer.
+                                      More than half of people reported having had accidents with their carts.
+                                      These included collisions with other shoppers and bumping into groceries.
+                                      Retailers claim that the problem is not with the carts, but that shoppers
+                                      are not using them carefully.',
+                                      'There were violent scenes at Grangers, a London department store, when
+                                      animal rights protesters invaded the furs section.  Two expensive mink
+                                      jackets were ruined and one leather skirt was ripped.  A protester was
+                                      taken to hospital after a confrontation with police.  The manager said
+                                      that tomorrow, business would be back to normal.'],
+                       ]
+          ],
+          'choices' => [['color' => 'success', 'type' => 'images'],
+                        ['color' => 'warning', 'type' => 'words'],
+                        ['color' => 'danger', 'type' => 'stories']],
+          'review_time' => 40],
+
+          ['type' => 'text',
+           'header' => '',
+           'text' => ['We will now ask you questions.',
+                      '<strong>Everyone should be able to see the screen of the Reporter\'s laptop</strong>. You will
+                       answer as a group, on The Reporter\'s laptop.',
+                       'The questions will begin when The Reporter clicks "Continue"'
+                     ],
+            'show_reporter_choice' => 'true'],
+
+          [ 'type' => 'test_images',
+           'selection_type' => 'select_one',
+           'show_numbers' => 'false',
+           'prompt' => 'Which of the following faces is a "target" image?',
+           'img' => '1_test_1.jpg',
+           'correct' => [3]],
+
+          ['type' => 'test_stories',
+          'selection_type' => 'select_one',
+          'prompt' => 'More than half the respondents to the
+                       supermarket survey reported what?',
+          'choices' => ['Collisions with other shoppers',
+                        'Running into stacks of groceries',
+                        'Having accidents with their carts'],
+          'correct' => [3]],
+
+          [ 'type' => 'test_words',
+           'selection_type' => 'select_all',
+           'prompt' => 'Which of the following are target words?',
+           'choices' => ['fork', 'pan', 'knife'],
+           'correct' => [1, 2]],
+
+          [ 'type' => 'test_images',
+            'selection_type' => 'select_one',
+            'show_numbers' => 'false',
+            'prompt' => 'Which of the following faces is a "target" image?',
+            'img' => '1_test_2.jpg',
+            'correct' => [1]],
+
+          [ 'type' => 'test_words',
+           'selection_type' => 'select_all',
+           'prompt' => 'Which of the following are target words?',
+           'choices' => ['spatula', 'beer', 'bomb'],
+           'correct' => [1, 3]],
+
+          ['type' => 'test_stories',
+            'selection_type' => 'select_one',
+            'prompt' => 'When was the supermarket survey conducted?',
+            'choices' => ['Recently',
+                          'Last month',
+                          'A week ago'],
+            'correct' => [1]],
+
+          [ 'type' => 'test_images',
+            'selection_type' => 'select_one',
+            'show_numbers' => 'false',
+            'prompt' => 'Which of the following faces is a "target" image?',
+            'img' => '1_test_3.jpg',
+            'correct' => [1]],
+
+          [ 'type' => 'test_words',
+           'selection_type' => 'select_all',
+           'prompt' => 'Which of the following are target words?',
+           'choices' => ['whiskey', 'lemon', 'gun'],
+           'correct' => []],
+
+          ['type' => 'test_stories',
+           'selection_type' => 'select_one',
+           'prompt' => 'How many people were arrested after the Department store protest in London?',
+           'choices' => ['None',
+                         'One',
+                         'It\'s unclear based on the story'],
+           'correct' => [3]],
+
+          [ 'type' => 'test_words',
+          'selection_type' => 'select_all',
+          'prompt' => 'Which of the following are target words?',
+          'choices' => ['gun', 'pistol', 'trout'],
+          'correct' => [2]],
+
+          [ 'type' => 'test_images',
+            'selection_type' => 'select_one',
+            'show_numbers' => 'false',
+            'prompt' => 'Which of the following faces is a "target" image?',
+            'img' => '1_test_4.jpg',
+            'correct' => [2]],
+
+          ['type' => 'test_stories',
+           'selection_type' => 'select_one',
+           'prompt' => 'What problems did customers identify with the shopping carts?',
+           'choices' => ['They make an annoying noise',
+                         'They have faulty wheels',
+                         'They can be difficult to move'],
+           'correct' => [2]],
+
+          ['type' => 'test_stories',
+            'selection_type' => 'select_one',
+            'prompt' => 'What was the name of the Department Store in London?',
+            'choices' => ['Grangers',
+                        'Graysons',
+                        'Greysons'],
+            'correct' => [1]],
+
+          [ 'type' => 'test_images',
+            'selection_type' => 'select_one',
+            'show_numbers' => 'false',
+            'prompt' => 'Which of the following faces is a "target" image?',
+            'img' => '1_test_5.jpg',
+            'correct' => [3]],
+
+          [ 'type' => 'test_words',
+            'selection_type' => 'select_all',
+            'prompt' => 'Which of the following are target words?',
+            'choices' => ['wine', 'fork', 'sword'],
+            'correct' => [1, 2, 3]],
+
+          [ 'type' => 'test_images',
+            'selection_type' => 'select_one',
+            'show_numbers' => 'false',
+            'prompt' => 'Which of the following faces is a "target" image?',
+            'img' => '1_test_6.jpg',
+            'correct' => [2]],
+
+          [ 'type' => 'test_words',
+            'selection_type' => 'select_all',
+            'prompt' => 'Which of the following are target words?',
+            'choices' => ['rum', 'pencil', 'pot'],
+            'correct' => [1, 3]],
+
+          ['type' => 'test_stories',
+            'selection_type' => 'select_one',
+            'prompt' => 'Retailers responded to the supermarket survey by:',
+            'choices' => ['Saying they will fix their shopping carts',
+                        'Claiming the problem is with the customers',
+                        'Promising they’ll look into the issue'],
+            'correct' => [2]],
+
+          [ 'type' => 'test_images',
+            'selection_type' => 'select_one',
+            'show_numbers' => 'false',
+            'prompt' => 'Which of the following faces is a "target" image?',
+            'img' => '1_test_7.jpg',
+            'correct' => [2]],
+
+          ['type' => 'test_stories',
+            'selection_type' => 'select_one',
+            'prompt' => 'What proportion of shopping carts had issues with faulty wheels or steering?',
+            'choices' => ['More than half',
+                        'Almost all',
+                        '8 out of 10'],
+            'correct' => [3]],
+
+          [ 'type' => 'test_images',
+            'selection_type' => 'select_one',
+            'show_numbers' => 'false',
+            'prompt' => 'Which of the following faces is a "target" image?',
+            'img' => '1_test_8.jpg',
+            'correct' => [3]],
+
+          [ 'type' => 'test_words',
+            'selection_type' => 'select_all',
+            'prompt' => 'Which of the following are target words?',
+            'choices' => ['can', 'vodka', 'spoon'],
+            'correct' => [1, 3]],
+
+          ['type' => 'test_stories',
+            'selection_type' => 'select_one',
+            'prompt' => 'How were the mink jackets described?',
+            'choices' => ['Black',
+                        'Expensive',
+                        'New'],
+            'correct' => [2]],
+
+          [ 'type' => 'test_words',
+            'selection_type' => 'select_all',
+            'prompt' => 'Which of the following are target words?',
+            'choices' => ['rifle', 'gold', 'strainer'],
+            'correct' => [1]],
+
+      ]// end blocks
+    ], // end group_1
 
   ]; // End memoryTests
 
@@ -1114,7 +1408,7 @@ class Memory {
                                                 'words_1', 'words_2', 'words_3', 'words_4',
                                                 'story_instructions', 'story_short_intro',
                                                 'story_1', 'story_2', 'story_3', 'story_4',
-                                                'group_1_intro', 'group_1_instructions',
+                                                'group_1_intro', 'group_1_instructions', 'group_1',
                                                 'results']];
 
   public function getTests() {

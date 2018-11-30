@@ -190,6 +190,11 @@ table.team-role th {
 }
 
 /* Memory */
+
+.choose-mem-review-type, .switch-mem-review-type {
+  color: #fff!important;
+}
+
 .target-img {
   width: 460px;
   height: auto;
@@ -198,6 +203,15 @@ table.team-role th {
 .memory-img {
   width: 646px;
   height: auto;
+}
+
+.mixed-mem-targets {
+  min-height: 380px;
+  margin: 24px auto;
+}
+
+.mixed-mem-targets .target-word {
+  margin-top: 36px;
 }
 
 .target-word {

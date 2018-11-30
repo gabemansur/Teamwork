@@ -119,7 +119,6 @@ class GroupTaskController extends Controller
       $r->prompt = 'Memory Intro';
       $r->response = 'n/a';
       $r->save();
-
       return view('layouts.participants.tasks.memory-group-intro')
              ->with('introType', $intro['test_name']);
     }
@@ -146,8 +145,115 @@ class GroupTaskController extends Controller
       // lot of code, we'll construct a single-element array with the one test.
       return view('layouts.participants.tasks.memory-group')
              ->with('tests', [$test])
+             ->with('taskId', $currentTask->id)
              ->with('enc_tests', json_encode([$test]))
              ->with('imgsToPreload', $imgsToPreload);
+    }
+
+    public function saveMemory(Request $request) {
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+
+      $test = (new \Teamwork\Tasks\Memory)->getTest($parameters->test);
+
+      if($test['type'] == 'intro') {
+        $this->recordEndTime($request, 'intro');
+      }
+
+      else {
+        $this->recordEndTime($request, 'task');
+      }
+
+      // Retrieve all responses
+      $responses = array_where($request->request->all(), function ($value, $key) {
+        return strpos($key, 'response') !== false;
+      });
+
+      // Originally, there was an array of multiple tests. We've separated the
+      // different memory tasks into individual tasks but to avoid rewriting a
+      // lot of code, we'll construct a single-element array with the one test.
+      $tests = [$test];
+
+
+      foreach ($tests as $key => $t) {
+        $testCount = count(array_where($t['blocks'], function($b, $k){
+          return $b['type'] == 'test';
+        }));
+
+        $correct[$key] = ['name' => $t['test_name'],
+                          'points'  => 0,
+                          'count' =>$testCount,
+                          'task_type' => $t['task_type']];
+      }
+
+      // Look up the test based on the response key
+      foreach ($responses as $key => $response) {
+
+        $indices = explode('_', $key);
+        $test = $tests[$indices[1]]['blocks'][$indices[2]];
+
+        $points = 0;
+
+        // If the response is a single item and they got it correct,
+        // give them 3 points
+        if($test['selection_type'] == 'select_one') {
+
+          if($test['correct'][0] == $response) {
+            $correct[$indices[1]]['points'] += 3;
+            $points = 3;
+          }
+        }
+
+        // Otherwise, process arrays of choices against arrays of responses and correct answers
+        else {
+          // If they selected 'none' and there were no correct choices
+          // give them 3 points
+          if(count($response) == 1 && $response[0] == '0' && count($test['correct']) == 0) $points = 3;
+          else {
+            foreach($test['choices'] as $pos => $choice) {
+              // If in responses arr and in correct arr, +1 point
+              if(in_array($pos + 1, $response) && in_array($pos + 1, $test['correct'])) {
+                $points += 1;
+              }
+              else if(!in_array($pos + 1, $response) && !in_array($pos + 1, $test['correct'])) {
+                $points += 1;
+              }
+            }
+          }
+          $correct[$indices[1]]['points'] += $points;
+        }
+
+        $r = new Response;
+        $r->user_id = \Auth::user()->id;
+        $r->group_tasks_id = $currentTask->id;
+        $r->individual_tasks_id = $request->session()->get('currentIndividualTask');
+        $r->prompt = serialize(['test' => $tests[$indices[1]]['test_name'],
+                               'block' => $indices[2],
+                               'test_type' => $tests[$indices[1]]['task_type']]);
+        if(is_array($response)) {
+          $r->response = serialize($response);
+        }
+        else $r->response = $response;
+        $r->points = $points;
+        $r->save();
+
+      }
+
+      $results = '';
+      $bestTest['test'] = '';
+      $bestTest['score'] = 0;
+      $bestTest['task_type'] = '';
+
+      foreach($correct as $c) {
+        if($c['points'] / 3 > $bestTest['score']) {
+          $bestTest['score'] = $c['points'] / 3;
+          $bestTest['test'] = $c['name'];
+          $bestTest['task_type'] = $c['task_type'];
+
+        }
+      }
+
+      return redirect('/end-group-task');
     }
 
     public function unscrambleWordsIntro() {

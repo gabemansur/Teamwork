@@ -88,18 +88,17 @@ class GroupTask extends Model
       $taskArray = '[
           {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
           {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"3","useAltIntro":"no","maxResponses":"15"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"4","useAltIntro":"yes","maxResponses":"15"}},
           {"taskName":"Feedback","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}},
           {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
 
-    public static function initializeGroupTestingTasks($group_id, $randomize) {
+    public static function initializeGroupMemoryTasks($group_id, $randomize) {
       $taskArray = '[
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"true","test":"intro"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"true","test":"group_1_instructions"}},
+        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1_intro"}},
+        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1_instructions"}},
+        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }

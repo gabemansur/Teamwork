@@ -201,4 +201,29 @@ var Memory = class Memory {
     setTimeout(this.advance.bind(this), tests[this.testIndex].blocks[this.blockIndex].review_time * 1000);
   }
 
+  markMemoryChoice(userId, groupId, groupTasksId, token) {
+    $.post( "/mark-individual-ready", { user_id: userId, group_id: groupId, group_tasks_id: groupTasksId, _token: token } );
+    this.waitForGroup(userId, groupId, groupTasksId);
+  }
+
+  waitForGroup(userId, groupId, groupTasksId) {
+    self = this;
+    $.get( "/check-group-ready", { user_id: userId, group_id: groupId, group_tasks_id: groupTasksId } )
+      .done(function( response ) {
+        if(response == '1') {
+          console.log('READY OK');
+          $("#waiting").modal('hide');
+          self.advance();
+        }
+        else {
+          $("#waiting").modal('show');
+          setTimeout(function(){
+           $("#waiting").modal('show');
+           console.log('waiting...');
+           self.waitForGroup(userId, groupId, groupTasksId);
+         }, 1000);
+        }
+    });
+  }
+
 }

@@ -62,6 +62,17 @@ Route::post('/mark-individual-response-complete', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::post('/mark-individual-ready', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'AjaxController@markIndividualReadyForGroup',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/check-group-ready', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'AjaxController@checkGroupReady',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
 
 Route::get('/group-login-allowed', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
@@ -211,6 +222,12 @@ Route::get('/memory-group-intro', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'GroupTaskController@memoryGroupIntro',
 	'roles' => ['Group', 'Participant'] // Only a logged in user can view this page
+]);
+
+Route::post('/memory-group', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@saveMemory',
+	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
 Route::get('/rmet-individual-intro', [

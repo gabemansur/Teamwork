@@ -80,6 +80,30 @@ class AjaxController extends Controller
      echo $task->completed;
    }
 
+   public function markIndividualReadyForGroup(Request $request) {
+     $exists = \DB::table('waiting')
+                ->where('user_id', $request->user_id)
+                ->where('group_tasks_id', $request->group_tasks_id)
+                ->count();
+    if(!$exists){
+      \DB::table('waiting')->insert(['user_id' => $request->user_id,
+                                     'group_id' => $request->group_id,
+                                     'group_tasks_id' => $request->group_tasks_id,
+                                     'created_at' => date("Y-m-d H:i:s"),
+                                     'updated_at' => date("Y-m-d H:i:s")]);
+    }
+   }
+
+   public function checkGroupReady(Request $request) {
+     $group = \Teamwork\User::where('group_id', $request->group_id)->count();
+     $ready = \DB::table('waiting')
+                 ->where('group_id', $request->group_id)
+                 ->where('group_tasks_id', $request->group_tasks_id)
+                 ->count();
+    
+     return ($group == $ready) ? 1 : 0;
+   }
+
    public function getProbVal(Request $request) {
      $ch = curl_init();
      curl_setopt($ch, CURLOPT_HEADER, 0);

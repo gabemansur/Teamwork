@@ -15,14 +15,22 @@ class LoginController extends Controller
     public function participantPackageLogin($package) {
 
       return view('layouts.participants.participant-login')
-             ->with($package);
+             ->with('package', $package);
     }
 
     public function postParticipantLogin(Request $request) {
+      $group = Group::where('group_number', $request->group_id)->first();
+      $newGroup = false;
+      // If the group doesn't exist yet, create it
+      if(!$group){
+        $newGroup = true;
+        $group = new Group;
+        $group->group_number = $request->group_id;
+        $group->save();
 
-      $group = Group::firstOrCreate(['group_number' => $request->group_id]);
-      $group->save();
+      }
 
+      // Create or find the user
       $user = User::firstOrCreate(['participant_id' => $request->participant_id],
                                   ['name' => 'participant',
                                    'participant_id' => $request->participant_id,
@@ -32,11 +40,19 @@ class LoginController extends Controller
       $user->save();
       \Auth::login($user);
 
-       if($group->id != $user->group_id) {
-         return redirect()->back()->withInput()->withErrors('It appears that you already belong to another group.');
-       }
+      // If the user exists and this isn't the group they entered, kick them back
+      if($group->id != $user->group_id) {
+       return redirect()->back()->withInput()->withErrors('It appears that you already belong to another group.');
+      }
 
-       return redirect('/get-individual-task');
+      // If this is a newly created group, create some tasks if requested
+      if($newGroup && isset($request->task_package)) {
+       if($request->task_package == 'group-memory'){
+         \Teamwork\GroupTask::initializeGroupMemoryTasks(\Auth::user()->group_id, $randomize = false);
+       }
+      }
+
+      return redirect('/get-individual-task');
     }
 
     public function individualLogin() {

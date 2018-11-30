@@ -12,7 +12,7 @@
         </h5>
         @endforeach
       @endif
-      <form action="participant-login" method="post">
+      <form action="/participant-login" method="post">
         {{ csrf_field() }}
         <fieldset class="bg-light p-4 rounded">
           <div class="form-group">
@@ -26,7 +26,7 @@
                    value="{{ old('group_id') }}">
           </div>
           @if(isset($package))
-            <input type="hidden" name="package" value="{{ $package }}">
+            <input type="hidden" name="task_package" value="{{ $package }}">
           @endif
           <div class="text-center">
             <button class="btn btn-lg btn-primary" type="submit">Sign In</button>
