@@ -30,9 +30,14 @@
       memory.begin();
 
       $('.not-reporter').on('click', function(event) {
+        $("#role").val('not-reporter');
         $("#memory-form").submit();
         event.preventDefault();
         event.stopImmediatePropagation();
+      });
+
+      $('.reporter').on('click', function(event) {
+        $("#role").val('reporter');
       });
 
       $('.memory-nav').on('click', function(event) {
@@ -113,7 +118,7 @@
                   @endforeach
                   <div class="text-center">
                     @if(isset($block['show_reporter_choice']) && $block['show_reporter_choice'] == 'true')
-                    <input class="btn btn-primary memory-nav btn-lg reporter"
+                    <input class="btn btn-primary memory-nav btn-lg reporter mb-md-4"
                            type="button" name="next"
                            id="continue_{{ $key }}_{{ $b_key }}"
                            value="I am the Reporter"><br>
@@ -320,7 +325,7 @@
           @endif {{-- End if type = mixed --}}
 
         @endforeach {{-- End foreach test --}}
-
+        <input type="hidden" name="role" id="role">
       </form>
     </div>
   </div>

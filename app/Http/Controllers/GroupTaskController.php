@@ -252,6 +252,12 @@ class GroupTaskController extends Controller
 
         }
       }
+      // If this participant isn't the reporter, we'll set a message to
+      // display on the waiting page
+      if($request->role == 'not-reporter') {
+        $waitingMsg = 'You\'ll complete this task on the reporter\'s laptop. Press Continue when you have finished.';
+        $request->session()->put('waitingMsg', $waitingMsg);
+      }
 
       return redirect('/end-group-task');
     }

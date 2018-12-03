@@ -1104,6 +1104,7 @@ class Memory {
 
           ['type' => 'text',
            'header' => 'Memory: practice round',
+           'show_reporter_choice' => 'true',
            'text' => ['Now we will ask you some questions about the stimuli.
                        Remember, this is a practice!<br><br>
                        You will answer as a group. When you’re answering the
