@@ -18,12 +18,16 @@
 
       userId = {{ \Auth::user()->id }};
       groupId = {{ \Auth::user()->group_id }};
-      taskId = {{ $taskId }}
+      taskId = {{ $taskId }};
+      isReporter = {{ $isReporter }};
       var preloadImages = <?= json_encode($imgsToPreload); ?>
       // Preload all images
       preload(preloadImages);
 
       var callback = function() {
+        if(isReporter) {
+          memory.markMemoryChoice(userId, groupId, taskId, "{{ csrf_token() }}", "#waiting-for-reporter");
+        }
         $("#memory-form").submit();
       };
       var memory = new Memory(tests, callback);
@@ -45,6 +49,21 @@
           event.stopImmediatePropagation();
           return;
         }
+        if(memory.hasWait()) {
+          memory.markMemoryChoice(userId, groupId, taskId, "{{ csrf_token() }}", "#waiting");
+          event.stopImmediatePropagation();
+          return;
+        }
+        if(memory.hasWaitForReporter()) {
+          if(isReporter) memory.advance();
+          else {
+            memory.markMemoryChoice(userId, groupId, taskId, "{{ csrf_token() }}", "#waiting-for-reporter");
+            // This will take them to the end of the tests once they continue
+            memory.setAdvanceToEnd();
+            event.stopImmediatePropagation();
+            return;
+          }
+        }
         memory.advance();
         event.preventDefault();
       });
@@ -52,8 +71,7 @@
       $('.choose-mem-review-type').on('click', function(event) {
         memory.setGroupTestReviewChoice($(this).data('type'));
         $('.mem-btn-' + $(this).data('type')).addClass('btn-lg');
-        memory.markMemoryChoice(userId, groupId, taskId, "{{ csrf_token() }}");
-        //memory.advance();
+        memory.markMemoryChoice(userId, groupId, taskId, "{{ csrf_token() }}", "#waiting");
         event.preventDefault();
       });
 
@@ -117,20 +135,10 @@
                     <h4>{!! $text !!}</h4>
                   @endforeach
                   <div class="text-center">
-                    @if(isset($block['show_reporter_choice']) && $block['show_reporter_choice'] == 'true')
-                    <input class="btn btn-primary memory-nav btn-lg reporter mb-md-4"
-                           type="button" name="next"
-                           id="continue_{{ $key }}_{{ $b_key }}"
-                           value="I am the Reporter"><br>
-                    <input class="btn btn-primary memory-nav btn-lg not-reporter"
-                          type="button" name="next"
-                          value="I am NOT the Reporter"><br>
-                    @else
                     <input class="btn btn-primary memory-nav btn-lg"
                            type="button" name="next"
                            id="continue_{{ $key }}_{{ $b_key }}"
-                           value="Continue">
-                    @endif
+                           value="Next">
                   </div>
                 </div>
               @endif {{-- End if blocktype = text --}}
@@ -349,7 +357,19 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title text-center" id="popup-text">
-          Please wait for the other members of your group to make their choices.
+          Please wait for the other members of your group.
+        </h4>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="waiting-for-reporter" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center" id="popup-text">
+          You should be viewing the reporter's laptop now.
         </h4>
       </div>
     </div><!-- /.modal-content -->

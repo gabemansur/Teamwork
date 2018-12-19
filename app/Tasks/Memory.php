@@ -5,7 +5,7 @@ class Memory {
 
   private $memoryTests = [
     'intro' => ['test_name' => 'intro','task_type' => 'intro'],
-    'group_1_intro' => ['test_name' => 'group_1_intro','task_type' => 'intro'],
+    'group_1_intro' => ['test_name' => 'group_1_intro','type' => 'intro', 'task_type' => 'intro', 'blocks' => []],
     'results' => ['task_type' => 'results'],
     'images_instructions' => [
       'test_name' => 'images_instructions',
@@ -1039,6 +1039,7 @@ class Memory {
       'blocks' => [
         ['type' => 'text',
          'header' => 'Memory: practice round',
+         'wait_for_all' => 'true',
          'text' => ['This practice round will not count toward your group’s score.',
                     'Your group has <strong>20 seconds</strong> to memorize
                     <strong>3</strong> images, <strong>6</strong> words, and
@@ -1104,7 +1105,7 @@ class Memory {
 
           ['type' => 'text',
            'header' => 'Memory: practice round',
-           'show_reporter_choice' => 'true',
+           'wait_for_reporter' => 'true',
            'text' => ['Now we will ask you some questions about the stimuli.
                        Remember, this is a practice!<br><br>
                        You will answer as a group. When you’re answering the
@@ -1161,6 +1162,7 @@ class Memory {
       'blocks' => [
         ['type' => 'text',
          'header' => '',
+         'wait_for_all' => 'true',
          'text' => ['Now for the actual task. <strong>Everyone should go back to their own laptop</strong>.',
                     'Your group will have <strong>40</strong> seconds to memorize 6 images, 12 words and 2 short
                     stories. This will be the same as the practice, but you have twice as long to
@@ -1220,12 +1222,12 @@ class Memory {
 
           ['type' => 'text',
            'header' => '',
+           'wait_for_reporter' => 'true',
            'text' => ['We will now ask you questions.',
                       '<strong>Everyone should be able to see the screen of the Reporter\'s laptop</strong>. You will
                        answer as a group, on The Reporter\'s laptop.',
                        'The questions will begin when The Reporter clicks "Continue"'
-                     ],
-            'show_reporter_choice' => 'true'],
+                     ]],
 
           [ 'type' => 'test_images',
            'selection_type' => 'select_one',

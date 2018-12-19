@@ -111,14 +111,6 @@ class GroupTaskController extends Controller
       $memory = new \Teamwork\Tasks\Memory;
       $intro = $memory->getTest($parameters->test);
 
-      // We'll record an empty response here so that participants will be
-      // able to move on to the next task once they are done with the intro
-      $r = new Response;
-      $r->group_tasks_id = $currentTask->id;
-      $r->user_id = \Auth::user()->id;
-      $r->prompt = 'Memory Intro';
-      $r->response = 'n/a';
-      $r->save();
       return view('layouts.participants.tasks.memory-group-intro')
              ->with('introType', $intro['test_name']);
     }
@@ -140,6 +132,9 @@ class GroupTaskController extends Controller
         $this->recordStartTime($request, 'task');
       }
 
+      // Get the id of the reporter for the group
+      $reporterId = \DB::table('reporters')->where('group_id', \Auth::user()->group_id)->pluck('user_id')->first();
+      $isReporter = ($reporterId == \Auth::user()->id) ? 1 : 0;
       // Originally, there was an array of multiple tests. We've separated the
       // different memory tasks into individual tasks but to avoid rewriting a
       // lot of code, we'll construct a single-element array with the one test.
@@ -147,7 +142,8 @@ class GroupTaskController extends Controller
              ->with('tests', [$test])
              ->with('taskId', $currentTask->id)
              ->with('enc_tests', json_encode([$test]))
-             ->with('imgsToPreload', $imgsToPreload);
+             ->with('imgsToPreload', $imgsToPreload)
+             ->with('isReporter', $isReporter);
     }
 
     public function saveMemory(Request $request) {
@@ -158,6 +154,14 @@ class GroupTaskController extends Controller
 
       if($test['type'] == 'intro') {
         $this->recordEndTime($request, 'intro');
+        // We'll record an empty response here so that participants will be
+        // able to move on to the next task once they are done with the intro
+        $r = new Response;
+        $r->group_tasks_id = $currentTask->id;
+        $r->user_id = \Auth::user()->id;
+        $r->prompt = 'Memory Intro';
+        $r->response = 'n/a';
+        $r->save();
       }
 
       else {

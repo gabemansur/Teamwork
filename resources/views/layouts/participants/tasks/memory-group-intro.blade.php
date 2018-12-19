@@ -6,14 +6,6 @@
 
 @section('content')
 
-<script>
-
-    $( document ).ready(function() {
-      instructionPaginator(function(){ window.location = '/end-group-task';});
-    });
-
-</script>
-
 <div class="container">
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
@@ -41,10 +33,12 @@
         </h4>
         @endif
       </div>
-
-      <div id="instr_nav" class="text-center">
-        <input class="btn btn-primary instr_nav btn-lg" type="button" name="next" id="next" value="Next &#8680;"><br />
-      </div>
+      <form action="/memory-group" method="post">
+        {{ csrf_field() }}
+        <div id="instr_nav" class="text-center">
+          <button class="btn btn-primary instr_nav btn-lg" type="submit" name="next" id="next">Next &#8680;</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

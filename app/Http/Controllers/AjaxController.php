@@ -84,11 +84,13 @@ class AjaxController extends Controller
      $exists = \DB::table('waiting')
                 ->where('user_id', $request->user_id)
                 ->where('group_tasks_id', $request->group_tasks_id)
+                ->where('step', $request->step)
                 ->count();
     if(!$exists){
       \DB::table('waiting')->insert(['user_id' => $request->user_id,
                                      'group_id' => $request->group_id,
                                      'group_tasks_id' => $request->group_tasks_id,
+                                     'step' => $request->step,
                                      'created_at' => date("Y-m-d H:i:s"),
                                      'updated_at' => date("Y-m-d H:i:s")]);
     }
@@ -99,8 +101,9 @@ class AjaxController extends Controller
      $ready = \DB::table('waiting')
                  ->where('group_id', $request->group_id)
                  ->where('group_tasks_id', $request->group_tasks_id)
+                 ->where('step', $request->step)
                  ->count();
-    
+
      return ($group == $ready) ? 1 : 0;
    }
 

@@ -5,6 +5,8 @@ var Memory = class Memory {
     this.blockIndex = 0;
     this.testIndex = 0;
     this.callback = callback;
+    this.step = 1;
+    this.advanceToEnd = false;
 
     this.navTargetPosition = 0;
     this.autoNavInterval;
@@ -22,11 +24,14 @@ var Memory = class Memory {
   }
 
   advance() {
-
     $(`#memory_${this.testIndex}_${this.blockIndex}`).hide();
     this.blockIndex++;
     this.checkPosition();
     $(`#memory_${this.testIndex}_${this.blockIndex}`).show();
+  }
+
+  setAdvanceToEnd() {
+    this.advanceToEnd = true;
   }
 
   advanceImageTest(val) {
@@ -106,6 +111,10 @@ var Memory = class Memory {
   }
 
   checkPosition() {
+    if(this.advanceToEnd) {
+      this.callback();
+      return;
+    }
     if(this.blockIndex > this.tests[this.testIndex].blocks.length - 1) {
       if(this.testIndex + 1 > this.tests.length - 1) {
         // Do callback to redirect?
@@ -179,6 +188,30 @@ var Memory = class Memory {
     else return false;
   }
 
+  hasWait() {
+    if(this.tests[this.testIndex].blocks[this.blockIndex].wait_for_all &&
+      this.tests[this.testIndex].blocks[this.blockIndex].wait_for_all == 'true') {
+      return true;
+    }
+    else return false;
+  }
+
+  hasWaitForReporter() {
+    if(this.tests[this.testIndex].blocks[this.blockIndex].wait_for_reporter &&
+      this.tests[this.testIndex].blocks[this.blockIndex].wait_for_reporter == 'true') {
+      return true;
+    }
+    else return false;
+  }
+
+  hasEndReporterOnlySection() {
+    if(this.tests[this.testIndex].blocks[this.blockIndex].end_reporter_only &&
+      this.tests[this.testIndex].blocks[this.blockIndex].end_reporter_only == 'true') {
+      return true;
+    }
+    else return false;
+  }
+
   setGroupTestReviewChoice(choice) {
     this.groupTestReviewChoice = choice;
   }
@@ -190,7 +223,6 @@ var Memory = class Memory {
   }
 
   setTimer() {
-    console.log('timer is set yo');
     var timer = $("#timer_"+this.testIndex+"_"+this.blockIndex);
 
     timer.html(tests[this.testIndex].blocks[this.blockIndex].review_time);
@@ -201,26 +233,28 @@ var Memory = class Memory {
     setTimeout(this.advance.bind(this), tests[this.testIndex].blocks[this.blockIndex].review_time * 1000);
   }
 
-  markMemoryChoice(userId, groupId, groupTasksId, token) {
-    $.post( "/mark-individual-ready", { user_id: userId, group_id: groupId, group_tasks_id: groupTasksId, _token: token } );
-    this.waitForGroup(userId, groupId, groupTasksId);
+  markMemoryChoice(userId, groupId, groupTasksId, token, modal) {
+    $.post( "/mark-individual-ready", { user_id: userId, group_id: groupId, group_tasks_id: groupTasksId, step: this.step, _token: token } );
+    this.waitForGroup(userId, groupId, groupTasksId, modal);
   }
 
-  waitForGroup(userId, groupId, groupTasksId) {
+  waitForGroup(userId, groupId, groupTasksId, modal) {
+    console.log(this.step);
     self = this;
-    $.get( "/check-group-ready", { user_id: userId, group_id: groupId, group_tasks_id: groupTasksId } )
+    $.get( "/check-group-ready", { user_id: userId, group_id: groupId, group_tasks_id: groupTasksId, step: this.step,} )
       .done(function( response ) {
         if(response == '1') {
-          console.log('READY OK');
-          $("#waiting").modal('hide');
+          // Increment the step counter
+          self.step++;
+          $(modal).modal('hide');
           self.advance();
         }
         else {
-          $("#waiting").modal('show');
+          $(modal).modal('show');
           setTimeout(function(){
-           $("#waiting").modal('show');
+           $(modal).modal('show');
            console.log('waiting...');
-           self.waitForGroup(userId, groupId, groupTasksId);
+           self.waitForGroup(userId, groupId, groupTasksId, modal);
          }, 1000);
         }
     });

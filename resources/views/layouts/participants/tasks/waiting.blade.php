@@ -1,7 +1,16 @@
 @extends('layouts.master')
 
 @section('content')
-
+<script>
+  $(document).ready(function() {
+    setInterval(function(){
+      $.get( "/check-task-completion", function( result ) {
+        console.log(result);
+        if(result == '1') window.location="/end-group-task";
+      });
+    }, 1000);
+  });
+</script>
 <div class="container">
   <div class="row vertical-center">
     <div class="col-md-12 text-center">

@@ -63,6 +63,9 @@ class IndividualTaskController extends Controller
           request()->session()->put('currentIndividualTaskName', 'Intro');
           return redirect('/study-intro');
 
+        case "ChooseReporter":
+          return redirect('/choose-reporter');
+
         case "TeamRole":
           request()->session()->put('currentIndividualTaskName', 'Team Role Task');
           return redirect('/team-role-intro');
@@ -157,6 +160,30 @@ class IndividualTaskController extends Controller
 
     public function noStudyConsent(Request $request) {
       return view('layouts.participants.participant-no-study-consent');
+    }
+
+    public function chooseReporter() {
+      return view('layouts.participants.choose-reporter');
+    }
+
+    public function setReporter($choice) {
+      if($choice == 'true') {
+        try{
+          \DB::table('reporters')
+              ->insert(['user_id' => \Auth::user()->id,
+                        'group_id' => \Auth::user()->group_id,]);
+        }
+        catch(\Exception $e) {
+          if($e->getCode() == '23000') return view('layouts.participants.choose-reporter')
+                             ->with('reporterChosen', true);
+          else return redirect('/choose-reporter');
+        }
+      }
+      return redirect('/end-individual-task');
+    }
+
+    public function reporterAlreadyChosen() {
+      return view('layouts.participants.reporter-already-chosen');
     }
 
     public function studyIntro(Request $request) {
