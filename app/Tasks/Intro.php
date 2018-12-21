@@ -32,9 +32,71 @@ class Intro {
                   Feel free to take a break between tasks.'
                 ]
       ],
+
+    'group_1' => [[
+                   'type' => 'header',
+                   'content' => 'Welcome to your first group'
+                 ],
+                 [
+                   'type' => 'paragraph',
+                   'content' => 'You will be working together for about 45
+                   minutes, trying to solve 4 tasks.<br>You’ve seen similar
+                   (or identical) tasks as individuals:'
+                 ],
+                 [
+                   'type' => 'paragraph',
+                   'content' => '<div class="row">
+                   <div class="col-md-4 offset-md-4">
+                   <ol><li>Optimization</li><li>Memory</li>
+                   <li>Cryptography</li><li>Shapes</li></ol>
+                   </div></div>'
+                 ],
+                 [
+                   'type' => 'paragraph',
+                   'content' => 'The main difference is that now you will be
+                   answering as a group.<br>You will be rewarded based on how well
+                   your group performs.'
+                 ],
+                 [
+                   'type' => 'paragraph',
+                   'content' => 'Take a moment to introduce yourselves!'
+                 ]
+
+      ],
+    'group_2' => [[
+                   'type' => 'header',
+                   'content' => 'Welcome to your new group'
+                 ],
+                 [
+                   'type' => 'paragraph',
+                   'content' => 'You will be working together for about 45
+                   minutes, trying to solve 4 tasks. The tasks will be similar
+                   to those you worked on in your previous groups:'
+                 ],
+                 [
+                   'type' => 'paragraph',
+                   '<ol><li>Optimization</li><li>Memory</li>
+                   <li>Cryptography</li><li>Shapes</li></ol>'
+                 ],
+                 [
+                   'type' => 'paragraph',
+                   'content' => 'Once again, you will be rewarded based on
+                   how well the group performs.'
+                 ],
+                 [
+                   'type' => 'paragraph',
+                   'content' => 'Take a moment to introduce yourselves!'
+                 ],
+                 [
+                   'type' => 'paragraph',
+                   'content' => 'The instructions will continue when all
+                   three group members have hit "Next"'
+                 ]
+
+      ]
   ];
 
-  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'type' => ['mturk']];
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'type' => ['mturk', 'group_1', 'group_2']];
 
   public function getIntro($type) {
     return $this->intro[$type];

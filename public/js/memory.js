@@ -1,12 +1,12 @@
 var Memory = class Memory {
 
-  constructor(tests, callback) {
+  constructor(tests, isReporter, callback) {
     this.tests = tests;
     this.blockIndex = 0;
     this.testIndex = 0;
     this.callback = callback;
     this.step = 1;
-    this.advanceToEnd = false;
+    this.isReporter = isReporter;
 
     this.navTargetPosition = 0;
     this.autoNavInterval;
@@ -30,9 +30,6 @@ var Memory = class Memory {
     $(`#memory_${this.testIndex}_${this.blockIndex}`).show();
   }
 
-  setAdvanceToEnd() {
-    this.advanceToEnd = true;
-  }
 
   advanceImageTest(val) {
     $(`#response_${this.testIndex}_${this.blockIndex}`).val(val)
@@ -138,6 +135,13 @@ var Memory = class Memory {
       }, this.tests[this.testIndex].blocks[this.blockIndex].popup_display_time * 1000);
     }
 
+    if(this.hasEndIndividualSection() && !this.isReporter) {
+      setTimeout(function() {
+        $("#waiting-for-reporter").modal();
+      }, 5000);
+      setTimeout(this.callback.bind(this), 10000);
+    }
+
     if(this.tests[this.testIndex].blocks[this.blockIndex].type == 'review') {
       this.navTargetPosition = 0;
       //$('.target-nav-back').hide();
@@ -196,12 +200,16 @@ var Memory = class Memory {
     else return false;
   }
 
-  hasWaitForReporter() {
-    if(this.tests[this.testIndex].blocks[this.blockIndex].wait_for_reporter &&
-      this.tests[this.testIndex].blocks[this.blockIndex].wait_for_reporter == 'true') {
+  hasEndIndividualSection() {
+    if(this.tests[this.testIndex].blocks[this.blockIndex].end_individual_section &&
+      this.tests[this.testIndex].blocks[this.blockIndex].end_individual_section == 'true') {
+      console.log('end section');
       return true;
     }
-    else return false;
+    else {
+      console.log('dont end section');
+      return false;
+    }
   }
 
   hasEndReporterOnlySection() {

@@ -13,7 +13,7 @@
         @endif
       @endforeach
       <div class="text-center">
-        <a href="/end-individual-task" role="button" class="btn btn-lg btn-primary">Continue</a>
+        <a href="/end-individual-task" role="button" class="btn btn-lg btn-primary">Next</a>
       <div>
     </div>
   </div>

@@ -371,7 +371,7 @@ Route::get('/get-prob-val', [
 Route::get('/cryptography-intro', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'GroupTaskController@cryptographyIntro',
-	'roles' => ['Group'] // Only a logged in user can view this page
+	'roles' => ['Group', 'Participant'] // Only a logged in user can view this page
 ]);
 
 Route::get('/cryptography-individual-intro', [

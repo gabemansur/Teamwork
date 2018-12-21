@@ -24,13 +24,12 @@
       // Preload all images
       preload(preloadImages);
 
+      (isReporter) ? console.log('i am reporter') : console.log('i am not reporter');
+
       var callback = function() {
-        if(isReporter) {
-          memory.markMemoryChoice(userId, groupId, taskId, "{{ csrf_token() }}", "#waiting-for-reporter");
-        }
         $("#memory-form").submit();
       };
-      var memory = new Memory(tests, callback);
+      var memory = new Memory(tests, isReporter, callback);
       memory.begin();
 
       $('.not-reporter').on('click', function(event) {
@@ -54,17 +53,9 @@
           event.stopImmediatePropagation();
           return;
         }
-        if(memory.hasWaitForReporter()) {
-          if(isReporter) memory.advance();
-          else {
-            memory.markMemoryChoice(userId, groupId, taskId, "{{ csrf_token() }}", "#waiting-for-reporter");
-            // This will take them to the end of the tests once they continue
-            memory.setAdvanceToEnd();
-            event.stopImmediatePropagation();
-            return;
-          }
-        }
+
         memory.advance();
+
         event.preventDefault();
       });
 
@@ -125,6 +116,26 @@
           @if($test['task_type'] == 'mixed')
 
             @foreach($test['blocks'] as $b_key => $block)
+
+              @if($block['type'] == 'text_intro')
+                <div class="memory memory-text text" id="memory_{{ $key }}_{{ $b_key }}">
+                  @if(isset($block['header']))
+                    <h2 class="text-primary">{{ $block['header'] }}</h2>
+                    <h3 class="text-success">
+                      Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
+                    </h3>
+                  @endif
+                  @foreach($block['text'] as $text)
+                    <h4>{!! $text !!}</h4>
+                  @endforeach
+                  <div class="text-center">
+                    <input class="btn btn-primary memory-nav btn-lg"
+                           type="button" name="next"
+                           id="continue_{{ $key }}_{{ $b_key }}"
+                           value="Next">
+                  </div>
+                </div>
+              @endif {{-- End if blocktype = text --}}
 
               @if($block['type'] == 'text')
                 <div class="memory memory-text text" id="memory_{{ $key }}_{{ $b_key }}">
@@ -364,16 +375,6 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div class="modal fade" id="waiting-for-reporter" data-backdrop="static">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title text-center" id="popup-text">
-          You should be viewing the reporter's laptop now.
-        </h4>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+@include('layouts.includes.gather-reporter-modal')
 
 @stop

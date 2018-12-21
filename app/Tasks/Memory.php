@@ -1037,6 +1037,19 @@ class Memory {
       'type' => 'intro',
       'directory' => '/img/memory-task/bodies/',
       'blocks' => [
+        ['type' => 'text_intro',
+         'header' => 'Memory Task',
+         'wait_for_all' => 'true',
+         'text' => ['Next is a test of your group’s collective memory. This
+                     will be similar to the individual memory tasks you
+                     completed earlier. We will ask you to remember images,
+                     words and stories.',
+                     'The group task has a twist. Rather than asking you to memorize images
+                     first, then words, then stories, <strong>we’ll ask you to memorize all
+                       three types of stimuli at the same time</strong>.',
+                     'We’ll start with a practice round.',
+                     'The practice will begin when all three members of your group have clicked "Next".'
+                   ]],
         ['type' => 'text',
          'header' => 'Memory: practice round',
          'wait_for_all' => 'true',
@@ -1105,7 +1118,7 @@ class Memory {
 
           ['type' => 'text',
            'header' => 'Memory: practice round',
-           'wait_for_reporter' => 'true',
+           'end_individual_section' => 'true',
            'text' => ['Now we will ask you some questions about the stimuli.
                        Remember, this is a practice!<br><br>
                        You will answer as a group. When you’re answering the
@@ -1115,6 +1128,16 @@ class Memory {
                        come back to it shortly.<br><br>
                        The practice questions will begin when The Reporter clicks "Next"'
                      ]],
+
+         ['type' => 'text',
+          'header' => 'Memory: practice round',
+          'text' => ['Make sure all your group members can see this screen.
+                      We are about to ask questions about the words, stories and
+                      images you memorized. Make sure all your group members
+                      can see this screen. We are about to ask questions about
+                      the words, stories and images you memorized.<br>
+                      Click "Next" to continue.'
+                    ]],
 
           ['type' => 'practice_test_stories',
            'selection_type' => 'select_one',
@@ -1172,14 +1195,14 @@ class Memory {
                     (e.g. <span class="text-danger">stories</span> AND
                     <span class="text-success">images</span>). Or,
                     you can divide the responsibilities of memorizing different things.',
-                    '<strong>Take a few seconds to discuss how you will approach this task.</strong>',
-                    'You will receive some final instructions when each group member has clicked "Continue".'
+                    '<strong>Take some time to discuss how you will approach this task.</strong>',
+                    'You will receive some final instructions when each group member has clicked "Next".'
                    ]],
           ['type' => 'review_choice',
           'text' => ['You will have <strong>40</strong> seconds to memorize everything as a group. There
                       is a timer in the top right of the screen.',
-                     'Remember: if you want, you can click back to this page during the
-                      40 seconds to see a different type of stimulus.',
+                     'Remember, during the 40 seconds, you can always change the stimuli
+                     you are memorizing by clicking on a different button.',
                      '<strong>You’re NOT allowed to write anything down.</strong>',
                      'The time starts when everyone has clicked on one of the buttons.'],
           'choices' => [['color' => 'success', 'type' => 'images'],
@@ -1222,13 +1245,21 @@ class Memory {
 
           ['type' => 'text',
            'header' => '',
-           'wait_for_reporter' => 'true',
+           'end_individual_section' => 'true',
            'text' => ['We will now ask you questions.',
                       '<strong>Everyone should be able to see the screen of the Reporter\'s laptop</strong>. You will
                        answer as a group, on The Reporter\'s laptop.',
-                       'The questions will begin when The Reporter clicks "Continue"'
+                       'The questions will begin when The Reporter clicks "Next"'
                      ]],
-
+         ['type' => 'text',
+          'header' => 'Memory: practice round',
+          'text' => ['Make sure all your group members can see this screen.
+                      We are about to ask questions about the words, stories and
+                      images you memorized. Make sure all your group members
+                      can see this screen. We are about to ask questions about
+                      the words, stories and images you memorized.<br>
+                      Click "Next" to continue.'
+                    ]],
           [ 'type' => 'test_images',
            'selection_type' => 'select_one',
            'show_numbers' => 'false',

@@ -23,7 +23,7 @@
       var callback = function() {
         $("#memory-form").submit();
       };
-      var memory = new Memory(tests, callback);
+      var memory = new Memory(tests, isReporter=false, callback);
       memory.begin();
 
       $('.memory-nav').on('click', function(event) {

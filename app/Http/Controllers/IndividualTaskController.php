@@ -191,6 +191,7 @@ class IndividualTaskController extends Controller
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
       $introContent = (new \Teamwork\Tasks\Intro)->getIntro($parameters->type);
+
       return view('layouts.participants.participant-study-intro')
              ->with('introContent', $introContent);
     }

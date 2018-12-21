@@ -50,6 +50,9 @@ class LoginController extends Controller
        if($request->task_package == 'group-memory'){
          \Teamwork\GroupTask::initializeGroupMemoryTasks(\Auth::user()->group_id, $randomize = false);
        }
+       if($request->task_package == 'group-1'){
+         \Teamwork\GroupTask::initializeGroupOneTasks(\Auth::user()->group_id, $randomize = false);
+       }
       }
 
       return redirect('/get-individual-task');

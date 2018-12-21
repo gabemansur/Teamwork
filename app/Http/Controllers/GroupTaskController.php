@@ -132,9 +132,8 @@ class GroupTaskController extends Controller
         $this->recordStartTime($request, 'task');
       }
 
-      // Get the id of the reporter for the group
-      $reporterId = \DB::table('reporters')->where('group_id', \Auth::user()->group_id)->pluck('user_id')->first();
-      $isReporter = ($reporterId == \Auth::user()->id) ? 1 : 0;
+      // Determine is this user is the reporter for the group
+      $isReporter = $this->isReporter(\Auth::user()->id, \Auth::user()->group_id);
       // Originally, there was an array of multiple tests. We've separated the
       // different memory tasks into individual tasks but to avoid rewriting a
       // lot of code, we'll construct a single-element array with the one test.
@@ -143,14 +142,15 @@ class GroupTaskController extends Controller
              ->with('taskId', $currentTask->id)
              ->with('enc_tests', json_encode([$test]))
              ->with('imgsToPreload', $imgsToPreload)
-             ->with('isReporter', $isReporter);
+             ->with('isReporter', ($isReporter) ? 1 : 0);
     }
 
     public function saveMemory(Request $request) {
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
-
       $test = (new \Teamwork\Tasks\Memory)->getTest($parameters->test);
+      // Determine is this user is the reporter for the group
+      $isReporter = $this->isReporter(\Auth::user()->id, \Auth::user()->group_id);
 
       if($test['type'] == 'intro') {
         $this->recordEndTime($request, 'intro');
@@ -162,6 +162,7 @@ class GroupTaskController extends Controller
         $r->prompt = 'Memory Intro';
         $r->response = 'n/a';
         $r->save();
+        return redirect('/end-group-task');
       }
 
       else {
@@ -256,9 +257,10 @@ class GroupTaskController extends Controller
 
         }
       }
+
       // If this participant isn't the reporter, we'll set a message to
       // display on the waiting page
-      if($request->role == 'not-reporter') {
+      if(!$isReporter) {
         $waitingMsg = 'You\'ll complete this task on the reporter\'s laptop. Press Continue when you have finished.';
         $request->session()->put('waitingMsg', $waitingMsg);
       }
@@ -345,8 +347,25 @@ class GroupTaskController extends Controller
       $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
       $maxResponses = $parameters->maxResponses;
+      // Determine is this user is the reporter for the group
+      $isReporter = $this->isReporter(\Auth::user()->id, \Auth::user()->group_id);
+      if($isReporter) $this->recordStartTime($request, 'intro');
+      // We need to set a start time so when the non-reporters submit the task,
+      // it records properly
+      else $this->recordStartTime($request, 'task');
+
+      $mapping = (new \Teamwork\Tasks\Cryptography)->getMapping('random');
+      $aSorted = $mapping;
+      asort($aSorted); // Sort, but preserve key order
+      $sorted = $mapping;
+      sort($sorted); // Sort and re-index
+
       return view('layouts.participants.tasks.cryptography-group-intro')
-             ->with('maxResponses', $maxResponses);
+             ->with('maxResponses', $maxResponses)
+             ->with('isReporter', $isReporter)
+             ->with('mapping', json_encode($mapping))
+             ->with('aSorted', $aSorted)
+             ->with('sorted', $aSorted);
     }
 
     public function cryptography(Request $request) {
@@ -520,5 +539,11 @@ class GroupTaskController extends Controller
       }
       \Session::put('totalTasks', $count);
       \Session::put('completedTasks', $completed);
+    }
+
+    private function isReporter($userId, $groupId) {
+      // Get the id of the reporter for the group
+      $reporterId = \DB::table('reporters')->where('group_id', $groupId)->pluck('user_id')->first();
+      return $reporterId == $userId;
     }
 }
