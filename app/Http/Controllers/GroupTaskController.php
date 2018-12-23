@@ -369,6 +369,7 @@ class GroupTaskController extends Controller
     }
 
     public function cryptography(Request $request) {
+      $isReporter = $this->isReporter(\Auth::user()->id, \Auth::user()->group_id);
       $this->recordEndTime($request, 'intro');
       $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
@@ -383,7 +384,8 @@ class GroupTaskController extends Controller
       return view('layouts.participants.tasks.cryptography-group')
              ->with('mapping',json_encode($mapping))
              ->with('sorted', $sorted)
-             ->with('maxResponses', $maxResponses);
+             ->with('maxResponses', $maxResponses)
+             ->with('isReporter', $isReporter);
     }
 
     public function saveCryptographyResponse(Request $request) {
@@ -443,8 +445,23 @@ class GroupTaskController extends Controller
     }
 
     public function endCryptographyTask(Request $request) {
-      $this->recordEndTime($request, 'task');
       $task = GroupTask::find($request->session()->get('currentGroupTask'));
+
+      $isReporter = $this->isReporter(\Auth::user()->id, \Auth::user()->group_id);
+      // If htis participant isn't the reporter, we'll save an empty response
+      // so that the group can continue when the reporter has finished
+
+      if(!$isReporter){
+        $r = new Response;
+        $r->group_tasks_id = $task->id;
+        $r->user_id = \Auth::user()->id;
+        $r->prompt = 'Not reporter';
+        $r->response = 'n/a';
+        $r->save();
+        return redirect('/end-group-task');
+      }
+
+      $this->recordEndTime($request, 'task');
       $task->points = $request->task_result;
       $task->completed = true;
       $task->save();

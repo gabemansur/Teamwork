@@ -262,7 +262,11 @@ $( document ).ready(function() {
     </div>
     <div class="row vertical-center" id="task-end">
       <div class="col-md-8 offset-md-2">
-        <form action="/cryptography-end" id="cryptography-end-form" method="post">
+        @if($isReporter)
+          <form action="/cryptography-end" id="cryptography-end-form" method="post">
+        @else
+          <form action="/cryptography-individual-end" id="cryptography-end-form" method="post">
+        @endif
           {{ csrf_field() }}
           <input type="hidden" name="task_result" id="task-result" value="0">
           <h3 class="text-center">

@@ -377,6 +377,24 @@ class IndividualTaskController extends Controller
              ->with('sorted', $aSorted);
     }
 
+    public function endCryptographyTask(Request $request) {
+
+      $this->recordEndTime($request, 'task');
+      $task = GroupTask::find($request->session()->get('currentGroupTask'));
+      $task->points = $request->task_result;
+      $task->completed = true;
+      $task->save();
+
+      // Record the end time for this task
+      $time = Time::where('user_id', '=', \Auth::user()->id)
+                  ->where('group_tasks_id', '=', $task->id)
+                  ->first();
+      $time->recordEndTime();
+
+      if(\Auth::user()->role_id == 3) return redirect('/end-individual-task');
+      else return redirect('/get-group-task');
+    }
+
     public function optimizationIntro(Request $request) {
       $this->recordStartTime($request, 'intro');
 
