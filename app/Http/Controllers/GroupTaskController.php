@@ -347,6 +347,7 @@ class GroupTaskController extends Controller
       $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
       $maxResponses = $parameters->maxResponses;
+      $introType = $parmeters->intro;
       // Determine is this user is the reporter for the group
       $isReporter = $this->isReporter(\Auth::user()->id, \Auth::user()->group_id);
       if($isReporter) $this->recordStartTime($request, 'intro');
@@ -365,7 +366,8 @@ class GroupTaskController extends Controller
              ->with('isReporter', $isReporter)
              ->with('mapping', json_encode($mapping))
              ->with('aSorted', $aSorted)
-             ->with('sorted', $aSorted);
+             ->with('sorted', $aSorted)
+             ->with('introType', $introType);
     }
 
     public function cryptography(Request $request) {
