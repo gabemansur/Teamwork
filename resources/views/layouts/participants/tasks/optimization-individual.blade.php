@@ -207,23 +207,7 @@ $( document ).ready(function() {
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
-<div class="modal fade" id="group-prompt">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title text-center">
-        You have reached the maximum number of guesses. Decide which member will log in to input the final
-        answer for the group.<br>
-        The other members of the group can click the 'Continue' button once the group answer has been submitted.
-        </h4>
-      </div>
-      <div class="modal-body text-center">
-          <button class="btn btn-lg btn-primary pull-left" id="group-login" type="button">Group Sign In</button>
-          <button class="btn btn-lg btn-primary pull-right" id="continue" type="button">Continue</button>
-      </div>
-    </div><!-- modal-content -->
-  </div><!-- modal-dialog -->
-</div><!-- modal -->
+
 
 <div class="modal fade" id="instructions">
   <div class="modal-dialog">

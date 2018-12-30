@@ -350,16 +350,22 @@ Route::get('/shapes-individual-result', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/optimization-group-intro', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@optimizationIntro',
+	'roles' => ['Group', 'Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/optimization-group', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'GroupTaskController@optimization',
-	'roles' => ['Group'] // Only a logged in user can view this page
+	'roles' => ['Group', 'Participant'] // Only a logged in user can view this page
 ]);
 
 Route::post('/optimization-group', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'GroupTaskController@saveOptimization',
-	'roles' => ['Group'] // Only a logged in user can view this page
+	'roles' => ['Group', 'Participant'] // Only a logged in user can view this page
 ]);
 
 Route::get('/get-prob-val', [

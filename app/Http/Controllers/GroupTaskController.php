@@ -59,7 +59,7 @@ class GroupTaskController extends Controller
           return redirect('/cryptography-intro');
 
         case "Optimization":
-          return redirect('/optimization-group');
+          return redirect('/optimization-group-intro');
 
         case "UnscrambleWords":
           return redirect('/unscramble-words-intro');
@@ -313,6 +313,31 @@ class GroupTaskController extends Controller
              ->with('taskName', "Unscramble Words Task")
              ->with('result', $numCorrect);
 
+    }
+
+    public function optimizationIntro(Request $request) {
+      $this->recordStartTime($request, 'intro');
+
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+
+      $totalTasks = \Teamwork\GroupTask::where('group_id', \Auth::user()->group_id)
+                                       ->where('name', 'Optimization')
+                                       ->get();
+      $completedTasks = $totalTasks->filter(function($task){
+        if($task->completed) { return $task; }
+      });
+
+      // Determine is this user is the reporter for the group
+      $isReporter = $this->isReporter(\Auth::user()->id, \Auth::user()->group_id);
+      return view('layouts.participants.tasks.optimization-group-intro')
+                  ->with('totalTasks', $totalTasks)
+                  ->with('taskId', $currentTask->id)
+                  ->with('completedTasks', $completedTasks)
+                  ->with('isReporter', $isReporter)
+                  ->with('function', 't1')
+                  ->with('maxResponses', $parameters->maxResponses)
+                  ->with('groupSize', \Teamwork\User::where('group_id', \Auth::user()->group_id)->count());
     }
 
     public function optimization(Request $request) {
