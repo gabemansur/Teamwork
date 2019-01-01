@@ -87,7 +87,10 @@ $( document ).ready(function() {
   $("#final-guess-prompt-submit").on("click", function(event) {
     $('#final-guess-prompt').modal('hide');
     if(isReporter) $("#reporter-final-answer").modal('show');
-    else instructionPaginator.nav('next');
+    else {
+      instructionPaginator.nav('next');
+      $("#instr_nav").show();
+    }
   });
 
   $("#final-guess-submit").on("click", function(event) {
@@ -230,72 +233,10 @@ $( document ).ready(function() {
   </div>
 </div>
 
-<div class="modal fade" id="review-instructions">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body text-center">
-        <h5>
-          Your group’s goal is to find a number (between 0 and 300) that
-          results in your computer returning the biggest possible value. You
-          each have {{ $maxResponses / $groupSize }} guesses, which you enter into your own laptop. A guess
-          can be any number between 0 and 300.
-        </h5>
-        <h5>
-          After you enter a guess, the computer will give you back a number.
-          There is a relationship between the number you guess and the number
-          the computer gives you. In the practice round, we tell you the
-          relationship (you won’t know this in the actual task):
-        </h5>
-        <img src="/img/optimization-task/function-example.png" style="width:400px; height: auto;">
-        <h5>
-          After each person has had five guesses, the computer will ask the
-          Reporter to enter the Group’s Best Guess. In this example, the best
-          guess is 244. The worst guess is 140.
-        </h5>
-      </div>
-      <div class="modal-body text-center">
-        <button class="btn btn-lg btn-primary pull-right" data-dismiss="modal" type="button">Ok</button>
-      </div>
-    </div><!-- modal-content -->
-  </div><!-- modal-dialog -->
-</div><!-- modal -->
 
-<div class="modal fade" id="final-guess-prompt">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title text-center">
-          Your group has now submitted all their guesses.<br>
-          Please take a moment to decide on your Group's Best Guess.
-          When you have all agreed on a best guess, click Continue.
-        </h4>
-      </div>
-      <div class="modal-body text-center">
-        <button class="btn btn-lg btn-primary pull-right" id="final-guess-prompt-submit" type="button">Continue</button>
-      </div>
-    </div><!-- modal-content -->
-  </div><!-- modal-dialog -->
-</div><!-- modal -->
-
-<div class="modal fade" id="reporter-final-answer">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title text-center">
-          As the reporter, please enter your group's final answer.
-        </h4>
-      </div>
-      <div class="modal-body text-center">
-        <div class="form-group">
-          <label for="final-guess">Final guess:</label>
-          <input type="number" class="form-control" id="final-guess" min="0" max="300">
-        </div>
-        <button class="btn btn-lg btn-primary pull-right" id="final-guess-submit" data-dismiss="modal" type="button">Submit</button>
-      </div>
-    </div><!-- modal-content -->
-  </div><!-- modal-dialog -->
-</div><!-- modal -->
-
+@include('layouts.includes.optimization-group-final-answer-prompt')
+@include('layouts.includes.optimization-group-reporter-final-answer')
+@include('layouts.includes.optimization-group-instructions')
 @include('layouts.includes.gather-reporter-modal')
 @include('layouts.includes.waiting-for-group')
 

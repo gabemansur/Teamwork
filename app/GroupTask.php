@@ -57,6 +57,10 @@ class GroupTask extends Model
       return $this->hasMany('\Teamwork\Response', 'group_tasks_id', 'id');
     }
 
+    public function progress() {
+      return $this->hasMany('\Teamwork\Progress', 'group_tasks_id', 'id');
+    }
+
     public static function getTasks() {
       $tasks = [];
       foreach (Self::$TASKS as $key => $task) {
@@ -106,9 +110,9 @@ class GroupTask extends Model
     public static function initializeGroupOneTasks($group_id, $randomize) {
       $taskArray = '[
         {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_1"}},
-        {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"4","intro":"group_1","maxResponses":"15"}},
-        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_1","hasGroup":"true","mapping":"random","maxResponses":"15"}},
+        {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"true"}},
+        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_1","hasGroup":"true","mapping":"random","maxResponses":"2"}},
+        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"4","intro":"group_1","maxResponses":"2"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1_instructions"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1"}}
         ]';

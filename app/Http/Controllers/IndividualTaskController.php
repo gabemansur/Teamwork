@@ -179,7 +179,7 @@ class IndividualTaskController extends Controller
           else return redirect('/choose-reporter');
         }
       }
-      return redirect('/end-individual-task');
+      return redirect('/end-group-task');
     }
 
     public function reporterAlreadyChosen() {

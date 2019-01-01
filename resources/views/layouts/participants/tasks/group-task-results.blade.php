@@ -6,21 +6,15 @@
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
       <h3>
-        You have completed the {{ $taskName }}.
+        {!! $results !!}
       </h3>
-      @if($result === false)
-        <h3>
-          Your results are being evaluated by the researchers.
-        </h3>
-      @else
-        <h3>
-          Your group will recieve {{ $result }} points.
-        </h3>
-      @endif
+      <h3>
+        Press the button below to continue.
+      </h3>
       <div class="text-center">
         <a class="btn btn-lg btn-primary"
            role="button"
-           href="/get-group-task">Continue
+           href="/end-group-task">Continue
         </a>
       </div>
     </div>

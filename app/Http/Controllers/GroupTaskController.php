@@ -7,6 +7,7 @@ use Teamwork\GroupTask;
 use Teamwork\Response;
 use \Teamwork\Tasks as Task;
 use \Teamwork\Time;
+use \Teamwork\Progress;
 
 class GroupTaskController extends Controller
 {
@@ -74,6 +75,7 @@ class GroupTaskController extends Controller
 
 
       $task = \Teamwork\GroupTask::with('response')
+                                 ->with('progress')
                                  ->find($request->session()->get('currentGroupTask'));
 
       // If this is an individual-only task, mark it as done
@@ -84,20 +86,38 @@ class GroupTaskController extends Controller
         return redirect('/get-individual-task');
       }
 
-      $numUsersResponded = count($task->response->groupBy('user_id'));
+      // Save this user's task progress
+      $progress = new Progress;
+      $progress->user_id = \Auth::user()->id;
+      $progress->group_id = \Auth::user()->group_id;
+      $progress->group_tasks_id = $task->id;
+      $progress->save();
+
+      $numUsersCompleted = count($task->progress->groupBy('user_id'));
 
       $usersInGroup = \Teamwork\User::where('group_id', \Auth::user()->group_id)
                                     ->where('role_id', 3)
                                     ->count();
 
-      if($numUsersResponded == $usersInGroup) {
+      if($numUsersCompleted == $usersInGroup) {
         $task->completed = true;
         $task->save();
         return redirect('/get-individual-task');
       }
       else {
-        return view('layouts.participants.tasks.waiting');
+        return redirect('/waiting');
       }
+    }
+
+    public function waiting() {
+      return view('layouts.participants.tasks.waiting');
+    }
+
+    public function showTaskResults(Request $request) {
+      return view('layouts.participants.tasks.group-task-results')
+             ->with('taskName', $request->session()->get('currentGroupTaskName'))
+             ->with('results', $request->session()->get('currentGroupTaskResult'));
+
     }
 
     public function endExperiment() {
@@ -341,38 +361,61 @@ class GroupTaskController extends Controller
     }
 
     public function optimization(Request $request) {
+      $this->recordStartTime($request, 'task');
       $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
-      $function = $parameters->function;
+      $function = (new \Teamwork\Tasks\Optimization)->getFunction($parameters->function);
+
+      // Determine is this user is the reporter for the group
+      $isReporter = $this->isReporter(\Auth::user()->id, \Auth::user()->group_id);
 
       return view('layouts.participants.tasks.optimization-group')
-             ->with('function', $function);
+             ->with('function', $function)
+             ->with('maxResponses', $parameters->maxResponses)
+             ->with('isReporter', $isReporter)
+             ->with('groupSize', \Teamwork\User::where('group_id', \Auth::user()->group_id)->count());;
     }
 
-    public function saveOptimization(Request $request) {
-      $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
+    public function saveOptimizationFinalGuess(Request $request) {
+
+      $groupTaskId = $request->session()->get('currentGroupTask');
+      $individualTaskId = $request->session()->get('currentIndividualTask');
+
+      $currentTask = \Teamwork\GroupTask::find($groupTaskId);
+      $parameters = unserialize($currentTask->parameters);
+      $function = (new \Teamwork\Tasks\Optimization)->getFunction($parameters->function);
 
       $r = new Response;
-      $r->group_tasks_id = $currentTask->id;
-      $r->individual_tasks_id = $request->session()->get('currentIndividualTask');
+      $r->group_tasks_id = $groupTaskId;
+      $r->individual_tasks_id = $individualTaskId;
       $r->user_id = \Auth::user()->id;
-      $r->prompt = $request->function;
-      $r->response = $request->guess;
+      $r->prompt = 'final: '.$request->function;
+      $r->response = $request->final_result;
       $r->save();
 
-      $currentTask->completed = true;
-      $currentTask->save();
+      // Record the end time for this task
+      $this->recordEndTime($request, 'task');
 
-      return view('layouts.participants.tasks.group-task-results')
-             ->with('taskName', "Optimization Task")
-             ->with('result', false);;
+      $request->session()->put('currentGroupTaskResult', 'You have completed the Optimization Task.');
+      $request->session()->put('currentGroupTaskName', 'Optimization Task');
+
+      $nextTask = \Teamwork\GroupTask::where('group_id', $currentTask->group_id)
+                                     ->where('order', $currentTask->order + 1)
+                                     ->first();
+
+      // If there is another Optimization task coming, skip the task results page
+      if($nextTask && $nextTask->name == 'Optimization') return redirect('/end-group-task');
+
+      return redirect('/group-task-results');
+
     }
+
 
     public function cryptographyIntro(Request $request) {
       $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
       $maxResponses = $parameters->maxResponses;
-      $introType = $parmeters->intro;
+      $introType = $parameters->intro;
       // Determine is this user is the reporter for the group
       $isReporter = $this->isReporter(\Auth::user()->id, \Auth::user()->group_id);
       if($isReporter) $this->recordStartTime($request, 'intro');
@@ -412,7 +455,8 @@ class GroupTaskController extends Controller
              ->with('mapping',json_encode($mapping))
              ->with('sorted', $sorted)
              ->with('maxResponses', $maxResponses)
-             ->with('isReporter', $isReporter);
+             ->with('isReporter', $isReporter)
+             ->with('hasGroup', $parameters->hasGroup);
     }
 
     public function saveCryptographyResponse(Request $request) {
@@ -473,7 +517,7 @@ class GroupTaskController extends Controller
 
     public function endCryptographyTask(Request $request) {
       $task = GroupTask::find($request->session()->get('currentGroupTask'));
-
+      $parameters = unserialize($task->parameters);
       $isReporter = $this->isReporter(\Auth::user()->id, \Auth::user()->group_id);
       // If htis participant isn't the reporter, we'll save an empty response
       // so that the group can continue when the reporter has finished
@@ -499,8 +543,8 @@ class GroupTaskController extends Controller
                   ->first();
       $time->recordEndTime();
 
-      if(\Auth::user()->role_id == 3) return redirect('/end-individual-task');
-      else return redirect('/get-group-task');
+      if(!$parameters->hasGroup) return redirect('/end-individual-task');
+      else return redirect('/end-group-task');
     }
 
     public function testCryptograhySave(Request $request) {

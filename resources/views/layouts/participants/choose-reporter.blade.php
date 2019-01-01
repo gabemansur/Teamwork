@@ -26,7 +26,7 @@ $( document ).ready(function() {
           the reporter.</h3>
         <div class="text-center">
           <a class="btn btn-primary memory-nav btn-lg reporter mb-md-4"
-                 href="/end-individual-task" role="button"
+                 href="/end-group-task" role="button"
                  >Continue</a>
         </div>
       @else

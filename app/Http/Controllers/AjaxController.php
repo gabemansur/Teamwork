@@ -76,8 +76,14 @@ class AjaxController extends Controller
     * @return [type]           [description]
     */
    public function checkTaskCompletion(Request $request) {
-     $task = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
-     echo $task->completed;
+      $task = \Teamwork\GroupTask::with('response')
+                                ->with('progress')
+                                ->find($request->session()->get('currentGroupTask'));
+      $usersInGroup = \Teamwork\User::where('group_id', \Auth::user()->group_id)
+                                    ->where('role_id', 3)
+                                    ->count();
+      $numUsersCompleted = count($task->progress->groupBy('user_id'));
+      return ($numUsersCompleted == $usersInGroup) ? 1 : 0;
    }
 
    public function markIndividualReadyForGroup(Request $request) {
