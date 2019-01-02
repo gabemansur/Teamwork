@@ -18,18 +18,20 @@
         <h3>{{ \Session::get('waitingMsg') }}</h3>
       @else
         <h3>
-          Please wait for the other members of your group to catch up!
+          For this part of the task, you'll be working on the Reporter's laptop.
         </h3>
         <h3>
-          When all the members are ready, press "continue".
+          When the task is completed, you'll automatically advance to the next section.
         </h3>
       @endif
+      <!--
       <div class="text-center">
         <a class="btn btn-lg btn-primary"
            role="button"
            href="/end-group-task">Continue
         </a>
       </div>
+      -->
     </div>
   </div>
 </div>

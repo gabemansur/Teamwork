@@ -368,6 +368,24 @@ Route::get('/shapes-individual-result', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/shapes-group-intro', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@shapesGroupIntro',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::get('/shapes-group', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@shapesGroup',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::post('/shapes-group', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@saveShapesGroup',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/optimization-group-intro', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'GroupTaskController@optimizationIntro',

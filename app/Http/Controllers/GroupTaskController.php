@@ -62,6 +62,9 @@ class GroupTaskController extends Controller
         case "Optimization":
           return redirect('/optimization-group-intro');
 
+        case "Shapes":
+          return redirect('/shapes-group-intro');
+
         case "UnscrambleWords":
           return redirect('/unscramble-words-intro');
 
@@ -102,6 +105,8 @@ class GroupTaskController extends Controller
       if($numUsersCompleted == $usersInGroup) {
         $task->completed = true;
         $task->save();
+        // Remove any waiting messages that were set
+        $request->session()->forget('waitingMsg');
         return redirect('/get-individual-task');
       }
       else {
@@ -547,46 +552,70 @@ class GroupTaskController extends Controller
       else return redirect('/end-group-task');
     }
 
-    public function testCryptograhySave(Request $request) {
-      //$groupTaskId = $request->session()->get('currentGroupTask');
+    public function shapesGroupIntro(Request $request) {
+      $this->recordStartTime($request, 'intro');
+      // Determine is this user is the reporter for the group
+      $isReporter = $this->isReporter(\Auth::user()->id, \Auth::user()->group_id);
+      return view('layouts.participants.tasks.shapes-group-intro')
+             ->with('isReporter', $isReporter);
+    }
 
-      $correct = true;
-      dump($request->mapping);
-      if($request->prompt == "Guess Full Mapping") {
+    public function shapesGroup(Request $request) {
+      $this->recordEndTime($request, 'intro');
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
 
-        //$currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
-        $parameters = unserialize($currentTask->parameters);
-        $mapping = json_decode($request->mapping);
-        dump($mapping);
-        $correct = true;
-        $guesses = explode(',', $request->guess);
-        foreach ($guesses as $key => $guess) {
-          $g = explode('=', $guess);
-          if(count($g) < 2 || $g[1] == '---') continue; // If the guess for this letter is blank
-          dump('Guess: '.$g[0]. ' Mapped to: '.$mapping[$g[1]]);
-          if($g[0] != $mapping[$g[1]]){
-            dump('not equal');
-            $correct = false;
-          }
+      $task = new Task\Shapes;
+      $shapes = $task->getShapes($parameters->subtest);
+
+      // Record the start time for this task
+      $this->recordStartTime($request, 'task');
+
+      return view('layouts.participants.tasks.shapes-group')
+             ->with('shapes', $shapes)
+             ->with('subtest', $parameters->subtest);
+    }
+
+    public function saveShapesGroup(Request $request) {
+
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $individualTask = $request->session()->get('currentIndividualTask');
+      $parameters = unserialize($currentTask->parameters);
+
+      $task = new Task\Shapes;
+      $shapes = $task->getShapes($parameters->subtest);
+
+      $answers = $shapes['answers'];
+
+      foreach ($request->all() as $key => $input) {
+        if($key == '_token') continue;
+
+
+        if($input == $answers[$key - 1]) {
+          $correct = 1;
         }
-      }
 
-      $r = new Response;
-      //$r->group_tasks_id = $groupTaskId;
-      //$r->user_id = \Auth::user()->id;
-      if($request->prompt == "Guess Full Mapping") {
-        $r->prompt = $request->mapping;
-      }
-      else {
-        $r->prompt = $request->prompt;
-      }
+        else $correct = 0;
 
-      $r->response = $request->guess;
-      if($request->prompt == "Guess Full Mapping") {
+        $r = new Response;
+        $r->group_tasks_id = $currentTask->id;
+        $r->individual_tasks_id = $individualTask;
+        $r->user_id = \Auth::user()->id;
+        $r->prompt = $parameters->subtest.' : '.$key;
+        $r->response = $input;
         $r->correct = $correct;
+        $r->points = $correct;
+        $r->save();
+
       }
-      //$r->save();
-      //dump($r);
+
+      // Record the end time for this task
+      $this->recordEndTime($request, 'task');
+
+      $results = 'You have completed the Shapes Task.';
+      $request->session()->put('currentIndividualTaskResult', $results);
+      $request->session()->put('currentIndividualTaskName', 'Shapes Task');
+      return redirect('/group-task-results');
     }
 
     private function recordStartTime(Request $request, $type) {

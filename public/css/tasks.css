@@ -256,3 +256,33 @@ img.eyes {
   width: 556px!important;
   height: auto!important;
 }
+
+.shapes-test-container {
+  position: relative;
+  width: 556px;
+  margin: 0 auto;
+  margin-bottom: 12px;
+}
+
+.shapes-test-table {
+  margin: 0 auto;
+  width: 536px;
+  position: absolute;
+  top: 140px;
+  left: 10px;
+}
+
+.shapes-test-table td {
+  border: 0;
+}
+
+
+.shapes-test-table input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  padding: 10px;
+}

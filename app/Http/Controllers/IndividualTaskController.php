@@ -166,7 +166,7 @@ class IndividualTaskController extends Controller
       return view('layouts.participants.choose-reporter');
     }
 
-    public function setReporter($choice) {
+    public function setReporter($choice, Request $request) {
       if($choice == 'true') {
         try{
           \DB::table('reporters')
@@ -179,6 +179,7 @@ class IndividualTaskController extends Controller
           else return redirect('/choose-reporter');
         }
       }
+      $request->session()->put('waitingMsg', 'Please wait for the other members in your group to make their selection.');
       return redirect('/end-group-task');
     }
 
