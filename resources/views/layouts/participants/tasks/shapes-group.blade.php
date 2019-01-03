@@ -65,7 +65,7 @@
                 <tr>
                   @for($j = 0; $j < 5; $j++)
                     <td>
-                      <input class="form-check-large" type="checkbox" name="{{ $i }}" value="{{ strtolower(chr($j + 65)) }}">
+                      <input class="form-check-large" type="checkbox" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
                     </td>
                   @endfor
                 </tr>

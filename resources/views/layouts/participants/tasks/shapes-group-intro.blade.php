@@ -68,7 +68,7 @@
             <tr>
               @for($i = 1; $i < 6; $i++)
                 <td>
-                  <input class="form-check-large" type="checkbox" name="{{ $i }}" value="{{ $i }}">
+                  <input class="form-check-large" type="checkbox" name="{{ $i }}[]" value="{{ $i }}">
                 </td>
               @endfor
             </tr>

@@ -289,6 +289,9 @@ class GroupTaskController extends Controller
         $waitingMsg = 'You\'ll complete this task on the reporter\'s laptop. Press Continue when you have finished.';
         $request->session()->put('waitingMsg', $waitingMsg);
       }
+      else {
+        $request->session()->put('waitingMsg', 'Please wait for the experiment to continue...');
+      }
 
       return redirect('/end-group-task');
     }
@@ -408,6 +411,7 @@ class GroupTaskController extends Controller
                                      ->where('order', $currentTask->order + 1)
                                      ->first();
 
+      $request->session()->put('waitingMsg', 'Please wait for the experiment to continue...');
       // If there is another Optimization task coming, skip the task results page
       if($nextTask && $nextTask->name == 'Optimization') return redirect('/end-group-task');
 
@@ -547,7 +551,7 @@ class GroupTaskController extends Controller
                   ->where('group_tasks_id', '=', $task->id)
                   ->first();
       $time->recordEndTime();
-
+      $request->session()->put('waitingMsg', 'Please wait for the experiment to continue...');
       if(!$parameters->hasGroup) return redirect('/end-individual-task');
       else return redirect('/end-group-task');
     }
@@ -590,8 +594,16 @@ class GroupTaskController extends Controller
       foreach ($request->all() as $key => $input) {
         if($key == '_token') continue;
 
+        $inputString = $input;
 
-        if($input == $answers[$key - 1]) {
+        if(is_array($answers[$key - 1])){
+          $inputString = json_encode($input);
+          // Need to score this correctly - this probably isn't right...
+          if($answers[$key - 1] == $input) $correct = 1;
+          else $correct = 0;
+        }
+
+        else if($input == $answers[$key - 1]) {
           $correct = 1;
         }
 
@@ -602,7 +614,7 @@ class GroupTaskController extends Controller
         $r->individual_tasks_id = $individualTask;
         $r->user_id = \Auth::user()->id;
         $r->prompt = $parameters->subtest.' : '.$key;
-        $r->response = $input;
+        $r->response = $inputString;
         $r->correct = $correct;
         $r->points = $correct;
         $r->save();
@@ -615,6 +627,7 @@ class GroupTaskController extends Controller
       $results = 'You have completed the Shapes Task.';
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Shapes Task');
+      $request->session()->put('waitingMsg', 'Please wait for the experiment to continue...');
       return redirect('/group-task-results');
     }
 
