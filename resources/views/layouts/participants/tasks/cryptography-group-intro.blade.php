@@ -12,15 +12,10 @@
 
 @section('content')
 <script>
-  // A = 1;  B = 5;  C = 3;  D = 9;  E = 6;  F = 8;  G = 4;  H = 2;  I = 7;  J = 0
   var mapping = ['J', 'A', 'H', 'C', 'G', 'B', 'E', 'I', 'F', 'D'];
   var trialStage = 1;
   var hypothesisCount = 0;
   var isReporter = {{ $isReporter }}
-
-
-  console.log(mapping);
-
 
 $( document ).ready(function() {
 

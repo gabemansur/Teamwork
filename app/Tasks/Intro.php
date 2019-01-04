@@ -75,8 +75,11 @@ class Intro {
                  ],
                  [
                    'type' => 'paragraph',
-                   '<ol><li>Optimization</li><li>Memory</li>
-                   <li>Cryptography</li><li>Shapes</li></ol>'
+                   'content' => '<div class="row">
+                   <div class="col-md-4 offset-md-4">
+                   <ol><li>Optimization</li><li>Memory</li>
+                   <li>Cryptography</li><li>Shapes</li></ol>
+                   </div></div>'
                  ],
                  [
                    'type' => 'paragraph',

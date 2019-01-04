@@ -1095,7 +1095,7 @@ class Memory {
                         ],
                        ['type' => 'words',
                         'prompt' => 'Remember these target words',
-                        'targets' => ['Mountain', 'Bread', 'Cat', 'Ice', 'Rabbit', 'Bun']
+                        'targets' => ['mountain', 'bread', 'cat', 'ice', 'rabbit', 'bun']
                        ],
                        ['type' => 'stories',
                         'prompt' => 'Remember these target stories',
@@ -1176,6 +1176,121 @@ class Memory {
 
       ]// end blocks
     ], // end group_1_instructions
+
+    'group_2_instructions' => [
+      'test_name' => 'group_2_instructions',
+      'task_type' => 'mixed',
+      'type' => 'intro',
+      'directory' => '/img/memory-task/faces/',
+      'blocks' => [
+        ['type' => 'text_intro',
+         'header' => 'Memory Task',
+         'wait_for_all' => 'true',
+         'text' => ['Next is a test of your group’s collective memory. This
+                      will be the same as the group memory task you completed previously.',
+                     'As a refresher, we’ll do a practice round.',
+                     'The practice will begin when all three members of your group have clicked "Next".'
+                   ]],
+        ['type' => 'text',
+         'header' => 'Memory: practice round',
+         'wait_for_all' => 'true',
+         'text' => ['This practice round will not count toward your group’s score.',
+                    'Your group has <strong>20 seconds</strong> to memorize
+                    <strong>3</strong> images, <strong>6</strong> words, and
+                    <strong>2</strong> very short stories.',
+                    'During the memorization period, each person will look at
+                    their own laptop and try to memorize as much as they can.
+                    It is possible, but difficult, for one person to remember
+                    all three types of stimuli.',
+                    'There will be final instructions when all three group
+                    members have clicked "Next".'
+                   ]],
+          ['type' => 'review_choice',
+          'text' => ['This is the page where you can choose what to memorize.
+                      We will ask your group about all three types of stimuli:
+                      Images, Words and Stories.',
+                     'If you want, you can try to memorize several types of stimuli.
+                      For example, you might start with "Stories" (by clicking
+                      on the <span class="text-danger">Stories</span> button).
+                      Then, if you have time, you can return to this page and
+                      try to memorize the <span class="text-warning">Words</span>
+                      and/or the <span class="text-success">Images</span>.
+                      Alternatively, each group member can focus on memorizing
+                      one type of stimuli.',
+                     '<strong>Reminder</strong>: in this practice round there
+                     are 6 words; 3 images; and 2 very short stories.',
+                     'Your 20 seconds will begin when everyone in the group has
+                     clicked on a button below. There is a timer in the top
+                     right of the screen'],
+          'choices' => [['color' => 'success', 'type' => 'images'],
+                        ['color' => 'warning', 'type' => 'words'],
+                        ['color' => 'danger', 'type' => 'stories']],
+          'review_time' => 20],
+
+          ['type' => 'mixed_review',
+          'text' => [],
+          'types' => [
+                       ['type' => 'images', 'directory' => '/img/memory-task/faces/',
+                        'prompt' => 'Remember these target images',
+                        'targets' => ['1_targets_1.png', '1_targets_2.png', '1_targets_3.png']
+                        ],
+                       ['type' => 'words',
+                        'prompt' => 'Remember these target words',
+                        'targets' => ['tree', 'pine', 'root', 'glove', 'baseball', 'hotdog']
+                       ],
+                       ['type' => 'stories',
+                        'prompt' => 'Remember these target stories',
+                        'targets' => ['The oldest surviving human, who was born in
+                                      1902, recently identified her secret to long life,
+                                      citing the benefits of swimming every day in very
+                                      cold water.',
+                                      'A poll, conducted a week ago by Pew Research,
+                                      found that 60% of people prefer vanilla icecream
+                                      to chocolate. Critics suggest that the poll
+                                      was biased.'],
+                       ]
+          ],
+          'choices' => [['color' => 'success', 'type' => 'images'],
+                        ['color' => 'warning', 'type' => 'words'],
+                        ['color' => 'danger', 'type' => 'stories']],
+          'review_time' => 20],
+
+          ['type' => 'text',
+           'header' => 'Memory: practice round',
+           'end_individual_section' => 'true',
+           'text' => ['Now we will ask you some questions about the stimuli.
+                       Remember, this is a practice!<br><br>
+                       You will answer as a group. When you’re answering the
+                       questions <strong>everyone should be able to see the Reporter\'s
+                       laptop</strong>.<br><br>
+                       If you are not the Reporter, leave your laptop open. You\'ll
+                       come back to it shortly.<br><br>
+                       The practice questions will begin when The Reporter clicks "Next"'
+                     ]],
+
+          [ 'type' => 'practice_test_words',
+           'selection_type' => 'select_all',
+           'prompt' => 'Which of the following are target words?',
+           'choices' => ['tree', 'pine', 'grow'],
+           'correct' => [1, 2]],
+
+           ['type' => 'practice_test_stories',
+           'selection_type' => 'select_one',
+           'prompt' => 'What year was the oldest known human born?',
+           'choices' => ['1901',
+                         '1902',
+                         '1903'],
+           'correct' => [2]],
+
+          [ 'type' => 'practice_test_images',
+           'selection_type' => 'select_one',
+           'show_numbers' => 'false',
+           'prompt' => 'Which of the following faces is a "target" face?',
+           'img' => 'p0_test_1.png',
+           'correct' => [3]],
+
+      ]// end blocks
+    ], // end group_2_instructions
 
     'group_1' => [
       'test_name' => 'group_1',
@@ -1431,6 +1546,258 @@ class Memory {
 
       ]// end blocks
     ], // end group_1
+
+    'group_2' => [
+      'test_name' => 'group_2',
+      'task_type' => 'mixed',
+      'type' => 'intro',
+      'directory' => '/img/memory-task/faces/',
+      'blocks' => [
+        ['type' => 'text',
+         'header' => '',
+         'wait_for_all' => 'true',
+         'text' => ['Now for the actual task. <strong>Everyone should go back to their own laptop</strong>.',
+                    'Your group will have <strong>40</strong> seconds to memorize 6 images, 12 words and 2 short
+                    stories. This will be the same as the practice, but you have twice as long to
+                    remember twice as many things.',
+                    'As in the practice, you will use your own laptop to memorize the stimuli. Again, you
+                    have the option of looking at multiple types of stimuli
+                    (e.g. <span class="text-danger">stories</span> AND
+                    <span class="text-success">images</span>). Or,
+                    you can divide the responsibilities of memorizing different things.',
+                    '<strong>Take some time to discuss how you will approach this task.</strong>',
+                    'You will receive some final instructions when each group member has clicked "Next".'
+                   ]],
+          ['type' => 'review_choice',
+          'text' => ['You will have <strong>40</strong> seconds to memorize everything as a group. There
+                      is a timer in the top right of the screen.',
+                     'Remember, during the 40 seconds, you can always change the stimuli
+                     you are memorizing by clicking on a different button.',
+                     '<strong>You’re NOT allowed to write anything down.</strong>',
+                     'The time starts when everyone has clicked on one of the buttons.'],
+          'choices' => [['color' => 'success', 'type' => 'images'],
+                        ['color' => 'warning', 'type' => 'words'],
+                        ['color' => 'danger', 'type' => 'stories']],
+          'review_time' => 40],
+
+          ['type' => 'mixed_review',
+          'text' => [],
+          'types' => [
+                       ['type' => 'images', 'directory' => '/img/memory-task/faces/',
+                        'prompt' => 'Remember these target images',
+                        'targets' => ['2_targets_1.jpg', '2_targets_2.jpg', '2_targets_3.jpg']
+                        ],
+                       ['type' => 'words',
+                        'prompt' => 'Remember these target words',
+                        'targets' => ['garlic', 'wood', 'sugar', 'coal', 'clarinet',
+                                      'trumpet', 'cinnamon', 'flute', 'kerosine',
+                                      'vanilla', 'gasoline', 'violin']
+                       ],
+                       ['type' => 'stories',
+                        'prompt' => 'Remember these target stories',
+                        'targets' => ['Clothing makers in Europe and China have a problem.  The shape of the
+                                      American male has changed.  American men now have slimmer waists and larger chests
+                                      than they did in 1933 when the last measurements were taken.  Manufacturers will
+                                      alter their designs and have promised to update their statistics more frequently.',
+                                      'Michael Simpson earned a reputation for being stubborn after refusing to
+                                      accept pay cheques.  Instead of cheques, he wanted his wages to be paid in
+                                      cash.  He eventually collected ten thousand dollars in back pay.  His wife
+                                      was pleased because she had been forced to cook on a camping stove, after
+                                      services to their home were cut off eighteen months ago.'],
+                       ]
+          ],
+          'choices' => [['color' => 'success', 'type' => 'images'],
+                        ['color' => 'warning', 'type' => 'words'],
+                        ['color' => 'danger', 'type' => 'stories']],
+          'review_time' => 40],
+
+          ['type' => 'text',
+           'header' => '',
+           'end_individual_section' => 'true',
+           'text' => ['We will now ask you questions.',
+                      '<strong>Everyone should be able to see the screen of the Reporter\'s laptop</strong>. You will
+                       answer as a group, on The Reporter\'s laptop.',
+                       'The questions will begin when The Reporter clicks "Next"'
+                     ]],
+         ['type' => 'text',
+          'header' => 'Memory: practice round',
+          'text' => ['Make sure all your group members can see this screen.
+                      We are about to ask questions about the words, stories and
+                      images you memorized. Make sure all your group members
+                      can see this screen. We are about to ask questions about
+                      the words, stories and images you memorized.<br>
+                      Click "Next" to continue.'
+                    ]],
+        [ 'type' => 'test_images',
+          'selection_type' => 'select_one',
+          'show_numbers' => 'true',
+          'prompt' => 'Which of the following images is a "target" face?',
+          'img' => '2_test_1.jpg',
+          'correct' => [3]],
+
+          [ 'type' => 'test_stories',
+            'selection_type' => 'select_one',
+            'prompt' => 'Clothing makers from which areas are mentioned in the story?',
+            'choices' => ['Europe and Mexico',
+                          'Europe and China',
+                          'China and Mexico'],
+            'correct' => [2]],
+
+          ['type' => 'test_words',
+           'selection_type' => 'select_all',
+           'prompt' => 'Which of the following are target words',
+           'choices' => ['oil', 'kerosine', 'priest'],
+           'correct' => [2]],
+
+         ['type' => 'test_words',
+           'selection_type' => 'select_all',
+           'prompt' => 'Which of the following are target words',
+           'choices' => ['salt', 'basement', 'piano'],
+           'correct' => []],
+
+        ['type' => 'test_images',
+          'selection_type' => 'select_one',
+          'show_numbers' => 'true',
+          'prompt' => 'Which of the following images is a "target" face?',
+          'img' => '2_test_2.jpg',
+          'correct' => [1]],
+
+          [ 'type' => 'test_stories',
+            'selection_type' => 'select_one',
+            'prompt' => 'Michael had a reputation for being:',
+            'choices' => ['Stubborn',
+                          'Cheap',
+                          'Rude'],
+            'correct' => [1]],
+
+        ['type' => 'test_images',
+          'selection_type' => 'select_one',
+          'show_numbers' => 'true',
+          'prompt' => 'Which of the following images is a "target" face?',
+          'img' => '2_test_3.jpg',
+          'correct' => [2]],
+
+          ['type' => 'test_words',
+            'selection_type' => 'select_all',
+            'prompt' => 'Which of the following are target words',
+            'choices' => ['wood', 'harmonica', 'trumpet'],
+            'correct' => [1, 3]],
+
+          [ 'type' => 'test_stories',
+            'selection_type' => 'select_one',
+            'prompt' => 'How long ago did the services in Michael’s house get turned off?',
+            'choices' => ['18 months ago',
+                          '6 months ago',
+                          '12 months ago'],
+              'correct' => [1]],
+
+        ['type' => 'test_images',
+          'selection_type' => 'select_one',
+          'show_numbers' => 'true',
+          'prompt' => 'Which of the following images is a "target" face?',
+          'img' => '2_test_4.jpg',
+          'correct' => [3]],
+
+
+        ['type' => 'test_images',
+          'selection_type' => 'select_one',
+          'show_numbers' => 'true',
+          'prompt' => 'Which of the following images is a "target" face?',
+          'img' => '2_test_5.jpg',
+          'correct' => [1]],
+
+          [ 'type' => 'test_stories',
+            'selection_type' => 'select_one',
+            'prompt' => 'What was Michael’s last name?',
+            'choices' => ['Simpson',
+                          'Sanderson',
+                          'Sandford'],
+            'correct' => [1]],
+
+          [ 'type' => 'test_stories',
+            'selection_type' => 'select_one',
+            'prompt' => 'When did clothing makers last "measure the American male"?',
+            'choices' => ['1933',
+                          '1932',
+                          '1923'],
+            'correct' => [1]],
+
+          ['type' => 'test_words',
+            'selection_type' => 'select_all',
+            'prompt' => 'Which of the following are target words',
+            'choices' => ['garlic', 'violin', 'vanilla'],
+            'correct' => [1, 2, 3]],
+
+        ['type' => 'test_images',
+          'selection_type' => 'select_one',
+          'show_numbers' => 'true',
+          'prompt' => 'Which of the following images is a "target" face?',
+          'img' => '2_test_6.jpg',
+          'correct' => [3]],
+
+        ['type' => 'test_words',
+          'selection_type' => 'select_all',
+          'prompt' => 'Which of the following are target words',
+          'choices' => ['chair', 'pepper', 'horn'],
+          'correct' => []],
+
+          [ 'type' => 'test_stories',
+            'selection_type' => 'select_one',
+            'prompt' => 'How much back pay did Michael receive?',
+            'choices' => ['Ten thousand dollars',
+                          'Eleven thousand dollars',
+                          'Twelve thousand dollars'],
+            'correct' => [1]],
+
+          ['type' => 'test_words',
+            'selection_type' => 'select_all',
+            'prompt' => 'Which of the following are target words',
+            'choices' => ['sand', 'sugar', 'drum'],
+            'correct' => [2]],
+
+        ['type' => 'test_images',
+          'selection_type' => 'select_one',
+          'show_numbers' => 'true',
+          'prompt' => 'Which of the following images is a "target" face?',
+          'img' => '2_test_7.jpg',
+          'correct' => [2]],
+
+          [ 'type' => 'test_stories',
+            'selection_type' => 'select_one',
+            'prompt' => 'How has the shape of the American male changed?',
+            'choices' => ['Slimmer waists and larger arms',
+                          'Larger waists and slimmer legs',
+                          'Slimmer waists and larger chests'],
+            'correct' => [3]],
+
+        ['type' => 'test_images',
+          'selection_type' => 'select_one',
+          'show_numbers' => 'true',
+          'prompt' => 'Which of the following images is a "target" face?',
+          'img' => '2_test_8.jpg',
+          'correct' => [2]],
+
+          [ 'type' => 'test_stories',
+            'selection_type' => 'select_one',
+            'prompt' => 'How did Michael’s wife feel when he finally got paid?',
+            'choices' => ['Relieved',
+                          'Pleased',
+                          'Grateful'],
+            'correct' => [2]],
+
+          ['type' => 'test_words',
+            'selection_type' => 'select_all',
+            'prompt' => 'Which of the following are target words',
+            'choices' => ['flute', 'clarinet', 'piano'],
+            'correct' => [2]],
+
+            ['type' => 'test_words',
+              'selection_type' => 'select_all',
+              'prompt' => 'Which of the following are target words',
+              'choices' => ['coal', 'electricity', 'lemon'],
+              'correct' => [1]],
+      ]// end blocks
+    ], // end group_2
 
   ]; // End memoryTests
 

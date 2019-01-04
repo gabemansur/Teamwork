@@ -12,8 +12,14 @@ class Shapes {
                                  ['b', 'e'], ['a', 'd'], ['b', 'e'], ['b', 'e'],
                                  ['a', 'd'], ['b', 'd'], ['a', 'e'], ['c', 'd'],
                                  ['b', 'c'], ['a', 'b']]],
-    'subtest3' => ['length' => 15],
-    'subtest4' => ['length' => 12]
+    'subtest3' => ['length' => 13,
+                    'answers' => [['e'], ['e'], ['e'], ['b'],
+                                  ['c'], ['d'], ['e'], ['e'],
+                                  ['a'], ['a'], ['f'], ['c'], ['c']]],
+    'subtest4' => ['length' => 10,
+                    'answers' => [['b'], ['a'], ['d'], ['d'],
+                                  ['a'], ['b'], ['c'], ['d'],
+                                  ['a'], ['d']]],
   ];
 
   private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'subtest' => ['subtest1', 'subtest2']];

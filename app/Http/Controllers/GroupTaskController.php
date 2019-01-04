@@ -187,6 +187,9 @@ class GroupTaskController extends Controller
         $r->prompt = 'Memory Intro';
         $r->response = 'n/a';
         $r->save();
+        if($isReporter) {
+          $request->session()->put('waitingMsg', 'Please wait for the experiment to continue...');
+        }
         return redirect('/end-group-task');
       }
 
@@ -365,6 +368,7 @@ class GroupTaskController extends Controller
                   ->with('isReporter', $isReporter)
                   ->with('function', 't1')
                   ->with('maxResponses', $parameters->maxResponses)
+                  ->with('intro', $parameters->intro)
                   ->with('groupSize', \Teamwork\User::where('group_id', \Auth::user()->group_id)->count());
     }
 
@@ -381,6 +385,7 @@ class GroupTaskController extends Controller
              ->with('function', $function)
              ->with('maxResponses', $parameters->maxResponses)
              ->with('isReporter', $isReporter)
+             ->with('taskId', $currentTask->id)
              ->with('groupSize', \Teamwork\User::where('group_id', \Auth::user()->group_id)->count());;
     }
 
@@ -560,8 +565,11 @@ class GroupTaskController extends Controller
       $this->recordStartTime($request, 'intro');
       // Determine is this user is the reporter for the group
       $isReporter = $this->isReporter(\Auth::user()->id, \Auth::user()->group_id);
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
       return view('layouts.participants.tasks.shapes-group-intro')
-             ->with('isReporter', $isReporter);
+             ->with('isReporter', $isReporter)
+             ->with('subtest', $parameters->subtest);;
     }
 
     public function shapesGroup(Request $request) {

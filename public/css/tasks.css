@@ -257,11 +257,35 @@ img.eyes {
   height: auto!important;
 }
 
+.shapes-subtest3 .shapes-img {
+  width: 800px!important;
+  height: auto!important;
+}
+
+.shapes-subtest4 .shapes-img {
+  width: 700px!important;
+  height: auto!important;
+}
+
 .shapes-test-container {
   position: relative;
   width: 556px;
   margin: 0 auto;
   margin-bottom: 12px;
+}
+
+.shapes-test-container.shapes-subtest3 {
+  position: relative;
+  width: 800px;
+  margin: 0 auto;
+  margin-bottom: 56px;
+}
+
+.shapes-test-container.shapes-subtest4 {
+  position: relative;
+  width: 700px;
+  margin: 0 auto;
+  margin-bottom: 36px;
 }
 
 .shapes-test-table {
@@ -270,6 +294,19 @@ img.eyes {
   position: absolute;
   top: 140px;
   left: 10px;
+}
+
+.shapes-test-table.shapes-subtest3 {
+  margin: 0 auto;
+  width: 492px;
+  position: absolute;
+  top: 280px;
+  left: 176px;
+}
+
+.shapes-test-table.shapes-subtest4 {
+  top: 240px;
+  left: 90px;
 }
 
 .shapes-test-table td {

@@ -53,6 +53,12 @@ class LoginController extends Controller
        if($request->task_package == 'group-1'){
          \Teamwork\GroupTask::initializeGroupOneTasks(\Auth::user()->group_id, $randomize = false);
        }
+       if($request->task_package == 'group-2'){
+         \Teamwork\GroupTask::initializeGroupTwoTasks(\Auth::user()->group_id, $randomize = false);
+       }
+       if($request->task_package == 'group-3'){
+         \Teamwork\GroupTask::initializeGroupThreeTasks(\Auth::user()->group_id, $randomize = false);
+       }
       }
 
       return redirect('/get-individual-task');

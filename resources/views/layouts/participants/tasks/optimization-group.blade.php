@@ -22,6 +22,11 @@ $( document ).ready(function() {
   var f = taskFunctions.{{ $function }};
   var guessNumber = 0;
   var responses = [];
+  var userId = {{ \Auth::user()->id }};
+  var groupId = {{ \Auth::user()->group_id }};
+  var taskId = {{ $taskId }};
+  var token = "{{ csrf_token() }}";
+  var step = 1;
 
   // Let's put the function as a string into the final submission form
   $("#final-function").val(f.toString());
@@ -97,8 +102,10 @@ $( document ).ready(function() {
 
   $("#final-guess-prompt-submit").on("click", function(event) {
     $('#final-guess-prompt').modal('hide');
-    if(isReporter) $("#reporter-final-answer").modal('show');
-    else window.location = '/end-group-task';
+
+    markIndividualReady(userId, groupId, taskId, step, token);
+    waitForGroup(userId, groupId, taskId, step, token, isReporter);
+
     event.preventDefault();
   });
 
@@ -109,6 +116,35 @@ $( document ).ready(function() {
   });
 
 });
+
+function markIndividualReady(userId, groupId, groupTasksId, step, token) {
+    $.post( "/mark-individual-ready", { user_id: userId, group_id: groupId,
+                                        group_tasks_id: groupTasksId,
+                                        step: step, _token: token } );
+}
+
+function waitForGroup(userId, groupId, groupTasksId, step, token, isReporter) {
+    $.get( "/check-group-ready",
+            { user_id: userId, group_id: groupId,
+              group_tasks_id: groupTasksId, step: step,} )
+      .done(function( response ) {
+        if(response == '1') {
+          if(isReporter) {
+            $("#waiting-for-group").modal('hide');
+            $("#reporter-final-answer").modal('show');
+          }
+          else window.location = '/end-group-task';
+        }
+        else {
+          $("#waiting-for-group").modal('show');
+          setTimeout(function(){
+           $("#waiting-for-group").modal('show');
+           console.log('waiting...');
+           waitForGroup(userId, groupId, groupTasksId, step, token, isReporter);
+         }, 1000);
+        }
+    });
+  }
 
 </script>
 
@@ -187,6 +223,7 @@ $( document ).ready(function() {
 @include('layouts.includes.optimization-group-reporter-final-answer')
 @include('layouts.includes.optimization-group-instructions')
 @include('layouts.includes.gather-reporter-modal')
+@include('layouts.includes.waiting-for-group')
 
 <form action="/optimization-group-final" id="optimization-final-form" style="display:none;" method="post">
           {{ csrf_field() }}

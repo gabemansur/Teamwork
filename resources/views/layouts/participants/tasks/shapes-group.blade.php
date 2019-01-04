@@ -14,6 +14,11 @@
 <script>
 
     var numShapes = {{ $shapes['length'] }};
+    @if($subtest == 'subtest2')
+      var time = 240;
+    @elseif($subtest == 'subtest3' || $subtest == 'subtest4')
+      var time = 180;
+    @endif
     $( document ).ready(function() {
 
       $("#timer-submit").on("click", function(event) {
@@ -21,7 +26,7 @@
         event.preventDefault();
       });
 
-      initializeTimer(240, function() {
+      initializeTimer(time, function() {
         $('#submitPrompt').modal();
       });
 
@@ -58,16 +63,39 @@
         {{ csrf_field() }}
         @for($i = 1; $i <= $shapes['length']; $i++)
           <div id="inst_{{ $i }}" class="inst">
-
-            <div class="text-center shapes-test-container">
-              <img src="/img/shapes-task/subtest2/{{ $i }}.png" class="shapes-img">
-              <table class="table shapes-test-table">
+            <h4>
+              @if($subtest == 'subtest2')
+                Please select two correct answers
+              @elseif($subtest == 'subtest3')
+                Choose the box that best fits in the empty dotted box
+              @elseif($subtest == 'subtest4')
+                Select the "match" for the top box (look for a shape where you
+                could put a dot in the same place as it is in the top box)
+              @endif
+            </h4>
+            <div class="text-center shapes-test-container shapes-{{ $subtest }}">
+              <img src="/img/shapes-task/{{ $subtest }}/{{ $i }}.png" class="shapes-img">
+              <table class="table shapes-test-table shapes-{{ $subtest }}">
                 <tr>
-                  @for($j = 0; $j < 5; $j++)
-                    <td>
-                      <input class="form-check-large" type="checkbox" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
-                    </td>
-                  @endfor
+                  @if($subtest == 'subtest2')
+                    @for($j = 0; $j < 5; $j++)
+                      <td>
+                        <input class="form-check-large" type="checkbox" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
+                      </td>
+                    @endfor
+                  @elseif($subtest == 'subtest3')
+                    @for($j = 0; $j < 6; $j++)
+                      <td>
+                        <input class="form-check-large" type="radio" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
+                      </td>
+                    @endfor
+                  @elseif($subtest == 'subtest4')
+                    @for($j = 0; $j < 5; $j++)
+                      <td>
+                        <input class="form-check-large" type="radio" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
+                      </td>
+                    @endfor
+                  @endif
                 </tr>
               </table>
             </div>

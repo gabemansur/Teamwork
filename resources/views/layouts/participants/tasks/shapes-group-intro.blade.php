@@ -19,6 +19,110 @@
 <div class="container">
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
+      @if($subtest == 'subtest2')
+        <div id="inst_1" class="inst">
+          <h2 class="text-primary">Shapes Task</h2>
+          <h3 class="text-success">
+            Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
+          </h3>
+          <h4>
+            Last is a test of your group’s ability to recognize patterns and shapes.
+          </h4>
+          <h4>
+            This is very similar to the shapes task you did individually. But,
+            the questions are formatted differently, so we'll start with some examples.
+          </h4>
+          <h4>
+            <strong>
+              You only need one computer for this task. Everyone should be gathered
+              around <em>The Reporter's</em> laptop.
+            </strong>
+          </h4>
+          <h4>
+            @if($isReporter)
+              Click Next to see the examples.
+            @else
+              If you are not The Reporter, you can click "finish" and close your laptop:
+              you won’t be needing it again.
+            @endif
+          </h4>
+        </div>
+        <div id="inst_2" class="inst">
+          <h3>
+            Instructions and examples
+          </h3>
+          <h4>
+            In each question you will see five boxes. Three of the boxes will be
+            alike in some way. The other two are different. Your job is to find
+            the two shapes that don’t fit.
+          </h4>
+          <h4>
+            Below is an example. You can see that three of the boxes contain
+            triangles (boxes a, c and e). The other two contain rectangles.
+            The correct answer is <strong>b</strong> and <strong>d</strong>.
+            Click on the circles below the boxes
+            to select your answers.
+          </h4>
+          <div class="text-center shapes-test-container">
+            <img src="/img/shapes-task/{{ $subtest }}/example_01.png" class="shapes-img">
+            <table class="table shapes-test-table">
+              <tr>
+                @for($i = 1; $i < 6; $i++)
+                  <td>
+                    <input class="form-check-large" type="checkbox" name="{{ $i }}[]" value="{{ $i }}">
+                  </td>
+                @endfor
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div id="inst_3" class="inst">
+          <h4>
+            Here is another example. Two of the circles are filled-in dotted
+            circles (in boxes c and e). The other three circles are empty. The
+            correct answer is c and e. These are the boxes that don’t fit with
+            the other three.
+          </h4>
+          <div class="text-center shapes-test-container">
+            <img src="/img/shapes-task/subtest2/example_02.png" class="shapes-img">
+            <table class="table shapes-test-table">
+              <tr>
+                @for($i = 1; $i < 6; $i++)
+                  <td>
+                    <input class="form-check-large" type="checkbox" name="{{ $i }}" value="{{ $i }}">
+                  </td>
+                @endfor
+              </tr>
+            </table>
+          </div>
+          <h4>
+            When all three of your group members are ready, click "Next".
+          </h4>
+        </div>
+        <div id="inst_4" class="inst">
+          <h4>
+            After clicking the "next" button, your group will complete the rest
+            yourselves. Remember: <strong>choose two figures in each row that are
+            <em>different</em> from the others</strong>.
+          </h4>
+          <h4>
+            Also remember that you're working as a team! Take a moment to discuss
+            how you will approach this task.
+          </h4>
+          <h4>
+            There are 14 questions and you have 4 minutes. You may not have time
+            to finish all the questions, but you should work as quickly and
+            carefully as you can. There will be a timer in the top right of
+            your screen.
+          </h4>
+          <h4>
+            You may change your answers if you change your mind, but not after the 4 minutes is up.
+          </h4>
+          <h4>
+            Click "Next" to begin!
+          </h4>
+        </div>
+      @elseif($subtest == 'subtest3')
       <div id="inst_1" class="inst">
         <h2 class="text-primary">Shapes Task</h2>
         <h3 class="text-success">
@@ -28,7 +132,7 @@
           Last is a test of your group’s ability to recognize patterns and shapes.
         </h4>
         <h4>
-          This is very similar to the shapes task you did individually. But,
+          This is similar to the previous Shapes Tasks you’ve completed. But,
           the questions are formatted differently, so we'll start with some examples.
         </h4>
         <h4>
@@ -51,24 +155,23 @@
           Instructions and examples
         </h3>
         <h4>
-          In each question you will see five boxes. Three of the boxes will be
-          alike in some way. The other two are different. Your job is to find
-          the two shapes that don’t fit.
+          In each question, you will see a large square with small boxes inside.
+          One of the small boxes is dotted and has no drawing in it. <strong>
+          Your job is to find a shape – from one of boxes below – that fits the empty
+          dotted box</strong>.
         </h4>
         <h4>
-          Below is an example. You can see that three of the boxes contain
-          triangles (boxes a, c and e). The other two contain rectangles.
-          The correct answer is <strong>b</strong> and <strong>d</strong>.
-          Click on the circles below the boxes
-          to select your answers.
+          Below is a simple example. You can see that three of the boxes in the
+          square have a diagonal strip (from bottom left to top right). The
+          shape that best fits in the dotted box is box b.
         </h4>
-        <div class="text-center shapes-test-container">
-          <img src="/img/shapes-task/subtest2/example_01.png" class="shapes-img">
-          <table class="table shapes-test-table">
+        <div class="text-center shapes-test-container shapes-{{ $subtest }}">
+          <img src="/img/shapes-task/{{ $subtest }}/example_01.png" class="shapes-img">
+          <table class="table shapes-test-table shapes-{{ $subtest }}">
             <tr>
-              @for($i = 1; $i < 6; $i++)
+              @for($i = 0; $i < 6; $i++)
                 <td>
-                  <input class="form-check-large" type="checkbox" name="{{ $i }}[]" value="{{ $i }}">
+                  <input class="form-check-large" type="radio" name="ex1" value="{{ $i }}">
                 </td>
               @endfor
             </tr>
@@ -77,18 +180,25 @@
       </div>
       <div id="inst_3" class="inst">
         <h4>
-          Here is another example. Two of the circles are filled-in dotted
-          circles (in boxes c and e). The other three circles are empty. The
-          correct answer is c and e. These are the boxes that don’t fit with
-          the other three.
+          Below is a second example. First look at the top two boxes in the
+          square. Going from left to right, you see that we go from two circles
+          to one.
         </h4>
-        <div class="text-center shapes-test-container">
-          <img src="/img/shapes-task/subtest2/example_02.png" class="shapes-img">
-          <table class="table shapes-test-table">
+        <h4>
+          Now look at the two boxes on the left hand side of the square. Going
+          from top to bottom, you see that we go from dotted, to empty circles.
+        </h4>
+        <h4>
+          Repeating these patterns would mean that the dotted box would have a
+          single, empty circle. So the answer is box f.
+        </h4>
+        <div class="text-center shapes-test-container shapes-{{ $subtest }}">
+          <img src="/img/shapes-task/{{ $subtest }}/example_02.png" class="shapes-img">
+          <table class="table shapes-test-table shapes-{{ $subtest }}">
             <tr>
-              @for($i = 1; $i < 6; $i++)
+              @for($i = 0; $i < 6; $i++)
                 <td>
-                  <input class="form-check-large" type="checkbox" name="{{ $i }}" value="{{ $i }}">
+                  <input class="form-check-large" type="radio" name="ex2" value="{{ $i }}">
                 </td>
               @endfor
             </tr>
@@ -109,18 +219,157 @@
           how you will approach this task.
         </h4>
         <h4>
-          There are 14 questions and you have 4 minutes. You may not have time
+          There are 13 questions and you have 3 minutes. You may not have time
           to finish all the questions, but you should work as quickly and
           carefully as you can. There will be a timer in the top right of
           your screen.
         </h4>
         <h4>
-          You may change your answers if you change your mind, but not after the 4 minutes is up.
+          You may change your answers if you change your mind, but not after the 3 minutes is up.
         </h4>
         <h4>
           Click "Next" to begin!
         </h4>
       </div>
+      @elseif($subtest == 'subtest4')
+      <div id="inst_1" class="inst">
+        <h2 class="text-primary">Shapes Task</h2>
+        <h3 class="text-success">
+          Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
+        </h3>
+        <h4>
+          Last is a test of your group’s ability to recognize patterns and shapes.
+        </h4>
+        <h4>
+          This is similar to the previous Shapes Tasks you’ve completed. But,
+          the questions are formatted differently, so we'll start with some examples.
+        </h4>
+        <h4>
+          <strong>
+            You only need one computer for this task. Everyone should be gathered
+            around <em>The Reporter's</em> laptop.
+          </strong>
+        </h4>
+        <h4>
+          @if($isReporter)
+            Click Next to see the examples.
+          @else
+            If you are not The Reporter, you can click "finish" and close your laptop:
+            you won’t be needing it again.
+          @endif
+        </h4>
+      </div>
+      <div id="inst_2" class="inst">
+        <h3>
+          Instructions and examples
+        </h3>
+        <h4>
+          In this task, there is a separate box at the top with some shapes and
+          a dot. The dot is important. Below this "top box" are 5 possible
+          "matches", marked a, b, c, d and e.
+        </h4>
+        <h4>
+          One of these 5 boxes will be a "match". For a box to be a match,
+          you must be able to put the dot in the same position as it is
+          in the "top box".
+        </h4>
+        <h4>
+          Below is an example. In the top box, you can see that the dot is
+          <em>inside both</em> the square and the circle. The only answer where this
+          is a possibility is box c. To make this obvious, we have included
+          the dot in box c.
+        </h4>
+        <div class="text-center shapes-test-container shapes-{{ $subtest }}">
+          <img src="/img/shapes-task/{{ $subtest }}/example_01.png" class="shapes-img">
+          <table class="table shapes-test-table shapes-{{ $subtest }}">
+            <tr>
+              @for($i = 0; $i < 5; $i++)
+                <td>
+                  <input class="form-check-large" type="radio" name="ex1" value="{{ $i }}">
+                </td>
+              @endfor
+            </tr>
+          </table>
+        </div>
+        <h4>
+          When all three of your group members are ready, click "Next" to see another example
+        </h4>
+      </div>
+      <div id="inst_3" class="inst">
+        <h4>
+          Here is another example. In the top box, you can see that the dot is
+          inside the triangle but <strong>not</strong> inside the rectangle.
+        </h4>
+        <h4>
+          Among the 5 potential answers, the only box where we could place a
+          dot inside a triangle, but outside a rectangle is box d. Box d is
+          the answer.
+        </h4>
+        <div class="text-center shapes-test-container shapes-{{ $subtest }}">
+          <img src="/img/shapes-task/{{ $subtest }}/example_02.png" class="shapes-img">
+          <table class="table shapes-test-table shapes-{{ $subtest }}">
+            <tr>
+              @for($i = 0; $i < 5; $i++)
+                <td>
+                  <input class="form-check-large" type="radio" name="ex2" value="{{ $i }}">
+                </td>
+              @endfor
+            </tr>
+          </table>
+        </div>
+        <h4>
+          When all three of your group members are ready, click "Next" to see a
+          final example.
+        </h4>
+      </div>
+      <div id="inst_4" class="inst">
+        <h4>
+          One final example. In the top box, notice that the dot is above the
+          curved line, and inside the triangle. The only box where it is
+          possible to place a dot in this situation is box b.
+        </h4>
+        <div class="text-center shapes-test-container shapes-{{ $subtest }}">
+          <img src="/img/shapes-task/{{ $subtest }}/example_03.png" class="shapes-img">
+          <table class="table shapes-test-table shapes-{{ $subtest }}">
+            <tr>
+              @for($i = 0; $i < 5; $i++)
+                <td>
+                  <input class="form-check-large" type="radio" name="ex2" value="{{ $i }}">
+                </td>
+              @endfor
+            </tr>
+          </table>
+        </div>
+        <h4>
+          When all three of your group members are ready, click "Next".
+        </h4>
+      </div>
+      <div id="inst_5" class="inst">
+        <h4>
+          After clicking the "next" button your group will be asked to complete
+          the rest yourselves. As in the practices, find the box that "matches"
+          the top box.
+        </h4>
+        <h4>
+          There are 10 questions and you have 3 minutes. You may not have time
+          to finish all the questions, but you should work as quickly and
+          carefully as you can. There will be a timer in the top right of
+          your screen.
+        </h4>
+        <h4>
+          <strong>
+            Remember, you're working as a team. Take a moment to discuss how
+            you will approach this task.
+          </strong>
+        </h4>
+        <h4>
+          You may change your answers if you change your mind, but not after the 3 minutes is up.
+        </h4>
+        <h4>
+          Click "Next" to begin!
+        </h4>
+      </div>
+      @endif
       @if($isReporter)
         <div id="instr_nav" class="text-center">
           <input class="btn btn-primary instr_nav btn-lg" type="button" name="back" id="back" value="&#8678; Back">
