@@ -22,7 +22,7 @@ class Shapes {
                                   ['a'], ['d']]],
   ];
 
-  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'subtest' => ['subtest1', 'subtest2']];
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false', 'true'], 'subtest' => ['subtest1', 'subtest2', 'subtest3', 'subtest4']];
 
 
   public function getShapes($test) {

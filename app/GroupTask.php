@@ -140,7 +140,7 @@ class GroupTask extends Model
         {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_2"}},
         {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"true"}},
         {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"4","intro":"group_3","maxResponses":"15"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"5","intro":"group_3","maxResponses":"15"}},
+        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"5","intro":"group_alt_intro","maxResponses":"15"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_3_instructions"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_3"}},
         {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_3","hasGroup":"true","mapping":"random","maxResponses":"15"}},
