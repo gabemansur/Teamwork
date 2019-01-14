@@ -85,6 +85,7 @@ $( document ).ready(function() {
           $("#guess-history").append("<tr><td>" + guessNumber + " of " + MAX_RESPONSES +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
           $("#guess").val('');
           $("#guess-prompt").hide();
+          $("#guess").focus();
         });
 
     $.post("/optimization-individual", {
@@ -102,14 +103,24 @@ $( document ).ready(function() {
 
   $("#final-guess-prompt-submit").on("click", function(event) {
     $('#final-guess-prompt').modal('hide');
+    if(!isReporter){
+      markIndividualReady(userId, groupId, taskId, step, token);
+      step++;
+      markIndividualReady(userId, groupId, taskId, step, token);
+      waitForGroup(userId, groupId, taskId, step, token, isReporter);
+    }
 
-    markIndividualReady(userId, groupId, taskId, step, token);
-    waitForGroup(userId, groupId, taskId, step, token, isReporter);
+    else {
+      markIndividualReady(userId, groupId, taskId, step, token);
+      waitForGroup(userId, groupId, taskId, step, token, isReporter);
+      step++;
+    }
 
     event.preventDefault();
   });
 
   $("#final-guess-submit").on("click", function(event) {
+    markIndividualReady(userId, groupId, taskId, step, token);
     $("#final-result").val(f($("#final-guess").val()));
     $("#optimization-final-form").submit();
     event.preventDefault();
@@ -166,7 +177,7 @@ function waitForGroup(userId, groupId, groupTasksId, step, token, isReporter) {
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row top-spacer">
     <div class="col-md-12 text-center">
       <h5 id="guess-prompt">
         Type a number and hit enter.
@@ -194,7 +205,7 @@ function waitForGroup(userId, groupId, groupTasksId, step, token, isReporter) {
           <th>Result</th>
         </tr>
       </table>
-      <button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#review-instructions" type="button">Review instructions</button>
+      <button class="btn btn-lg btn-warning" data-toggle="modal" data-target="#review-instructions" type="button">Review instructions</button>
       </div>
     </div>
   </div>

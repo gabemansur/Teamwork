@@ -18,10 +18,7 @@
         <h3>{{ \Session::get('waitingMsg') }}</h3>
       @else
         <h3>
-          For this part of the task, you'll be working on the Reporter's laptop.
-        </h3>
-        <h3>
-          When the task is completed, you'll automatically advance to the next section.
+          Please wait for the experiment to continue...
         </h3>
       @endif
       <!--

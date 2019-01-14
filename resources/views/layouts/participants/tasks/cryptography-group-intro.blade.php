@@ -187,7 +187,7 @@ $( document ).ready(function() {
           Each trial has three elements:
         </h4>
         <div class="row">
-          <div class="col-md-8 offset-md-2 text-left">
+          <div class="col-md-12 mb-lg-4 text-left">
             <h4>
               1. <span class="text-equation">Enter an equation (e.g. AA + H)</span>
                    The computer will then tell you the answer.<br>
@@ -198,7 +198,6 @@ $( document ).ready(function() {
               guesses. If you guess all the letters correctly, then you have
               solved the puzzle!
             </h4>
-            <h4>Click nect to continue.</h4>
           </div>
         </div>
         <h4>

@@ -386,6 +386,12 @@ Route::post('/shapes-group', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/end-shapes-task', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@endShapesGroup',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/optimization-group-intro', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'GroupTaskController@optimizationIntro',

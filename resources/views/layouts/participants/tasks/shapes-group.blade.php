@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('js')
+  <script src="{{ URL::asset('js/image-preloader.js') }}"></script>
   <script src="{{ URL::asset('js/instructionPaginator.js') }}"></script>
   <script src="{{ URL::asset('js/timer.js') }}"></script>
 @stop
@@ -12,6 +13,10 @@
 @section('content')
 
 <script>
+
+    var preloadImages = <?= json_encode($imgsToPreload); ?>
+    // Preload all images
+    preload(preloadImages);
 
     var numShapes = {{ $shapes['length'] }};
     @if($subtest == 'subtest2')

@@ -377,7 +377,7 @@
         </div>
       @else
         <div class="text-center">
-          <a href="/end-group-task" class="btn btn-primary btn-lg" role="button" name="finish" id="finish" >Finish</a><br />
+          <a href="/end-shapes-task" class="btn btn-primary btn-lg" role="button" name="finish" id="finish" >Finish</a><br />
         </div>
       @endif
     </div>

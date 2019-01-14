@@ -49,6 +49,7 @@ $( document ).ready(function() {
           $("#guess-history").append("<tr><td>" + guessNumber +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
           $("#guess").val('');
           $("#guess-prompt").hide();
+          $("#guess").focus();
         });
 
     if(guessNumber == MAX_RESPONSES) {

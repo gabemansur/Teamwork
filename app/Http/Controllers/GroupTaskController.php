@@ -190,6 +190,9 @@ class GroupTaskController extends Controller
         if($isReporter) {
           $request->session()->put('waitingMsg', 'Please wait for the experiment to continue...');
         }
+        else {
+          $request->session()->put('waitingMsg', "For this part of the task you will be working on the Reporter's laptop");
+        }
         return redirect('/end-group-task');
       }
 
@@ -289,7 +292,7 @@ class GroupTaskController extends Controller
       // If this participant isn't the reporter, we'll set a message to
       // display on the waiting page
       if(!$isReporter) {
-        $waitingMsg = 'You\'ll complete this task on the reporter\'s laptop. Press Continue when you have finished.';
+        $waitingMsg = 'You\'ll complete this task on the reporter\'s laptop.';
         $request->session()->put('waitingMsg', $waitingMsg);
       }
       else {
@@ -543,6 +546,7 @@ class GroupTaskController extends Controller
         $r->prompt = 'Not reporter';
         $r->response = 'n/a';
         $r->save();
+        $request->session()->put('waitingMsg', "For this part of the task you will be working on the Reporter's laptop");
         return redirect('/end-group-task');
       }
 
@@ -580,11 +584,18 @@ class GroupTaskController extends Controller
       $task = new Task\Shapes;
       $shapes = $task->getShapes($parameters->subtest);
 
+      $imgsToPreload = [];
+      // Create array of images for preloading
+      for($i = 1; $i < $shapes['length']; $i++){
+        $imgsToPreload[] = '/img/shapes-task/'.$parameters->subtest.'/'.$i.'.png';
+      }
+
       // Record the start time for this task
       $this->recordStartTime($request, 'task');
 
       return view('layouts.participants.tasks.shapes-group')
              ->with('shapes', $shapes)
+             ->with('imgsToPreload', $imgsToPreload)
              ->with('subtest', $parameters->subtest);
     }
 
@@ -633,10 +644,15 @@ class GroupTaskController extends Controller
       $this->recordEndTime($request, 'task');
 
       $results = 'You have completed the Shapes Task.';
-      $request->session()->put('currentIndividualTaskResult', $results);
-      $request->session()->put('currentIndividualTaskName', 'Shapes Task');
+      $request->session()->put('currentGroupTaskResult', $results);
+      $request->session()->put('currentGroupTaskName', 'Shapes Task');
       $request->session()->put('waitingMsg', 'Please wait for the experiment to continue...');
       return redirect('/group-task-results');
+    }
+
+    public function endShapesGroup(Request $request) {
+      $request->session()->put('waitingMsg', "For this part of the task you will be working on the Reporter's laptop");
+      return redirect('/end-group-task');
     }
 
     private function recordStartTime(Request $request, $type) {
@@ -661,6 +677,7 @@ class GroupTaskController extends Controller
                                       ->where('name', '!=', 'Intro')
                                       ->where('name', '!=', 'Feedback')
                                       ->where('name', '!=', 'Conclusion')
+                                      ->where('name', '!=', 'ChooseReporter')
                                       ->get();
 
       $count = 0;

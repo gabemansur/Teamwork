@@ -24,7 +24,7 @@ var InstructionPaginator = class InstructionPaginator {
 
   nav(dir) {
     this.dir = dir;
-    if(this.hasWait()){
+    if(this.hasWait() && dir == 'next'){
       console.log('you should be waiting');
       this.markIndividualReady();
       this.waitForGroup();

@@ -45,11 +45,18 @@ $( document ).ready(function() {
       return;
     }
     instructionPaginator.nav('next');
-    console.log('page: ' + instructionPaginator.getCurrentPage());
     if(instructionPaginator.getCurrentPage() + 1 == practiceRoundPage) {
+      $("#guess").focus();
       $("#instr_nav").hide();
     }
   });
+
+  $("#back").on('click', function(event) {
+
+    instructionPaginator.nav('back');
+  });
+
+
 
   $("#submit-guess").on("click", function(event) {
     $("#alert").hide();
@@ -69,6 +76,7 @@ $( document ).ready(function() {
           $("#guess-history").append("<tr><td>" + guessNumber +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
           $("#guess").val('');
           $("#guess-prompt").hide();
+          $("#guess").focus();
         });
 
     if(guessNumber == MAX_RESPONSES) {
@@ -107,7 +115,7 @@ $( document ).ready(function() {
           <h4>
             @if($intro == 'group_1')
               Welcome to the first group task. It is very similar to the
-              "Optimization task" you completed as individuals. The main difference
+              Optimization Task you completed as individuals. The main difference
               is that you will now be working in a group.
             @else
               Welcome to the first group task of this session! This task the same
@@ -219,8 +227,8 @@ $( document ).ready(function() {
           <h4>
             The task will begin when all three members of the group have hit "Next".
           </h4>
-          <div class="float-left mt-lg-4">
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#review-instructions">Review Instructions</button>
+          <div class="text-center mb-lg-4">
+            <button type="button" class="btn btn-lg btn-warning" data-toggle="modal" data-target="#review-instructions">Review Instructions</button>
           </div>
         </div>
       @elseif($intro == 'group_3')
@@ -284,7 +292,7 @@ $( document ).ready(function() {
           Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
         </h3>
         <h4>
-          Now you'll perform the task a second time. The relationship between the numbers
+          Now you'll perform the Optimization Task again. The relationship between the numbers
           you enter and the ones you receive will be different this time. Otherwise,
           the task is the same. Try to find a number between 0 and 300 that gives
           you the biggest possible output.

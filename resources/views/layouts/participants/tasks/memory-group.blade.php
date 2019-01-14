@@ -24,8 +24,6 @@
       // Preload all images
       preload(preloadImages);
 
-      (isReporter) ? console.log('i am reporter') : console.log('i am not reporter');
-
       var callback = function() {
         $("#memory-form").submit();
       };

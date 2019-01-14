@@ -22,8 +22,8 @@ $( document ).ready(function() {
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
       @if(isset($reporterChosen))
-        <h3>A reporter has already been selected for your group. You will NOT be
-          the reporter.</h3>
+        <h3>Someone in your group has already volunteered to be the Reporter.
+          You will NOT be the Reporter.</h3>
         <div class="text-center">
           <a class="btn btn-primary memory-nav btn-lg reporter mb-md-4"
                  href="/end-group-task" role="button"

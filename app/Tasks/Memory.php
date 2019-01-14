@@ -1846,7 +1846,7 @@ class Memory {
                       the top right of the screen.',
                      '<strong>You’re NOT allowed to write anything down.</strong>',
                      'If you want, you can always change the stimuli
-                     you are memorizing by clicking on a different button..'
+                     you are memorizing by clicking on a different button..',
                      'The timer starts when everyone has clicked on one of the buttons.'],
           'choices' => [['color' => 'success', 'type' => 'images'],
                         ['color' => 'warning', 'type' => 'words'],

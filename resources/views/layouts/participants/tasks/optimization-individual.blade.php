@@ -98,6 +98,7 @@ $( document ).ready(function() {
           $("#guess-history").append("<tr><td>" + guessNumber + " of " + MAX_RESPONSES +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
           $("#guess").val('');
           $("#guess-prompt").hide();
+          $("#guess").focus();
         });
 
     $.post("/optimization-individual", {
