@@ -1,16 +1,24 @@
 @extends('layouts.master')
 
 @section('js')
-  <script src="{{ URL::asset('js/instructionPaginator.js') }}"></script>
+  <script src="{{ URL::asset('js/instructionPaginatorWithWait.js') }}"></script>
 @stop
 
 @section('content')
 <script>
 $( document ).ready(function() {
 
-  instructionPaginator(function(){ return ;});
+  var userId = {{ \Auth::user()->id }};
+  var groupId = {{ \Auth::user()->group_id }};
+  var taskId = {{ $taskId }};
+  var token = "{{ csrf_token() }}";
+  var modal = "#waiting-for-group";
+
+  var instructionPaginator = new InstructionPaginator(1, [1], userId, groupId, taskId, token, modal, function(){ return ;});
 
   $("#next").on('click', function(event) {
+    $("#instr_nav").hide();
+    instructionPaginator.nav('next');
     if($("#inst_2").is(":visible")) {
       $("#instr_nav").hide();
       event.stopImmediatePropagation();
@@ -21,15 +29,6 @@ $( document ).ready(function() {
 <div class="container">
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
-      @if(isset($reporterChosen))
-        <h3>Someone in your group has already volunteered to be the Reporter.
-          You will NOT be the Reporter.</h3>
-        <div class="text-center">
-          <a class="btn btn-primary memory-nav btn-lg reporter mb-md-4"
-                 href="/end-group-task" role="button"
-                 >Continue</a>
-        </div>
-      @else
         <div id="inst_1" class="inst">
           <h2>Entering your Group’s Answers</h2>
           <h4>Your group will only submit one answer for each problem.</h4>
@@ -53,8 +52,10 @@ $( document ).ready(function() {
         <div id="instr_nav" class="text-center">
           <input class="btn btn-primary instr_nav btn-lg" type="button" name="next" id="next" value="Next &#8680;"><br />
         </div>
-      @endif
     </div>
   </div>
 </div>
+
+@include('layouts.includes.waiting-for-group')
+
 @stop

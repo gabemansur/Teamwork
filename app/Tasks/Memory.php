@@ -1071,7 +1071,7 @@ class Memory {
                      'If you want, you can try to memorize several types of stimuli.
                       For example, you might start with "Stories" (by clicking
                       on the <span class="text-danger">Stories</span> button).
-                      Then, if you have time, you can return to this page and
+                      Then, if you have time, you can click on a different button and
                       try to memorize the <span class="text-warning">Words</span>
                       and/or the <span class="text-success">Images</span>.
                       Alternatively, each group member can focus on memorizing
@@ -1131,9 +1131,7 @@ class Memory {
 
          ['type' => 'text',
           'header' => 'Memory: practice round',
-          'text' => ['Make sure all your group members can see this screen.
-                      We are about to ask questions about the words, stories and
-                      images you memorized. Make sure all your group members
+          'text' => ['Make sure all your group members
                       can see this screen. We are about to ask questions about
                       the words, stories and images you memorized.<br>
                       Click "Next" to continue.'
@@ -1212,7 +1210,7 @@ class Memory {
                      'If you want, you can try to memorize several types of stimuli.
                       For example, you might start with "Stories" (by clicking
                       on the <span class="text-danger">Stories</span> button).
-                      Then, if you have time, you can return to this page and
+                      Then, if you have time, you can click on a different button and
                       try to memorize the <span class="text-warning">Words</span>
                       and/or the <span class="text-success">Images</span>.
                       Alternatively, each group member can focus on memorizing
@@ -1389,10 +1387,7 @@ class Memory {
                        'The questions will begin when The Reporter clicks "Next"'
                      ]],
          ['type' => 'text',
-          'header' => 'Memory: practice round',
-          'text' => ['Make sure all your group members can see this screen.
-                      We are about to ask questions about the words, stories and
-                      images you memorized. Make sure all your group members
+          'text' => ['Make sure all your group members
                       can see this screen. We are about to ask questions about
                       the words, stories and images you memorized.<br>
                       Click "Next" to continue.'
@@ -1642,10 +1637,7 @@ class Memory {
                        'The questions will begin when The Reporter clicks "Next"'
                      ]],
          ['type' => 'text',
-          'header' => 'Memory: practice round',
-          'text' => ['Make sure all your group members can see this screen.
-                      We are about to ask questions about the words, stories and
-                      images you memorized. Make sure all your group members
+          'text' => ['Make sure all your group members
                       can see this screen. We are about to ask questions about
                       the words, stories and images you memorized.<br>
                       Click "Next" to continue.'

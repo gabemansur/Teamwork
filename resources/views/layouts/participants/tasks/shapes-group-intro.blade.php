@@ -60,7 +60,7 @@
             Below is an example. You can see that three of the boxes contain
             triangles (boxes a, c and e). The other two contain rectangles.
             The correct answer is <strong>b</strong> and <strong>d</strong>.
-            Click on the circles below the boxes
+            Click on the squares below the boxes
             to select your answers.
           </h4>
           <div class="text-center shapes-test-container">

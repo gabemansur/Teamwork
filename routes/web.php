@@ -134,6 +134,12 @@ Route::get('/choose-reporter', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/reporter-chosen', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@reporterChosen',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/choose-reporter/{choice}', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@setReporter',

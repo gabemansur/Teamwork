@@ -1,5 +1,5 @@
 <div class="modal fade" id="review-instructions">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-wide">
     <div class="modal-content">
       <div class="modal-body text-center">
         <h5>

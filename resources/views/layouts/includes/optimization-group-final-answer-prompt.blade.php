@@ -7,7 +7,7 @@
           Please wait for everyone in your group to submit all their guesses.
           Once all {{ $maxResponses }} have been submitted, take a moment to
           look over all the guesses as a group.<br>
-          Then, decise on your group's
+          Then, decide on your group's
           best guess.<br>
           When you have all agreed on a best guess, click Continue.
         </h6>

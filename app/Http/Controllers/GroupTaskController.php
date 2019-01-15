@@ -546,7 +546,7 @@ class GroupTaskController extends Controller
         $r->prompt = 'Not reporter';
         $r->response = 'n/a';
         $r->save();
-        $request->session()->put('waitingMsg', "For this part of the task you will be working on the Reporter's laptop");
+        $request->session()->put('waitingMsg', "Feel free to close your laptop, as you won't be needing it again. At this point, everyone should gather round The Reporter's laptop");
         return redirect('/end-group-task');
       }
 

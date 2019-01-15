@@ -162,29 +162,70 @@ class IndividualTaskController extends Controller
       return view('layouts.participants.participant-no-study-consent');
     }
 
-    public function chooseReporter() {
-      return view('layouts.participants.choose-reporter');
+    public function chooseReporter(Request $request) {
+
+      return view('layouts.participants.choose-reporter')
+             ->with('taskId', $request->session()->get('currentGroupTask'));
     }
 
     public function setReporter($choice, Request $request) {
+
+      // Save this user's task progress
+      $progress = new \Teamwork\Progress;
+      $progress->user_id = \Auth::user()->id;
+      $progress->group_id = \Auth::user()->group_id;
+      $progress->group_tasks_id = $request->session()->get('currentGroupTask');
+      $progress->save();
+
+      $task = \Teamwork\GroupTask::with('response')
+                                        ->with('progress')
+                                        ->find($request->session()->get('currentGroupTask'));
+
       if($choice == 'true') {
         try{
           \DB::table('reporters')
               ->insert(['user_id' => \Auth::user()->id,
-                        'group_id' => \Auth::user()->group_id,]);
+                        'group_id' => \Auth::user()->group_id,
+                        'created_at' => date("Y-m-d H:i:s"),
+                        'updated_at' => date("Y-m-d H:i:s")]);
         }
         catch(\Exception $e) {
-          if($e->getCode() == '23000') return view('layouts.participants.choose-reporter')
-                             ->with('reporterChosen', true);
+          if($e->getCode() == '23000') {
+            $request->session()->put('msg', 'Someone in your group has already volunteered to be the Reporter. You will NOT be the Reporter.');
+            return redirect('/reporter-chosen');
+          }
           else return redirect('/choose-reporter');
         }
       }
+
+      // Check if a reporter has been chosen. If not, the last member of the group
+      // will be the reporter.
+      else {
+        $reporter = \DB::table('reporters')
+                        ->where('group_id', \Auth::user()->group_id)
+                        ->first();
+        if(!$reporter){
+
+          $usersInGroup = \Teamwork\User::where('group_id', \Auth::user()->group_id)
+                                        ->where('role_id', 3)
+                                        ->count();
+
+          $numUsersCompleted = count($task->progress->groupBy('user_id'));
+
+          if($numUsersCompleted == $usersInGroup){
+            $request->session()->put('msg', 'The other 2 members of your group have chosen not to be The Reporter. So, you have been assigned this role! You are now The Reporter');
+            return redirect('/reporter-chosen');
+          }
+        }
+
+      }
+
       $request->session()->put('waitingMsg', 'Please wait for the other members in your group to make their selection.');
       return redirect('/end-group-task');
     }
 
-    public function reporterAlreadyChosen() {
-      return view('layouts.participants.reporter-already-chosen');
+    public function reporterChosen() {
+      return view('layouts.participants.reporter-chosen');
     }
 
     public function studyIntro(Request $request) {

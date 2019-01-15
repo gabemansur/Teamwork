@@ -287,10 +287,6 @@ $( document ).ready(function() {
       </div>
       @elseif($intro == 'group_alt_intro')
       <div id="inst_1" class="inst">
-        <h2 class="text-primary">Optimization Task</h2>
-        <h3 class="text-success">
-          Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
-        </h3>
         <h4>
           Now you'll perform the Optimization Task again. The relationship between the numbers
           you enter and the ones you receive will be different this time. Otherwise,
