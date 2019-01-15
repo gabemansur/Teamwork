@@ -27,9 +27,9 @@ $( document ).ready(function() {
   var isReporter = @if($isReporter) true @else false @endif;
   var token = "{{ csrf_token() }}";
 
-  var practiceRoundPage = 4;
+  var practiceRoundPage = 5;
 
-  var waitingPages = [1, 2, 3, 4, 5];
+  var waitingPages = [1, 2, 3, 4, 5, 6];
   var modal = "#waiting-for-group";
   var callback = function(){ window.location = '/optimization-group';}
   var instructionPaginator = new InstructionPaginator(1, waitingPages, userId, groupId, taskId, token, modal, callback);
@@ -108,6 +108,10 @@ $( document ).ready(function() {
     <div class="col-md-12 text-center">
       @if($intro == 'group_1' || $intro == 'group_2')
         <div id="inst_1" class="inst">
+          <h4>Once all the members of your group are ready, click "Next"</h4>
+        </div>
+
+        <div id="inst_2" class="inst">
           <h2 class="text-primary">Optimization Task</h2>
           <h3 class="text-success">
             Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
@@ -141,7 +145,7 @@ $( document ).ready(function() {
           </h4>
         </div>
 
-        <div id="inst_2" class="inst">
+        <div id="inst_3" class="inst">
           <h2 class="text-primary">Optimization Task</h2>
           <h3>Review</h3>
           <h4>
@@ -163,7 +167,7 @@ $( document ).ready(function() {
             <strong>practice round</strong>.
           </h4>
         </div>
-        <div id="inst_3" class="inst">
+        <div id="inst_4" class="inst">
           <h2>Practice Round</h2>
           <h4>
             Each of you will have {{ $maxResponses / $groupSize }} guesses in this practice round. In total,
@@ -178,7 +182,7 @@ $( document ).ready(function() {
             practice will begin when all three group members have clicked "Next".
           </h4>
         </div>
-        <div id="inst_4" class="inst">
+        <div id="inst_5" class="inst">
           <h2>Practice Round</h2>
           <h4 class="text-warning" id="practice-prompt">
             Enter your guess (between 0 and 300) below. You will have {{ $maxResponses / $groupSize }}
@@ -205,7 +209,7 @@ $( document ).ready(function() {
               </div>
             </div>
         </div>
-        <div id="inst_5" class="inst">
+        <div id="inst_6" class="inst">
           <h4>
             Now, for the actual task. Your group will do the Optimization Task
             {{ count($totalTasks )}} separate times. Each time, there will be a
@@ -232,7 +236,7 @@ $( document ).ready(function() {
           </div>
         </div>
       @elseif($intro == 'group_3')
-      <div id="inst_1" class="inst">
+      <div id="inst_2" class="inst">
         <h2 class="text-primary">Optimization Task</h2>
         <h3 class="text-success">
           Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
@@ -263,7 +267,7 @@ $( document ).ready(function() {
           <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#review-instructions">Review Instructions</button>
         </div>
       </div>
-      <div id="inst_2" class="inst">
+      <div id="inst_3" class="inst">
         <h4>
           As a reminder, each of you will have {{ $maxResponses / $groupSize }}
           guesses. In total, the group has {{ $maxResponses }} guesses.
@@ -286,7 +290,7 @@ $( document ).ready(function() {
         </h4>
       </div>
       @elseif($intro == 'group_alt_intro')
-      <div id="inst_1" class="inst">
+      <div id="inst_4" class="inst">
         <h4>
           Now you'll perform the Optimization Task again. The relationship between the numbers
           you enter and the ones you receive will be different this time. Otherwise,
