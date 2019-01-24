@@ -14,7 +14,8 @@
 
 <script>
 
-    var preloadImages = <?= json_encode($imgsToPreload); ?>
+    var preloadImages = <?= json_encode($imgsToPreload); ?>;
+    var subtest = "{{ $subtest }}";
     // Preload all images
     preload(preloadImages);
 
@@ -47,6 +48,18 @@
           $("#next").hide();
           $("#pagination-display").hide();
         }
+      });
+
+      var lastChecked;
+
+      $(".check-limited").on('click', function(event) {
+        limit = 2;
+        var boxes = $(this).attr('name');
+        var count = $("input[name='"+ boxes +"']:checked").length;
+        if(count > limit){
+          lastChecked.prop('checked', false);
+        }
+        lastChecked = $(this);
       });
 
       instructionPaginator(function(){
@@ -85,7 +98,7 @@
                   @if($subtest == 'subtest2')
                     @for($j = 0; $j < 5; $j++)
                       <td>
-                        <input class="form-check-large" type="checkbox" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
+                        <input class="form-check-large check-limited" type="checkbox" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
                       </td>
                     @endfor
                   @elseif($subtest == 'subtest3')

@@ -422,7 +422,7 @@ class IndividualTaskController extends Controller
     public function endCryptographyTask(Request $request) {
 
       $this->recordEndTime($request, 'task');
-      $task = GroupTask::find($request->session()->get('currentGroupTask'));
+      $task = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $task->points = $request->task_result;
       $task->completed = true;
       $task->save();

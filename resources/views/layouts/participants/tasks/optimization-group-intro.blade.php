@@ -174,7 +174,7 @@ $( document ).ready(function() {
             the group has {{ $maxResponses }} guesses.
           </h4>
           <h4>
-            After each of you has had 5 guesses, the computer will ask The Reporter
+            After each of you has had {{ $maxResponses / $groupSize }} guesses, the computer will ask The Reporter
             to input the Group’s Best Guess.
           </h4>
           <h4>
@@ -290,7 +290,7 @@ $( document ).ready(function() {
         </h4>
       </div>
       @elseif($intro == 'group_alt_intro')
-      <div id="inst_4" class="inst">
+      <div id="inst_1" class="inst">
         <h4>
           Now you'll perform the Optimization Task again. The relationship between the numbers
           you enter and the ones you receive will be different this time. Otherwise,

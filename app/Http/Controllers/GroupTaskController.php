@@ -617,13 +617,16 @@ class GroupTaskController extends Controller
 
         if(is_array($answers[$key - 1])){
           $inputString = json_encode($input);
-          // Need to score this correctly - this probably isn't right...
-          if($answers[$key - 1] == $input) $correct = 1;
+
+          $points = 2 - count(array_diff($input, $answers[$key - 1]));
+
+          if($points == 2) $correct = 1;
           else $correct = 0;
         }
 
         else if($input == $answers[$key - 1]) {
           $correct = 1;
+          $points = 1;
         }
 
         else $correct = 0;
@@ -635,7 +638,7 @@ class GroupTaskController extends Controller
         $r->prompt = $parameters->subtest.' : '.$key;
         $r->response = $inputString;
         $r->correct = $correct;
-        $r->points = $correct;
+        $r->points = $points;
         $r->save();
 
       }

@@ -1230,7 +1230,7 @@ class Memory {
           'types' => [
                        ['type' => 'images', 'directory' => '/img/memory-task/faces/',
                         'prompt' => 'Remember these target images',
-                        'targets' => ['1_targets_1.png', '1_targets_2.png', '1_targets_3.png']
+                        'targets' => ['1_targets_1.png', '1_targets_2.png', '1_targets_3.jpg']
                         ],
                        ['type' => 'words',
                         'prompt' => 'Remember these target words',
@@ -1284,7 +1284,7 @@ class Memory {
            'selection_type' => 'select_one',
            'show_numbers' => 'false',
            'prompt' => 'Which of the following faces is a "target" face?',
-           'img' => 'p0_test_1.png',
+           'img' => '1_test_1.jpg',
            'correct' => [3]],
 
       ]// end blocks
