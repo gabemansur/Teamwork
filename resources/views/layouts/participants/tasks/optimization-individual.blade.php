@@ -80,7 +80,6 @@ $( document ).ready(function() {
     }
 
     guessNumber++;
-    console.log(f(n));
 
     if(guessNumber > MAX_RESPONSES) {
       $("#final-guess").val($("#guess").val());
@@ -90,16 +89,13 @@ $( document ).ready(function() {
       return;
     }
 
-    $.get( "/get-prob-val", { mean: f(n) } )
-        .done(function( data ) {
-          result = Math.round(Number.parseFloat(data));
-          responses.push({guess: n, result: result});
+    result = Math.round(f(n));
+    responses.push({guess: n, result: result});
 
-          $("#guess-history").append("<tr><td>" + guessNumber + " of " + MAX_RESPONSES +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
-          $("#guess").val('');
-          $("#guess-prompt").hide();
-          $("#guess").focus();
-        });
+    $("#guess-history").append("<tr><td>" + guessNumber + " of " + MAX_RESPONSES +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
+    $("#guess").val('');
+    $("#guess-prompt").hide();
+    $("#guess").focus();
 
     $.post("/optimization-individual", {
         _token: "{{ csrf_token() }}",

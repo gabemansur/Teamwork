@@ -42,15 +42,13 @@ $( document ).ready(function() {
 
     guessNumber++;
 
-    $.get( "/get-prob-val", { mean: f(n) } )
-        .done(function( data ) {
-          result = Math.round(Number.parseFloat(data));
-          responses.push({guess: n, result: result});
-          $("#guess-history").append("<tr><td>" + guessNumber +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
-          $("#guess").val('');
-          $("#guess-prompt").hide();
-          $("#guess").focus();
-        });
+    result = Math.round(f(n));
+    responses.push({guess: n, result: result});
+    $("#guess-history").append("<tr><td>" + guessNumber +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
+    $("#guess").val('');
+    $("#guess-prompt").hide();
+    $("#guess").focus();
+
 
     if(guessNumber == MAX_RESPONSES) {
 
