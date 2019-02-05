@@ -92,7 +92,8 @@ class GroupTask extends Model
       $taskArray = '[
           {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
           {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"1","useAltIntro":"no","maxResponses":"15"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"9","useAltIntro":"no","maxResponses":"10"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"10","useAltIntro":"yes","maxResponses":"10"}},
           {"taskName":"Feedback","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}},
           {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}}
         ]';

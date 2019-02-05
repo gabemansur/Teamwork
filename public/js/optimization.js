@@ -41,4 +41,12 @@ var taskFunctions = {
       return (x/4) + (100 * Math.pow( Math.E, -(Math.pow((x - 50) / 15, 2)))) + (50 * Math.pow( Math.E, -(Math.pow((x - 150) / 10, 2))))
       - (50 * Math.pow( Math.E, -(Math.pow((x - 250) / 30, 2)))) - (50 * Math.pow( Math.E, -(Math.pow((x - 300) / 15, 2))));
     },
+
+    i: function(x) {
+      return 40 * ( Math.sin( (x - 20) / 15 ) ) + 80 * ( Math.cos( x / 10 ) );
+    },
+
+    j: function(x) {
+      return (x / 1.5) - (100 * Math.exp( - (Math.pow( (x - 100), 2 )) / 600 )) - (Math.pow(1.02, x)) + Math.pow( 1.06, (x - 205) );
+    }
 };

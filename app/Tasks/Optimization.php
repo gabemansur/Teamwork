@@ -4,11 +4,11 @@ namespace Teamwork\Tasks;
 class Optimization {
 
 
-  private $functions = ['t1', 't2', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-  private $functionLabels = ['a1', 'a2', '1', '2', '3', '4', '5', '6', '7', '8'];
+  private $functions = ['t1', 't2', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'];
+  private $functionLabels = ['a1', 'a2', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'],
                                      'hasGroup' => ['true', 'false'],
-                                     'function' => ['a1', 'a2', '1', '2', '3', '4', '5', '6', '7', '8'],
+                                     'function' => ['a1', 'a2', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
                                      'useAltIntro' => ['no', 'yes'],
                                      'maxResponses' => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]];
 
