@@ -226,9 +226,7 @@ $( document ).ready(function() {
             After you enter your guess, the computer will give you back a
             number. There is a systematic relationship between the number
             you guess, and the number you receive, but the relationship
-            may be difficult to understand. Every time you enter the same
-            number, the output you receive will be similar (but there is
-            some randomness added in). Usually, numbers that are close
+            may be difficult to understand. Usually, numbers that are close
             to each other will receive very similar outputs.
           </h6>
           <h6>

@@ -203,8 +203,11 @@ $( document ).ready(function() {
                   <th>Result</th>
                 </tr>
               </table>
+              <div class="text-center">
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#review-instructions">Review Instructions</button>
               </div>
             </div>
+          </div>
         </div>
         <div id="inst_6" class="inst">
           <h4>
