@@ -60,6 +60,7 @@
       $('.choose-mem-review-type').on('click', function(event) {
         memory.setGroupTestReviewChoice($(this).data('type'));
         $('.mem-btn-' + $(this).data('type')).addClass('btn-lg');
+        $.post( "/record-mem-review-selection", { user_id: userId, group_tasks_id: taskId, type: $(this).data('type'), _token: "{{ csrf_token() }}" } );
         memory.markMemoryChoice(userId, groupId, taskId, "{{ csrf_token() }}", "#waiting");
         event.preventDefault();
       });
@@ -67,8 +68,13 @@
       $('.switch-mem-review-type').on('click', function(event) {
         memory.switchMemReviewType($(this).data('type'));
         $('.switch-mem-review-type').removeClass('btn-lg');
+        $.post( "/record-mem-review-selection", { user_id: userId, group_tasks_id: taskId, type: $(this).data('type'), _token: "{{ csrf_token() }}" } );
         $('.mem-btn-' + $(this).data('type')).addClass('btn-lg');
         event.preventDefault();
+      });
+
+      $(document).on("timerComplete", function() {
+        $.post( "/record-mem-review-selection", { user_id: userId, group_tasks_id: taskId, type: 'Review is complete', _token: "{{ csrf_token() }}" } );
       });
 
       $('.select-all').on('change', function(event) {

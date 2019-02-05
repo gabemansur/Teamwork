@@ -129,8 +129,11 @@ class AdminController extends Controller
             foreach ($task->response as $response) {
               if($task->name == 'Memory') {
 
-                $u = unserialize($response->prompt);
-
+                //$u = unserialize($response->prompt);
+                if($response->prompt == 'Memory stimulus type') {
+                  $t = (strtotime($response->updated_at) - strtotime($response->created_at));
+                  $response->response .= ' (' .$t. ' secs)';
+                }
               }
               $responses[] = ['prompt' => $response->prompt,
                               'response' => $response->response,

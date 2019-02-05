@@ -237,7 +237,13 @@ var Memory = class Memory {
     setInterval(function(){
       var time = parseInt(timer.html()) - 1;
       timer.html(time);
-    }, 1000)
+    }, 1000);
+    setTimeout(function() {
+      $.event.trigger({
+	       type: "timerComplete",
+	         time: new Date()
+      });
+    }, tests[this.testIndex].blocks[this.blockIndex].review_time * 1000);
     setTimeout(this.advance.bind(this), tests[this.testIndex].blocks[this.blockIndex].review_time * 1000);
   }
 

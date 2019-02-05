@@ -260,6 +260,12 @@ Route::post('/memory-group', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::post('/record-mem-review-selection', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'AjaxController@saveMemoryReviewSelection',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/rmet-individual-intro', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@eyesIntro',

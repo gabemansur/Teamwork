@@ -123,4 +123,25 @@ class AjaxController extends Controller
      curl_close($ch);
      echo $data;
    }
+
+   public function saveMemoryReviewSelection(Request $request) {
+
+      $previousResponse = Response::where('user_id', $request->user_id)
+                                 ->where('group_tasks_id', $request->group_tasks_id)
+                                 ->where('prompt', 'Memory stimulus type')
+                                 ->orderBy('id', 'desc')
+                                 ->first();
+      if($previousResponse){
+        $previousResponse->updated_at = date("Y-m-d H:i:s");
+        $previousResponse->save();
+      }
+
+     $response = new Response;
+     $response->group_tasks_id = $request->group_tasks_id;
+     $response->user_id = $request->user_id;
+     $response->prompt = 'Memory stimulus type';
+     $response->response = $request->type;
+     $response->save();
+
+   }
 }
