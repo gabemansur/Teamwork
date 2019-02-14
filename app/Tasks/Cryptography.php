@@ -11,7 +11,7 @@ class Cryptography {
   private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'],
                                      'hasGroup' => ['true', 'false'],
                                      'mapping' => ['random'],
-                                     'intro' => ['group_1', 'group_2', 'group_3'],
+                                     'intro' => ['individual', 'individual_alt', 'group_1', 'group_2', 'group_3'],
                                      'maxResponses' => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]];
 
 

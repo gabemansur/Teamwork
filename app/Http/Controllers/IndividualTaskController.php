@@ -407,7 +407,7 @@ class IndividualTaskController extends Controller
       $sorted = $mapping;
       sort($sorted); // Sort and re-index
 
-      if($parameters->useAltIntro == 'yes') {
+      if($parameters->intro == 'individual_alt') {
         return view('layouts.participants.tasks.cryptography-individual-alt-intro')
                ->with('maxResponses', $maxResponses);
       }
