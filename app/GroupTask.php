@@ -73,13 +73,13 @@ class GroupTask extends Model
 
     public static function initializeDefaultTasks($group_id, $randomize) {
 
-      $taskArray = '[{"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":"all"}},{"taskName":"BigFive","taskParams":{"hasIndividuals":"true","hasGroup":"false","statementOrder":"random"}},{"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},{"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"10"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"a","maxResponses":"9","useAltIntro":"no"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"b","maxResponses":"9","useAltIntro":"yes"}},{"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},{"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":["faces_1","words_1","story_1"]}}]';
+      $taskArray = '[{"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":"all"}},{"taskName":"BigFive","taskParams":{"hasIndividuals":"true","hasGroup":"false","statementOrder":"random"}},{"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},{"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"10"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"a","maxResponses":"9","intro":"individual"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"b","maxResponses":"9","intro":"individual_alt"}},{"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},{"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":["faces_1","words_1","story_1"]}}]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
 
     }
 
     public static function initializeIQTasks($group_id, $randomize) {
-      $taskArray = '[{"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},{"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"15"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"c","useAltIntro":"no","maxResponses":"9"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"f","useAltIntro":"yes","maxResponses":"9"}},{"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":["faces_1","words_1","story_1"]}}]';
+      $taskArray = '[{"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},{"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","hasGroup":"false","mapping":"random","maxResponses":"15"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"c","intro":"individual","maxResponses":"9"}},{"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"f","intro":"individual_alt","maxResponses":"9"}},{"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":["faces_1","words_1","story_1"]}}]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
 
@@ -92,8 +92,8 @@ class GroupTask extends Model
       $taskArray = '[
           {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
           {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"9","useAltIntro":"no","maxResponses":"10"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"10","useAltIntro":"yes","maxResponses":"10"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"9","intro":"individual","maxResponses":"10"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"10","intro":"individual_alt","maxResponses":"10"}},
           {"taskName":"Feedback","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}},
           {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}}
         ]';
@@ -177,11 +177,11 @@ class GroupTask extends Model
           {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
           {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
           {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
-          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"no","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual","hasGroup":"false","mapping":"random","maxResponses":"15"}},
           {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"1","useAltIntro":"no","maxResponses":"15"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"4","useAltIntro":"yes","maxResponses":"15"}},
-          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"yes","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"1","intro":"individual","maxResponses":"15"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"4","intro":"individual_alt","maxResponses":"15"}},
+          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual_alt","hasGroup":"false","mapping":"random","maxResponses":"15"}},
           {"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":["1","2"]}},
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"intro"}},
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_instructions"}},
@@ -208,11 +208,11 @@ class GroupTask extends Model
         {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
         {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
         {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
-        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"no","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual","hasGroup":"false","mapping":"random","maxResponses":"15"}},
         {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"2","useAltIntro":"no","maxResponses":"15"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"6","useAltIntro":"yes","maxResponses":"15"}},
-        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"yes","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+        {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"2","intro":"individual","maxResponses":"15"}},
+        {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"6","intro":"individual_alt","maxResponses":"15"}},
+        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual_alt","hasGroup":"false","mapping":"random","maxResponses":"15"}},
         {"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":["2","3"]}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"intro"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_instructions"}},
@@ -239,11 +239,11 @@ class GroupTask extends Model
           {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
           {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
           {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
-          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"no","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual","hasGroup":"false","mapping":"random","maxResponses":"15"}},
           {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"3","useAltIntro":"no","maxResponses":"15"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"8","useAltIntro":"yes","maxResponses":"15"}},
-          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"yes","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"3","intro":"individual","maxResponses":"15"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"8","intro":"individual_alt","maxResponses":"15"}},
+          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual_alt","hasGroup":"false","mapping":"random","maxResponses":"15"}},
           {"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":["3","4"]}},
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"intro"}},
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_instructions"}},
@@ -269,11 +269,11 @@ class GroupTask extends Model
           {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
           {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
           {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
-          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"no","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual","hasGroup":"false","mapping":"random","maxResponses":"15"}},
           {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"5","useAltIntro":"no","maxResponses":"15"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"7","useAltIntro":"yes","maxResponses":"15"}},
-          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","useAltIntro":"yes","hasGroup":"false","mapping":"random","maxResponses":"15"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"5","intro":"individual","maxResponses":"15"}},
+          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"7","intro":"individual_alt","maxResponses":"15"}},
+          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual_alt","hasGroup":"false","mapping":"random","maxResponses":"15"}},
           {"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":["4","1"]}},
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"intro"}},
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_instructions"}},

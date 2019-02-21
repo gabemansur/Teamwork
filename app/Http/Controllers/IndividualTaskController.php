@@ -450,7 +450,7 @@ class IndividualTaskController extends Controller
         if($task->completed) { return $task; }
       });
 
-      if($parameters->useAltIntro == 'yes') {
+      if($parameters->intro == 'individual_alt') {
         return redirect('/optimization-individual-alt-intro');
       }
       else return view('layouts.participants.tasks.optimization-individual-intro')
