@@ -13,10 +13,10 @@
           Nobody else has this unique code. Please enter the code back in MTurk so
           that we can verify you completed the tasks and we can pay you.
         </h4>
-        <h4>
-          Thanks again!
-        </h4>
       @endif
+        <h4>
+          This concludes the study. Thanks again!
+        </h4>
     </div>
   </div>
 </div>

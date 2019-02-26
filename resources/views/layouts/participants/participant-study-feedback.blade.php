@@ -21,7 +21,11 @@
         </div>
         <div class="text-center">
           <h4>
-            Click continue to get a verification code for payment purposes.
+            @if($hasCode)
+              Click continue to get a verification code for payment purposes.
+            @else
+              Click below to continue
+            @endif
           </h4>
           <button class="btn btn-lg btn-primary" type="submit">Continue</button>
         </div>

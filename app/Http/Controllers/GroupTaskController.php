@@ -36,12 +36,15 @@ class GroupTaskController extends Controller
       }
 
       $currentTask = $groupTasks->first();
+
       $request->session()->put('currentGroupTask', $currentTask->id);
 
       if($currentTask->individualTasks->isNotEmpty() && !$currentTask->individualTasks->first()->completed) {
         // SHOW INDIVIDUAL TASK PROMPT
+
         $request->session()->put('currentIndividualTask', $currentTask->individualTasks->first()->id);
-        return view('layouts.participants.group-individual-task');
+        return redirect('/get-individual-task');
+        //return view('layouts.participants.group-individual-task');
       }
 
       return $this->routeTask($currentTask);

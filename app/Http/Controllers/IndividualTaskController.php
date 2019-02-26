@@ -243,8 +243,10 @@ class IndividualTaskController extends Controller
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
       $feedbackMessage = (new \Teamwork\Tasks\Feedback)->getMessage($parameters->type);
+      $hasCode = ($parameters->hasCode == 'true') ? true : false;
       return view('layouts.participants.participant-study-feedback')
-             ->with('feedbackMessage', $feedbackMessage);
+             ->with('feedbackMessage', $feedbackMessage)
+             ->with('hasCode', $hasCode);
     }
 
     public function postStudyFeedback(Request $request) {
@@ -279,13 +281,13 @@ class IndividualTaskController extends Controller
       $parameters = unserialize($currentTask->parameters);
       $conclusion = new \Teamwork\Tasks\Conclusion;
       $conclusionContent = $conclusion->getConclusion($parameters->type);
-      if($parameters->hasCode) {
-        $code = $conclusion->getConfirmationCode(\Auth::user()->id);
+      if($parameters->hasCode == 'true') {
+        $code = $conclusion->getConfirmationCode(\Auth::user()->id)->code;
       }
       else $code = null;
       return view('layouts.participants.participant-study-conclusion')
              ->with('conclusionContent', $conclusionContent)
-             ->with('code', $code->code);
+             ->with('code', $code);
     }
 
     public function teamRoleIntro(Request $request) {
