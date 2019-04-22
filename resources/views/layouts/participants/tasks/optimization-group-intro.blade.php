@@ -4,6 +4,7 @@
   <script src="{{ URL::asset('js/optimization.js') }}"></script>
   <script src="{{ URL::asset('js/probability-distributions.js') }}"></script>
   <script src="{{ URL::asset('js/instructionPaginatorWithWait.js') }}"></script>
+  <script src="{{ URL::asset('js/timer.js') }}"></script>
 @stop
 
 @section('css')
@@ -31,6 +32,7 @@ $( document ).ready(function() {
 
   var waitingPages = [1, 2, 3, 4, 5, 6];
   var modal = "#waiting-for-group";
+  var warningTimeout;
   var callback = function(){ window.location = '/optimization-group';}
   var instructionPaginator = new InstructionPaginator(1, waitingPages, userId, groupId, taskId, token, modal, callback);
 
@@ -46,6 +48,20 @@ $( document ).ready(function() {
     }
     instructionPaginator.nav('next');
     if(instructionPaginator.getCurrentPage() + 1 == practiceRoundPage) {
+      warningTimeout = setTimeout(function() {
+        $('#warningModal').modal();
+      }, 180000);
+
+      initializeTimer(240, function() {
+
+        clearTimeout(warningTimeout);
+        if(isReporter) $("#reporter-final-answer").modal('show');
+        else {
+          instructionPaginator.nav('next');
+          $("#instr_nav").show();
+        }
+      });
+
       $("#guess").focus();
       $("#instr_nav").hide();
     }
@@ -77,6 +93,8 @@ $( document ).ready(function() {
     $("#guess").focus();
 
     if(guessNumber == MAX_RESPONSES) {
+      clearTimeout(warningTimeout);
+      stopTimer();
       $('#final-guess-prompt').modal();
     }
 
@@ -84,6 +102,7 @@ $( document ).ready(function() {
   });
 
   $("#final-guess-prompt-submit").on("click", function(event) {
+
     $('#final-guess-prompt').modal('hide');
     if(isReporter) $("#reporter-final-answer").modal('show');
     else {
@@ -96,6 +115,7 @@ $( document ).ready(function() {
     instructionPaginator.nav('next');
     $("#instr_nav").show();
   });
+
 
 });
 </script>
@@ -178,8 +198,17 @@ $( document ).ready(function() {
             This practice round will not count towards your group’s score. The
             practice will begin when all three group members have clicked "Next".
           </h4>
+          <h4>
+            The practice round is <strong>timed</strong>. You have a total of four minutes.<br>
+            We will give you a warning when you have 1 minute left.
+          </h4>
         </div>
         <div id="inst_5" class="inst">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h3><div class="float-right text-primary" id="timer"></div></h3>
+            </div>
+          </div>
           <h2>Practice Round</h2>
           <h4 class="text-warning" id="practice-prompt">
             Enter your guess (between 0 and 300) below. You will have {{ $maxResponses / $groupSize }}
@@ -211,18 +240,20 @@ $( document ).ready(function() {
         </div>
         <div id="inst_6" class="inst">
           <h4>
-            Now, for the actual task. Your group will do the Optimization Task
+            Now for the actual task. Your group will do the Optimization Task
             {{ count($totalTasks )}} separate times. Each time, there will be a
             different relationship. Each time, your group will have {{ $maxResponses }}
             guesses ({{ $maxResponses / $groupSize }} guesses each) to try to find a number
             that gives you a big value in return.
           </h4>
           <h4>
-            There isn’t a time limit, but most groups take less than 10 minutes in total.
+            Remember that this task is timed. You will have four minutes for each set
+            of guesses. There is a timer in the top right of the screen, and we will
+            give you a warning when you have one minute remaining.
           </h4>
           <h4>
             If you need to clarify the rules of the Optimization task you can
-            click Review Practice Instructions.
+            click Review Practice Instructions at any time.
           </h4>
           <h4>
             <strong>Spend a few moments discussing with your group how you will
@@ -301,6 +332,9 @@ $( document ).ready(function() {
           <strong>If you need to, take a moment to discuss with your group how
           you will tackle this problem.</strong>
         </h4>
+        <h4>
+          Your four minutes will begin when all members of your group have hit "next".
+        </h4>
       </div>
       @endif
       <div id="instr_nav" class="text-center">
@@ -318,6 +352,7 @@ $( document ).ready(function() {
 @include('layouts.includes.optimization-group-instructions')
 @include('layouts.includes.gather-reporter-modal')
 @include('layouts.includes.waiting-for-group')
+@include('layouts.includes.one-minute-warning')
 
 <form action="/optimization-individual-final" id="optimization-final-form" style="display:none;" method="post">
   {{ csrf_field() }}

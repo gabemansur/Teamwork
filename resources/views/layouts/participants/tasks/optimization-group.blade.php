@@ -4,7 +4,7 @@
   <script src="{{ URL::asset('js/timer.js') }}"></script>
   <script src="{{ URL::asset('js/optimization.js') }}"></script>
   <script src="{{ URL::asset('js/probability-distributions.js') }}"></script>
-
+  <script src="{{ URL::asset('js/timer.js') }}"></script>
 @stop
 
 @section('css')
@@ -27,6 +27,19 @@ $( document ).ready(function() {
   var taskId = {{ $taskId }};
   var token = "{{ csrf_token() }}";
   var step = 1;
+  var warningTimeout;
+
+  // Setting the timer and warning timer
+  warningTimeout = setTimeout(function() {
+    $('#warningModal').modal();
+  }, 180000);
+
+  initializeTimer(240, function() { 
+
+    clearTimeout(warningTimeout);
+    $('#warningModal').modal('hide');
+    $('#final-guess-prompt').modal();
+  });
 
   // Let's put the function as a string into the final submission form
   $("#final-function").val(f.toString());
@@ -92,6 +105,8 @@ $( document ).ready(function() {
       } );
 
     if(guessNumber == MAX_RESPONSES) {
+      clearTimeout(warningTimeout);
+      stopTimer();
       $('#final-guess-prompt').modal();
     }
 
@@ -160,14 +175,6 @@ function waitForGroup(userId, groupId, groupTasksId, step, token, isReporter) {
   <div class="row">
     <div class="col-md-12 text-center">
       <div class="spacer">
-        <div class="pull-right" id="timer-container">
-          <h4 class="pull-right">Next guess in: <span class="text-primary" id="timer"></span></h4>
-        </div>
-        <div id="guess-prompt">
-          <h4 class="text-primary">
-            Make your next guess now
-          </h4>
-        </div>
         <div class="alert alert-danger" id="warning" role="alert">
           Your guess must be between 0 and 300.
         </div>
@@ -176,6 +183,7 @@ function waitForGroup(userId, groupId, groupTasksId, step, token, isReporter) {
   </div>
   <div class="row top-spacer">
     <div class="col-md-12 text-center">
+      <h3><div class="float-right text-primary" id="timer"></div></h3>
       <h5 id="guess-prompt">
         Type a number and hit enter.
       </h5>
@@ -232,6 +240,7 @@ function waitForGroup(userId, groupId, groupTasksId, step, token, isReporter) {
 @include('layouts.includes.optimization-group-instructions')
 @include('layouts.includes.gather-reporter-modal')
 @include('layouts.includes.waiting-for-group')
+@include('layouts.includes.one-minute-warning')
 
 <form action="/optimization-group-final" id="optimization-final-form" style="display:none;" method="post">
           {{ csrf_field() }}

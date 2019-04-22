@@ -1065,6 +1065,7 @@ class Memory {
                     members have clicked "Next".'
                    ]],
           ['type' => 'review_choice',
+           'header' => 'Practice Round',
           'text' => ['This is the page where you can choose what to memorize.
                       We will ask your group about all three types of stimuli:
                       Images, Words and Stories.',
@@ -1075,7 +1076,9 @@ class Memory {
                       try to memorize the <span class="text-warning">Words</span>
                       and/or the <span class="text-success">Images</span>.
                       Alternatively, each group member can focus on memorizing
-                      one type of stimuli.',
+                      one type of stimulus.',
+                      '<strong>Take a minute to discuss with your group how you\'ll
+                      approach this task.</strong>',
                      '<strong>Reminder</strong>: in this practice round there
                      are 6 words; 3 images; and 2 very short stories.',
                      'Your 20 seconds will begin when everyone in the group has
@@ -1154,23 +1157,9 @@ class Memory {
           [ 'type' => 'practice_test_images',
            'selection_type' => 'select_one',
            'show_numbers' => 'false',
-           'prompt' => 'Which of the following faces is a "target" image?',
+           'prompt' => 'Which of the following images is a "target" image?',
            'img' => 'p0_test_1.png',
            'correct' => [1]],
-
-          ['type' => 'practice_test_stories',
-          'selection_type' => 'select_one',
-          'prompt' => 'Monica was running late because',
-          'choices' => ['Her train broke down',
-                        'She lived in Chicago',
-                        'Her job interview ran over time'],
-          'correct' => [1]],
-
-          [ 'type' => 'practice_test_words',
-           'selection_type' => 'select_all',
-           'prompt' => 'Which of the following are target words?',
-           'choices' => ['rock', 'ice', 'rabbit'],
-           'correct' => [2, 3]],
 
       ]// end blocks
     ], // end group_1_instructions
@@ -1204,6 +1193,7 @@ class Memory {
                     members have clicked "Next".'
                    ]],
           ['type' => 'review_choice',
+           'header' => 'Practice Round',
           'text' => ['This is the page where you can choose what to memorize.
                       We will ask your group about all three types of stimuli:
                       Images, Words and Stories.',
@@ -1214,7 +1204,9 @@ class Memory {
                       try to memorize the <span class="text-warning">Words</span>
                       and/or the <span class="text-success">Images</span>.
                       Alternatively, each group member can focus on memorizing
-                      one type of stimuli.',
+                      one type of stimulus.',
+                      '<strong>Take a minute to discuss with your group how you\'ll
+                      approach this task.</strong>',
                      '<strong>Reminder</strong>: in this practice round there
                      are 6 words; 3 images; and 2 very short stories.',
                      'Your 20 seconds will begin when everyone in the group has
@@ -1283,7 +1275,7 @@ class Memory {
           [ 'type' => 'practice_test_images',
            'selection_type' => 'select_one',
            'show_numbers' => 'false',
-           'prompt' => 'Which of the following faces is a "target" face?',
+           'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_1.jpg',
            'correct' => [3]],
 
@@ -1395,7 +1387,7 @@ class Memory {
           [ 'type' => 'test_images',
            'selection_type' => 'select_one',
            'show_numbers' => 'false',
-           'prompt' => 'Which of the following faces is a "target" image?',
+           'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_1.jpg',
            'correct' => [3]],
 
@@ -1417,7 +1409,7 @@ class Memory {
           [ 'type' => 'test_images',
             'selection_type' => 'select_one',
             'show_numbers' => 'false',
-            'prompt' => 'Which of the following faces is a "target" image?',
+            'prompt' => 'Which of the following images is a "target" image?',
             'img' => '1_test_2.jpg',
             'correct' => [1]],
 
@@ -1438,7 +1430,7 @@ class Memory {
           [ 'type' => 'test_images',
             'selection_type' => 'select_one',
             'show_numbers' => 'false',
-            'prompt' => 'Which of the following faces is a "target" image?',
+            'prompt' => 'Which of the following images is a "target" image?',
             'img' => '1_test_3.jpg',
             'correct' => [1]],
 
@@ -1465,7 +1457,7 @@ class Memory {
           [ 'type' => 'test_images',
             'selection_type' => 'select_one',
             'show_numbers' => 'false',
-            'prompt' => 'Which of the following faces is a "target" image?',
+            'prompt' => 'Which of the following images is a "target" image?',
             'img' => '1_test_4.jpg',
             'correct' => [2]],
 
@@ -1488,7 +1480,7 @@ class Memory {
           [ 'type' => 'test_images',
             'selection_type' => 'select_one',
             'show_numbers' => 'false',
-            'prompt' => 'Which of the following faces is a "target" image?',
+            'prompt' => 'Which of the following images is a "target" image?',
             'img' => '1_test_5.jpg',
             'correct' => [3]],
 
@@ -1501,7 +1493,7 @@ class Memory {
           [ 'type' => 'test_images',
             'selection_type' => 'select_one',
             'show_numbers' => 'false',
-            'prompt' => 'Which of the following faces is a "target" image?',
+            'prompt' => 'Which of the following images is a "target" image?',
             'img' => '1_test_6.jpg',
             'correct' => [2]],
 
@@ -1522,7 +1514,7 @@ class Memory {
           [ 'type' => 'test_images',
             'selection_type' => 'select_one',
             'show_numbers' => 'false',
-            'prompt' => 'Which of the following faces is a "target" image?',
+            'prompt' => 'Which of the following images is a "target" image?',
             'img' => '1_test_7.jpg',
             'correct' => [2]],
 
@@ -1537,7 +1529,7 @@ class Memory {
           [ 'type' => 'test_images',
             'selection_type' => 'select_one',
             'show_numbers' => 'false',
-            'prompt' => 'Which of the following faces is a "target" image?',
+            'prompt' => 'Which of the following images is a "target" image?',
             'img' => '1_test_8.jpg',
             'correct' => [3]],
 
@@ -1672,7 +1664,7 @@ class Memory {
         ['type' => 'test_images',
           'selection_type' => 'select_one',
           'show_numbers' => 'true',
-          'prompt' => 'Which of the following images is a "target" face?',
+          'prompt' => 'Which of the following images is a "target" image?',
           'img' => '2_test_2.jpg',
           'correct' => [1]],
 
@@ -1687,7 +1679,7 @@ class Memory {
         ['type' => 'test_images',
           'selection_type' => 'select_one',
           'show_numbers' => 'true',
-          'prompt' => 'Which of the following images is a "target" face?',
+          'prompt' => 'Which of the following images is a "target" image?',
           'img' => '2_test_3.jpg',
           'correct' => [2]],
 
@@ -1708,7 +1700,7 @@ class Memory {
         ['type' => 'test_images',
           'selection_type' => 'select_one',
           'show_numbers' => 'true',
-          'prompt' => 'Which of the following images is a "target" face?',
+          'prompt' => 'Which of the following images is a "target" image?',
           'img' => '2_test_4.jpg',
           'correct' => [3]],
 
@@ -1716,7 +1708,7 @@ class Memory {
         ['type' => 'test_images',
           'selection_type' => 'select_one',
           'show_numbers' => 'true',
-          'prompt' => 'Which of the following images is a "target" face?',
+          'prompt' => 'Which of the following images is a "target" image?',
           'img' => '2_test_5.jpg',
           'correct' => [1]],
 
@@ -1745,7 +1737,7 @@ class Memory {
         ['type' => 'test_images',
           'selection_type' => 'select_one',
           'show_numbers' => 'true',
-          'prompt' => 'Which of the following images is a "target" face?',
+          'prompt' => 'Which of the following images is a "target" image?',
           'img' => '2_test_6.jpg',
           'correct' => [3]],
 
@@ -1772,7 +1764,7 @@ class Memory {
         ['type' => 'test_images',
           'selection_type' => 'select_one',
           'show_numbers' => 'true',
-          'prompt' => 'Which of the following images is a "target" face?',
+          'prompt' => 'Which of the following images is a "target" image?',
           'img' => '2_test_7.jpg',
           'correct' => [2]],
 
@@ -1787,7 +1779,7 @@ class Memory {
         ['type' => 'test_images',
           'selection_type' => 'select_one',
           'show_numbers' => 'true',
-          'prompt' => 'Which of the following images is a "target" face?',
+          'prompt' => 'Which of the following images is a "target" image?',
           'img' => '2_test_8.jpg',
           'correct' => [2]],
 
@@ -1889,7 +1881,7 @@ class Memory {
          [ 'type' => 'test',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
-           'prompt' => 'Which of the following images is a "target" bicycle?',
+           'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_1.jpeg',
            'correct' => [1]],
 
@@ -1904,7 +1896,7 @@ class Memory {
          ['type' => 'test',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
-           'prompt' => 'Which of the following images is a "target" bicycle?',
+           'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_2.jpeg',
            'correct' => [2]],
 
@@ -1925,7 +1917,7 @@ class Memory {
          ['type' => 'test',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
-           'prompt' => 'Which of the following images is a "target" bicycle?',
+           'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_3.jpeg',
            'correct' => [1]],
 
@@ -1943,7 +1935,7 @@ class Memory {
          ['type' => 'test',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
-           'prompt' => 'Which of the following images is a "target" bicycle?',
+           'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_4.jpeg',
            'correct' => [2]],
 
@@ -1978,7 +1970,7 @@ class Memory {
          ['type' => 'test',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
-           'prompt' => 'Which of the following images is a "target" bicycle?',
+           'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_5.jpeg',
            'correct' => [3]],
 
@@ -1993,7 +1985,7 @@ class Memory {
          ['type' => 'test',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
-           'prompt' => 'Which of the following images is a "target" bicycle?',
+           'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_6.jpeg',
            'correct' => [3]],
 
@@ -2014,7 +2006,7 @@ class Memory {
          ['type' => 'test',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
-           'prompt' => 'Which of the following images is a "target" bicycle?',
+           'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_7.jpeg',
            'correct' => [2]],
 
@@ -2035,7 +2027,7 @@ class Memory {
          ['type' => 'test',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
-           'prompt' => 'Which of the following images is a "target" bicycle?',
+           'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_8.jpeg',
            'correct' => [3]],
 

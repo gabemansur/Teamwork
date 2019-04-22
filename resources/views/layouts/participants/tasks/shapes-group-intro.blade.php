@@ -106,7 +106,7 @@
             <em>different</em> from the others</strong>.
           </h4>
           <h4>
-            Also remember that you're working as a team! Take a moment to discuss
+            As always, take a moment to discuss
             how you will approach this task.
           </h4>
           <h4>
@@ -215,7 +215,7 @@
           <em>different</em> from the others</strong>.
         </h4>
         <h4>
-          Also remember that you're working as a team! Take a moment to discuss
+          As always, take a moment to discuss
           how you will approach this task.
         </h4>
         <h4>
@@ -358,7 +358,7 @@
         </h4>
         <h4>
           <strong>
-            Remember, you're working as a team. Take a moment to discuss how
+            As always, take a moment to discuss how
             you will approach this task.
           </strong>
         </h4>

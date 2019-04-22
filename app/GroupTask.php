@@ -94,8 +94,9 @@ class GroupTask extends Model
           {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
           {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"9","intro":"individual","maxResponses":"10"}},
           {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"10","intro":"individual_alt","maxResponses":"10"}},
-          {"taskName":"Feedback","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}},
-          {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}}
+          {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1_instructions"}},
+          {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1"}},
+          {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest2"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
@@ -106,6 +107,19 @@ class GroupTask extends Model
         {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"10","intro":"group_1","maxResponses":"10"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1_instructions"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1"}}
+        ]';
+      return Self::initializeTasks($group_id, $taskArray, $randomize);
+    }
+
+    public static function initializeGroupTestTasks($group_id, $randomize) {
+      $taskArray = '[
+        {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"true"}},
+        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"4","intro":"group_1","maxResponses":"15"}},
+        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"6","intro":"group_alt_intro","maxResponses":"15"}},
+        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1_instructions"}},
+        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1"}},
+        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_1","hasGroup":"true","mapping":"random","maxResponses":"15"}},
+        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest2"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }

@@ -18,6 +18,10 @@ function initializeTimer(sec, callback){
 
 }
 
+function stopTimer() {
+	clearInterval(t);
+}
+
 function timer(callback){
 
 	var ending = time;

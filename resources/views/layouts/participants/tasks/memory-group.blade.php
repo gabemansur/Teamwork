@@ -284,7 +284,7 @@
               @if($block['type'] == 'practice_test_words' || $block['type'] == 'test_words')
                 <div class="memory test" id="memory_{{ $key }}_{{ $b_key }}">
                   <h4>{{ $block['prompt'] }}</h4>
-                  <h4>Select all that apply, then click "Next"</h4>
+                  <h4><strong><u>Select all that apply</u></strong>, then click "Next"</h4>
                   <div class="row justify-content-md-center word-choices">
                     @foreach($block['choices'] as $c_key => $choice)
                       <div class="col-md-3 form-group">
