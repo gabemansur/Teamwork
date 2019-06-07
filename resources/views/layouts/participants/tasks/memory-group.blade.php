@@ -139,7 +139,7 @@
                            value="Next">
                   </div>
                 </div>
-              @endif {{-- End if blocktype = text --}}
+              @endif {{-- End if blocktype = text_intro --}}
 
               @if($block['type'] == 'text')
                 <div class="memory memory-text text" id="memory_{{ $key }}_{{ $b_key }}">

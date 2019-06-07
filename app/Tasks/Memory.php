@@ -1094,7 +1094,7 @@ class Memory {
           'types' => [
                        ['type' => 'images', 'directory' => '/img/memory-task/bodies/',
                         'prompt' => 'Remember these target images',
-                        'targets' => ['1_targets_1.png', '1_targets_2.png', '1_targets_3.png']
+                        'targets' => ['1_targets_1.jpeg', '1_targets_2.jpeg', '1_targets_3.jpeg']
                         ],
                        ['type' => 'words',
                         'prompt' => 'Remember these target words',
@@ -1158,7 +1158,7 @@ class Memory {
            'selection_type' => 'select_one',
            'show_numbers' => 'false',
            'prompt' => 'Which of the following images is a "target" image?',
-           'img' => 'p0_test_1.png',
+           'img' => 'p0_test_1.jpeg',
            'correct' => [1]],
 
       ]// end blocks
@@ -1285,6 +1285,27 @@ class Memory {
 
     'group_3_instructions' => [
       'test_name' => 'group_3_instructions',
+      'task_type' => 'mixed',
+      'type' => 'intro',
+      'directory' => '/img/memory-task/faces/',
+      'blocks' => [
+        ['type' => 'text_intro',
+         'header' => 'Memory Task',
+         'wait_for_all' => 'true',
+         'text' => ['Next is a test of your group’s collective memory. This is
+                    the same as the group memory exercise you have completed twice already.',
+                     '<strong>As you have already seen this task twice, we will
+                     NOT do a practice this time.</strong>',
+                     'Remember, each group member will memorize the stimuli on
+                     their own computer. But, you will answer as a group.
+                     Questions will only appear on The Reporters laptop.',
+                     'The task will continue when everyone has clicked "Next".'
+                   ]],
+      ]// end blocks
+    ], // end group_3_instructions
+
+    'group_4_instructions' => [
+      'test_name' => 'group_4_instructions',
       'task_type' => 'mixed',
       'type' => 'intro',
       'directory' => '/img/memory-task/faces/',
@@ -1893,20 +1914,20 @@ class Memory {
                            'San Francisco'],
              'correct' => [3]],
 
-         ['type' => 'test',
+         ['type' => 'test_images',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
            'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_2.jpeg',
            'correct' => [2]],
 
-           ['type' => 'test',
+           ['type' => 'test_words',
             'selection_type' => 'select_all',
             'prompt' => 'Which of the following are target words',
             'choices' => ['child', 'bluebird', 'chapel'],
             'correct' => [2]],
 
-            [ 'type' => 'test',
+            [ 'type' => 'test_stories',
               'selection_type' => 'select_one',
               'prompt' => 'On which day was bad weather predicted?',
               'choices' => ['Monday',
@@ -1914,32 +1935,32 @@ class Memory {
                             'Tuesday'],
               'correct' => [1]],
 
-         ['type' => 'test',
+         ['type' => 'test_images',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
            'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_3.jpeg',
            'correct' => [1]],
 
-           ['type' => 'test',
+           ['type' => 'test_words',
              'selection_type' => 'select_all',
              'prompt' => 'Which of the following are target words',
              'choices' => ['canary', 'socks', 'robin'],
              'correct' => [1]],
-           ['type' => 'test',
+           ['type' => 'test_words',
              'selection_type' => 'select_all',
              'prompt' => 'Which of the following are target words',
              'choices' => ['hammer', 'skirt', 'apple'],
              'correct' => [2]],
 
-         ['type' => 'test',
+         ['type' => 'test_images',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
            'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_4.jpeg',
            'correct' => [2]],
 
-           [ 'type' => 'test',
+           [ 'type' => 'test_stories',
              'selection_type' => 'select_one',
              'prompt' => 'How much is the Tokyo barmaid suing for?',
              'choices' => ['$220,000',
@@ -1947,13 +1968,13 @@ class Memory {
                            '$20,000'],
                'correct' => [1]],
 
-           ['type' => 'test',
+           ['type' => 'test_words',
              'selection_type' => 'select_all',
              'prompt' => 'Which of the following are target words',
              'choices' => ['shirt', 'saw', 'wren'],
              'correct' => []],
 
-           [ 'type' => 'test',
+           [ 'type' => 'test_stories',
              'selection_type' => 'select_one',
              'prompt' => 'How much rain was the storm predicted to bring?',
              'choices' => ['At least 4 inches',
@@ -1961,20 +1982,20 @@ class Memory {
                            'More than 4 inches'],
              'correct' => [2]],
 
-           ['type' => 'test',
+           ['type' => 'test_words',
              'selection_type' => 'select_all',
              'prompt' => 'Which of the following are target words',
              'choices' => ['chisel', 'screwdriver', 'sparrow'],
              'correct' => [1, 2]],
 
-         ['type' => 'test',
+         ['type' => 'test_images',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
            'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_5.jpeg',
            'correct' => [3]],
 
-           [ 'type' => 'test',
+           [ 'type' => 'test_stories',
              'selection_type' => 'select_one',
              'prompt' => 'How old was the Tokyo barmaid?',
              'choices' => ['36',
@@ -1982,20 +2003,20 @@ class Memory {
                            '26'],
              'correct' => [2]],
 
-         ['type' => 'test',
+         ['type' => 'test_images',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
            'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_6.jpeg',
            'correct' => [3]],
 
-           ['type' => 'test',
+           ['type' => 'test_words',
              'selection_type' => 'select_all',
              'prompt' => 'Which of the following are target words',
              'choices' => ['silver', 'nails', 'eagle'],
              'correct' => [2, 3]],
 
-             [ 'type' => 'test',
+             [ 'type' => 'test_stories',
                'selection_type' => 'select_one',
                'prompt' => 'Who is the Tokyo barmaid suing?',
                'choices' => ['Her manager',
@@ -2003,20 +2024,20 @@ class Memory {
                              'Her customer'],
                'correct' => [3]],
 
-         ['type' => 'test',
+         ['type' => 'test_images',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
            'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_7.jpeg',
            'correct' => [2]],
 
-           ['type' => 'test',
+           ['type' => 'test_words',
              'selection_type' => 'select_all',
              'prompt' => 'Which of the following are target words',
              'choices' => ['crow', 'rock', 'rook'],
              'correct' => [1]],
 
-             [ 'type' => 'test',
+             [ 'type' => 'test_stories',
                'selection_type' => 'select_one',
                'prompt' => 'What did Joe do when he heard the news about bad weather?',
                'choices' => ['Call in sick',
@@ -2024,14 +2045,14 @@ class Memory {
                              'Go back to watching TV programs'],
                'correct' => [2]],
 
-         ['type' => 'test',
+         ['type' => 'test_images',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
            'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_8.jpeg',
            'correct' => [3]],
 
-           [ 'type' => 'test',
+           [ 'type' => 'test_stories',
              'selection_type' => 'select_one',
              'prompt' => 'How did Joe find about the weather?',
              'choices' => ['He was watching a news program',
@@ -2039,13 +2060,255 @@ class Memory {
                            'He saw a weather bulletin between shows'],
              'correct' => [2]],
 
-           ['type' => 'test',
+           ['type' => 'test_words',
              'selection_type' => 'select_all',
              'prompt' => 'Which of the following are target words',
              'choices' => ['blouse', 'pants', 'wrench'],
              'correct' => [1, 2, 3]],
       ]// end blocks
     ], // end group_3
+
+    'group_4' => [
+      'test_name' => 'group_4',
+      'task_type' => 'mixed',
+      'type' => 'intro',
+      'directory' => '/img/memory-task/bodies/',
+      'blocks' => [
+        ['type' => 'text',
+         'header' => '',
+         'wait_for_all' => 'true',
+         'text' => ['As a reminder, your group will have <strong>40</strong> seconds to memorize 6 images, 12 words and 2 short
+                    stories.',
+                    'Everyone should be in front of their own laptop. During the memorization
+                     period, you have the option of looking at multiple types of stimuli
+                    (e.g. <span class="text-danger">stories</span> AND
+                    <span class="text-success">images</span>). Or,
+                    you can divide the responsibilities of memorizing different things.',
+                    '<strong>Take some time to discuss how you will approach this task.</strong>',
+                    'You will receive some final instructions when each group member has clicked "Next".'
+                   ]],
+          ['type' => 'review_choice',
+          'text' => ['Remember: you have 40 seconds, and there is a timer in
+                      the top right of the screen.',
+                     '<strong>You’re NOT allowed to write anything down.</strong>',
+                     'If you want, you can always change the stimuli
+                     you are memorizing by clicking on a different button..',
+                     'The timer starts when everyone has clicked on one of the buttons.'],
+          'choices' => [['color' => 'success', 'type' => 'images'],
+                        ['color' => 'warning', 'type' => 'words'],
+                        ['color' => 'danger', 'type' => 'stories']],
+          'review_time' => 40],
+
+          ['type' => 'mixed_review',
+          'text' => [],
+          'types' => [
+                       ['type' => 'images', 'directory' => '/img/memory-task/bodies/',
+                        'prompt' => 'Remember these target images',
+                        'targets' => ['2_target_1.jpeg', '2_target_2.jpeg', '2_target_3.jpeg']
+                        ],
+                       ['type' => 'words',
+                        'prompt' => 'Remember these target words',
+                        'targets' => ['tennis', 'professor', 'golf', 'dentist', 'lettuce',
+                                      'bean', 'basketball', 'corn', 'teacher',
+                                      'engineer', 'soccer', 'potato'],
+                       ],
+                       ['type' => 'stories',
+                        'prompt' => 'Remember these target stories',
+                        'targets' => ['The watermelon eating world record was set in July 2015 at the Plainview
+                                       Community Picnic in California. The record holder is Jim "Bison" Bingham,
+                                       a native of Georgia who grew up on a watermelon farm with his eight brothers
+                                       and sisters. He said that growing up in a big family sharpened his eating
+                                       skills as "if you didn’t eat quickly, you missed out".',
+                                      'Adrian Li recently bought a new cat. He wanted a small dog, like a Scottish
+                                      Terrier, but his landlord would not allow it. He found his new cat, Luna, on
+                                      the Blue Cross website. Her previous owner was a 17 year old girl who was going
+                                      off to Jefferson College to study veterinary technology.'],
+                       ]
+          ],
+          'choices' => [['color' => 'success', 'type' => 'images'],
+                        ['color' => 'warning', 'type' => 'words'],
+                        ['color' => 'danger', 'type' => 'stories']],
+          'review_time' => 40],
+
+          ['type' => 'text',
+           'header' => '',
+           'end_individual_section' => 'true',
+           'text' => ['We will now ask you questions.',
+                      '<strong>Everyone should be able to see the screen of the Reporter\'s laptop</strong>. You will
+                       answer as a group, on The Reporter\'s laptop.',
+                       'The questions will begin when The Reporter clicks "Next"'
+                     ]],
+
+         [ 'type' => 'test_images',
+           'selection_type' => 'select_one',
+           'show_numbers' => 'false',
+           'prompt' => 'Which of the following images is a "target" image?',
+           'img' => '2_test_1.jpeg',
+           'correct' => [3]],
+
+           [ 'type' => 'test_stories',
+             'selection_type' => 'select_one',
+             'prompt' => 'In which state was the watermelon eating world record set?',
+             'choices' => ['Georgia',
+                           'California',
+                           'Florida'],
+             'correct' => [2]],
+
+         ['type' => 'test_images',
+           'selection_type' => 'select_one',
+           'show_numbers' => 'false',
+           'prompt' => 'Which of the following images is a "target" image?',
+           'img' => '2_test_2.jpeg',
+           'correct' => [1]],
+
+           ['type' => 'test_words',
+            'selection_type' => 'select_all',
+            'prompt' => 'Which of the following are target words',
+            'choices' => ['soccer', 'potato', 'football'],
+            'correct' => [1, 2]],
+
+            [ 'type' => 'test_stories',
+              'selection_type' => 'select_one',
+              'prompt' => 'What is the nickname of the watermelon eating  record holder?',
+              'choices' => ['Bison',
+                            'Buffalo',
+                            'Bull'],
+              'correct' => [1]],
+
+         ['type' => 'test_images',
+           'selection_type' => 'select_one',
+           'show_numbers' => 'false',
+           'prompt' => 'Which of the following images is a "target" image?',
+           'img' => '2_test_3.jpeg',
+           'correct' => [1]],
+
+           ['type' => 'test_words',
+             'selection_type' => 'select_all',
+             'prompt' => 'Which of the following are target words',
+             'choices' => ['glove', 'lawyer', 'snake'],
+             'correct' => []],
+
+           ['type' => 'test_words',
+             'selection_type' => 'select_all',
+             'prompt' => 'Which of the following are target words',
+             'choices' => ['spinach', 'professor', 'lettuce'],
+             'correct' => [2, 3]],
+
+         ['type' => 'test_images',
+           'selection_type' => 'select_one',
+           'show_numbers' => 'false',
+           'prompt' => 'Which of the following images is a "target" image?',
+           'img' => '2_test_4.jpeg',
+           'correct' => [2]],
+
+         [ 'type' => 'test_stories',
+           'selection_type' => 'select_one',
+           'prompt' => 'What is the name of Adrian’s new cat?',
+           'choices' => ['Lily',
+                         'Lucy',
+                         'Luna'],
+           'correct' => [3]],
+
+           ['type' => 'test_words',
+             'selection_type' => 'select_all',
+             'prompt' => 'Which of the following are target words',
+             'choices' => ['engineer', 'corn', 'tulip'],
+             'correct' => [1, 2]],
+
+           [ 'type' => 'test_stories',
+             'selection_type' => 'select_one',
+             'prompt' => 'What is Adrian’s last name?',
+             'choices' => ['Lim',
+                           'Li',
+                           'Xi'],
+             'correct' => [2]],
+
+
+           ['type' => 'test_words',
+             'selection_type' => 'select_all',
+             'prompt' => 'Which of the following are target words',
+             'choices' => ['spider', 'doctor', 'tennis'],
+             'correct' => [3]],
+
+         ['type' => 'test_images',
+           'selection_type' => 'select_one',
+           'show_numbers' => 'false',
+           'prompt' => 'Which of the following images is a "target" image?',
+           'img' => '2_test_5.jpeg',
+           'correct' => [2]],
+
+           [ 'type' => 'test_stories',
+             'selection_type' => 'select_one',
+             'prompt' => 'Jim said that, in his household, if you didn’t eat quickly, you:',
+             'choices' => ['"went hungry"',
+                           '"missed out"',
+                           '"got nothing"'],
+             'correct' => [2]],
+
+         ['type' => 'test_images',
+           'selection_type' => 'select_one',
+           'show_numbers' => 'false',
+           'prompt' => 'Which of the following images is a "target" image?',
+           'img' => '2_test_6.jpeg',
+           'correct' => [1]],
+
+         ['type' => 'test_words',
+           'selection_type' => 'select_all',
+           'prompt' => 'Which of the following are target words',
+           'choices' => ['golf', 'teacher', 'water'],
+           'correct' => [1, 2]],
+
+         [ 'type' => 'test_stories',
+           'selection_type' => 'select_one',
+           'prompt' => 'How many brothers and sisters does Jim Bingham have?',
+           'choices' => ['6',
+                         '7',
+                         '8'],
+             'correct' => [3]],
+
+         ['type' => 'test_images',
+           'selection_type' => 'select_one',
+           'show_numbers' => 'false',
+           'prompt' => 'Which of the following images is a "target" image?',
+           'img' => '2_test_7.jpeg',
+           'correct' => [3]],
+
+           ['type' => 'test_words',
+             'selection_type' => 'select_all',
+             'prompt' => 'Which of the following are target words',
+             'choices' => ['basketball', 'dentist', 'submarine'],
+             'correct' => [1, 2]],
+
+             [ 'type' => 'test_stories',
+               'selection_type' => 'select_one',
+               'prompt' => 'What school is the cat’s previous owner attending?',
+               'choices' => ['Jackson College',
+                             'Jefferson College',
+                             'Jefferson State University'],
+               'correct' => [2]],
+
+         ['type' => 'test_images',
+           'selection_type' => 'select_one',
+           'show_numbers' => 'false',
+           'prompt' => 'Which of the following images is a "target" image?',
+           'img' => '2_test_8.jpeg',
+           'correct' => [2]],
+
+         [ 'type' => 'test_stories',
+           'selection_type' => 'select_one',
+           'prompt' => 'When was the watermelon eating world record set?',
+           'choices' => ['July 2015',
+                         'June 2015',
+                         'June 2005'],
+           'correct' => [1]],
+
+           ['type' => 'test_words',
+             'selection_type' => 'select_all',
+             'prompt' => 'Which of the following are target words',
+             'choices' => ['carrot', 'baseball', 'bean'],
+             'correct' => [3]],
+      ]// end blocks
+    ], // end group_4
 
   ]; // End memoryTests
 
@@ -2060,6 +2323,7 @@ class Memory {
                                                 'group_1_intro', 'group_1_instructions', 'group_1',
                                                 'group_2_intro', 'group_2_instructions', 'group_2',
                                                 'group_3_intro', 'group_3_instructions', 'group_3',
+                                                'group_4_intro', 'group_4_instructions', 'group_4',
                                                 'results']];
 
   public function getTests() {

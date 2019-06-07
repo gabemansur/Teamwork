@@ -104,9 +104,8 @@ class GroupTask extends Model
     public static function initializeGroupMemoryTasks($group_id, $randomize) {
       $taskArray = '[
         {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"10","intro":"group_1","maxResponses":"10"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1_instructions"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1"}}
+        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_4_instructions"}},
+        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_4"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
