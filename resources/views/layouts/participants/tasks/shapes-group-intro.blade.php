@@ -369,6 +369,104 @@
           Click "Next" to begin!
         </h4>
       </div>
+      @elseif($subtest == 'subtest5')
+      <div id="inst_1" class="inst">
+        <h2 class="text-primary">Shapes Task</h2>
+        <h3 class="text-success">
+          Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
+        </h3>
+        <h4>
+          This task is similar to the shapes task you did in your previous group.
+          Broadly, the aim of the task is to understand shapes and patterns.
+        </h4>
+        <h4>
+          <strong>
+            Once again, you will answer as a group. Everyone should be gathered
+            around <em>The Reporter's</em> laptop.
+          </strong>
+        </h4>
+        <h4>
+          @if($isReporter)
+            Click Next to continue.
+          @else
+            If you are not The Reporter, you can click "finish" and close your laptop:
+            you won’t be needing it again.
+          @endif
+        </h4>
+      </div>
+      <div id="inst_2" class="inst">
+        <h4>
+          In this task you’ll be presented with a grid of shapes in the upper
+          part of the page.
+        </h4>
+        <h4>
+          The grid will have 3 rows, and 3 columns. There will be a missing piece.
+        </h4>
+        <h4>
+          On the bottom part of the page will be a set of 8 options. One of
+          these options is the missing piece. Your job is to find this missing
+          piece.
+        </h4>
+        <h4>
+          The missing piece is the one that fits the patterns that appear across the rows and columns.
+        </h4>
+        <h4>
+          <strong>We'll start with a practice.</strong></h4>
+      </div>
+      <div id="inst_3" class="inst">
+        <div class="row">
+          <div class="col-6">
+            <h4>
+              Look at the picture on the top right. The missing piece is in the bottom right corner.
+            </h4>
+            <h4>
+              There are several patterns here. You can see that each row has a square,
+              a circle and a diamond. This is also true of each column. The missing
+              piece must therefore have a diamond shape.
+            </h4>
+            <h4>
+              Also, notice that the shapes on the top row have 1 dotted line through
+              them. Those in the middle row have 2 dotted lines, and in the bottom
+              row it's 3. The missing piece must have 3 dotted lines.
+            </h4>
+            <h4>
+              Looking at the options, the only diamond with three dotted lines is number 5. This is the missing piece.
+            </h4>
+          </div>
+          <div class="col-6">
+            <div class="text-center shapes-test-container shapes-{{ $subtest }}">
+              <img src="/img/shapes-task/{{ $subtest }}/example_01.png" class="shapes-img">
+              <div class="form-group justify-content-center">
+                <label for="example_input">
+                  Enter the number of the missing piece:
+                </label><br>
+                <input type="number" step="1" min="1" max="8" class="form-control form-control-lg" style="width:80px; margin: 0 auto; display: inline-block;" name="example_input">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="inst_4" class="inst">
+        <h4>
+          After clicking the "next" button your group will be asked to complete the rest yourselves.
+        </h4>
+        <h4>
+          There are 14 questions and you have 7 minutes. You may not have time
+          to finish all the questions, but you should work as quickly as you can.
+        </h4>
+        <h4>
+          Remember, you're working as a team and will only submit one set of answers.
+        </h4>
+        <h4>
+          There will be a timer in the top right of your screen.
+        </h4>
+        <h4>
+          You may change your answers if you change your mind, but not after the 7 minutes is up.
+        </h4>
+        <h4>
+          Click "Next" to begin!
+        </h4>
+      </div>
       @endif
       @if($isReporter)
         <div id="instr_nav" class="text-center">

@@ -20,9 +20,15 @@ class Shapes {
                     'answers' => [['b'], ['a'], ['d'], ['d'],
                                   ['a'], ['b'], ['c'], ['d'],
                                   ['a'], ['d']]],
+
+    'subtest5' => ['length' => 14,
+                    'answers' => [['1'], ['4'], ['1'], ['1'],
+                                  ['4'], ['6'], ['1'], ['4'],
+                                  ['8'], ['7'], ['2'], ['8'],
+                                  ['1'], ['2']]],
   ];
 
-  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false', 'true'], 'subtest' => ['subtest1', 'subtest2', 'subtest3', 'subtest4']];
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false', 'true'], 'subtest' => ['subtest1', 'subtest2', 'subtest3', 'subtest4', 'subtest5']];
 
 
   public function getShapes($test) {

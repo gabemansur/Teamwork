@@ -24,6 +24,8 @@
       var time = 240;
     @elseif($subtest == 'subtest3' || $subtest == 'subtest4')
       var time = 180;
+    @elseif($subtest == 'subtest5')
+      var time = 420;
     @endif
     $( document ).ready(function() {
 
@@ -113,6 +115,15 @@
                         <input class="form-check-large" type="radio" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
                       </td>
                     @endfor
+                  @elseif($subtest == 'subtest5')
+                    <div class="form-group justify-content-center">
+                      <label for="example_input">
+                        Enter the number of the missing piece:
+                      </label><br>
+                      <input type="number" step="1" min="1" max="8" class="form-control form-control-lg"
+                             style="width:80px; margin: 0 auto; display: inline-block;"
+                             name="{{ $i }}[]">
+                    </div>
                   @endif
                 </tr>
               </table>

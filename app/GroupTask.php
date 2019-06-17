@@ -113,12 +113,12 @@ class GroupTask extends Model
     public static function initializeGroupTestTasks($group_id, $randomize) {
       $taskArray = '[
         {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"true"}},
+        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest5"}},
         {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"4","intro":"group_1","maxResponses":"15"}},
         {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"6","intro":"group_alt_intro","maxResponses":"15"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1_instructions"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1"}},
-        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_1","hasGroup":"true","mapping":"random","maxResponses":"15"}},
-        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest2"}}
+        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_1","hasGroup":"true","mapping":"random","maxResponses":"15"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
@@ -160,6 +160,19 @@ class GroupTask extends Model
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_3_instructions"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_3"}},
         {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_3","hasGroup":"true","mapping":"random","maxResponses":"15"}},
+        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest4"}}
+        ]';
+      return Self::initializeTasks($group_id, $taskArray, $randomize);
+    }
+
+    public static function initializeGroupFourTasks($group_id, $randomize) {
+      $taskArray = '[
+        {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_2"}},
+        {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"true"}},
+        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"4","intro":"group_3","maxResponses":"15"}},
+        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"5","intro":"group_alt_intro","maxResponses":"15"}},
+        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_4_instructions"}},
+        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_4"}}
         {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest4"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
