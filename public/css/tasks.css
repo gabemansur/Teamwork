@@ -270,7 +270,7 @@ img.eyes {
 
 .shapes-subtest5 .shapes-img {
   width: auto!important;
-  height: 500px!important;
+  height: 400px!important;
 }
 
 .shapes-test-container {
@@ -317,6 +317,10 @@ img.eyes {
 
 .shapes-test-table td {
   border: 0;
+}
+
+.shapes-test-table.shapes-subtest5 {
+  position: initial;
 }
 
 

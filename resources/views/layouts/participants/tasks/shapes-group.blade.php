@@ -67,6 +67,15 @@
       instructionPaginator(function(){
 
       });
+
+      // Disable form submit on enter
+      $('#shapes-form').on('keyup keypress', function(e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode === 13) {
+          e.preventDefault();
+          return false;
+        }
+      });
     });
 
 </script>
@@ -116,14 +125,19 @@
                       </td>
                     @endfor
                   @elseif($subtest == 'subtest5')
-                    <div class="form-group justify-content-center">
-                      <label for="example_input">
-                        Enter the number of the missing piece:
-                      </label><br>
-                      <input type="number" step="1" min="1" max="8" class="form-control form-control-lg"
-                             style="width:80px; margin: 0 auto; display: inline-block;"
-                             name="{{ $i }}[]">
-                    </div>
+                    <td>
+                        <select class="form-control form-control-lg" style="width: 64px; margin: 0 auto;" name="{{ $i }}[]">
+                          <option value="">----</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                        </select>
+                    </td>
                   @endif
                 </tr>
               </table>
