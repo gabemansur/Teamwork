@@ -667,63 +667,54 @@ class IndividualTaskController extends Controller
 
       }
 
-      $results = '';
-      $bestTest['test'] = '';
-      $bestTest['score'] = 0;
-      $bestTest['task_type'] = '';
-
-      foreach($correct as $c) {
-        if($c['points'] / 3 > $bestTest['score']) {
-          $bestTest['score'] = $c['points'] / 3;
-          $bestTest['test'] = $c['name'];
-          $bestTest['task_type'] = $c['task_type'];
-
-        }
-      }
-
       return redirect('/end-individual-task');
     }
 
     public function displayMemoryTaskResults(Request $request) {
 
-      $memTests = \Teamwork\GroupTask::where('name', 'Memory')
-                           ->where('group_id', \Auth::user()->group_id)
-                           ->pluck('id');
+
+      $groupTasks = \Teamwork\GroupTask::where('name', 'Memory')
+                                   ->where('group_id', \Auth::user()->group_id)
+                                   ->with('response')->get();
 
 
-      $responses = \Teamwork\Response::whereIn('group_tasks_id', $memTests)
-                           ->where('user_id', \Auth::user()->id)
-                           ->get();
+      $performance = ['words_1' => 0, 'faces_1' => 0, 'story_1' => 0];
 
-      $correct = [];
+      $scores = $this->getMemoryScores();
 
-      foreach($responses as $response) {
-        $prompt = unserialize($response->prompt);
-
-        if(isset($correct[$prompt['test']])){
-          $correct[$prompt['test']]['points'] += $response->points;
-        }
-        else {
-          $correct[$prompt['test']] = [
-            'points' => $response->points,
-            'test_type' => $prompt['test_type']
-          ];
+      foreach($groupTasks as $id => $task) {
+        if(count($task->response) == 0) continue;
+        $parameters = unserialize($task->parameters);
+        if($parameters->test == 'words_1' || $parameters->test == 'faces_1' || $parameters->test == 'story_1') {
+          $avg = $task->response->avg('points');
+          $performance[$parameters->test] = $this->calculatePercentileRank($avg, collect($scores[$parameters->test]));
         }
       }
 
-      $results = '';
-      $bestTest['test'] = '';
-      $bestTest['score'] = 0;
-      $bestTest['test_type'] = '';
-      foreach($correct as $test => $c) {
-        if($c['points'] > $bestTest['score']) {
-          $bestTest['score'] = $c['points'];
-          $bestTest['test'] = $test;
-          $bestTest['test_type'] = $c['test_type'];
+      $highestRank = 0;
+      $bestTest;
+      $bestTestName;
+
+      foreach ($performance as $key => $rank) {
+        if($rank > $highestRank){
+          $highestRank = $rank;
+          $bestTest = $key;
         }
       }
 
-      $results .= 'You have completed the Memory Task.<br><br><h1>Across the three different memory tasks, you performed best on the <span class="text-primary">'. $bestTest['test_type'] .'</span> test.</h1>';
+      switch ($bestTest) {
+        case 'words_1':
+          $bestTestName = 'Words';
+          break;
+        case 'faces_1':
+          $bestTestName = 'Images';
+          break;
+        case 'story_1':
+          $bestTestName = 'Story';
+          break;
+      }
+
+      $results = 'You have completed the Memory Task.<br><br><h1>Across the three different memory tasks, you performed best on the <span class="text-primary">'. $bestTestName .'</span> test.</h1>';
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Memory Task');
 
@@ -914,14 +905,41 @@ class IndividualTaskController extends Controller
       \Session::put('completedTasks', $completed);
     }
 
-    public function testMemory() {
-      $tests = [];
-      $tests[] = (new \Teamwork\Tasks\Memory)->getTest('story_1');
+    private function getMemoryScores() {
+      $groups = \Teamwork\GroupTask::where('name', 'Memory')->with('response')->get();
 
+      $scores = ['words_1' => [], 'faces_1' => [], 'story_1' => []];
 
-      return view('layouts.participants.tasks.memory-individual')
-             ->with('tests', $tests)
-             ->with('enc_tests', json_encode($tests));
+      foreach($groups as $id => $group) {
+        if(count($group->response) == 0) continue;
+        $parameters = unserialize($group->parameters);
+        if($parameters->test == 'words_1' || $parameters->test == 'faces_1' || $parameters->test == 'story_1') {
+          $avg = $group->response->avg('points');
+          $scores[$parameters->test][] = $avg;
+        }
+      }
+
+      usort($scores['words_1'], function( $a, $b ) {
+        return $a == $b ? 0 : ( $a > $b ? 1 : -1 );
+      });
+      usort($scores['faces_1'], function( $a, $b ) {
+        return $a == $b ? 0 : ( $a > $b ? 1 : -1 );
+      });
+      usort($scores['story_1'], function( $a, $b ) {
+        return $a == $b ? 0 : ( $a > $b ? 1 : -1 );
+      });
+      return $scores;
+    }
+
+    private function calculatePercentileRank($score, $scores) {
+
+      $lowerThan = $scores->filter(function($v, $i) use ($score) {
+        return $v < $score;
+      });
+      $equalTo = $scores->filter(function($v, $i) use ($score) {
+        return $v == $score;
+      });
+      return ((count($lowerThan) + ( 0.5 * count($equalTo) )) / count($scores)) * 100;
     }
 
     private function recordStartTime(Request $request, $type) {

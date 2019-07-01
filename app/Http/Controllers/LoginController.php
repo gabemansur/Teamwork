@@ -111,6 +111,7 @@ class LoginController extends Controller
          if($request->task_package == 'assign-block') \Teamwork\GroupTask::initializeAssignedBlockTasks(\Auth::user()->group_id, $randomize = false);
          if($request->task_package == 'memory') \Teamwork\GroupTask::initializeMemoryTasks(\Auth::user()->group_id, $randomize = false);
          if($request->task_package == 'testing-block') \Teamwork\GroupTask::initializeTestingTasks(\Auth::user()->group_id, $randomize = false);
+         if($request->task_package == 'hdsl') \Teamwork\GroupTask::initializeLabIndividualTasks(\Auth::user()->group_id, $randomize = false);
 
        }
 

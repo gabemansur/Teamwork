@@ -27,7 +27,7 @@ $( document ).ready(function() {
   $("#final-function").val(f.toString());
 
   $("#timer-container").hide();
-  $("#guess-prompt").hide();
+  $("#timer-guess-prompt").hide();
 
   $("#submit-final").on("click", function(event){
     $("#final-result").val(f($("#final-guess").val()));
@@ -94,7 +94,7 @@ $( document ).ready(function() {
 
     $("#guess-history").append("<tr><td>" + guessNumber + " of " + MAX_RESPONSES +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
     $("#guess").val('');
-    $("#guess-prompt").hide();
+    $("#timer-guess-prompt").hide();
     $("#guess").focus();
 
     $.post("/optimization-individual", {
@@ -141,7 +141,7 @@ $( document ).ready(function() {
         <div class="pull-right" id="timer-container">
           <h4 class="pull-right">Next guess in: <span class="text-primary" id="timer"></span></h4>
         </div>
-        <div id="guess-prompt">
+        <div id="timer-guess-prompt">
           <h4 class="text-primary">
             Make your next guess now
           </h4>

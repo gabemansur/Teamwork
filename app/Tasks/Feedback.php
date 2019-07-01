@@ -14,9 +14,18 @@ class Feedback {
                   'content' => 'Thank you for participating!'
                 ],
       ],
+    'hdsl_individual' => [[
+                  'type' => 'sub-header',
+                  'content' => 'You\'ve completed all the tasks!'
+                ],
+                [
+                  'type' => 'sub-header',
+                  'content' => 'Thank you for participating!'
+                ],
+      ],
   ];
 
-  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'type' => ['mturk'], 'hasCode' => ['true', 'false']];
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'type' => ['mturk', 'hdsl_individual'], 'hasCode' => ['true', 'false']];
 
   public function getMessage($type) {
     return $this->messages[$type];

@@ -6,7 +6,7 @@ class Memory {
   private $memoryTests = [
     'intro' => ['test_name' => 'intro','task_type' => 'intro'],
     'group_1_intro' => ['test_name' => 'group_1_intro','type' => 'intro', 'task_type' => 'intro', 'blocks' => []],
-    'results' => ['task_type' => 'results'],
+    'results' => ['test_name' => 'results', 'task_type' => 'results'],
     'images_instructions' => [
       'test_name' => 'images_instructions',
       'task_type' => 'images',
