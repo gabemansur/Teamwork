@@ -540,6 +540,10 @@ Route::get('/memory-test', [
   'uses' => 'IndividualTaskController@testMemory',
 ]);
 
+Route::get('/score-test/{groupId}', [
+  'uses' => 'IndividualTaskController@calculateScore',
+]);
+
 Route::get('/cryptography-save-test', [
   'uses' => 'GroupTaskController@testCryptograhySave',
 ]);

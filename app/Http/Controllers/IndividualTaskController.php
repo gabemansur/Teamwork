@@ -244,6 +244,9 @@ class IndividualTaskController extends Controller
       $parameters = unserialize($currentTask->parameters);
       $feedbackMessage = (new \Teamwork\Tasks\Feedback)->getMessage($parameters->type);
       $hasCode = ($parameters->hasCode == 'true') ? true : false;
+
+      $score = $this->calculateScore(\Auth::user()->group_id);
+
       return view('layouts.participants.participant-study-feedback')
              ->with('feedbackMessage', $feedbackMessage)
              ->with('hasCode', $hasCode);
@@ -905,6 +908,89 @@ class IndividualTaskController extends Controller
       \Session::put('completedTasks', $completed);
     }
 
+    public function calculateScore($groupId) {
+      $shapesTask = \Teamwork\GroupTask::where('group_id', $groupId)
+                                       ->where('name', 'Shapes')
+                                       ->with('response')
+                                       ->first();
+
+      $shapesCorrect = $shapesTask->response->sum('correct');
+      $populationShapesScores = collect($this->getShapesScores());
+
+      // Remove any scores of 0
+      $populationShapesScores = $populationShapesScores->filter(function($v, $k) {
+        return $v > 0;
+      });
+
+      $stdDev = $this->getStdDev(collect($populationShapesScores));
+      $avg = $this->getAvg($populationShapesScores);
+
+      $standardizedShapesScore = $this->standardizeShapesScore($shapesCorrect, $avg, $stdDev);
+      dump($standardizedShapesScore);
+
+      $optimizationTasks = \Teamwork\GroupTask::where('group_id', $groupId)
+                                       ->where('name', 'Optimization')
+                                       ->with('response')
+                                       ->get();
+
+      $functionStats = \Teamwork\Tasks\Optimization::getFunctionStats();
+
+      $optScores = [];
+
+      foreach($optimizationTasks as $opt) {
+        $parameters = unserialize($opt->parameters);
+        $func = $parameters->function;
+        $stats = $functionStats[(string) $func];
+        dump($func);
+        $optScores[] = $this->calcOptimizationScore($opt->response, $functionStats[(string) $func]);
+      }
+
+      dump($optScores);
+
+      $avgOptScores = array_sum($optScores) * (1 / count($optScores));
+      dump($avgOptScores);
+
+      $populationOptimizationScores = $this->getOptimizationScores();
+
+      dump($populationOptimizationScores);
+      // 3 arrays (1 for each function) with scores
+      // Need to get mean and st dev for each function, then
+      // use that for the subject's scores
+
+    }
+
+    private function getOptimizationScores() {
+
+      $groups = \Teamwork\GroupTask::where('name', 'Optimization')->with('response')->get();
+      $functionStats = \Teamwork\Tasks\Optimization::getFunctionStats();
+
+      $scores = ['1' => [], '2' => [], '3' => []];
+      foreach($groups as $id => $group) {
+        if(count($group->response) == 0) continue;
+        $parameters = unserialize($group->parameters);
+        if($parameters->function == '1' || $parameters->function == '2' || $parameters->function == '3') {
+          $scores[$parameters->function][] = $this->calcOptimizationScore($group->response, $functionStats[(string) $parameters->function]);
+        }
+      }
+      usort($scores['1'], function( $a, $b ) {
+        return $a == $b ? 0 : ( $a > $b ? 1 : -1 );
+      });
+      usort($scores['2'], function( $a, $b ) {
+        return $a == $b ? 0 : ( $a > $b ? 1 : -1 );
+      });
+      usort($scores['3'], function( $a, $b ) {
+        return $a == $b ? 0 : ( $a > $b ? 1 : -1 );
+      });
+      return $scores;
+    }
+
+    private function calcOptimizationScore($responses, $stats) {
+      $finalGuess = $responses->filter(function($val, $k) {
+        return strpos($val, 'final') !== false;
+      })->pluck('response')->first();
+      return 1 - ( abs($stats['ymax'] - $finalGuess) / ($stats['ymax'] - $stats['ymin']) );
+    }
+
     private function getMemoryScores() {
       $groups = \Teamwork\GroupTask::where('name', 'Memory')->with('response')->get();
 
@@ -929,6 +1015,42 @@ class IndividualTaskController extends Controller
         return $a == $b ? 0 : ( $a > $b ? 1 : -1 );
       });
       return $scores;
+    }
+
+    private function getShapesScores() {
+      $groups = \Teamwork\GroupTask::where('name', 'Shapes')->with('response')->get();
+      $scores = [];
+      foreach($groups as $id => $group) {
+        if(count($group->response) == 0) continue;
+        $parameters = unserialize($group->parameters);
+        if($parameters->subtest == 'subtest1') {
+          $sum = $group->response->sum('correct');
+          $scores[] = $sum;
+        }
+      }
+      usort($scores, function( $a, $b ) {
+        return $a == $b ? 0 : ( $a > $b ? 1 : -1 );
+      });
+      return $scores;
+    }
+
+    private function standardizeShapesScore($score, $avg, $stdDev) {
+      return ($score - $avg) / $stdDev;
+    }
+
+    private function getAvg($scores) {
+      return $scores->avg();
+    }
+
+    private function getStdDev($scores) {
+
+      $mean = $scores->avg();
+      $distFromMean = $scores->map(function($val, $k) use ($mean){
+        return pow(abs($mean - $val), 2);
+      });
+      $sum = $distFromMean->sum();
+      $stdDev = sqrt($sum / count($scores));
+      return $stdDev;
     }
 
     private function calculatePercentileRank($score, $scores) {
