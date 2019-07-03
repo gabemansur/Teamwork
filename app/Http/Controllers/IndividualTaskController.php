@@ -249,6 +249,7 @@ class IndividualTaskController extends Controller
 
       return view('layouts.participants.participant-study-feedback')
              ->with('feedbackMessage', $feedbackMessage)
+             ->with('score', $score)
              ->with('hasCode', $hasCode);
     }
 
@@ -675,6 +676,8 @@ class IndividualTaskController extends Controller
 
     public function displayMemoryTaskResults(Request $request) {
 
+      // When we switch to filter to use only HDSL participants, we also need to un-square optStdDev
+      $filter = \DB::table('users')->whereRaw('CHAR_LENGTH(participant_id) > 11')->pluck('group_id')->toArray();
 
       $groupTasks = \Teamwork\GroupTask::where('name', 'Memory')
                                    ->where('group_id', \Auth::user()->group_id)
@@ -683,7 +686,7 @@ class IndividualTaskController extends Controller
 
       $performance = ['words_1' => 0, 'faces_1' => 0, 'story_1' => 0];
 
-      $scores = $this->getMemoryScores();
+      $scores = $this->getMemoryScores($filter);
 
       foreach($groupTasks as $id => $task) {
         if(count($task->response) == 0) continue;
@@ -909,24 +912,24 @@ class IndividualTaskController extends Controller
     }
 
     public function calculateScore($groupId) {
-      $shapesTask = \Teamwork\GroupTask::where('group_id', $groupId)
-                                       ->where('name', 'Shapes')
-                                       ->with('response')
-                                       ->first();
+      // When we switch to filter to use only HDSL participants, we also need to un-square optStdDev
+      $filter = \DB::table('users')->whereRaw('CHAR_LENGTH(participant_id) > 11')->pluck('group_id')->toArray();
 
-      $shapesCorrect = $shapesTask->response->sum('correct');
-      $populationShapesScores = collect($this->getShapesScores());
+      $standardizedShapesScore = $this->getIndividualShapesScore($groupId, $filter);
 
-      // Remove any scores of 0
-      $populationShapesScores = $populationShapesScores->filter(function($v, $k) {
-        return $v > 0;
-      });
+      $standardizedOptScore = $this->getIndividualOptimizationScore($groupId, $filter);
 
-      $stdDev = $this->getStdDev(collect($populationShapesScores));
-      $avg = $this->getAvg($populationShapesScores);
+      $standardizedMemScore = $this->getIndividualMemoryScores($groupId, $filter);
+      $finalScore = (1 / 3) * ($standardizedShapesScore + $standardizedOptScore + $standardizedMemScore);
 
-      $standardizedShapesScore = $this->standardizeShapesScore($shapesCorrect, $avg, $stdDev);
-      dump($standardizedShapesScore);
+      $fruit = 'PEAR';
+      if($finalScore >= .45) $fruit = 'BANANA';
+      elseif($finalScore >= -0.2) $fruit = 'APPLE';
+
+      return $fruit;
+    }
+
+    private function getIndividualOptimizationScore($groupId, $filter) {
 
       $optimizationTasks = \Teamwork\GroupTask::where('group_id', $groupId)
                                        ->where('name', 'Optimization')
@@ -941,46 +944,47 @@ class IndividualTaskController extends Controller
         $parameters = unserialize($opt->parameters);
         $func = $parameters->function;
         $stats = $functionStats[(string) $func];
-        dump($func);
         $optScores[] = $this->calcOptimizationScore($opt->response, $functionStats[(string) $func]);
       }
 
-      dump($optScores);
+      $avgOptScore = array_sum($optScores) * (1 / count($optScores));
 
-      $avgOptScores = array_sum($optScores) * (1 / count($optScores));
-      dump($avgOptScores);
+      $populationOptimizationScores = $this->getOptimizationScores($filter);
 
-      $populationOptimizationScores = $this->getOptimizationScores();
-
-      dump($populationOptimizationScores);
-      // 3 arrays (1 for each function) with scores
-      // Need to get mean and st dev for each function, then
-      // use that for the subject's scores
-
+      $optAvg = $this->getAvg(collect($populationOptimizationScores));
+      $optStdDev = $this->getStdDev(collect($populationOptimizationScores));
+      $standardizedOptScore = $this->standardizeScore($avgOptScore, $optAvg, pow($optStdDev, 2)); // This should just be optStdDev (not squared) when we switch to HDSL participants
+      return $standardizedOptScore;
     }
 
-    private function getOptimizationScores() {
 
-      $groups = \Teamwork\GroupTask::where('name', 'Optimization')->with('response')->get();
+    private function getOptimizationScores($filter) {
+      $groups = \Teamwork\GroupTask::where('name', 'Optimization')
+                                   ->with('response')
+                                   ->whereIn('group_id', $filter)
+                                   ->get();
+
       $functionStats = \Teamwork\Tasks\Optimization::getFunctionStats();
 
-      $scores = ['1' => [], '2' => [], '3' => []];
+      $rawScores = [];
+      $scores = [];
       foreach($groups as $id => $group) {
         if(count($group->response) == 0) continue;
         $parameters = unserialize($group->parameters);
-        if($parameters->function == '1' || $parameters->function == '2' || $parameters->function == '3') {
-          $scores[$parameters->function][] = $this->calcOptimizationScore($group->response, $functionStats[(string) $parameters->function]);
-        }
+        $userId = $group->response->pluck('user_id')->first();
+        if(!array_key_exists($userId, $rawScores)) $rawScores[$userId] = [$this->calcOptimizationScore($group->response, $functionStats[(string) $parameters->function])];
+        else $rawScores[$userId][] = $this->calcOptimizationScore($group->response, $functionStats[(string) $parameters->function]);
       }
-      usort($scores['1'], function( $a, $b ) {
-        return $a == $b ? 0 : ( $a > $b ? 1 : -1 );
-      });
-      usort($scores['2'], function( $a, $b ) {
-        return $a == $b ? 0 : ( $a > $b ? 1 : -1 );
-      });
-      usort($scores['3'], function( $a, $b ) {
-        return $a == $b ? 0 : ( $a > $b ? 1 : -1 );
-      });
+
+      foreach($rawScores as $user => $scoreArr){
+        $sum = 0;
+        if(count($scoreArr) < 2) continue;
+        foreach($scoreArr as $score) {
+          $sum += $score;
+        }
+        $scores[] = $sum * (1 / count($scoreArr));
+      }
+
       return $scores;
     }
 
@@ -991,8 +995,35 @@ class IndividualTaskController extends Controller
       return 1 - ( abs($stats['ymax'] - $finalGuess) / ($stats['ymax'] - $stats['ymin']) );
     }
 
-    private function getMemoryScores() {
-      $groups = \Teamwork\GroupTask::where('name', 'Memory')->with('response')->get();
+    private function getIndividualMemoryScores($groupId, $filter) {
+      $memoryTasks = \Teamwork\GroupTask::where('group_id', $groupId)
+                                       ->where('name', 'Memory')
+                                       ->with('response')
+                                       ->get();
+
+      $sum = 0;
+      foreach($memoryTasks as $id => $task) {
+       if(count($task->response) == 0) continue;
+       $parameters = unserialize($task->parameters);
+       if($parameters->test == 'words_1' || $parameters->test == 'faces_1' || $parameters->test == 'story_1') {
+         $sum += $task->response->avg('points');
+       }
+      }
+
+      $memRaw = $sum * (1/3);
+      $populationMemoryScores = collect($this->getMemoryScoresByUser($filter));
+
+      $memAvg = $this->getAvg($populationMemoryScores);
+      $memStdDev = $this->getStdDev($populationMemoryScores);
+      $standardizedMemScore = $this->standardizeScore($memRaw, $memAvg, $memStdDev);
+      return $standardizedMemScore;
+    }
+
+    private function getMemoryScores($filter) {
+      $groups = \Teamwork\GroupTask::where('name', 'Memory')
+                                    ->whereIn('group_id', $filter)
+                                    ->with('response')
+                                    ->get();
 
       $scores = ['words_1' => [], 'faces_1' => [], 'story_1' => []];
 
@@ -1017,8 +1048,63 @@ class IndividualTaskController extends Controller
       return $scores;
     }
 
-    private function getShapesScores() {
-      $groups = \Teamwork\GroupTask::where('name', 'Shapes')->with('response')->get();
+    private function getMemoryScoresByUser($filter) {
+      $groups = \Teamwork\GroupTask::where('name', 'Memory')
+                                    ->whereIn('group_id', $filter)
+                                    ->with('response')
+                                    ->get();
+
+      $rawScores = [];
+      $scores = [];
+      foreach($groups as $id => $group) {
+        if(count($group->response) == 0) continue;
+        $parameters = unserialize($group->parameters);
+        if($parameters->test == 'words_1' || $parameters->test == 'faces_1' || $parameters->test == 'story_1') {
+
+          $userId = $group->response->pluck('user_id')->first();
+          if(!array_key_exists($userId, $rawScores)) $rawScores[$userId] = [$group->response->avg('points')];
+          else $rawScores[$userId][] = $group->response->avg('points');
+        }
+      }
+
+      foreach($rawScores as $user => $score) {
+        if(count($score) != 3) continue;
+        $scores[] = (array_sum($score) * (1 / 3));
+      }
+
+      usort($scores, function( $a, $b ) {
+        return $a == $b ? 0 : ( $a > $b ? 1 : -1 );
+      });
+
+      return $scores;
+    }
+
+    private function getIndividualShapesScore($groupId, $filter) {
+      $shapesTask = \Teamwork\GroupTask::where('group_id', $groupId)
+                                       ->where('name', 'Shapes')
+                                       ->with('response')
+                                       ->first();
+
+      $shapesCorrect = $shapesTask->response->sum('correct');
+      $populationShapesScores = collect($this->getShapesScores($filter));
+
+      // Remove any scores of 0
+      $populationShapesScores = $populationShapesScores->filter(function($v, $k) {
+        return $v > 0;
+      });
+
+      $shapesStdDev = $this->getStdDev(collect($populationShapesScores));
+      $shapesAvg = $this->getAvg($populationShapesScores);
+
+      $standardizedShapesScore = $this->standardizeScore($shapesCorrect, $shapesAvg, $shapesStdDev);
+      return $standardizedShapesScore;
+    }
+
+    private function getShapesScores($filter) {
+      $groups = \Teamwork\GroupTask::where('name', 'Shapes')
+                                   ->whereIn('group_id', $filter)
+                                   ->with('response')
+                                   ->get();
       $scores = [];
       foreach($groups as $id => $group) {
         if(count($group->response) == 0) continue;
@@ -1031,10 +1117,13 @@ class IndividualTaskController extends Controller
       usort($scores, function( $a, $b ) {
         return $a == $b ? 0 : ( $a > $b ? 1 : -1 );
       });
+      usort($scores, function( $a, $b ) {
+        return $a == $b ? 0 : ( $a > $b ? 1 : -1 );
+      });
       return $scores;
     }
 
-    private function standardizeShapesScore($score, $avg, $stdDev) {
+    private function standardizeScore($score, $avg, $stdDev) {
       return ($score - $avg) / $stdDev;
     }
 
