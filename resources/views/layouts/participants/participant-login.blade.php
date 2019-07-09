@@ -16,7 +16,7 @@
         {{ csrf_field() }}
         <fieldset class="bg-light p-4 rounded">
           <div class="form-group">
-            <label for="participant_id">Participant ID</label>
+            <label for="participant_id">Email Address</label>
             <input type="text" class="form-control" name="participant_id"
                    value="{{ old('participant_id') }}">
           </div>
