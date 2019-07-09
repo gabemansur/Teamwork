@@ -38,8 +38,7 @@ class Memory {
           'correct' => [3]],
         ['type' => 'text',
           'text' => 'Now for the actual task. When you click "Continue" a screen will appear with 6 target
-                     images. The images may not be faces this time, they may be
-                     some other type of object.
+                     images. 
                      You can view the images front-on or in profile.
                      Click the "change perspective" button to see them from a different angle.
                      You will have 20 seconds to memorize
@@ -71,7 +70,7 @@ class Memory {
       'blocks' => [
         ['type' => 'text',
          'header' => 'Word Memory',
-         'text' => 'Next, we’ll test word memory. In this task,
+         'text' => 'In this task,
                   you’ll be presented with a set of "target words".  Each word
                   will show up separately for 2 seconds. We’ll start
                   with a practice. In the practice round, you only have

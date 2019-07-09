@@ -62,6 +62,21 @@ class LoginController extends Controller
        if($request->task_package == 'group-test'){
          \Teamwork\GroupTask::initializeGroupTestTasks(\Auth::user()->group_id, $randomize = false);
        }
+       if($request->task_package == 'lab-round-1'){
+         \Teamwork\GroupTask::initializeLabRoundOneTasks(\Auth::user()->group_id, $randomize = false);
+       }
+       if($request->task_package == 'lab-round-2'){
+         \Teamwork\GroupTask::initializeLabRoundTwoTasks(\Auth::user()->group_id, $randomize = false);
+       }
+       if($request->task_package == 'lab-round-3'){
+         \Teamwork\GroupTask::initializeLabRoundThreeTasks(\Auth::user()->group_id, $randomize = false);
+       }
+       if($request->task_package == 'lab-round-4'){
+         \Teamwork\GroupTask::initializeLabRoundFourTasks(\Auth::user()->group_id, $randomize = false);
+       }
+       if($request->task_package == 'lab-round-5'){
+         \Teamwork\GroupTask::initializeLabRoundFiveTasks(\Auth::user()->group_id, $randomize = false);
+       }
       }
 
       return redirect('/get-individual-task');

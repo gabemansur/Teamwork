@@ -13,11 +13,12 @@
         @endforeach
       @endif
       <form action="/individual-login" method="post">
-        <h4>Please enter your MTurk ID below:</h4>
+        <h4>Please enter your email address below:</h4>
+        <h6>This should be the same address you use to register for studies</h6>
         {{ csrf_field() }}
         <fieldset class="bg-light p-4 rounded">
           <div class="form-group">
-            <label for="participant_id">MTurk ID</label>
+            <label for="participant_id">Email</label>
             <input type="text" class="form-control" name="participant_id"
                    value="{{ old('participant_id') }}">
             @if(isset($package))

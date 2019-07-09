@@ -244,12 +244,8 @@ class IndividualTaskController extends Controller
       $parameters = unserialize($currentTask->parameters);
       $feedbackMessage = (new \Teamwork\Tasks\Feedback)->getMessage($parameters->type);
       $hasCode = ($parameters->hasCode == 'true') ? true : false;
-
-      $score = $this->calculateScore(\Auth::user()->group_id);
-
       return view('layouts.participants.participant-study-feedback')
              ->with('feedbackMessage', $feedbackMessage)
-             ->with('score', $score)
              ->with('hasCode', $hasCode);
     }
 
@@ -272,7 +268,7 @@ class IndividualTaskController extends Controller
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
       $conclusion = new \Teamwork\Tasks\Conclusion;
-      if($parameters->hasCode) {
+      if($parameters->hasCode == 'true') {
         $code = $conclusion->newConfirmationCode($parameters->type);
         $code->user_id = \Auth::user()->id;
         $code->save();
@@ -285,13 +281,26 @@ class IndividualTaskController extends Controller
       $parameters = unserialize($currentTask->parameters);
       $conclusion = new \Teamwork\Tasks\Conclusion;
       $conclusionContent = $conclusion->getConclusion($parameters->type);
+      if($parameters->displayScoreGroup) {
+        $score = $this->calculateScore(\Auth::user()->group_id);
+      }
+      else $score = null;
+      if($parameters->digitalReceipt) {
+        $receiptLink = '';
+      }
+      else $receiptLink = null;
       if($parameters->hasCode == 'true') {
         $code = $conclusion->getConfirmationCode(\Auth::user()->id)->code;
       }
       else $code = null;
+
+
+
       return view('layouts.participants.participant-study-conclusion')
              ->with('conclusionContent', $conclusionContent)
-             ->with('code', $code);
+             ->with('code', $code)
+             ->with('score', $score)
+             ->with('receiptLink', $receiptLink);
     }
 
     public function teamRoleIntro(Request $request) {
@@ -935,7 +944,7 @@ class IndividualTaskController extends Controller
                                        ->where('name', 'Optimization')
                                        ->with('response')
                                        ->get();
-
+      if(!$optimizationTasks) return 0;
       $functionStats = \Teamwork\Tasks\Optimization::getFunctionStats();
 
       $optScores = [];
@@ -947,6 +956,7 @@ class IndividualTaskController extends Controller
         $optScores[] = $this->calcOptimizationScore($opt->response, $functionStats[(string) $func]);
       }
 
+      if(count($optScores) == 0) return 0;
       $avgOptScore = array_sum($optScores) * (1 / count($optScores));
 
       $populationOptimizationScores = $this->getOptimizationScores($filter);
@@ -1092,6 +1102,7 @@ class IndividualTaskController extends Controller
       $populationShapesScores = $populationShapesScores->filter(function($v, $k) {
         return $v > 0;
       });
+
 
       $shapesStdDev = $this->getStdDev(collect($populationShapesScores));
       $shapesAvg = $this->getAvg($populationShapesScores);

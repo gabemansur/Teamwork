@@ -16,7 +16,7 @@ class Feedback {
       ],
     'hdsl_individual' => [[
                   'type' => 'sub-header',
-                  'content' => 'You\'ve completed all the tasks!'
+                  'content' => 'You\'ve completed all the online tasks!'
                 ],
                 [
                   'type' => 'sub-header',
