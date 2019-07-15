@@ -40,9 +40,10 @@ class LoginController extends Controller
       $user->save();
       \Auth::login($user);
 
-      // If the user exists and this isn't the group they entered, kick them back
+      // If the user exists, update the user's group ID, if needed
       if($group->id != $user->group_id) {
-       return redirect()->back()->withInput()->withErrors('It appears that you already belong to another group.');
+       $user->group_id = $group->id;
+       $user->save();
       }
 
       // If this is a newly created group, create some tasks if requested

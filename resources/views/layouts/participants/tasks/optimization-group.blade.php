@@ -31,14 +31,14 @@ $( document ).ready(function() {
 
   // Setting the timer and warning timer
   warningTimeout = setTimeout(function() {
-    $('#warningModal').modal();
+    $('#warningModal').modal({show: true, backdrop: 'static', keyboard: false});
   }, 180000);
 
-  initializeTimer(240, function() { 
+  initializeTimer(240, function() {
 
     clearTimeout(warningTimeout);
     $('#warningModal').modal('hide');
-    $('#final-guess-prompt').modal();
+    $('#final-guess-prompt').modal({show: true, backdrop: 'static', keyboard: false});
   });
 
   // Let's put the function as a string into the final submission form
@@ -46,6 +46,7 @@ $( document ).ready(function() {
 
   $("#timer-container").hide();
   $("#guess-prompt").hide();
+  $("#final-answer-error").hide();
 
   $("#submit-final").on("click", function(event){
     $("#final-result").val(f($("#final-guess").val()));
@@ -107,7 +108,7 @@ $( document ).ready(function() {
     if(guessNumber == MAX_RESPONSES) {
       clearTimeout(warningTimeout);
       stopTimer();
-      $('#final-guess-prompt').modal();
+      $('#final-guess-prompt').modal({show: true, backdrop: 'static', keyboard: false});
     }
 
     event.preventDefault();
@@ -132,10 +133,20 @@ $( document ).ready(function() {
   });
 
   $("#final-guess-submit").on("click", function(event) {
-    markIndividualReady(userId, groupId, taskId, step, token);
-    $("#final-result").val(f($("#final-guess").val()));
-    $("#optimization-final-form").submit();
-    event.preventDefault();
+    let n = parseInt($("#final-guess").val());
+    if(n < 0 || n > 300 || n == '') {
+      $("#final-answer-error").html('Your guess must be between 0 and 300');
+      $("#final-answer-error").show();
+      event.preventDefault();
+      return;
+    }
+    else {
+      markIndividualReady(userId, groupId, taskId, step, token);
+      $("#final-result").val(f($("#final-guess").val()));
+      $("#optimization-final-form").submit();
+      $("#reporter-final-answer").modal('hide');
+      event.preventDefault();
+    }
   });
 
 });
@@ -154,14 +165,14 @@ function waitForGroup(userId, groupId, groupTasksId, step, token, isReporter) {
         if(response == '1') {
           if(isReporter) {
             $("#waiting-for-group").modal('hide');
-            $("#reporter-final-answer").modal('show');
+            $("#reporter-final-answer").modal({show: true, backdrop: 'static', keyboard: false});
           }
           else window.location = '/end-group-task';
         }
         else {
-          $("#waiting-for-group").modal('show');
+          $("#waiting-for-group").modal({show: true, backdrop: 'static', keyboard: false});
           setTimeout(function(){
-           $("#waiting-for-group").modal('show');
+           $("#waiting-for-group").modal({show: true, backdrop: 'static', keyboard: false});
            console.log('waiting...');
            waitForGroup(userId, groupId, groupTasksId, step, token, isReporter);
          }, 1000);

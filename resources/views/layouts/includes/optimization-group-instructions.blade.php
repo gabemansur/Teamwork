@@ -5,7 +5,7 @@
         <h5>
           Your group’s goal is to find a number (between 0 and 300) that
           results in your computer returning the biggest possible value. You
-          each have {{ $maxResponses / $groupSize }} guesses, which you enter into your own laptop. A guess
+          each have {{ floor($maxResponses / $groupSize) }} guesses, which you enter into your own laptop. A guess
           can be any number between 0 and 300.
         </h5>
         <h5>

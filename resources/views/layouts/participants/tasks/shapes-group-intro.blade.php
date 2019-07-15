@@ -211,8 +211,7 @@
       <div id="inst_4" class="inst">
         <h4>
           After clicking the "next" button, your group will complete the rest
-          yourselves. Remember: <strong>choose two figures in each row that are
-          <em>different</em> from the others</strong>.
+          yourselves.
         </h4>
         <h4>
           As always, take a moment to discuss

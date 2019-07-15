@@ -11,7 +11,8 @@
           <label for="final-guess">Final answer:</label>
           <input type="number" class="form-control" id="final-guess" min="0" max="300">
         </div>
-        <button class="btn btn-lg btn-primary pull-right" id="final-guess-submit" data-dismiss="modal" type="button">Submit</button>
+        <h4 class="text-danger" id="final-answer-error"></h4>
+        <button class="btn btn-lg btn-primary pull-right" id="final-guess-submit" type="button">Submit</button>
       </div>
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->

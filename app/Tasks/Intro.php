@@ -95,8 +95,8 @@ class Intro {
                  ],
                  [
                    'type' => 'paragraph',
-                   'content' => 'You will be working together for about 45
-                   minutes, trying to solve 3 tasks.<br>You’ve seen similar
+                   'content' => 'You will be working together for around half an hour,
+                   trying to solve 3 tasks.<br>You’ve seen similar
                    (or identical) tasks as individuals:'
                  ],
                  [
@@ -125,8 +125,8 @@ class Intro {
                  ],
                  [
                    'type' => 'paragraph',
-                   'content' => 'You will be working together for about 45
-                   minutes, trying to solve 3 tasks. The tasks will be similar
+                   'content' => 'You will be working together for around half an hour,
+                   trying to solve 3 tasks. The tasks will be similar
                    to those you worked on in your previous groups:'
                  ],
                  [
@@ -160,7 +160,7 @@ class Intro {
                    ],
                    [
                      'type' => 'paragraph',
-                     'content' => 'You will be working together for about 15
+                     'content' => 'You will be working together for about 25
                      minutes, trying to solve 1 new task.'
                    ],
                    [

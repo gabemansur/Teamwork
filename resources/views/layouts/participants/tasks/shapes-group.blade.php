@@ -94,7 +94,7 @@
           <div id="inst_{{ $i }}" class="inst">
             <h4>
               @if($subtest == 'subtest2')
-                Please select two correct answers
+                Please select <strong>two</strong> boxes
               @elseif($subtest == 'subtest3')
                 Choose the box that best fits in the empty dotted box
               @elseif($subtest == 'subtest4')

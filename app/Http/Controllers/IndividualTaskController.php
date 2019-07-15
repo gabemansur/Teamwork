@@ -213,7 +213,13 @@ class IndividualTaskController extends Controller
           $numUsersCompleted = count($task->progress->groupBy('user_id'));
 
           if($numUsersCompleted == $usersInGroup){
-            $request->session()->put('msg', 'The other 2 members of your group have chosen not to be The Reporter. So, you have been assigned this role! You are now The Reporter');
+            \DB::table('reporters')
+                ->insert(['user_id' => \Auth::user()->id,
+                          'group_id' => \Auth::user()->group_id,
+                          'created_at' => date("Y-m-d H:i:s"),
+                          'updated_at' => date("Y-m-d H:i:s")]);
+
+            $request->session()->put('msg', 'The other members of your group have chosen not to be The Reporter. So, you have been assigned this role! You are now The Reporter');
             return redirect('/reporter-chosen');
           }
         }

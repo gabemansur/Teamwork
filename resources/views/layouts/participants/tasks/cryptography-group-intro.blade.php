@@ -89,9 +89,6 @@ $( document ).ready(function() {
       @if($introType == 'group_1' || $introType == 'group_2')
       <div id="inst_1" class="inst">
         <h2 class="text-primary">Cryptography Task</h2>
-        <h3 class="text-success">
-          Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
-        </h3>
         <h4>
           Next is the Cryptography task, in which every letter from A to J has a numerical
           value. Your goal is to find out the value of each letter.
@@ -214,66 +211,32 @@ $( document ).ready(function() {
         </h4>
       </div> <!-- End inst_5 -->
       <!-- end group1/group2 intro -->
-      @elseif($introType == 'group_3')
+      @elseif($introType == 'group_5_alt')
         <div id="inst_1" class="inst">
           <h2 class="text-primary">Cryptography Task</h2>
           <h3 class="text-success">
             Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
           </h3>
           <h4>
-            Next is the Cryptography task. This task is the same as the cryptography puzzle you completed in your
-            previous group.
+            You will now attempt the Cryptography Task again.
           </h4>
           <h4>
-            Recall that in this task each letter from A to J has a numerical value
-            (from 0 to 9). Your goal is to correctly identify the value of each
-            letter, using the fewest possible “trials”.
+            Each of the letters from A to J has a numerical value
+            (from 0 to 9) and your job is to find the value of each
+            letter.
+          </h4>
+          <h4>
+            This task is exactly the same as the puzzle you just completed. The only
+            difference is that the values of the letters have changed.
           <h4>
             <strong>At this point everyone should gather around The Reporter’s laptop.</strong>
             If you are not The Reporter, you can click "finish" and close your laptop:
             you won’t be needing it again.
           </h4>
           <h4>
-            Once all three members of the group can see the screen of The Reporter’s
-            laptop, hit next. We will then review how the cryptography task works.
-          </h4>
-        </div> <!-- End inst_1 -->
-
-        <div id="inst_2" class="inst">
-          <h4>
-            Each trial has three elements:
-          </h4>
-          <div class="row">
-            <div class="col-md-8 offset-md-2 text-left">
-              <h4>
-                1. <span class="text-equation">Enter an equation (e.g. AA + H)</span>
-                     The computer will then tell you the answer.<br>
-                2. <span class="text-hypothesis">Make a hypothesis (e.g. A = 1)</span>
-                    Here, you get feedback about one letter.<br>
-                3. <span class="text-guess">Guess the letter values</span>. This
-                is where you keep track of the letter values, and submit your
-                guesses. If you guess all the letters correctly, then you have
-                solved the puzzle!
-              </h4>
-              <h4>Click nect to continue.</h4>
-            </div>
-          </div>
-        </div> <!-- End inst_2 -->
-
-        <div id="inst_3" class="inst">
-          <h4>
-            Remember, your goal is to solve the whole puzzle <strong> in the
-              minimum number of trials</strong>.<br>
-            Your group has a total of 10 minutes, and {{ $maxResponses }} trials.
-            If you don’t solve the task, you will get some points for
-            each letter-number combination you correctly identify.
-          </h4>
-          <h4>
-            No calculators are allowed.<br>
-            <strong>Take a few moments to discuss how you’ll approach the task.</strong><br>
             The puzzle will begin when you hit "Next".
           </h4>
-        </div> <!-- End inst_3 -->
+        </div> <!-- End inst_1 -->
       @endif
 
       @if($isReporter)

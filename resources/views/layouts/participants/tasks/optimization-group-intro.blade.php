@@ -37,6 +37,7 @@ $( document ).ready(function() {
   var instructionPaginator = new InstructionPaginator(1, waitingPages, userId, groupId, taskId, token, modal, callback);
 
   $("#guess-prompt").hide();
+  $("#final-answer-error").hide();
 
   $("#next").on('click', function(event) {
 
@@ -55,7 +56,7 @@ $( document ).ready(function() {
       initializeTimer(240, function() {
 
         clearTimeout(warningTimeout);
-        if(isReporter) $("#reporter-final-answer").modal('show');
+        if(isReporter) $("#reporter-final-answer").modal({show: true, backdrop: 'static', keyboard: false});
         else {
           instructionPaginator.nav('next');
           $("#instr_nav").show();
@@ -95,7 +96,7 @@ $( document ).ready(function() {
     if(guessNumber == MAX_RESPONSES) {
       clearTimeout(warningTimeout);
       stopTimer();
-      $('#final-guess-prompt').modal();
+      $('#final-guess-prompt').modal({show: true, backdrop: 'static', keyboard: false});
     }
 
     event.preventDefault();
@@ -104,7 +105,7 @@ $( document ).ready(function() {
   $("#final-guess-prompt-submit").on("click", function(event) {
 
     $('#final-guess-prompt').modal('hide');
-    if(isReporter) $("#reporter-final-answer").modal('show');
+    if(isReporter) $("#reporter-final-answer").modal({show: true, backdrop: 'static', keyboard: false});
     else {
       instructionPaginator.nav('next');
       $("#instr_nav").show();
@@ -187,11 +188,11 @@ $( document ).ready(function() {
         <div id="inst_4" class="inst">
           <h2>Practice Round</h2>
           <h4>
-            Each of you will have {{ $maxResponses / $groupSize }} guesses in this practice round. In total,
-            the group has {{ $maxResponses }} guesses.
+            Each of you will have {{ floor($maxResponses / $groupSize) }} guesses in this practice round. In total,
+            the group has {{ floor($maxResponses / $groupSize) * 2 }} guesses.
           </h4>
           <h4>
-            After each of you has had {{ $maxResponses / $groupSize }} guesses, the computer will ask The Reporter
+            After each of you has had {{ floor($maxResponses / $groupSize) }} guesses, the computer will ask The Reporter
             to input the Group’s Best Guess.
           </h4>
           <h4>
@@ -211,7 +212,7 @@ $( document ).ready(function() {
           </div>
           <h2>Practice Round</h2>
           <h4 class="text-warning" id="practice-prompt">
-            Enter your guess (between 0 and 300) below. You will have {{ $maxResponses / $groupSize }}
+            Enter your guess (between 0 and 300) below. You will have {{ floor($maxResponses / $groupSize) }}
             individual guesses.
           </h4>
           <div class="alert alert-danger" id="alert" role="alert"></div>
@@ -243,7 +244,7 @@ $( document ).ready(function() {
             Now for the actual task. Your group will do the Optimization Task
             {{ count($totalTasks )}} separate times. Each time, there will be a
             different relationship. Each time, your group will have {{ $maxResponses }}
-            guesses ({{ $maxResponses / $groupSize }} guesses each) to try to find a number
+            guesses ({{ floor($maxResponses / $groupSize) }} guesses each) to try to find a number
             that gives you a big value in return.
           </h4>
           <h4>
@@ -300,7 +301,7 @@ $( document ).ready(function() {
       </div>
       <div id="inst_3" class="inst">
         <h4>
-          As a reminder, each of you will have {{ $maxResponses / $groupSize }}
+          As a reminder, each of you will have {{ floor($maxResponses / $groupSize) }}
           guesses. In total, the group has {{ $maxResponses }} guesses.
         </h4>
         <h4>
