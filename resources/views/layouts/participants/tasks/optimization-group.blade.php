@@ -109,6 +109,8 @@ $( document ).ready(function() {
       clearTimeout(warningTimeout);
       stopTimer();
       $('#final-guess-prompt').modal({show: true, backdrop: 'static', keyboard: false});
+      $("#guess").prop('disabled', true);
+      $("#submit-guess").prop('disabled', true);
     }
 
     event.preventDefault();

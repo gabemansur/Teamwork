@@ -287,14 +287,16 @@ class IndividualTaskController extends Controller
       $parameters = unserialize($currentTask->parameters);
       $conclusion = new \Teamwork\Tasks\Conclusion;
       $conclusionContent = $conclusion->getConclusion($parameters->type);
-      if($parameters->displayScoreGroup) {
+
+      if($parameters->displayScoreGroup == 'true') {
         $score = $this->calculateScore(\Auth::user()->group_id);
       }
       else $score = null;
-      if($parameters->digitalReceipt) {
-        $receiptLink = '';
+
+      if($parameters->digitalReceipt == 'true') {
+        $receiptSonaId = $parameters->sonaId;
       }
-      else $receiptLink = null;
+      else $receiptSonaId = null;
       if($parameters->hasCode == 'true') {
         $code = $conclusion->getConfirmationCode(\Auth::user()->id)->code;
       }
@@ -306,7 +308,7 @@ class IndividualTaskController extends Controller
              ->with('conclusionContent', $conclusionContent)
              ->with('code', $code)
              ->with('score', $score)
-             ->with('receiptLink', $receiptLink);
+             ->with('receiptSonaId', $receiptSonaId);
     }
 
     public function teamRoleIntro(Request $request) {

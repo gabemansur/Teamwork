@@ -97,6 +97,8 @@ $( document ).ready(function() {
       clearTimeout(warningTimeout);
       stopTimer();
       $('#final-guess-prompt').modal({show: true, backdrop: 'static', keyboard: false});
+      $("#guess").prop('disabled', true);
+      $("#submit-guess").prop('disabled', true);
     }
 
     event.preventDefault();
@@ -113,6 +115,7 @@ $( document ).ready(function() {
   });
 
   $("#final-guess-submit").on("click", function(event) {
+    $("#reporter-final-answer").modal('hide');
     instructionPaginator.nav('next');
     $("#instr_nav").show();
   });

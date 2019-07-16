@@ -5,6 +5,17 @@
 <div class="container">
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
+
+      @foreach($conclusionContent as $content)
+        @if($content['type'] == 'header')
+          <h2 class="text-primary">{!! $content['content'] !!}</h2>
+        @elseif($content['type'] == 'sub-header')
+          <h4>{!! $content['content'] !!}</h4>
+        @elseif($content['type'] == 'paragraph')
+          <h4>{!! $content['content'] !!}</h4>
+        @endif
+      @endforeach
+
       @if($code)
         <h4>Your participation code is:<br>
           <span class="text-success">{{ $code }}</span>
@@ -32,6 +43,10 @@
         <h4>
           To sign up for sessions, look for [SONA STUDY NAME]: {{ $score }}
         </h4>
+      @endif
+
+      @if($receiptSonaId)
+        <a class="btn btn-lg btn-success" href="http://dashboard.harvarddecisionlab.org/new-receipt/?i={{ base64_encode($receiptSonaId) }}">Sign Your Digital Receipt</a>
       @endif
     </div>
   </div>
