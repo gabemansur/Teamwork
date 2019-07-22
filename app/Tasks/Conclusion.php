@@ -49,7 +49,7 @@ class Conclusion {
 
                 [
                   'type' => 'sub-header',
-                  'content' => '<a class="btn btn-lg btn primary" href="https://docs.google.com/forms/d/1ZZV8P_dyifFn4DRhalN82126POz3R-SgCWXvTo7DMaU/viewform?edit_requested=true">
+                  'content' => '<a class="btn btn-lg btn-primary" href="https://docs.google.com/forms/d/1ZZV8P_dyifFn4DRhalN82126POz3R-SgCWXvTo7DMaU/viewform?edit_requested=true">
                   Exit Survey</a>'
                 ],
       ],
@@ -65,7 +65,7 @@ class Conclusion {
                 [
                   'type' => 'sub-header',
                   'content' => 'They will let you know what to do next.'
-                ],
+                ]]
   ];
 
   private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'type' => ['mturk', 'hdsl_individual'], 'hasCode' => ['true', 'false']];

@@ -303,7 +303,7 @@ $( document ).ready(function() {
               guesses around 140 result in very low values.
             </h4>
           </div>
-          <div id="inst_6" class="inst">
+          <div id="inst_4" class="inst">
             <h4>
               Your group will do the Optimization Task
               {{ count($totalTasks )}} separate times. Each time, there will be a
@@ -383,6 +383,7 @@ $( document ).ready(function() {
           next, the task will begin!
         </h4>
       </div>
+
       @elseif($intro == 'group_alt_intro')
       <div id="inst_1" class="inst">
         <h4>

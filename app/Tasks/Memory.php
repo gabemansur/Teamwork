@@ -1168,10 +1168,9 @@ class Memory {
          'header' => 'Memory Task',
          'wait_for_all' => 'true',
          'text' => ['Next is a test of your group’s collective memory. This
-                      will be the same as the group memory task you completed previously.',
-                     'As a refresher, we’ll do a practice round.',
-                     'The practice will begin when all three members of your group have clicked "Next".'
+                      will be the same as the group memory task you completed previously.'
                    ]],
+        /* WE ARE SKIPPING THE PRACTICE FOR THIS GROUP FOR NOW
         ['type' => 'text',
          'header' => 'Memory: practice round',
          'wait_for_all' => 'true',
@@ -1272,7 +1271,7 @@ class Memory {
            'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_1.jpg',
            'correct' => [3]],
-
+          */
       ]// end blocks
     ], // end group_2_instructions
 
@@ -1580,7 +1579,7 @@ class Memory {
         ['type' => 'text',
          'header' => '',
          'wait_for_all' => 'true',
-         'text' => ['Now for the actual task. <strong>Everyone should go back to their own laptop</strong>.',
+         'text' => ['<strong>Everyone should go back to their own laptop</strong>.',
                     'Your group will have <strong>40</strong> seconds to memorize 6 images, 12 words and 2 short
                     stories. This will be the same as the practice, but you have twice as long to
                     remember twice as many things.',
