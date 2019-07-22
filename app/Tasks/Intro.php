@@ -110,8 +110,7 @@ class Intro {
                  [
                    'type' => 'paragraph',
                    'content' => 'The main difference is that now you will be
-                   answering as a group.<br>You will be rewarded based on how well
-                   your group performs.'
+                   answering as a group.'
                  ],
                  [
                    'type' => 'paragraph',
@@ -161,23 +160,12 @@ class Intro {
                    [
                      'type' => 'paragraph',
                      'content' => 'You will be working together for about 25
-                     minutes, trying to solve 1 new task.'
+                     minutes, trying to solve a task you haven\'t seen before.'
                    ],
                    [
                      'type' => 'paragraph',
-                     'content' => 'Once again, you will be rewarded based on
-                     how well the group performs.'
-                   ],
-                   [
-                     'type' => 'paragraph',
-                     'content' => 'Take a moment to introduce yourselves!'
-                   ],
-                   [
-                     'type' => 'paragraph',
-                     'content' => 'The instructions will continue when all
-                     three group members have hit "Next"'
+                     'content' => 'Take a moment to introduce yourselves, then click "Next".'
                    ]
-
         ]
   ];
 

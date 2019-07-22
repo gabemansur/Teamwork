@@ -38,7 +38,7 @@ class Memory {
           'correct' => [3]],
         ['type' => 'text',
           'text' => 'Now for the actual task. When you click "Continue" a screen will appear with 6 target
-                     images. 
+                     images.
                      You can view the images front-on or in profile.
                      Click the "change perspective" button to see them from a different angle.
                      You will have 20 seconds to memorize
@@ -1043,8 +1043,7 @@ class Memory {
                      will be similar to the individual memory tasks you
                      completed earlier. We will ask you to remember images,
                      words and stories.',
-                     'The group task has a twist. Rather than asking you to memorize images
-                     first, then words, then stories, <strong>we’ll ask you to memorize all
+                     'The group task has a twist. <strong>We’ll ask you to memorize all
                        three types of stimuli at the same time</strong>.',
                      'We’ll start with a practice round.',
                      'The practice will begin when all three members of your group have clicked "Next".'
@@ -1060,8 +1059,7 @@ class Memory {
                     their own laptop and try to memorize as much as they can.
                     It is possible, but difficult, for one person to remember
                     all three types of stimuli.',
-                    'There will be final instructions when all three group
-                    members have clicked "Next".'
+                    '<span class="text-danger">You are NOT allowed to write anything down.</span>'
                    ]],
           ['type' => 'review_choice',
            'header' => 'Practice Round',
@@ -1073,16 +1071,13 @@ class Memory {
                       on the <span class="text-danger">Stories</span> button).
                       Then, if you have time, you can click on a different button and
                       try to memorize the <span class="text-warning">Words</span>
-                      and/or the <span class="text-success">Images</span>.
-                      Alternatively, each group member can focus on memorizing
-                      one type of stimulus.',
+                      and/or the <span class="text-success">Images</span>.',
                       '<strong>Take a minute to discuss with your group how you\'ll
                       approach this task.</strong>',
                      '<strong>Reminder</strong>: in this practice round there
                      are 6 words; 3 images; and 2 very short stories.',
                      'Your 20 seconds will begin when everyone in the group has
-                     clicked on a button below. There is a timer in the top
-                     right of the screen'],
+                     clicked on a button below.'],
           'choices' => [['color' => 'success', 'type' => 'images'],
                         ['color' => 'warning', 'type' => 'words'],
                         ['color' => 'danger', 'type' => 'stories']],

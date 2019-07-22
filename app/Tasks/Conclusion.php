@@ -26,11 +26,15 @@ class Conclusion {
 
     'group_1' => [[
                   'type' => 'sub-header',
-                  'content' => 'You\'ve completed all the tasks!'
+                  'content' => 'Your group has completed all of its tasks!'
                 ],
                 [
                   'type' => 'sub-header',
-                  'content' => 'Please return to the waiting area to join your next group'
+                  'content' => 'Please let a member of the Lab staff know that your group is finished.'
+                ],
+                [
+                  'type' => 'sub-header',
+                  'content' => 'They will let you know what to do next.'
                 ],
       ],
 
@@ -40,9 +44,28 @@ class Conclusion {
                 ],
                 [
                   'type' => 'sub-header',
-                  'content' => 'Click the button below to sign your digital receipt.'
+                  'content' => 'Please take a moment to fill out this quick exit survey'
+                ],
+
+                [
+                  'type' => 'sub-header',
+                  'content' => '<a class="btn btn-lg btn primary" href="https://docs.google.com/forms/d/1ZZV8P_dyifFn4DRhalN82126POz3R-SgCWXvTo7DMaU/viewform?edit_requested=true">
+                  Exit Survey</a>'
                 ],
       ],
+
+    'group_5' => [[
+                  'type' => 'sub-header',
+                  'content' => 'Your group has completed all of its tasks!'
+                ],
+                [
+                  'type' => 'sub-header',
+                  'content' => 'Please let a member of the Lab staff know that your group is finished.'
+                ],
+                [
+                  'type' => 'sub-header',
+                  'content' => 'They will let you know what to do next.'
+                ],
   ];
 
   private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'type' => ['mturk', 'hdsl_individual'], 'hasCode' => ['true', 'false']];

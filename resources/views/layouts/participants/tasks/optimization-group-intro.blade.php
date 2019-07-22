@@ -127,7 +127,7 @@ $( document ).ready(function() {
 <div class="container">
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
-      @if($intro == 'group_1' || $intro == 'group_2')
+      @if($intro == 'group_1')
         <div id="inst_1" class="inst">
           <h4>Once all the members of your group are ready, click "Next"</h4>
         </div>
@@ -153,15 +153,6 @@ $( document ).ready(function() {
             the biggest possible value.
           </h4>
           <h4>
-            <strong>You will each enter your guesses on your own laptop.</strong>
-            Every time you enter a guess (between 0 and 300) your laptop will
-            return a number.
-          </h4>
-          <h4>
-            At the end of this process, we will ask The Reporter to submit the
-            Group's Best Guess.
-          </h4>
-          <h4>
             When all three group members have hit Next, the instructions will continue.
           </h4>
         </div>
@@ -177,11 +168,8 @@ $( document ).ready(function() {
           </h4>
           <img src="/img/optimization-task/function-example.png" style="width:400px; height: auto;">
           <h4>
-            As you can see on the chart, if you guess the number 50 your computer
-            will give you a number around 100. You can also see that if you were
-            to guess 150, the computer would give you a negative number. Last, we
-            can see that the best number to guess is around 250: this gives you
-            the biggest output.
+            As you can see, guesses around 240 result in particularly high values;
+            guesses around 140 result in very low values.
           </h4>
           <h4>
             When all three members click next, we will have a
@@ -192,15 +180,17 @@ $( document ).ready(function() {
           <h2>Practice Round</h2>
           <h4>
             Each of you will have {{ floor($maxResponses / $groupSize) }} guesses in this practice round. In total,
-            the group has {{ floor($maxResponses / $groupSize) * 2 }} guesses.
+            the group has {{ $maxResponses }} guesses.
           </h4>
           <h4>
             After each of you has had {{ floor($maxResponses / $groupSize) }} guesses, the computer will ask The Reporter
             to input the Group’s Best Guess.
           </h4>
           <h4>
-            This practice round will not count towards your group’s score. The
-            practice will begin when all three group members have clicked "Next".
+            This practice round will not count towards your group’s score.
+          </h4>
+          <h4 class="text-danger">
+            You are NOT allowed to use pen and paper.
           </h4>
           <h4>
             The practice round is <strong>timed</strong>. You have a total of four minutes.<br>
@@ -251,7 +241,7 @@ $( document ).ready(function() {
             that gives you a big value in return.
           </h4>
           <h4>
-            Remember that this task is timed. You will have four minutes for each set
+            You will have four minutes for each set
             of guesses. There is a timer in the top right of the screen, and we will
             give you a warning when you have one minute remaining.
           </h4>
@@ -261,15 +251,84 @@ $( document ).ready(function() {
           </h4>
           <h4>
             <strong>Spend a few moments discussing with your group how you will
-              tackle the Optimization Task.</strong>
-          </h4>
-          <h4>
-            The task will begin when all three members of the group have hit "Next".
+              tackle the Optimization Task, then click "Next".</strong>
           </h4>
           <div class="text-center mb-lg-4">
             <button type="button" class="btn btn-lg btn-warning" data-toggle="modal" data-target="#review-instructions">Review Instructions</button>
           </div>
         </div>
+
+        @elseif($intro == 'group_2')
+          <div id="inst_1" class="inst">
+            <h4>Once all the members of your group are ready, click "Next"</h4>
+          </div>
+
+          <div id="inst_2" class="inst">
+            <h2 class="text-primary">Optimization Task</h2>
+            <h3 class="text-success">
+              Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
+            </h3>
+            <h4>
+              @if($intro == 'group_1')
+                Welcome to the first group task. It is very similar to the
+                Optimization Task you completed as individuals. The main difference
+                is that you will now be working in a group.
+              @else
+                Welcome to the first group task of this session! This task the same
+                as the Optimization puzzle you saw in your last group.
+              @endif
+            </h4>
+            <h4>
+              Recall that the goal of the Optimization Task is to try to find the
+              number (between 0 and 300) that results in your computer returning
+              the biggest possible value.
+            </h4>
+            <h4>
+              When all three group members have hit Next, the instructions will continue.
+            </h4>
+          </div>
+
+          <div id="inst_3" class="inst">
+            <h2 class="text-primary">Optimization Task</h2>
+            <h3>Review</h3>
+            <h4>
+              Every time you do the Optimization Task, the computer has a
+              different "relationship" in mind. When you enter a guess, your
+              computer uses this relationship to determine the number it gives you
+              in return. Below is an example relationship:
+            </h4>
+            <img src="/img/optimization-task/function-example.png" style="width:400px; height: auto;">
+            <h4>
+              As you can see, guesses around 240 result in particularly high values;
+              guesses around 140 result in very low values.
+            </h4>
+          </div>
+          <div id="inst_6" class="inst">
+            <h4>
+              Your group will do the Optimization Task
+              {{ count($totalTasks )}} separate times. Each time, there will be a
+              different relationship. Each time, your group will have {{ $maxResponses }}
+              guesses ({{ floor($maxResponses / $groupSize) }} guesses each) to try to find a number
+              that gives you a big value in return.
+            </h4>
+            <h4>
+              You will have four minutes for each set
+              of guesses. There is a timer in the top right of the screen, and we will
+              give you a warning when you have one minute remaining.
+            </h4>
+            <h4>
+              If you need to clarify the rules of the Optimization task you can
+              click Review Practice Instructions at any time.
+            </h4>
+            <h4>
+              <strong>Spend a few moments discussing with your group how you will
+                tackle the Optimization Task, then click "Next".</strong>
+            </h4>
+            <div class="text-center mb-lg-4">
+              <button type="button" class="btn btn-lg btn-warning" data-toggle="modal" data-target="#review-instructions">Review Instructions</button>
+            </div>
+          </div>
+
       @elseif($intro == 'group_3')
       <div id="inst_2" class="inst">
         <h2 class="text-primary">Optimization Task</h2>
@@ -327,17 +386,11 @@ $( document ).ready(function() {
       @elseif($intro == 'group_alt_intro')
       <div id="inst_1" class="inst">
         <h4>
-          Now you'll perform the Optimization Task again. The relationship between the numbers
-          you enter and the ones you receive will be different this time. Otherwise,
-          the task is the same. Try to find a number between 0 and 300 that gives
-          you the biggest possible output.
+          The next task is the same. The only change is that there is a new relationship
+          between the numbers you guess and the numnbers you receive in return.
         </h4>
         <h4>
-          <strong>If you need to, take a moment to discuss with your group how
-          you will tackle this problem.</strong>
-        </h4>
-        <h4>
-          Your four minutes will begin when all members of your group have hit "next".
+          <strong>If you need to, take a moment to discuss with your group, then click "Next".</strong>
         </h4>
       </div>
       @endif

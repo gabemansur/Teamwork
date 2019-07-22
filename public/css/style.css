@@ -36,6 +36,10 @@
   color: #ff8205!important;
 }
 
+.group-id-display {
+  font-size: 80%;
+}
+
 .btn-primary {
   background-color: #809dba!important;
   border-color: #809dba!important;
