@@ -166,8 +166,8 @@
           shape that best fits in the dotted box is box b.
         </h4>
         <div class="text-center shapes-test-container shapes-{{ $subtest }}">
-          <img src="/img/shapes-task/{{ $subtest }}/example_01.png" class="shapes-img">
-          <table class="table shapes-test-table shapes-{{ $subtest }}">
+          <img src="/img/shapes-task/{{ $subtest }}/example_01.png" class="shapes-img" style="width:800px!important">
+          <table class="table shapes-test-table shapes-{{ $subtest }}" style="width:500px; top: 280px; left: 340px">
             <tr>
               @for($i = 0; $i < 6; $i++)
                 <td>
@@ -193,8 +193,8 @@
           single, empty circle. So the answer is box f.
         </h4>
         <div class="text-center shapes-test-container shapes-{{ $subtest }}">
-          <img src="/img/shapes-task/{{ $subtest }}/example_02.png" class="shapes-img">
-          <table class="table shapes-test-table shapes-{{ $subtest }}">
+          <img src="/img/shapes-task/{{ $subtest }}/example_02.png" class="shapes-img" style="width:800px!important">
+          <table class="table shapes-test-table shapes-{{ $subtest }}" style="width:500px; top: 280px; left: 340px">
             <tr>
               @for($i = 0; $i < 6; $i++)
                 <td>

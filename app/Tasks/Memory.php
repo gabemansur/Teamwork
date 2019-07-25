@@ -1579,7 +1579,8 @@ class Memory {
         ['type' => 'text',
          'header' => '',
          'wait_for_all' => 'true',
-         'text' => ['<strong>Everyone should go back to their own laptop</strong>.',
+         'text' => ['Next is a test of your group’s collective memory. This
+                      will be the same as the group memory task you completed previously.',
                     'Your group will have <strong>40</strong> seconds to memorize 6 images, 12 words and 2 short
                     stories. This will be the same as the practice, but you have twice as long to
                     remember twice as many things.',
@@ -1892,14 +1893,14 @@ class Memory {
                        'The questions will begin when The Reporter clicks "Next"'
                      ]],
 
-         [ 'type' => 'test',
+         [ 'type' => 'test_images',
            'selection_type' => 'select_one',
            'show_numbers' => 'true',
            'prompt' => 'Which of the following images is a "target" image?',
            'img' => '1_test_1.jpeg',
            'correct' => [1]],
 
-           [ 'type' => 'test',
+           [ 'type' => 'test_stories',
              'selection_type' => 'select_one',
              'prompt' => 'In which city was there bad weather predicted?',
              'choices' => ['San Jose',
@@ -2070,7 +2071,9 @@ class Memory {
         ['type' => 'text',
          'header' => '',
          'wait_for_all' => 'true',
-         'text' => ['As a reminder, your group will have <strong>40</strong> seconds to memorize 6 images, 12 words and 2 short
+         'text' => ['Next is a test of your group’s collective memory. This
+                      will be the same as the group memory task you completed previously.',
+                    'As a reminder, your group will have <strong>40</strong> seconds to memorize 6 images, 12 words and 2 short
                     stories.',
                     'Everyone should be in front of their own laptop. During the memorization
                      period, you have the option of looking at multiple types of stimuli

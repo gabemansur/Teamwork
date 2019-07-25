@@ -138,11 +138,6 @@ class Intro {
                  ],
                  [
                    'type' => 'paragraph',
-                   'content' => 'Once again, you will be rewarded based on
-                   how well the group performs.'
-                 ],
-                 [
-                   'type' => 'paragraph',
                    'content' => 'Take a moment to introduce yourselves!'
                  ],
                  [
