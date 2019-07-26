@@ -135,7 +135,7 @@
               <span class="consent-em">WHAT YOU’LL DO</span>: You will be asked to
               solve puzzles, perform memory tasks, and identify people’s emotions
               based on photographs. The online tasks (which you can do at home) should
-              take around 45 minutes. Then participants will come into the lab and
+              take around 50 minutes. Then participants will come into the lab and
               solve similar problems in groups. This will take around 80 minutes.
             </p>
             <p>

@@ -68,7 +68,7 @@ class Intro {
                 ],
                 [
                   'type' => 'paragraph',
-                  'content' => 'Over the next <strong>45 minutes</strong> you will complete a
+                  'content' => 'Over the next <strong>50 minutes</strong> you will complete a
                   range of different tasks. Our goal is to understand how well
                   you solve problems, your ability to perceive emotions in
                   others, and your short-term memory. This is a research study

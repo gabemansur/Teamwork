@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container">
-  <div class="row vertical-center">
+  <div class="row">
     <div class="col-md-12 text-center">
 
       @foreach($conclusionContent as $content)
@@ -36,7 +36,7 @@
         </h4>
         <div class="row">
           <div class="col-4 offset-4">
-            <img src="/img/fruits/{{ $score }}.png" class="img-fluid">
+            <img src="/img/fruits/{{ $score }}.png" class="img-fluid" style="width:50%;">
           </div>
         </div>
         <h4>

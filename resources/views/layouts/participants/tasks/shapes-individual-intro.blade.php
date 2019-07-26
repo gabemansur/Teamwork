@@ -98,14 +98,14 @@
             <div class="row">
               <div class="col-6">
                 <h4>
-                  Look at the box on the right. It has a missing piece.
+                  Look at the  <span style="color: #df8343;">box</span> on the right. It has a <span style="color: #ea3767;">missing piece</span>.
                 </h4>
                 <h4>
                   Your task is to
-                  find the missing piece from the options at the bottom of the page.
+                  find the missing piece from the <span style="color: #7eaa55;">options</span> at the bottom of the page.
                 </h4>
                 <h4>
-                  Look for patterns in the box. In this example, you can see that each row has a square,
+                  Look for patterns in the <span style="color: #df8343;">box</span>. In this example, you can see that each row has a square,
                   a circle and a diamond. This is also true of each column. The missing
                   piece must therefore have a diamond shape.
                 </h4>
@@ -115,7 +115,7 @@
                   row it's 3. The missing piece must have 3 dotted lines.
                 </h4>
                 <h4>
-                  Looking at the options, the only diamond with three dotted lines is number 5. This is the missing piece.
+                  Looking at the <span style="color: #7eaa55;">options</span>, the only diamond with three dotted lines is number 5. This is the missing piece.
                 </h4>
               </div>
               <div class="col-6">

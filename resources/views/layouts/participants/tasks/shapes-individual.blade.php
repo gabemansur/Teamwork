@@ -91,9 +91,16 @@
               @endif
             </h4>
             <div class="text-center shapes-test-container shapes-{{ $subtest }}">
-              <img src="/img/shapes-task/{{ $subtest }}/{{ $i }}.png" class="shapes-img">
+              @if($subtest != 'subtest5')
+                <img src="/img/shapes-task/{{ $subtest }}/{{ $i }}.png" class="shapes-img">
+              @endif
               <table class="table shapes-test-table shapes-{{ $subtest }}">
                 <tr>
+                  @if($subtest == 'subtest5')
+                  <td>
+                    <img src="/img/shapes-task/{{ $subtest }}/{{ $i }}.png" class="shapes-img">
+                  </td>
+                  @endif
                   @if($subtest == 'subtest2')
                     @for($j = 0; $j < 5; $j++)
                       <td>
@@ -113,7 +120,11 @@
                       </td>
                     @endfor
                   @elseif($subtest == 'subtest5')
-                    <td>
+                    <td class="align-middle">
+                        <h4>
+                        What is the <span style="color: #ea3767;">missing piece</span>?<br>
+                        Select your answer here
+                      </h4>
                         <select class="form-control form-control-lg" style="width: 64px; margin: 0 auto;" name="{{ $i }}[]">
                           <option value="">----</option>
                           <option>1</option>
