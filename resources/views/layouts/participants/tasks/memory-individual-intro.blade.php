@@ -38,11 +38,10 @@
           </div>
         </div>
         <h4>
-          To get accurate results, we will test each type of memory twice.<br>
           The tests are short. In total, all the memory tests will take around 10 minutes.
         </h4>
-        <h4>
-          Please do NOT write anything down during these tasks.
+        <h4 class="text-danger">
+          <strong>Please do NOT write anything down during these tasks.</strong>
         </h4>
       </div>
 

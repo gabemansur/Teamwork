@@ -94,28 +94,30 @@ class LoginController extends Controller
 
     public function postIndividualLogin(Request $request) {
 
-      // If the user already exists, load their tasks and redirect
+      // See if this user already exists
       $user = User::where('participant_id', $request->participant_id)->first();
-      if($user) {
-        \Auth::login($user);
-        return redirect('/get-individual-task');
-      }
-      // Otherwise, continue to create a group and user and load the appropriate tasks
+
+      // Create a group
       $group = Group::firstOrCreate(['group_number' => uniqid()]);
       $group->save();
 
-      $user = User::firstOrCreate(['participant_id' => $request->participant_id],
-                                  ['name' => 'partipant',
-                                   'participant_id' => $request->participant_id,
-                                   'password' => bcrypt('participant'),
-                                   'role_id' => 3,
-                                   'group_id' => $group->id]);
-      $user->save();
-      \Auth::login($user);
+      if($user) {
+        $user->group_id = $group->id;
+        $user->save();
+        \Auth::login($user);
+      }
 
-       if($group->id != $user->group_id) {
-         return redirect()->back()->withInput()->withErrors('It appears that you already belong to another group.');
-       }
+      else {
+        $user = User::firstOrCreate(['participant_id' => $request->participant_id],
+                                    ['name' => 'partipant',
+                                     'participant_id' => $request->participant_id,
+                                     'password' => bcrypt('participant'),
+                                     'role_id' => 3,
+                                     'group_id' => $group->id]);
+        $user->save();
+        \Auth::login($user);
+      }
+
 
        if(isset($request->task_package)) {
          if($request->task_package == 'eq') \Teamwork\GroupTask::initializeEQTasks(\Auth::user()->group_id, $randomize = false);

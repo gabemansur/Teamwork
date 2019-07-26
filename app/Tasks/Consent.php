@@ -5,7 +5,7 @@ class Consent {
 
   private $subjectPool = ['mturk', 'hdsl'];
 
-  private static $avaialbleParams = ['subjectPool' => ['mturk', 'hdsl'], 'hasIndividuals' => ['true'], 'hasGroup' => ['false']];
+  private static $avaialbleParams = ['subjectPool' => ['mturk', 'hdsl', 'hdsl_individual_pilot'], 'hasIndividuals' => ['true'], 'hasGroup' => ['false']];
 
   public function getSubjectPool() {
     return $this->prompts;

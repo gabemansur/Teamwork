@@ -90,22 +90,15 @@ class GroupTask extends Model
 
     public static function initializeTestingTasks($group_id, $randomize) {
       $taskArray = '[
-          {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
-          {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"hdsl_individual"}},
+          {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"hdsl_individual_pilot"}},
+          {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"hdsl_individual_pilot"}},
+          {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest5"}},
           {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"hdsl_individual","hasCode":"false","displayScoreGroup":"true","digitalReceipt":"true"}}
 
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
 
-    public static function initializeGroupMemoryTasks($group_id, $randomize) {
-      $taskArray = '[
-        {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_4_instructions"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_4"}}
-        ]';
-      return Self::initializeTasks($group_id, $taskArray, $randomize);
-    }
 
     public static function initializeGroupTestTasks($group_id, $randomize) {
       $taskArray = '[
@@ -124,202 +117,13 @@ class GroupTask extends Model
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
 
-    public static function initializeGroupOneTasks($group_id, $randomize) {
-      $taskArray = '[
-        {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_1"}},
-        {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"true"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"4","intro":"group_1","maxResponses":"15"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"6","intro":"group_alt_intro","maxResponses":"15"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1_instructions"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1"}},
-        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_1","hasGroup":"true","mapping":"random","maxResponses":"15"}},
-        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest2"}}
-        ]';
-      return Self::initializeTasks($group_id, $taskArray, $randomize);
-    }
-
-    public static function initializeGroupTwoTasks($group_id, $randomize) {
-      $taskArray = '[
-        {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_2"}},
-        {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"true"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"4","intro":"group_2","maxResponses":"15"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"2","intro":"group_alt_intro","maxResponses":"15"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_2"}},
-        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_2","hasGroup":"true","mapping":"random","maxResponses":"15"}},
-        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest3"}}
-        ]';
-      return Self::initializeTasks($group_id, $taskArray, $randomize);
-    }
-
-    public static function initializeGroupThreeTasks($group_id, $randomize) {
-      $taskArray = '[
-        {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_2"}},
-        {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"true"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"4","intro":"group_3","maxResponses":"15"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"5","intro":"group_alt_intro","maxResponses":"15"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_3_instructions"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_3"}},
-        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_3","hasGroup":"true","mapping":"random","maxResponses":"15"}},
-        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest4"}}
-        ]';
-      return Self::initializeTasks($group_id, $taskArray, $randomize);
-    }
-
-    public static function initializeGroupFourTasks($group_id, $randomize) {
-      $taskArray = '[
-        {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_2"}},
-        {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"true"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"4","intro":"group_3","maxResponses":"15"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"5","intro":"group_alt_intro","maxResponses":"15"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_4"}}
-        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest4"}}
-        ]';
-      return Self::initializeTasks($group_id, $taskArray, $randomize);
-    }
-
-    public static function initializeMemoryTasks($group_id, $randomize) {
-      $taskArray = '[
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"intro"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_instructions"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_1"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_instructions"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"faces_1"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_instructions"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_1"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"results"}},
-        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}}
-        ]';
-      return Self::initializeTasks($group_id, $taskArray, $randomize);
-    }
-
-    public static function initializeBlockATasks($group_id, $randomize) {
-      $taskArray = '[
-          {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
-          {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
-          {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
-          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual","hasGroup":"false","mapping":"random","maxResponses":"15"}},
-          {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"1","intro":"individual","maxResponses":"15"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"4","intro":"individual_alt","maxResponses":"15"}},
-          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual_alt","hasGroup":"false","mapping":"random","maxResponses":"15"}},
-          {"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":["1","2"]}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"intro"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_instructions"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"faces_1"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_short_intro"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"cars_1"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_instructions"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_1"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_short_intro"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_2"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_instructions"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_1"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_short_intro"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_2"}},
-          {"taskName":"Feedback","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}},
-          {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}}
-        ]';
-      return Self::initializeTasks($group_id, $taskArray, $randomize);
-    }
-
-    public static function initializeBlockBTasks($group_id, $randomize) {
-
-      $taskArray = '[
-        {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
-        {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
-        {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
-        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual","hasGroup":"false","mapping":"random","maxResponses":"15"}},
-        {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"2","intro":"individual","maxResponses":"15"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"6","intro":"individual_alt","maxResponses":"15"}},
-        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual_alt","hasGroup":"false","mapping":"random","maxResponses":"15"}},
-        {"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":["2","3"]}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"intro"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_instructions"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"cars_1"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_short_intro"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"faces_2"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_instructions"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_2"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_short_intro"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_3"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_instructions"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_2"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_short_intro"}},
-        {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_3"}},
-        {"taskName":"Feedback","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}},
-        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}}
-        ]';
-
-      return Self::initializeTasks($group_id, $taskArray, $randomize);
-    }
-
-    public static function initializeBlockCTasks($group_id, $randomize) {
-      $taskArray = '[
-          {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
-          {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
-          {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
-          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual","hasGroup":"false","mapping":"random","maxResponses":"15"}},
-          {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"3","intro":"individual","maxResponses":"15"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"8","intro":"individual_alt","maxResponses":"15"}},
-          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual_alt","hasGroup":"false","mapping":"random","maxResponses":"15"}},
-          {"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":["3","4"]}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"intro"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_instructions"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"faces_2"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_short_intro"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"bikes_1"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_instructions"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_3"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_short_intro"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_4"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_instructions"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_3"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_short_intro"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_4"}},
-          {"taskName":"Feedback","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}},
-          {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}}
-        ]';
-      return Self::initializeTasks($group_id, $taskArray, $randomize);
-    }
-
-    public static function initializeBlockDTasks($group_id, $randomize) {
-      $taskArray = '[
-          {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"mturk"}},
-          {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk"}},
-          {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
-          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual","hasGroup":"false","mapping":"random","maxResponses":"15"}},
-          {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"5","intro":"individual","maxResponses":"15"}},
-          {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"7","intro":"individual_alt","maxResponses":"15"}},
-          {"taskName":"Cryptography","taskParams":{"hasIndividuals":"true","intro":"individual_alt","hasGroup":"false","mapping":"random","maxResponses":"15"}},
-          {"taskName":"TeamRole","taskParams":{"hasIndividuals":"true","hasGroup":"false","scenarios":["4","1"]}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"intro"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_instructions"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"bikes_1"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"images_short_intro"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"faces_1"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_instructions"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_4"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_short_intro"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"words_1"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_instructions"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_4"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_short_intro"}},
-          {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_1"}},
-          {"taskName":"Feedback","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}},
-          {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"mturk","hasCode":"true"}}
-        ]';
-      return Self::initializeTasks($group_id, $taskArray, $randomize);
-    }
 
     public static function initializeLabIndividualTasks($group_id, $randomize) {
       $taskArray = '[
-          {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"hdsl_individual"}},
-          {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"hdsl_individual"}},
+          {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"hdsl_individual_pilot"}},
+          {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"hdsl_individual_pilot"}},
           {"taskName":"BigFive","taskParams":{"hasIndividuals":"true","hasGroup":"false","statementOrder":"random"}},
-          {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest1"}},
+          {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest5"}},
           {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
           {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"1","intro":"individual","maxResponses":"15"}},
           {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"2","intro":"individual_alt","maxResponses":"15"}},
@@ -332,8 +136,8 @@ class GroupTask extends Model
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_instructions"}},
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"story_1"}},
           {"taskName":"Memory","taskParams":{"hasIndividuals":"true","hasGroup":"false","test":"results"}},
-          {"taskName":"Feedback","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"hdsl_individual","hasCode":"false"}},
-          {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"hdsl_individual","hasCode":"false","displayScoreGroup":"true","digitalReceipt":"true"}}
+          {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"hdsl_individual","hasCode":"false","displayScoreGroup":"true","digitalReceipt":"false","feedback":"true"}},
+          {"taskName":"Feedback","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"hdsl_individual","hasCode":"false"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
@@ -347,7 +151,7 @@ class GroupTask extends Model
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1_instructions"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_1"}},
         {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest2"}},
-        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_1","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"false"}}
+        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_1","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"false", "feedback":"false"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
@@ -361,7 +165,7 @@ class GroupTask extends Model
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_2_instructions"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_2"}},
         {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest3"}},
-        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_2","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"false", "sonaId":"187"}}
+        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_2","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"false", "sonaId":"187", "feedback":"false"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
@@ -375,7 +179,7 @@ class GroupTask extends Model
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_3_instructions"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_3"}},
         {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest4"}},
-        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_3","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"false"}}
+        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_3","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"false", "feedback":"false"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
@@ -388,8 +192,8 @@ class GroupTask extends Model
         {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"2","intro":"group_alt_intro","maxResponses":"15"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_4_instructions"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_4"}},
-        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest5"}},
-        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_4","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"false"}}
+        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest1"}},
+        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_4","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"false", "feedback":"false"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
@@ -400,7 +204,7 @@ class GroupTask extends Model
         {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"true"}},
         {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_5","hasGroup":"true","mapping":"random","maxResponses":"15"}},
         {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_5_alt","hasGroup":"true","mapping":"random","maxResponses":"15"}},
-        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_5","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"true"}}
+        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_5","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"true", "feedback":"false"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }

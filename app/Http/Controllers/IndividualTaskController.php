@@ -302,12 +302,11 @@ class IndividualTaskController extends Controller
       }
       else $code = null;
 
-
-
       return view('layouts.participants.participant-study-conclusion')
              ->with('conclusionContent', $conclusionContent)
              ->with('code', $code)
              ->with('score', $score)
+             ->with('feedback', $parameters->feedback == 'true')
              ->with('receiptSonaId', $receiptSonaId);
     }
 
@@ -939,9 +938,15 @@ class IndividualTaskController extends Controller
       $standardizedMemScore = $this->getIndividualMemoryScores($groupId, $filter);
       $finalScore = (1 / 3) * ($standardizedShapesScore + $standardizedOptScore + $standardizedMemScore);
 
-      $fruit = 'PEAR';
-      if($finalScore >= .45) $fruit = 'BANANA';
-      elseif($finalScore >= -0.2) $fruit = 'APPLE';
+      $fruit = 'pear';
+      if($finalScore >= .45) $fruit = 'banana';
+      elseif($finalScore >= -0.2) $fruit = 'grape';
+
+      // Store their fruit in the users table
+      $user = \Teamwork\User::find(\Auth::user()->id);
+
+      $user->score_group = $fruit;
+      $user->save();
 
       return $fruit;
     }

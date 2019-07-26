@@ -30,20 +30,27 @@
       @endif
 
       @if($score)
-        <h2>Next Steps</h2>
         <h4>
-          Having completed the online tasks, you are now eligible to take part
-          in the group tasks at the Harvard Decision Science Lab.
+          For randomization purposes, we have allocated you to a group.<br>
+          You are in the <strong>{{ strtoupper($score) }}</strong> group.
         </h4>
+        <div class="row">
+          <div class="col-4 offset-4">
+            <img src="/img/fruits/{{ $score }}.png" class="img-fluid">
+          </div>
+        </div>
         <h4>
-          To participate in the trial, you need to commit to visiting the lab
-          twice. On your first visit you will be paid $25. On the second visit,
-          you will be paid a further $35, along with a bonus based on your performance.
-        </h4>
-        <h4>
-          To sign up for sessions, look for [SONA STUDY NAME]: {{ $score }}
+          When you come to the lab we will ask you about your fruit, so please try to remember it.
         </h4>
       @endif
+
+      @if($feedback)
+        <h4>
+          Click the button below to add any feedback or comments on this study. Even a short sentance is very helpful to us!
+        </h4>
+        <a class="btn btn-lg btn-success" href="/end-individual-task">Feedback</a>
+      @endif
+
 
       @if($receiptSonaId)
         <a class="btn btn-lg btn-success" href="http://dashboard.harvarddecisionlab.org/new-receipt/?i={{ base64_encode($receiptSonaId) }}">Sign Your Digital Receipt</a>

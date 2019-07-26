@@ -68,7 +68,7 @@ class Conclusion {
                 ]]
   ];
 
-  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'type' => ['mturk', 'hdsl_individual'], 'hasCode' => ['true', 'false']];
+  private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'type' => ['mturk', 'hdsl_individual'], 'hasCode' => ['true', 'false'], 'feedback' => ['true', 'false']];
 
   public function getConclusion($type) {
     return $this->conclusions[$type];
