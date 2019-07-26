@@ -174,7 +174,7 @@ class GroupTask extends Model
       $taskArray = '[
         {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_2"}},
         {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"true"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"8","intro":"group_2","maxResponses":"15"}},
+        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"8","intro":"group_3","maxResponses":"15"}},
         {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"9","intro":"group_alt_intro","maxResponses":"15"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_3_instructions"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_3"}},
@@ -188,7 +188,7 @@ class GroupTask extends Model
       $taskArray = '[
         {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_2"}},
         {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"true"}},
-        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"10","intro":"group_2","maxResponses":"15"}},
+        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"10","intro":"group_4","maxResponses":"15"}},
         {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"2","intro":"group_alt_intro","maxResponses":"15"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_4_instructions"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_4"}},

@@ -127,6 +127,7 @@ $( document ).ready(function() {
 <div class="container">
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
+
       @if($intro == 'group_1')
         <div id="inst_1" class="inst">
           <h4>Once all the members of your group are ready, click "Next"</h4>
@@ -143,12 +144,11 @@ $( document ).ready(function() {
               Optimization Task you completed as individuals. The main difference
               is that you will now be working in a group.
             @else
-              Welcome to the first group task of this session! This task the same
-              as the Optimization puzzle you saw in your last group.
+              You have seen this Optimization task before.
             @endif
           </h4>
           <h4>
-            Recall that the goal of the Optimization Task is to try to find the
+            This is a group task where the goal is to try to find the
             number (between 0 and 300) that results in your computer returning
             the biggest possible value.
           </h4>
@@ -251,7 +251,7 @@ $( document ).ready(function() {
           </h4>
           <h4>
             <strong>Spend a few moments discussing with your group how you will
-              tackle the Optimization Task, then click "Next".</strong>
+              tackle the Optimization Task, then click "Next" <span class="text-danger">to begin the task</span>.</strong>
           </h4>
           <div class="text-center mb-lg-4">
             <button type="button" class="btn btn-lg btn-warning" data-toggle="modal" data-target="#review-instructions">Review Instructions</button>
@@ -259,6 +259,60 @@ $( document ).ready(function() {
         </div>
 
         @elseif($intro == 'group_2')
+        <div id="inst_2" class="inst">
+          <h2 class="text-primary">Optimization Task</h2>
+          <h3 class="text-success">
+            Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
+          </h3>
+          <h4>
+            Welcome to your last group! We’ll start with the Optimization Task.
+            This is the same as the task you’ve completed in previous groups.
+          </h4>
+          <h4>
+            Recall that the goal of this task is to try to find the number
+            (between 0 and 300) that results in your computer returning the
+            biggest possible value. You do this by guessing numbers, and seeing
+            what the computer gives you in return.
+          </h4>
+          <h4>
+            <strong>As you’ve done the task several times before, we won’t have
+              a practice round this time.</strong>
+          </h4>
+          <h4>
+            If you would like a more detailed review of the instructions,
+            click "Review Instructions".
+          </h4>
+          <h4>
+            When all three group members have hit Next, the instructions will continue.
+          </h4>
+          <div class="float-left mt-lg-4">
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#review-instructions">Review Instructions</button>
+          </div>
+        </div>
+        <div id="inst_3" class="inst">
+          <h4>
+            As a reminder, each of you will have {{ floor($maxResponses / $groupSize) }}
+            guesses. In total, the group has {{ $maxResponses }} guesses.
+          </h4>
+          <h4>
+            After each of you has had 5 guesses, the computer will ask the
+            Reporter to input the Group's Best Guess.
+          </h4>
+          <h4>
+            If you need to clarify the rules of the Optimization task you can
+            click Review Practice Instructions.
+          </h4>
+          <h4>
+            <strong>Spend a few moments discussing with your group how you will
+              tackle the Optimization Task.</strong>
+          </h4>
+          <h4>
+            Remember, there is no practice this time. When all three members hit
+            next, <span class="text-danger">the task will begin!</span>
+          </h4>
+        </div>
+
+        @elseif($intro == 'group_3')
           <div id="inst_1" class="inst">
             <h4>Once all the members of your group are ready, click "Next"</h4>
           </div>
@@ -274,12 +328,11 @@ $( document ).ready(function() {
                 Optimization Task you completed as individuals. The main difference
                 is that you will now be working in a group.
               @else
-                Welcome to the first group task of this session! This task the same
-                as the Optimization puzzle you saw in your last group.
+                You've seen this Optimization task before.
               @endif
             </h4>
             <h4>
-              Recall that the goal of the Optimization Task is to try to find the
+              This is a group task where the goal is to try to find the
               number (between 0 and 300) that results in your computer returning
               the biggest possible value.
             </h4>
@@ -322,14 +375,15 @@ $( document ).ready(function() {
             </h4>
             <h4>
               <strong>Spend a few moments discussing with your group how you will
-                tackle the Optimization Task, then click "Next".</strong>
+                tackle the Optimization Task, then click "Next" <span class="text-danger">to begin the task</span>.</strong>
             </h4>
             <div class="text-center mb-lg-4">
               <button type="button" class="btn btn-lg btn-warning" data-toggle="modal" data-target="#review-instructions">Review Instructions</button>
             </div>
           </div>
 
-      @elseif($intro == 'group_3')
+
+      @elseif($intro == 'group_4')
       <div id="inst_2" class="inst">
         <h2 class="text-primary">Optimization Task</h2>
         <h3 class="text-success">
@@ -380,7 +434,7 @@ $( document ).ready(function() {
         </h4>
         <h4>
           Remember, there is no practice this time. When all three members hit
-          next, the task will begin!
+          next, <span class="text-danger">the task will begin!</span>
         </h4>
       </div>
 
@@ -391,7 +445,7 @@ $( document ).ready(function() {
           between the numbers you guess and the numnbers you receive in return.
         </h4>
         <h4>
-          <strong>If you need to, take a moment to discuss with your group, then click "Next".</strong>
+          <strong>If you need to, take a moment to discuss with your group, then click "Next" <span class="text-danger">to begin the task</span>.</strong>
         </h4>
       </div>
       @endif

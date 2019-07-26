@@ -844,7 +844,10 @@ class IndividualTaskController extends Controller
 
     public function shapesIntro(Request $request) {
       $this->recordStartTime($request, 'intro');
-      return view('layouts.participants.tasks.shapes-individual-intro');
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      return view('layouts.participants.tasks.shapes-individual-intro')
+             ->with('subtest', $parameters->subtest);
     }
 
     public function shapesIndividual(Request $request) {
@@ -859,7 +862,8 @@ class IndividualTaskController extends Controller
       $this->recordStartTime($request, 'task');
 
       return view('layouts.participants.tasks.shapes-individual')
-             ->with('shapes', $shapes);
+             ->with('shapes', $shapes)
+             ->with('subtest', $parameters->subtest);
     }
 
     public function saveShapesIndividual(Request $request) {
