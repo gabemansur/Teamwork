@@ -880,8 +880,20 @@ class IndividualTaskController extends Controller
       foreach ($request->all() as $key => $input) {
         if($key == '_token') continue;
 
-        if($input == $answers[$key - 1]) {
+        $inputString = $input;
+
+        if(is_array($answers[$key - 1])){
+          $inputString = json_encode($input);
+
+          $points = 2 - count(array_diff($input, $answers[$key - 1]));
+
+          if($points == 2) $correct = 1;
+          else $correct = 0;
+        }
+
+        else if($input == $answers[$key - 1]) {
           $correct = 1;
+          $points = 1;
         }
 
         else $correct = 0;
@@ -891,7 +903,7 @@ class IndividualTaskController extends Controller
         $r->individual_tasks_id = $individualTask;
         $r->user_id = \Auth::user()->id;
         $r->prompt = $parameters->subtest.' : '.$key;
-        $r->response = $input;
+        $r->response = $inputString;
         $r->correct = $correct;
         $r->points = $correct;
         $r->save();
