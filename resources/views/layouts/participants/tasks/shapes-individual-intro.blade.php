@@ -127,14 +127,11 @@
           </div>
           <div id="inst_4" class="inst">
             <h4>
-              After clicking the "next" button your group will be asked to complete the rest yourselves.
+              After clicking the "next" button the task will begin.
             </h4>
             <h4>
               There are 14 questions and you have 7 minutes. You may not have time
               to finish all the questions, but you should work as quickly as you can.
-            </h4>
-            <h4>
-              Remember, you're working as a team and will only submit one set of answers.
             </h4>
             <h4>
               There will be a timer in the top right of your screen.

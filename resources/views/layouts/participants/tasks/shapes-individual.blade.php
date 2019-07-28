@@ -21,7 +21,18 @@
         event.preventDefault();
       });
 
-      initializeTimer(180, function() {
+
+      @if($subtest == 'subtest1')
+        var time = 180;
+      @elseif($subtest == 'subtest2')
+        var time = 240;
+      @elseif($subtest == 'subtest3' || $subtest == 'subtest4')
+        var time = 180;
+      @elseif($subtest == 'subtest5')
+        var time = 420;
+      @endif
+
+      initializeTimer(time, function() {
         $('#submitPrompt').modal();
       });
 
@@ -155,7 +166,11 @@
           <input class="btn btn-primary btn-lg" type="submit" value="Submit Answers"><br />
         </div>
       </form>
-      <div id="instr_nav" class="text-center">
+      <div id="instr_nav" class="text-center"
+        @if($subtest == 'subtest5')
+          style="width: 400px; top: -30%; position: relative; left: 63%;"
+        @endif
+      >
         <input class="btn btn-primary instr_nav btn-lg" type="button" name="back" id="back" value="&#8678; Back">
         <input class="btn btn-primary instr_nav btn-lg" type="button" name="next" id="next" value="Next &#8680;"><br />
         <span class="text-primary ml-md-4 text-lg" id="pagination-display">
