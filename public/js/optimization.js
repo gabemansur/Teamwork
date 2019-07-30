@@ -48,5 +48,7 @@ var taskFunctions = {
 
     j: function(x) {
       return (x / 1.5) - (100 * Math.exp( - (Math.pow( (x - 100), 2 )) / 600 )) - (Math.pow(1.02, x)) + Math.pow( 1.06, (x - 205) );
-    }
+    },
+
+
 };
