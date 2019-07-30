@@ -104,8 +104,7 @@ class GroupTask extends Model
       $taskArray = '[
         {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_2"}},
         {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"true"}},
-        {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_5_break"}},
-        {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_5"}},
+        {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"7","intro":"group_alt_intro","maxResponses":"15"}},
         {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_4","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"false", "feedback":"true", "feedbackLinkType":"group5Pilot"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
