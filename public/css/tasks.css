@@ -201,6 +201,14 @@ table.team-role th {
   height: auto;
 }
 
+.target-img-group_4 {
+  width: 700px;
+}
+
+.target-img-group_3 {
+  width: 700px;
+}
+
 .memory-img {
   width: 646px;
   height: auto;
@@ -313,6 +321,7 @@ img.eyes {
 .shapes-test-table.shapes-subtest4 {
   top: 240px;
   left: 90px;
+  width: 540px;
 }
 
 .shapes-test-table td {

@@ -297,6 +297,12 @@ class IndividualTaskController extends Controller
         $receiptSonaId = $parameters->sonaId;
       }
       else $receiptSonaId = null;
+
+      if($parameters->feedback == 'true') {
+        $feedbackLink = $conclusion->getFeedbackLink($parameters->feedbackLinkType);
+      }
+      else $feedbackLink = null;
+
       if($parameters->hasCode == 'true') {
         $code = $conclusion->getConfirmationCode(\Auth::user()->id)->code;
       }
@@ -306,7 +312,7 @@ class IndividualTaskController extends Controller
              ->with('conclusionContent', $conclusionContent)
              ->with('code', $code)
              ->with('score', $score)
-             ->with('feedback', $parameters->feedback == 'true')
+             ->with('feedbackLink', $feedbackLink)
              ->with('receiptSonaId', $receiptSonaId);
     }
 

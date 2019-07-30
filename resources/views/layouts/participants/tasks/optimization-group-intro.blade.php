@@ -127,7 +127,6 @@ $( document ).ready(function() {
 <div class="container">
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
-
       @if($intro == 'group_1')
         <div id="inst_1" class="inst">
           <h4>Once all the members of your group are ready, click "Next"</h4>
@@ -258,14 +257,13 @@ $( document ).ready(function() {
           </div>
         </div>
 
-        @elseif($intro == 'group_2')
-        <div id="inst_2" class="inst">
+        @elseif($intro == 'group_2' || $intro == 'group_4')
+        <div id="inst_1" class="inst">
           <h2 class="text-primary">Optimization Task</h2>
           <h3 class="text-success">
             Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
           </h3>
           <h4>
-            Welcome to your last group! We’ll start with the Optimization Task.
             This is the same as the task you’ve completed in previous groups.
           </h4>
           <h4>
@@ -285,11 +283,8 @@ $( document ).ready(function() {
           <h4>
             When all three group members have hit Next, the instructions will continue.
           </h4>
-          <div class="float-left mt-lg-4">
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#review-instructions">Review Instructions</button>
-          </div>
         </div>
-        <div id="inst_3" class="inst">
+        <div id="inst_2" class="inst">
           <h4>
             As a reminder, each of you will have {{ floor($maxResponses / $groupSize) }}
             guesses. In total, the group has {{ $maxResponses }} guesses.
@@ -310,6 +305,9 @@ $( document ).ready(function() {
             Remember, there is no practice this time. When all three members hit
             next, <span class="text-danger">the task will begin!</span>
           </h4>
+          <div class="float-left mt-lg-4">
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#review-instructions">Review Instructions</button>
+          </div>
         </div>
 
         @elseif($intro == 'group_3')
@@ -355,10 +353,70 @@ $( document ).ready(function() {
               As you can see, guesses around 240 result in particularly high values;
               guesses around 140 result in very low values.
             </h4>
+            <h4>
+              When all three members click next, we will have a
+              <strong>practice round</strong>.
+            </h4>
           </div>
           <div id="inst_4" class="inst">
+            <h2>Practice Round</h2>
             <h4>
-              Your group will do the Optimization Task
+              Each of you will have {{ floor($maxResponses / $groupSize) }} guesses in this practice round. In total,
+              the group has {{ $maxResponses }} guesses.
+            </h4>
+            <h4>
+              After each of you has had {{ floor($maxResponses / $groupSize) }} guesses, the computer will ask The Reporter
+              to input the Group’s Best Guess.
+            </h4>
+            <h4>
+              This practice round will not count towards your group’s score.
+            </h4>
+            <h4 class="text-danger">
+              You are NOT allowed to use pen and paper.
+            </h4>
+            <h4>
+              The practice round is <strong>timed</strong>. You have a total of four minutes.<br>
+              We will give you a warning when you have 1 minute left.
+            </h4>
+          </div>
+          <div id="inst_5" class="inst">
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <h3><div class="float-right text-primary" id="timer"></div></h3>
+              </div>
+            </div>
+            <h2>Practice Round</h2>
+            <h4 class="text-warning" id="practice-prompt">
+              Enter your guess (between 0 and 300) below. You will have {{ floor($maxResponses / $groupSize) }}
+              individual guesses.
+            </h4>
+            <div class="alert alert-danger" id="alert" role="alert"></div>
+            <div class="row text-center">
+              <div class="col-md-6 offset-md-3 justify-content-center">
+                <form class="form-inline optimization-practice" name="optimization">
+                  <div class="form-group">
+                    <input type="number" class="form-control" id="guess" min="0" max="300">
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-primary" id="submit-guess" type="submit">Enter Practice Guess</button>
+                  </div>
+                </form>
+                <table class="table table-bordered table-sm optimization-practice" id="guess-history">
+                  <tr class="text-center">
+                    <th>Guess #</th>
+                    <th>Your guess</th>
+                    <th>Result</th>
+                  </tr>
+                </table>
+                <div class="text-center">
+                  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#review-instructions">Review Instructions</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="inst_6" class="inst">
+            <h4>
+              Now for the actual task. Your group will do the Optimization Task
               {{ count($totalTasks )}} separate times. Each time, there will be a
               different relationship. Each time, your group will have {{ $maxResponses }}
               guesses ({{ floor($maxResponses / $groupSize) }} guesses each) to try to find a number

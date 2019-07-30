@@ -94,18 +94,8 @@ $( document ).ready(function() {
           value. Your goal is to find out the value of each letter.
         </h4>
         <h4>
-          @if($introType == 'group_1')
-            This task is the same as the cryptography puzzle you completed as individuals.
-            Now you will try to solve the task as a group.
-          @elseif($introType == 'group_2')
-            This task is the same as the cryptography puzzle you completed in your
-            previous group.
-          @endif
-        </h4>
-        <h4>
           <strong>At this point everyone should gather around The Reporter’s laptop.</strong>
-          If you are not The Reporter, you can click "finish" and close your laptop:
-          you won’t be needing it again.
+          If you are not The Reporter, you can click "finish".
         </h4>
         <h4>
           Once all three members of the group can see the screen of The Reporter’s

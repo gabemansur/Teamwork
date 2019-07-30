@@ -166,6 +166,7 @@ class GroupTaskController extends Controller
       // different memory tasks into individual tasks but to avoid rewriting a
       // lot of code, we'll construct a single-element array with the one test.
       return view('layouts.participants.tasks.memory-group')
+             ->with('testName', $test['test_name'])
              ->with('tests', [$test])
              ->with('taskId', $currentTask->id)
              ->with('enc_tests', json_encode([$test]))

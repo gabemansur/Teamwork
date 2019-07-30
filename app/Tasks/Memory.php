@@ -1285,15 +1285,111 @@ class Memory {
         ['type' => 'text_intro',
          'header' => 'Memory Task',
          'wait_for_all' => 'true',
-         'text' => ['Next is a test of your group’s collective memory. This is
-                    the same as the group memory exercise you have completed twice already.',
-                     '<strong>As you have already seen this task twice, we will
-                     NOT do a practice this time.</strong>',
-                     'Remember, each group member will memorize the stimuli on
-                     their own computer. But, you will answer as a group.
-                     Questions will only appear on The Reporters laptop.',
-                     'The task will continue when everyone has clicked "Next".'
+         'text' => ['Next is a test of your group’s collective memory.',
+                     'We’ll start with a practice round.',
+                     'The practice will begin when all three members of your group have clicked "Next".'
                    ]],
+
+       ['type' => 'text',
+        'header' => 'Memory: practice round',
+        'wait_for_all' => 'true',
+        'text' => ['This practice round will not count toward your group’s score.',
+                   'Your group has <strong>20 seconds</strong> to memorize
+                   <strong>3</strong> images, <strong>6</strong> words, and
+                   <strong>2</strong> very short stories.',
+                   'During the memorization period, each person will look at
+                   their own laptop and try to memorize as much as they can.
+                   It is possible, but difficult, for one person to remember
+                   all three types of stimuli.',
+                   'There will be final instructions when all three group
+                   members have clicked "Next".'
+                  ]],
+         ['type' => 'review_choice',
+          'header' => 'Practice Round',
+         'text' => ['This is the page where you can choose what to memorize.
+                     We will ask your group about all three types of stimuli:
+                     Images, Words and Stories.',
+                    'If you want, you can try to memorize several types of stimuli.
+                     For example, you might start with "Stories" (by clicking
+                     on the <span class="text-danger">Stories</span> button).
+                     Then, if you have time, you can click on a different button and
+                     try to memorize the <span class="text-warning">Words</span>
+                     and/or the <span class="text-success">Images</span>.
+                     Alternatively, each group member can focus on memorizing
+                     one type of stimulus.',
+                     '<strong>Take a minute to discuss with your group how you\'ll
+                     approach this task.</strong>',
+                    '<strong>Reminder</strong>: in this practice round there
+                    are 6 words; 3 images; and 2 very short stories.',
+                    'Your 20 seconds will begin when everyone in the group has
+                    clicked on a button below. There is a timer in the top
+                    right of the screen'],
+         'choices' => [['color' => 'success', 'type' => 'images'],
+                       ['color' => 'warning', 'type' => 'words'],
+                       ['color' => 'danger', 'type' => 'stories']],
+         'review_time' => 20],
+
+         ['type' => 'mixed_review',
+         'text' => [],
+         'types' => [
+                      ['type' => 'images', 'directory' => '/img/memory-task/faces/',
+                       'prompt' => 'Remember these target images',
+                       'targets' => ['1_targets_1.png', '1_targets_2.png', '1_targets_3.jpg']
+                       ],
+                      ['type' => 'words',
+                       'prompt' => 'Remember these target words',
+                       'targets' => ['tree', 'pine', 'root', 'glove', 'baseball', 'hotdog']
+                      ],
+                      ['type' => 'stories',
+                       'prompt' => 'Remember these target stories',
+                       'targets' => ['The oldest surviving human, who was born in
+                                     1902, recently identified her secret to long life,
+                                     citing the benefits of swimming every day in very
+                                     cold water.',
+                                     'A poll, conducted a week ago by Pew Research,
+                                     found that 60% of people prefer vanilla icecream
+                                     to chocolate. Critics suggest that the poll
+                                     was biased.'],
+                      ]
+         ],
+         'choices' => [['color' => 'success', 'type' => 'images'],
+                       ['color' => 'warning', 'type' => 'words'],
+                       ['color' => 'danger', 'type' => 'stories']],
+         'review_time' => 20],
+
+         ['type' => 'text',
+          'header' => 'Memory: practice round',
+          'end_individual_section' => 'true',
+          'text' => ['Now we will ask you some questions about the stimuli.
+                      Remember, this is a practice!<br><br>
+                      You will answer as a group. When you’re answering the
+                      questions <strong>everyone should be able to see the Reporter\'s
+                      laptop</strong>.<br><br>
+                      If you are not the Reporter, leave your laptop open. You\'ll
+                      come back to it shortly.<br><br>
+                      The practice questions will begin when The Reporter clicks "Next"'
+                    ]],
+
+         [ 'type' => 'practice_test_words',
+          'selection_type' => 'select_all',
+          'prompt' => 'Which of the following are target words?',
+          'choices' => ['tree', 'pine', 'grow'],
+          'correct' => [1, 2]],
+
+          ['type' => 'practice_test_stories',
+          'selection_type' => 'select_one',
+          'prompt' => 'What year was the oldest known human born?',
+          'choices' => ['1901',
+                        '1902',
+                        '1903'],
+          'correct' => [2]],
+
+         [ 'type' => 'practice_test_images',
+          'selection_type' => 'select_one',
+          'show_numbers' => 'false',
+          'prompt' => 'Which of the following images is a "target" image?',
+          'img' => '1_test_1.jpg',
+          'correct' => [3]],
       ]// end blocks
     ], // end group_3_instructions
 
@@ -1577,20 +1673,14 @@ class Memory {
       'directory' => '/img/memory-task/faces/',
       'blocks' => [
         ['type' => 'text',
-         'header' => '',
+         'header' => 'Memory Task',
          'wait_for_all' => 'true',
-         'text' => ['Next is a test of your group’s collective memory. This
-                      will be the same as the group memory task you completed previously.',
-                    'Your group will have <strong>40</strong> seconds to memorize 6 images, 12 words and 2 short
-                    stories. This will be the same as the practice, but you have twice as long to
-                    remember twice as many things.',
-                    'As in the practice, you will use your own laptop to memorize the stimuli. Again, you
-                    have the option of looking at multiple types of stimuli
-                    (e.g. <span class="text-danger">stories</span> AND
-                    <span class="text-success">images</span>). Or,
-                    you can divide the responsibilities of memorizing different things.',
-                    '<strong>Take some time to discuss how you will approach this task.</strong>',
-                    'You will receive some final instructions when each group member has clicked "Next".'
+         'text' => ['You have seen this group memory task before, so we will NOT do a
+                    practice this time.',
+                    'Remember, each group will memorize the stimuli on their own computer.
+                    But, you will answer as a group. Questions will only appear on
+                    the Reporter\'s laptop.',
+                    'The task will continue when everyone has clicked "Next".'
                    ]],
           ['type' => 'review_choice',
           'text' => ['You will have <strong>40</strong> seconds to memorize everything as a group. There
@@ -1828,7 +1918,7 @@ class Memory {
       'directory' => '/img/memory-task/bikes/',
       'blocks' => [
         ['type' => 'text',
-         'header' => '',
+         'header' => 'Memory Task',
          'wait_for_all' => 'true',
          'text' => ['As a reminder, your group will have <strong>40</strong> seconds to memorize 6 images, 12 words and 2 short
                     stories.',
@@ -2069,11 +2159,9 @@ class Memory {
       'directory' => '/img/memory-task/bodies/',
       'blocks' => [
         ['type' => 'text',
-         'header' => '',
+         'header' => 'Memory Task',
          'wait_for_all' => 'true',
-         'text' => ['Next is a test of your group’s collective memory. This
-                      will be the same as the group memory task you completed previously.',
-                    'As a reminder, your group will have <strong>40</strong> seconds to memorize 6 images, 12 words and 2 short
+         'text' => ['Your group will have <strong>40</strong> seconds to memorize 6 images, 12 words and 2 short
                     stories.',
                     'Everyone should be in front of their own laptop. During the memorization
                      period, you have the option of looking at multiple types of stimuli

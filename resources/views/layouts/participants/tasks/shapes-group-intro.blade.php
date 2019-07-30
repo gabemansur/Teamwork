@@ -19,7 +19,56 @@
 <div class="container">
   <div class="row vertical-center">
     <div class="col-md-12 text-center">
-      @if($subtest == 'subtest2')
+      @if($subtest == 'subtest1')
+        <div id="inst_1" class="inst">
+          <h2 class="text-primary">Shapes Task</h2>
+          <h3 class="text-success">
+            Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
+          </h3>
+          <h3>
+            This task is about understanding patterns and identifying what
+            comes next. We’ll start with a practice.
+          </h3>
+        </div>
+        <div id="inst_2" class="inst">
+          <h3>
+            On the top, there are four boxes.
+            The last one is empty. Below you see six
+            more boxes, marked a, b, c, d, e, and f. Of those six boxes,
+            one will fit correctly in the empty box.
+          </h3>
+          <h3>
+            The correct answer has been
+            given to you in this first example. It’s box c.
+          </h3>
+          <img src="/img/shapes-task/subtest1/example_01.png" class="img-fluid">
+        </div>
+        <div id="inst_3" class="inst">
+          <h3>
+            Here's another example. The black part comes down lower and lower
+            each time. So at the next step it would come more than half way down.
+            The correct answer for the second example is box e.
+          </h3>
+          <img src="/img/shapes-task/subtest1/example_02.png" class="img-fluid">
+        </div>
+        <div id="inst_4" class="inst">
+          <h3>
+            After clicking the “next” button you will be asked to complete the
+            rest yourself. As in the practices, select the box that continues
+            the pattern!
+          </h3>
+          <h3>
+            There are 13 questions and you have 3 minutes. You may not have time
+            to finish all the questions, but work as quickly and carefully as you
+            can. There will be a timer in the top right of your screen.
+          </h3>
+          <h3>
+            You may change your answer if you change your mind, but not after the
+            3 minutes is up.
+          </h3>
+        </div>
+
+      @elseif($subtest == 'subtest2')
         <div id="inst_1" class="inst">
           <h2 class="text-primary">Shapes Task</h2>
           <h3 class="text-success">

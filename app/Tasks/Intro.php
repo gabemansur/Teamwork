@@ -177,20 +177,38 @@ class Intro {
 
       ],
 
-      'group_5' => [[
-                     'type' => 'header',
-                     'content' => 'Welcome to your new group'
+      'group_5_break' => [[
+                     'type' => 'paragraph',
+                     'content' => 'Your group has completed the three Teamwork tasks.'
                    ],
                    [
                      'type' => 'paragraph',
-                     'content' => 'You will be working together for about 25
-                     minutes, trying to solve a task you haven\'t seen before.'
+                     'content' => 'Feel free to take a break and stretch your legs.'
                    ],
                    [
                      'type' => 'paragraph',
-                     'content' => 'Take a moment to introduce yourselves, then click "Next".'
+                     'content' => '	There is one final puzzle to solve. You will be working <strong>in the same group</strong>, and staying in the room you’re in at the moment.'
+                   ],
+                   [
+                     'type' => 'paragraph',
+                     'content' => 'When you are ready, click "Next"'
                    ]
-        ]
+        ],
+
+    'group_5' => [[
+                   'type' => 'header',
+                   'content' => 'Welcome to your last task for today!'
+                 ],
+                  [
+                   'type' => 'paragraph',
+                   'content' => 'You will be working together for about 25 minutes trying to
+                   solve a task you haven\'t seen before.'
+                 ],
+                 [
+                   'type' => 'paragraph',
+                   'content' => 'Click "Next to continue."'
+                 ]
+      ]
   ];
 
   private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'type' => ['mturk', 'hdsl_individual', 'group_1', 'group_2', 'group_5']];

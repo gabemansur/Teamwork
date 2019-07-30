@@ -20,7 +20,9 @@
     preload(preloadImages);
 
     var numShapes = {{ $shapes['length'] }};
-    @if($subtest == 'subtest2')
+    @if($subtest == 'subtest1')
+      var time = 180;
+    @elseif($subtest == 'subtest2')
       var time = 240;
     @elseif($subtest == 'subtest3' || $subtest == 'subtest4')
       var time = 180;
@@ -91,59 +93,81 @@
       <form id="shapes-form" action="/shapes-group" method="post">
         {{ csrf_field() }}
         @for($i = 1; $i <= $shapes['length']; $i++)
-          <div id="inst_{{ $i }}" class="inst">
-            <h4>
-              @if($subtest == 'subtest2')
-                Please select <strong>two</strong> boxes
-              @elseif($subtest == 'subtest3')
-                Choose the box that best fits in the empty dotted box
-              @elseif($subtest == 'subtest4')
-                Select the "match" for the top box (look for a shape where you
-                could put a dot in the same place as it is in the top box)
-              @endif
-            </h4>
-            <div class="text-center shapes-test-container shapes-{{ $subtest }}">
-              <img src="/img/shapes-task/{{ $subtest }}/{{ $i }}.png" class="shapes-img">
-              <table class="table shapes-test-table shapes-{{ $subtest }}">
-                <tr>
-                  @if($subtest == 'subtest2')
-                    @for($j = 0; $j < 5; $j++)
-                      <td>
-                        <input class="form-check-large check-limited" type="checkbox" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
-                      </td>
-                    @endfor
-                  @elseif($subtest == 'subtest3')
-                    @for($j = 0; $j < 6; $j++)
-                      <td>
-                        <input class="form-check-large" type="radio" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
-                      </td>
-                    @endfor
-                  @elseif($subtest == 'subtest4')
-                    @for($j = 0; $j < 5; $j++)
-                      <td>
-                        <input class="form-check-large" type="radio" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
-                      </td>
-                    @endfor
-                  @elseif($subtest == 'subtest5')
-                    <td>
-                        <select class="form-control form-control-lg" style="width: 64px; margin: 0 auto;" name="{{ $i }}[]">
-                          <option value="">----</option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                          <option>6</option>
-                          <option>7</option>
-                          <option>8</option>
-                        </select>
-                    </td>
-                  @endif
-                </tr>
-              </table>
+        @if($subtest == 'subtest1')
+            <div id="inst_{{ $i }}" class="inst">
+              <img src="/img/shapes-task/subtest1/{{ $i }}.png" class="img-fluid shapes-img" style="width: 700px!important;">
+              <div class="row">
+                <div class="col-md-2 offset-md-5">
+                  <div class="form-group mb-lg-5">
+                    <label for="{{ $i }}">Your answer:</label>
+                    <select class="form-control ml-lg-2" name="{{ $i }}">
+                      <option>------</option>
+                      <option value="a">a</option>
+                      <option value="b">b</option>
+                      <option value="c">c</option>
+                      <option value="d">d</option>
+                      <option value="e">e</option>
+                      <option value="f">f</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
+          @else
+            <div id="inst_{{ $i }}" class="inst">
+              <h4>
+                @if($subtest == 'subtest2')
+                  Please select <strong>two</strong> boxes
+                @elseif($subtest == 'subtest3')
+                  Choose the box that best fits in the empty dotted box
+                @elseif($subtest == 'subtest4')
+                  Select the "match" for the top box (look for a shape where you
+                  could put a dot in the same place as it is in the top box)
+                @endif
+              </h4>
+              <div class="text-center shapes-test-container shapes-{{ $subtest }}">
+                <img src="/img/shapes-task/{{ $subtest }}/{{ $i }}.png" class="shapes-img">
+                <table class="table shapes-test-table shapes-{{ $subtest }}">
+                  <tr>
+                    @if($subtest == 'subtest2')
+                      @for($j = 0; $j < 5; $j++)
+                        <td>
+                          <input class="form-check-large check-limited" type="checkbox" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
+                        </td>
+                      @endfor
+                    @elseif($subtest == 'subtest3')
+                      @for($j = 0; $j < 6; $j++)
+                        <td>
+                          <input class="form-check-large" type="radio" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
+                        </td>
+                      @endfor
+                    @elseif($subtest == 'subtest4')
+                      @for($j = 0; $j < 5; $j++)
+                        <td>
+                          <input class="form-check-large" type="radio" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
+                        </td>
+                      @endfor
+                    @elseif($subtest == 'subtest5')
+                      <td>
+                          <select class="form-control form-control-lg" style="width: 64px; margin: 0 auto;" name="{{ $i }}[]">
+                            <option value="">----</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                          </select>
+                      </td>
+                    @endif
+                  </tr>
+                </table>
+              </div>
 
-          </div>
+            </div>
+          @endif
         @endfor
         <div id="inst_{{ $shapes['length'] + 1 }}" class="inst mb-lg-5">
           <h3>

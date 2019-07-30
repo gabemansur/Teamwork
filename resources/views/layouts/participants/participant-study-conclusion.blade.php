@@ -44,11 +44,11 @@
         </h4>
       @endif
 
-      @if($feedback)
+      @if($feedbackLink)
         <h4>
           Click the button below to add any feedback or comments on this study. Even a short sentance is very helpful to us!
         </h4>
-        <a class="btn btn-lg btn-success" href="/end-individual-task">Feedback</a>
+        <a class="btn btn-lg btn-success" href="{{ $feedbackLink }}">Feedback</a>
       @endif
 
 

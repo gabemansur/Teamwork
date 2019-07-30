@@ -214,7 +214,7 @@
 
                           @if($memType['type'] == 'images')
                             @foreach($memType['targets'] as $img_key => $img)
-                              <img class="target-img target img-target-{{ $img_key }}" src="{{ $memType['directory'].$img }}">
+                              <img class="target-img target img-target-{{ $img_key }} target-img-{{ $testName }}" src="{{ $memType['directory'].$img }}">
                             @endforeach
                             <div class="text-center mt-lg-2">
                               <input class="btn btn-primary target-nav btn-lg" type="button" name="back" id="back" value="Change Perspective">
