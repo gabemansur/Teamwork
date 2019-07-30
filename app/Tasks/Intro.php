@@ -206,7 +206,7 @@ class Intro {
                  ],
                  [
                    'type' => 'paragraph',
-                   'content' => 'Click "Next to continue."'
+                   'content' => 'Click "Next" to continue.'
                  ]
       ]
   ];

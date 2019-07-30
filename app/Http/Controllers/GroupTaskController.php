@@ -633,7 +633,10 @@ class GroupTaskController extends Controller
           $points = 1;
         }
 
-        else $correct = 0;
+        else {
+          $correct = 0;
+          $points = 0;
+        }
 
         $r = new Response;
         $r->group_tasks_id = $currentTask->id;
