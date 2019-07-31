@@ -1677,7 +1677,7 @@ class Memory {
          'wait_for_all' => 'true',
          'text' => ['You have seen this group memory task before, so we will NOT do a
                     practice this time.',
-                    'Remember, each group will memorize the stimuli on their own computer.
+                    'Remember, each person will memorize the stimuli on their own computer.
                     But, you will answer as a group. Questions will only appear on
                     the Reporter\'s laptop.',
                     'The task will continue when everyone has clicked "Next".'

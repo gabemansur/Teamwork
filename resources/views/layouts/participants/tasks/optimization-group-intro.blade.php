@@ -267,18 +267,8 @@ $( document ).ready(function() {
             This is the same as the task you’ve completed in previous groups.
           </h4>
           <h4>
-            Recall that the goal of this task is to try to find the number
-            (between 0 and 300) that results in your computer returning the
-            biggest possible value. You do this by guessing numbers, and seeing
-            what the computer gives you in return.
-          </h4>
-          <h4>
             <strong>As you’ve done the task several times before, we won’t have
               a practice round this time.</strong>
-          </h4>
-          <h4>
-            If you would like a more detailed review of the instructions,
-            click "Review Instructions".
           </h4>
           <h4>
             When all three group members have hit Next, the instructions will continue.

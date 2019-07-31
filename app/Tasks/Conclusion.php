@@ -80,7 +80,8 @@ class Conclusion {
 
   private $feedbackLinks = [
     'pilot' => 'https://docs.google.com/forms/d/1ZZV8P_dyifFn4DRhalN82126POz3R-SgCWXvTo7DMaU/viewform?ts=5d35ccb7&edit_requested=true',
-    'group5Pilot' => 'https://docs.google.com/forms/d/1KNfcSCGmdNy4vqKtx2R8paFvSeklTfQyvtWBPaINRwk/viewform?usp=sharing_eip&ts=5d405d8c&edit_requested=true'
+    'group5Pilot' => 'https://docs.google.com/forms/d/1KNfcSCGmdNy4vqKtx2R8paFvSeklTfQyvtWBPaINRwk/viewform?usp=sharing_eip&ts=5d405d8c&edit_requested=true',
+    'groupTwo' => 'https://docs.google.com/forms/d/e/1FAIpQLSd2dia4FinoOoNlh6hqDAn5ExBuEpVKasOj6YLFEHSsn-wi-Q/viewform?usp=sf_link'
   ];
 
   private static $avaialbleParams = ['hasIndividuals' => ['true', 'false'], 'hasGroup' => ['false'], 'type' => ['mturk', 'hdsl_individual'], 'hasCode' => ['true', 'false'], 'feedback' => ['true', 'false']];

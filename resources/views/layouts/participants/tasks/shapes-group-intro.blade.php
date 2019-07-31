@@ -25,47 +25,60 @@
           <h3 class="text-success">
             Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
           </h3>
-          <h3>
+          <h4>
             This task is about understanding patterns and identifying what
             comes next. We’ll start with a practice.
-          </h3>
+          </h4>
+          <h4>
+            <strong>
+              You only need one computer for this task. Everyone should be gathered
+              around <em>The Reporter's</em> laptop.
+            </strong>
+          </h4>
+          <h4>
+            @if($isReporter)
+              Click Next to see the examples.
+            @else
+              If you are not The Reporter, you can click "finish".
+            @endif
+          </h4>
         </div>
         <div id="inst_2" class="inst">
-          <h3>
+          <h4>
             On the top, there are four boxes.
             The last one is empty. Below you see six
             more boxes, marked a, b, c, d, e, and f. Of those six boxes,
             one will fit correctly in the empty box.
-          </h3>
-          <h3>
+          </h4>
+          <h4>
             The correct answer has been
             given to you in this first example. It’s box c.
-          </h3>
+          </h4>
           <img src="/img/shapes-task/subtest1/example_01.png" class="img-fluid">
         </div>
         <div id="inst_3" class="inst">
-          <h3>
+          <h4>
             Here's another example. The black part comes down lower and lower
             each time. So at the next step it would come more than half way down.
             The correct answer for the second example is box e.
-          </h3>
+          </h4>
           <img src="/img/shapes-task/subtest1/example_02.png" class="img-fluid">
         </div>
         <div id="inst_4" class="inst">
-          <h3>
+          <h4>
             After clicking the “next” button you will be asked to complete the
             rest yourself. As in the practices, select the box that continues
             the pattern!
-          </h3>
-          <h3>
+          </h4>
+          <h4>
             There are 13 questions and you have 3 minutes. You may not have time
             to finish all the questions, but work as quickly and carefully as you
             can. There will be a timer in the top right of your screen.
-          </h3>
-          <h3>
+          </h4>
+          <h4>
             You may change your answer if you change your mind, but not after the
             3 minutes is up.
-          </h3>
+          </h4>
         </div>
 
       @elseif($subtest == 'subtest2')
@@ -91,8 +104,7 @@
             @if($isReporter)
               Click Next to see the examples.
             @else
-              If you are not The Reporter, you can click "finish" and close your laptop:
-              you won’t be needing it again.
+              If you are not The Reporter, you can click "finish".
             @endif
           </h4>
         </div>

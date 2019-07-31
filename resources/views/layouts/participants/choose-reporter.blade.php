@@ -37,7 +37,8 @@ $( document ).ready(function() {
             This person will be responsible for entering the group’s answers.
           </h4>
           <h4>Take a moment to discuss who will be The Reporter.</h4>
-          <h4>When you have decided, all three group members should hit "Next"</h4>
+          <h4 class="text-danger">Please make sure that the Reporter is sitting in the middle 
+          of the three seats.</h4>
         </div>
         <div id="inst_2" class="inst">
           <div class="text-center">
