@@ -74,14 +74,13 @@ $( document ).ready(function() {
 
     var n = $("#guess").val();
 
-    if(n < 0 || n > 300 || n == '') {
+    if(n < 0 || n > 300 || n === '') {
       $("#warning").show();
       event.preventDefault();
       return;
     }
 
     guessNumber++;
-    console.log(f(n));
 
     if(guessNumber > MAX_RESPONSES) {
       $("#final-guess").val($("#guess").val());
@@ -126,15 +125,19 @@ $( document ).ready(function() {
     }
 
     else {
-      markIndividualReady(userId, groupId, taskId, step, token);
-      waitForGroup(userId, groupId, taskId, step, token, isReporter);
-      step++;
+      $("#waiting-for-group").modal('hide');
+      $("#reporter-final-answer").modal({show: true, backdrop: 'static', keyboard: false});
     }
 
     event.preventDefault();
   });
 
   $("#final-guess-submit").on("click", function(event) {
+
+    markIndividualReady(userId, groupId, taskId, step, token);
+    waitForGroup(userId, groupId, taskId, step, token, isReporter);
+    step++;
+
     let n = parseInt($("#final-guess").val());
     if(n < 0 || n > 300 || n === '') {
       $("#final-answer-error").html('Your guess must be between 0 and 300');
