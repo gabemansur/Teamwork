@@ -280,10 +280,6 @@ $( document ).ready(function() {
             guesses. In total, the group has {{ $maxResponses }} guesses.
           </h4>
           <h4>
-            After each of you has had 5 guesses, the computer will ask the
-            Reporter to input the Group's Best Guess.
-          </h4>
-          <h4>
             If you need to clarify the rules of the Optimization task you can
             click Review Practice Instructions.
           </h4>
