@@ -157,7 +157,7 @@ class GroupTask extends Model
         {"taskName":"Optimization","taskParams":{"hasIndividuals":"false","hasGroup":"true","function":"7","intro":"group_alt_intro","maxResponses":"15"}},
         {"taskName":"Memory","taskParams":{"hasIndividuals":"false","hasGroup":"true","test":"group_2"}},
         {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest3"}},
-        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_2","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"false", "sonaId":"187", "feedback":"false", "feedbackLinkType":"groupTwo"}}
+        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_2","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"false", "sonaId":"187", "feedback":"true", "feedbackLinkType":"groupTwo"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
