@@ -949,6 +949,40 @@ class IndividualTaskController extends Controller
       \Session::put('completedTasks', $completed);
     }
 
+    public function testEligibility() {
+      $userId = 247;
+      $user = \Teamwork\User::where('id', $userId)->first();
+      dump($user);
+      $this->calculateEligibility($user->group_id);
+    }
+
+    public function calculateEligibility($groupId) {
+
+      $passed = true;
+
+      // Collect shapes scores and time they spent on shapes task
+      $shapesTask = \Teamwork\GroupTask::where('group_id', $groupId)
+                                       ->where('name', 'Shapes')
+                                       ->with('response')
+                                       ->first();
+
+      $shapesCorrect = $shapesTask->response->sum('correct');
+
+      $shapesTimestamps = Time::where('group_tasks_id', $shapesTask->id)
+                         ->where('type', 'task')
+                         ->first();
+
+
+      $startTime = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $shapesTimestamps->start_time);
+      $endTime = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $shapesTimestamps->end_time);
+      $shapesTime = $startTime->diffInSeconds($endTime);
+
+      // If less than 2 minutes AND they scored less than 8, they do not pass
+      if($shapesTime < 120 && $shapesCorrect < 8) $passed = false;
+
+      
+    }
+
     public function calculateScore($groupId) {
       // When we switch to filter to use only HDSL participants, we also need to un-square optStdDev
       $filter = \DB::table('users')->whereRaw('CHAR_LENGTH(participant_id) > 11')->pluck('group_id')->toArray();

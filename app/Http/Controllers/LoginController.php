@@ -97,17 +97,16 @@ class LoginController extends Controller
       // See if this user already exists
       $user = User::where('participant_id', $request->participant_id)->first();
 
-      // Create a group
-      $group = Group::firstOrCreate(['group_number' => uniqid()]);
-      $group->save();
 
       if($user) {
-        $user->group_id = $group->id;
-        $user->save();
         \Auth::login($user);
       }
 
       else {
+        // Create a group
+        $group = Group::firstOrCreate(['group_number' => uniqid()]);
+        $group->save();
+
         $user = User::firstOrCreate(['participant_id' => $request->participant_id],
                                     ['name' => 'partipant',
                                      'participant_id' => $request->participant_id,
@@ -116,22 +115,22 @@ class LoginController extends Controller
                                      'group_id' => $group->id]);
         $user->save();
         \Auth::login($user);
+
+        if(isset($request->task_package)) {
+          if($request->task_package == 'eq') \Teamwork\GroupTask::initializeEQTasks(\Auth::user()->group_id, $randomize = false);
+          if($request->task_package == 'iq') \Teamwork\GroupTask::initializeIQTasks(\Auth::user()->group_id, $randomize = false);
+          if($request->task_package == 'block-a') \Teamwork\GroupTask::initializeBlockATasks(\Auth::user()->group_id, $randomize = false);
+          if($request->task_package == 'block-b') \Teamwork\GroupTask::initializeBlockBTasks(\Auth::user()->group_id, $randomize = false);
+          if($request->task_package == 'block-c') \Teamwork\GroupTask::initializeBlockCTasks(\Auth::user()->group_id, $randomize = false);
+          if($request->task_package == 'block-d') \Teamwork\GroupTask::initializeBlockDTasks(\Auth::user()->group_id, $randomize = false);
+          if($request->task_package == 'assign-block') \Teamwork\GroupTask::initializeAssignedBlockTasks(\Auth::user()->group_id, $randomize = false);
+          if($request->task_package == 'memory') \Teamwork\GroupTask::initializeMemoryTasks(\Auth::user()->group_id, $randomize = false);
+          if($request->task_package == 'testing-block') \Teamwork\GroupTask::initializeTestingTasks(\Auth::user()->group_id, $randomize = false);
+          if($request->task_package == 'hdsl') \Teamwork\GroupTask::initializeLabIndividualTasks(\Auth::user()->group_id, $randomize = false);
+
+        }
       }
 
-
-       if(isset($request->task_package)) {
-         if($request->task_package == 'eq') \Teamwork\GroupTask::initializeEQTasks(\Auth::user()->group_id, $randomize = false);
-         if($request->task_package == 'iq') \Teamwork\GroupTask::initializeIQTasks(\Auth::user()->group_id, $randomize = false);
-         if($request->task_package == 'block-a') \Teamwork\GroupTask::initializeBlockATasks(\Auth::user()->group_id, $randomize = false);
-         if($request->task_package == 'block-b') \Teamwork\GroupTask::initializeBlockBTasks(\Auth::user()->group_id, $randomize = false);
-         if($request->task_package == 'block-c') \Teamwork\GroupTask::initializeBlockCTasks(\Auth::user()->group_id, $randomize = false);
-         if($request->task_package == 'block-d') \Teamwork\GroupTask::initializeBlockDTasks(\Auth::user()->group_id, $randomize = false);
-         if($request->task_package == 'assign-block') \Teamwork\GroupTask::initializeAssignedBlockTasks(\Auth::user()->group_id, $randomize = false);
-         if($request->task_package == 'memory') \Teamwork\GroupTask::initializeMemoryTasks(\Auth::user()->group_id, $randomize = false);
-         if($request->task_package == 'testing-block') \Teamwork\GroupTask::initializeTestingTasks(\Auth::user()->group_id, $randomize = false);
-         if($request->task_package == 'hdsl') \Teamwork\GroupTask::initializeLabIndividualTasks(\Auth::user()->group_id, $randomize = false);
-
-       }
 
        return redirect('/get-individual-task');
     }

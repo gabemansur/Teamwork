@@ -30,6 +30,12 @@ class Intro {
                   'content' => 'There are 7 tasks to complete. Some tasks take
                   slightly longer than others, but not more than 15 minutes.
                   Feel free to take a break between tasks.'
+                ],
+                [
+                  'type' => 'paragraph',
+                  'content' => '<div class="text-center">
+                          <a href="/end-individual-task" role="button" class="btn btn-lg btn-primary">Next</a>
+                        <div>'
                 ]
       ],
 
@@ -59,6 +65,12 @@ class Intro {
                 'content' => 'There are 5 tasks to complete. Some tasks take
                 slightly longer than others, but not more than 15 minutes.
                 Feel free to take a break between tasks.'
+              ],
+              [
+                'type' => 'paragraph',
+                'content' => '<div class="text-center">
+                        <a href="/end-individual-task" role="button" class="btn btn-lg btn-primary">Next</a>
+                      <div>'
               ]
     ],
 
@@ -76,20 +88,58 @@ class Intro {
                 ],
                 [
                   'type' => 'paragraph',
-                  'content' => 'Most tasks begin with a practice. We’ve
-                  included these practice questions to explain how our
-                  tasks work. The practice questions do NOT count towards
-                  your score. But, it is important to try to get these
-                  simple questions correct, as we use them to make sure
-                  that you’ve read and understood the instructions.'
-                ],
-                [
-                  'type' => 'paragraph',
                   'content' => 'There are 5 tasks to complete. Some tasks take
                   slightly longer than others, but not more than 15 minutes.
                   Feel free to take a break between tasks.'
+                ],
+                [
+                  'type' => 'paragraph',
+                  'content' => 'If you have to stop, that\'s OK. Your answers will be saved.
+                  To continue, come back to this website (http://teamwork.harvarddecisionlab.org/individual-login/hdsl) re-enter the
+                  <strong>same</strong> email address, then pick up where you left off.'
+                ],
+                [
+                  'type' => 'paragraph',
+                  'content' => '<div class="text-center">
+                          <a href="/end-individual-task" role="button" class="btn btn-lg btn-primary">Next</a>
+                        <div>'
                 ]
       ],
+
+  'eligibility' => [[
+                'type' => 'header',
+                'content' => 'Eligibility Notice'
+              ],
+              [
+                'type' => 'paragraph',
+                'content' => 'Our study requires participants who try their best
+                in these Online Tasks. If you skip through questions, or don’t
+                read the instructions, your responses cannot be used.'
+              ],
+              [
+                'type' => 'paragraph',
+                'content' => '<strong>Our tasks contain checks to see whether or not
+                you’re reading the instructions and the questions.</strong>'
+              ],
+              [
+                'type' => 'paragraph',
+                'content' => 'Everybody who makes a genuine attempt to answer
+                the questions will be eligible for the Superteams study,
+                regardless of your score.'
+              ],
+              [
+                'type' => 'paragraph',
+                'content' => 'Click "I agree" if you would like to proceed.
+                If not, thank you for your time!'
+              ],
+              [
+                'type' => 'paragraph',
+                'content' => '
+                <a href="/no-study-consent" role="button" class="btn btn-lg btn-warning float-left">I Do Not Agree</a>
+                <a href="/end-individual-task" role="button" class="btn btn-lg btn-success float-right">I Agree</a>
+                '
+              ],
+    ],
 
     'hdsl_individual_important_info' => [[
                   'type' => 'header',
@@ -115,6 +165,12 @@ class Intro {
                 [
                   'type' => 'paragraph',
                   'content' => 'Please click Continue if you wish to proceed'
+                ],
+                [
+                  'type' => 'paragraph',
+                  'content' => '<div class="text-center">
+                          <a href="/end-individual-task" role="button" class="btn btn-lg btn-primary">Next</a>
+                        <div>'
                 ]
       ],
 
@@ -144,6 +200,12 @@ class Intro {
                  [
                    'type' => 'paragraph',
                    'content' => 'Take a moment to introduce yourselves!'
+                 ],
+                 [
+                   'type' => 'paragraph',
+                   'content' => '<div class="text-center">
+                           <a href="/end-individual-task" role="button" class="btn btn-lg btn-primary">Next</a>
+                         <div>'
                  ]
 
       ],
@@ -173,6 +235,12 @@ class Intro {
                    'type' => 'paragraph',
                    'content' => 'The instructions will continue when all
                    three group members have hit "Next"'
+                 ],
+                 [
+                   'type' => 'paragraph',
+                   'content' => '<div class="text-center">
+                           <a href="/end-individual-task" role="button" class="btn btn-lg btn-primary">Next</a>
+                         <div>'
                  ]
 
       ],
@@ -192,6 +260,12 @@ class Intro {
                    [
                      'type' => 'paragraph',
                      'content' => 'When you are ready, click "Next"'
+                   ],
+                   [
+                     'type' => 'paragraph',
+                     'content' => '<div class="text-center">
+                             <a href="/end-individual-task" role="button" class="btn btn-lg btn-primary">Next</a>
+                           <div>'
                    ]
         ],
 
@@ -207,6 +281,12 @@ class Intro {
                  [
                    'type' => 'paragraph',
                    'content' => 'Click "Next" to continue.'
+                 ],
+                 [
+                   'type' => 'paragraph',
+                   'content' => '<div class="text-center">
+                           <a href="/end-individual-task" role="button" class="btn btn-lg btn-primary">Next</a>
+                         <div>'
                  ]
       ]
   ];
