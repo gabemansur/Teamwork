@@ -17,10 +17,7 @@ class Memory {
          'header' => 'Image Memory',
          'text' => 'In this task, you\'ll be presented with a set of images (for
                     example, 6 faces). There will be 6 images to memorize. We\'ll
-                    call these "target images". We\'ll start with a practice. This
-                    will not count toward your score, but will indicate whether
-                    you have read and understood the instructions, so please
-                    answer all questions carefully.',],
+                    call these "target images". We\'ll start with a practice.',],
           ['type' => 'practice_review',
           'text' => 'Look at these 6 faces for a few seconds. We\'ll call these
                     "target faces".',
@@ -129,10 +126,7 @@ class Memory {
          'header' => 'Story Memory',
          'text' => 'This memory task asks you to remember
                          two very short stories. Once again, we’ll start with a
-                         practice. In the practice round each "story" will only have one sentence. This
-                         will not count toward your score, but will indicate whether
-                         you have read and understood the instructions, so please
-                         answer all questions carefully.'],
+                         practice. In the practice round each "story" will only have one sentence.'],
         ['type' => 'review',
         'text' => 'Practice:',
         'subtext' => 'Read these two \'stories\' quickly but carefully. When you\'re finished click continue.',

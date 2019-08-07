@@ -490,6 +490,10 @@ Route::get('/individual-login/{package}', [
 	'uses' => 'LoginController@individualPackageLogin',
 ]);
 
+Route::get('/retry-individual-tasks', [
+	'uses' => 'LoginController@retryIndividual',
+]);
+
 Route::post('/individual-login', [
 	'uses' => 'LoginController@postIndividualLogin',
 ]);

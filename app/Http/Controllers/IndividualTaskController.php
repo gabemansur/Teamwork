@@ -289,9 +289,9 @@ class IndividualTaskController extends Controller
       $conclusionContent = $conclusion->getConclusion($parameters->type);
 
       if($parameters->displayScoreGroup == 'true') {
-        $score = $this->calculateScore(\Auth::user()->group_id);
+        $eligible = $this->calculateEligibility(\Auth::user()->group_id);
       }
-      else $score = null;
+      else $eligible = null;
 
       if($parameters->digitalReceipt == 'true') {
         $receiptSonaId = $parameters->sonaId;
@@ -311,7 +311,10 @@ class IndividualTaskController extends Controller
       return view('layouts.participants.participant-study-conclusion')
              ->with('conclusionContent', $conclusionContent)
              ->with('code', $code)
-             ->with('score', $score)
+             ->with('score', false)
+             ->with('checkEligibility', $parameters->displayScoreGroup == 'true')
+             //->with('eligible', $eligible)
+             ->with('eligible', false)
              ->with('feedbackLink', $feedbackLink)
              ->with('receiptSonaId', $receiptSonaId);
     }
@@ -698,9 +701,6 @@ class IndividualTaskController extends Controller
 
     public function displayMemoryTaskResults(Request $request) {
 
-      // When we switch to filter to use only HDSL participants, we also need to un-square optStdDev
-      $filter = \DB::table('users')->whereRaw('CHAR_LENGTH(participant_id) > 11')->pluck('group_id')->toArray();
-
       $groupTasks = \Teamwork\GroupTask::where('name', 'Memory')
                                    ->where('group_id', \Auth::user()->group_id)
                                    ->with('response')->get();
@@ -708,14 +708,13 @@ class IndividualTaskController extends Controller
 
       $performance = ['words_1' => 0, 'faces_1' => 0, 'story_1' => 0];
 
-      $scores = $this->getMemoryScores($filter);
-
       foreach($groupTasks as $id => $task) {
         if(count($task->response) == 0) continue;
         $parameters = unserialize($task->parameters);
         if($parameters->test == 'words_1' || $parameters->test == 'faces_1' || $parameters->test == 'story_1') {
           $avg = $task->response->avg('points');
-          $performance[$parameters->test] = $this->calculatePercentileRank($avg, collect($scores[$parameters->test]));
+
+          $performance[substr($parameters->test, 0, -2)] = $this->calculateMemoryPercentileRank(substr($parameters->test, 0, -2), $avg);
         }
       }
 
@@ -731,23 +730,50 @@ class IndividualTaskController extends Controller
       }
 
       switch ($bestTest) {
-        case 'words_1':
+        case 'words':
           $bestTestName = 'Words';
           break;
-        case 'faces_1':
+        case 'faces':
           $bestTestName = 'Images';
           break;
-        case 'story_1':
+        case 'story':
           $bestTestName = 'Story';
           break;
       }
 
-      $results = 'You have completed the Memory Task.<br><br><h1>Across the three different memory tasks, you performed best on the <span class="text-primary">'. $bestTestName .'</span> test.</h1>';
+      $results = 'Congratulations on completing the memory challenge.<br><br>';
+      $results .= '<h2>Compared to other participants in this study, you did <strong>better</strong> than roughly:</h2>';
+      $results .= '<h2>'.$performance['words'].'% on words</h2>';
+      $results .= '<h2>'.$performance['faces'].'% on images</h2>';
+      $results .= '<h2>'.$performance['story'].'% on stories</h2>';
+      $results .= '<h2>Compared to others, your strongest memory skill is '.strtoupper($bestTestName).'</h2>';
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Memory Task');
 
       return redirect('/individual-task-results');
 
+    }
+
+    private function calculateMemoryPercentileRank($test, $avg){
+      $percentiles = [
+      'words' => ['0' => 0.00, '10' => 0.00, '20' => 2.276, '30' => 2.490,
+                         '40' => 2.615, '50' => 2.665, '60' => 2.740, '70' => 2.790,
+                         '80' => 2.865, '90' => 2.990],
+
+      'faces' => ['0' => 0.00, '10' => 0.00, '20' => 1.490, '30' => 1.540,
+                        '40' => 1.750, '50' => 1.865, '60' => 1.890, '70' => 2.140,
+                        '80' => 2.240, '90' => 2.615],
+
+      'story' => ['0' => 0.00, '10' => 0.00, '20' => 1.490, '30' => 1.540,
+                         '40' => 1.590, '50' => 1.865, '60' => 2.140, '70' => 2.240,
+                         '80' => 2.600, '90' => 2.615]
+      ];
+      foreach (array_reverse($percentiles[$test], true) as $key => $value) {
+        if($avg >= $value) {
+          return $key;
+        }
+      }
+      return '20';
     }
 
     public function eyesIntro(Request $request) {
@@ -950,7 +976,7 @@ class IndividualTaskController extends Controller
     }
 
     public function testEligibility() {
-      $userId = 247;
+      $userId = 518;
       $user = \Teamwork\User::where('id', $userId)->first();
       dump($user);
       $this->calculateEligibility($user->group_id);
@@ -980,7 +1006,32 @@ class IndividualTaskController extends Controller
       // If less than 2 minutes AND they scored less than 8, they do not pass
       if($shapesTime < 120 && $shapesCorrect < 8) $passed = false;
 
-      
+      $memoryTasks = \Teamwork\GroupTask::where('group_id', $groupId)
+                                       ->where('name', 'Memory')
+                                       ->with('response')
+                                       ->get();
+
+      $memPracticeCount = 0;
+
+      $performance = ['words' => 0, 'faces' => 0, 'story' => 0];
+
+      foreach($memoryTasks as $key => $mem) {
+        $parameters = unserialize($mem->parameters);
+
+        if($parameters->test == 'images_instructions' || $parameters->test == 'story_instructions') {
+          $memPracticeCount += $mem->response->sum('points');
+        }
+
+        if($parameters->test == 'words_1' || $parameters->test == 'faces_1' || $parameters->test == 'story_1') {
+          $avg = $mem->response->avg('points');
+          $performance[substr($parameters->test, 0, -2)] = $this->calculateMemoryPercentileRank(substr($parameters->test, 0, -2), $avg);
+        }
+      }
+
+      if($memPracticeCount <= 6 && ($performance['words'] == '20' && $performance['faces'] == '20' && $performance['story'] == '20')) $passed = false;
+
+      return $passed;
+
     }
 
     public function calculateScore($groupId) {

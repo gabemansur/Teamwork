@@ -111,6 +111,8 @@
                     <div class="col-sm-3"><h2>2</h2></div>
                     <div class="col-sm-3"><h2>3</h2></div>
                   </div>
+                  <input type="hidden" name="response_{{ $key }}_{{ $b_key }}"
+                         id="response_{{ $key }}_{{ $b_key }}">
                 </div>
               @endif {{-- End if blocktype = practice_test --}}
 
@@ -264,6 +266,8 @@
                             {{ $c_key + 1 }}) {{ $choice }}
                           </h4>
                       @endforeach
+                      <input type="hidden" name="response_{{ $key }}_{{ $b_key }}"
+                             id="response_{{ $key }}_{{ $b_key }}">
                     </div>
                   </div>
                 </div>

@@ -44,6 +44,52 @@
         </h4>
       @endif
 
+      @if($checkEligibility)
+        @if($eligible)
+          <h2>Congratulations on completing the tasks!</h2>
+          <h4>You are now eligible for the Superteams Study.</h4><br>
+          <h4>
+            The Superteams Study has regular slots available Sona. You need to come to the lab twice to complete the study.
+          </h4><br>
+          <h4>
+            The first visit will take 50-60 minutes. You will be paid $30 in total
+            [$20 for the visit to the lab, and $10 for your time in completing these online tasks].
+          </h4><br>
+          <h4>
+            The second visit will take 80-90 minutes. You will be paid $50 for your time. Total payment for participating in the study will be $80.
+          </h4><br>
+          <h4 class="danger">
+            You can sign up for sessions in Sona now
+          </h4><br>
+          <h4>
+            If you have any questions or concerns, please contact <a href="mailto:benweidmann@g.harvard.edu">benweidmann@g.harvard.edu</a>.
+          </h4><br>
+          <h4>
+            We look forward to seeing you at the lab!
+          </h4>
+        @else
+          <h2>Eligibility Notice</h2>
+          <h4>
+            Based on your responses, unfortunately you are not yet eligible to participate in the Superteams Study.
+          </h4>
+          <h4>
+            As noted at the start of these tasks, we included several checks to ensure
+            that participants were reading instructions and not clicking-through without
+            reading questions. These checks do <strong>not</strong> focus on performance. They are
+            designed to make sure participants have paid attention to the questions
+            and attempted to answer them correctly. This is essential for the Superteams Study.
+          </h4>
+          <h4>
+            You are welcome to re-attempt these tasks by clicking the button below.
+          </h4>
+          <h4>
+            If you have any questions or concerns, please contact <a href="mailto:benweidmann@g.harvard.edu">benweidmann@g.harvard.edu</a>.
+          </h4>
+            <a class="btn btn-lg btn-success" href="/retry-individual-tasks">Retry</a>
+        @endif
+
+      @endif
+
       @if($feedbackLink)
         <h4>
           Click the button below to add any feedback or comments on this study. Even a short sentance is very helpful to us!

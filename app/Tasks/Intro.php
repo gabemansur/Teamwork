@@ -95,7 +95,7 @@ class Intro {
                 [
                   'type' => 'paragraph',
                   'content' => 'If you have to stop, that\'s OK. Your answers will be saved.
-                  To continue, come back to this website (http://teamwork.harvarddecisionlab.org/individual-login/hdsl) re-enter the
+                  To continue, come back to this website (<a href="http://teamwork.harvarddecisionlab.org/individual-login/hdsl">http://teamwork.harvarddecisionlab.org/individual-login/hdsl</a>) re-enter the
                   <strong>same</strong> email address, then pick up where you left off.'
                 ],
                 [

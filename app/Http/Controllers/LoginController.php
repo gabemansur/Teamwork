@@ -135,6 +135,17 @@ class LoginController extends Controller
        return redirect('/get-individual-task');
     }
 
+    public function retryIndividual() {
+
+      $group = Group::firstOrCreate(['group_number' => uniqid()]);
+      $group->save();
+      $user = \Auth::user();
+      $user->group_id = $group->id;
+      $user->save();
+      \Teamwork\GroupTask::initializeLabIndividualTasks(\Auth::user()->group_id, $randomize = false);
+      return redirect('/get-individual-task');
+    }
+
 
     public function groupLogin() {
       return view('layouts.participants.group-login');
