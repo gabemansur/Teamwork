@@ -95,7 +95,7 @@
         @for($i = 1; $i <= $shapes['length']; $i++)
         @if($subtest == 'subtest1')
             <div id="inst_{{ $i }}" class="inst">
-              <img src="/img/shapes-task/subtest1/{{ $i }}.png" class="img-fluid shapes-img" style="width: 700px!important;">
+              <img src="/img/shapes-task/subtest1/{{ $i }}.png" class="img-fluid shapes-img" style="width: 650px!important;">
               <div class="row">
                 <div class="col-md-2 offset-md-5">
                   <div class="form-group mb-lg-5">

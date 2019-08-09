@@ -74,8 +74,8 @@
           </h4>
           <h4>
             As noted at the start of these tasks, we included several checks to ensure
-            that participants were reading instructions and not clicking-through without
-            reading questions. These checks do <strong>not</strong> focus on performance. They are
+            that participants were reading instructions and questions. These checks do
+            <strong>not</strong> focus on performance. They are
             designed to make sure participants have paid attention to the questions
             and attempted to answer them correctly. This is essential for the Superteams Study.
           </h4>

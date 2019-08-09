@@ -16,12 +16,8 @@ class Conclusion {
       ],
     'hdsl_individual' => [[
                   'type' => 'sub-header',
-                  'content' => 'You\'ve completed all the tasks!'
-                ],
-                [
-                  'type' => 'sub-header',
-                  'content' => 'Thank you for participating!'
-                ],
+                  'content' => ''
+                ]
       ],
 
     'group_1' => [[

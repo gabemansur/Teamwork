@@ -1914,7 +1914,7 @@ class Memory {
         ['type' => 'text',
          'header' => 'Memory Task',
          'wait_for_all' => 'true',
-         'text' => ['As a reminder, your group will have <strong>40</strong> seconds to memorize 6 images, 12 words and 2 short
+         'text' => ['Your group will have <strong>40</strong> seconds to memorize 6 images, 12 words and 2 short
                     stories.',
                     'Everyone should be in front of their own laptop. During the memorization
                      period, you have the option of looking at multiple types of stimuli

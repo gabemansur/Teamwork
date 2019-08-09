@@ -146,6 +146,18 @@ Route::get('/choose-reporter/{choice}', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/teammates', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@getTeammates',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::post('/teammates', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@saveTeammates',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::get('/check-for-confirmation-code', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@checkForConfirmationCode',
@@ -535,6 +547,9 @@ Route::get('/download-csv', [
 ]);
 
 // Testing Routes
+Route::get('/responses-test', [
+  'uses' => 'IndividualTaskController@responsesTest',
+]);
 
 Route::get('/optimization-test', [
   'uses' => 'AjaxController@testOptimization',
@@ -544,7 +559,11 @@ Route::get('/memory-test', [
   'uses' => 'IndividualTaskController@testMemory',
 ]);
 
-Route::get('/test', [
+Route::get('/test-mem-results/{id}', [
+  'uses' => 'IndividualTaskController@testMemResults',
+]);
+
+Route::get('/test-eligibility/{id}', [
   'uses' => 'IndividualTaskController@testEligibility',
 ]);
 

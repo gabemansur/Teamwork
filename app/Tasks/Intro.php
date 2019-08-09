@@ -39,42 +39,8 @@ class Intro {
                 ]
       ],
 
-  'hdsl_individual' => [[
-                'type' => 'header',
-                'content' => 'Welcome to the Harvard Study Of Intelligence and Social Skill'
-              ],
-              [
-                'type' => 'paragraph',
-                'content' => 'Over the next <strong>45 minutes</strong> you will complete a
-                range of different tasks. Our goal is to understand how well
-                you solve problems, your ability to perceive emotions in
-                others, and your short-term memory. This is a research study
-                and your answers are important.'
-              ],
-              [
-                'type' => 'paragraph',
-                'content' => 'Most tasks begin with a practice. We’ve
-                included these practice questions to explain how our
-                tasks work. The practice questions do NOT count towards
-                your score. But, it is important to try to get these
-                simple questions correct, as we use them to make sure
-                that you’ve read and understood the instructions.'
-              ],
-              [
-                'type' => 'paragraph',
-                'content' => 'There are 5 tasks to complete. Some tasks take
-                slightly longer than others, but not more than 15 minutes.
-                Feel free to take a break between tasks.'
-              ],
-              [
-                'type' => 'paragraph',
-                'content' => '<div class="text-center">
-                        <a href="/end-individual-task" role="button" class="btn btn-lg btn-primary">Next</a>
-                      <div>'
-              ]
-    ],
 
-    'hdsl_individual_pilot' => [[
+    'hdsl_individual' => [[
                   'type' => 'header',
                   'content' => 'Welcome to the online component of the Superteams study!'
                 ],
@@ -97,6 +63,11 @@ class Intro {
                   'content' => 'If you have to stop, that\'s OK. Your answers will be saved.
                   To continue, come back to this website (<a href="http://teamwork.harvarddecisionlab.org/individual-login/hdsl">http://teamwork.harvarddecisionlab.org/individual-login/hdsl</a>) re-enter the
                   <strong>same</strong> email address, then pick up where you left off.'
+                ],
+                [
+                  'type' => 'paragraph',
+                  'content' => '<span class="text-danger">Note: These tasks <strong>must</strong> be done on a laptop or desktop computer. They <strong>cannot</strong>
+                  be done on a mobile phone or tablet. If you do not have access to a computer, please feel free to come to the lab and complete the tasks there.'
                 ],
                 [
                   'type' => 'paragraph',
@@ -245,10 +216,7 @@ class Intro {
 
       ],
 
-      'group_5_break' => [[
-                     'type' => 'paragraph',
-                     'content' => 'Your group has completed the three Teamwork tasks.'
-                   ],
+      'group_5_break' => [
                    [
                      'type' => 'paragraph',
                      'content' => 'Feel free to take a break and stretch your legs.'

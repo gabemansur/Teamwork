@@ -66,6 +66,9 @@ class IndividualTaskController extends Controller
         case "ChooseReporter":
           return redirect('/choose-reporter');
 
+        case "Teammates":
+          return redirect('/teammates');
+
         case "TeamRole":
           request()->session()->put('currentIndividualTaskName', 'Team Role Task');
           return redirect('/team-role-intro');
@@ -234,6 +237,21 @@ class IndividualTaskController extends Controller
       return view('layouts.participants.reporter-chosen');
     }
 
+    public function getTeammates(Request $request) {
+
+      return view('layouts.participants.participant-study-teammates');
+    }
+
+    public function saveTeammates(Request $request) {
+      \DB::table('teammates')
+         ->insert(['user_id' => \Auth::user()->id,
+                   'group_id' => \Auth::user()->group_id,
+                   'know_teammates' => $request->teammates,
+                   'created_at' => date("Y-m-d H:i:s"),
+                   'updated_at' => date("Y-m-d H:i:s")]);
+      return redirect('/end-individual-task');
+    }
+
     public function studyIntro(Request $request) {
       $this->recordStartTime($request, 'intro');
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
@@ -289,9 +307,12 @@ class IndividualTaskController extends Controller
       $conclusionContent = $conclusion->getConclusion($parameters->type);
 
       if($parameters->displayScoreGroup == 'true') {
-        $eligible = $this->calculateEligibility(\Auth::user()->group_id);
+        $eligiblityStats = $this->calculateEligibility(\Auth::user()->group_id);
       }
-      else $eligible = null;
+      else $eligiblityStats = null;
+
+      if($eligiblityStats) $eligiblity = $eligiblity['passed'];
+      else $eligiblity = false;
 
       if($parameters->digitalReceipt == 'true') {
         $receiptSonaId = $parameters->sonaId;
@@ -313,8 +334,7 @@ class IndividualTaskController extends Controller
              ->with('code', $code)
              ->with('score', false)
              ->with('checkEligibility', $parameters->displayScoreGroup == 'true')
-             //->with('eligible', $eligible)
-             ->with('eligible', false)
+             ->with('eligible', $eligiblity)
              ->with('feedbackLink', $feedbackLink)
              ->with('receiptSonaId', $receiptSonaId);
     }
@@ -698,8 +718,35 @@ class IndividualTaskController extends Controller
 
       return redirect('/end-individual-task');
     }
+    // http://teamwork.loc/test-mem-results/686
+    public function testMemResults($id, Request $request) {
+      $user = \Teamwork\User::find($id);
+      \Auth::login($user);
 
-    public function displayMemoryTaskResults(Request $request) {
+      $groupTasks = \Teamwork\GroupTask::where('name', 'Memory')
+                                   ->where('group_id', \Auth::user()->group_id)
+                                   ->with('response')->get();
+
+
+      $performance = ['words_1' => 0, 'faces_1' => 0, 'story_1' => 0];
+
+      foreach($groupTasks as $id => $task) {
+        if(count($task->response) == 0) continue;
+        $parameters = unserialize($task->parameters);
+        if($parameters->test == 'words_1' || $parameters->test == 'faces_1' || $parameters->test == 'story_1') {
+          dump($parameters->test);
+          dump('Total points: ' .$task->response->sum('points'). ' out of '.(3 * count($task->response)). ' avg: '.$task->response->avg('points'));
+
+          $avg = $task->response->avg('points');
+
+          $performance[substr($parameters->test, 0, -2)] = $this->calculateMemoryPercentileRank(substr($parameters->test, 0, -2), $avg);
+        }
+      }
+
+      return $this->getMemoryTaskResults();
+    }
+
+    public function getMemoryTaskResults() {
 
       $groupTasks = \Teamwork\GroupTask::where('name', 'Memory')
                                    ->where('group_id', \Auth::user()->group_id)
@@ -717,6 +764,15 @@ class IndividualTaskController extends Controller
           $performance[substr($parameters->test, 0, -2)] = $this->calculateMemoryPercentileRank(substr($parameters->test, 0, -2), $avg);
         }
       }
+
+      return $performance;
+
+    }
+
+    public function displayMemoryTaskResults(Request $request) {
+
+
+      $performance = $this->getMemoryTaskResults();
 
       $highestRank = 0;
       $bestTest;
@@ -749,22 +805,21 @@ class IndividualTaskController extends Controller
       $results .= '<h2>Compared to others, your strongest memory skill is '.strtoupper($bestTestName).'</h2>';
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Memory Task');
-
       return redirect('/individual-task-results');
 
     }
 
     private function calculateMemoryPercentileRank($test, $avg){
       $percentiles = [
-      'words' => ['0' => 0.00, '10' => 0.00, '20' => 2.276, '30' => 2.490,
+      'words' => ['20' => 2.276, '30' => 2.490,
                          '40' => 2.615, '50' => 2.665, '60' => 2.740, '70' => 2.790,
                          '80' => 2.865, '90' => 2.990],
 
-      'faces' => ['0' => 0.00, '10' => 0.00, '20' => 1.490, '30' => 1.540,
+      'faces' => ['20' => 1.490, '30' => 1.540,
                         '40' => 1.750, '50' => 1.865, '60' => 1.890, '70' => 2.140,
                         '80' => 2.240, '90' => 2.615],
 
-      'story' => ['0' => 0.00, '10' => 0.00, '20' => 1.490, '30' => 1.540,
+      'story' => ['20' => 1.490, '30' => 1.540,
                          '40' => 1.590, '50' => 1.865, '60' => 2.140, '70' => 2.240,
                          '80' => 2.600, '90' => 2.615]
       ];
@@ -975,11 +1030,11 @@ class IndividualTaskController extends Controller
       \Session::put('completedTasks', $completed);
     }
 
-    public function testEligibility() {
-      $userId = 518;
+    public function testEligibility($userId) {
       $user = \Teamwork\User::where('id', $userId)->first();
       dump($user);
-      $this->calculateEligibility($user->group_id);
+      $eligiblity = $this->calculateEligibility($user->group_id);
+      dump($eligiblity);
     }
 
     public function calculateEligibility($groupId) {
@@ -1029,8 +1084,14 @@ class IndividualTaskController extends Controller
       }
 
       if($memPracticeCount <= 6 && ($performance['words'] == '20' && $performance['faces'] == '20' && $performance['story'] == '20')) $passed = false;
-
-      return $passed;
+      $eligibilityStats = [
+        'shapesTime' => $shapesTime,
+        'shapesCorrect' => $shapesCorrect,
+        'memPracticeCount' => $memPracticeCount,
+        'memPerformance' => $performance,
+        'passed' => $passed
+      ];
+      return $eligibilityStats;
 
     }
 
@@ -1298,6 +1359,16 @@ class IndividualTaskController extends Controller
                   ->where('type', '=', $type)
                   ->first();
       $time->recordEndTime();
+    }
+
+    public function responsesTest() {
+      $responses = \DB::table('responses')
+                      ->where('user_id', \Auth::user()->id)
+                      ->orderBy('created_at', 'desc')
+                      ->get();
+      foreach($responses as $key => $response) {
+        dump($response);
+      }
     }
 
 }

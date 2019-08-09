@@ -76,9 +76,11 @@
           <p>
             <span class="consent-em">WHAT YOU’LL DO</span>: You will be asked to
             solve puzzles, perform memory tasks, and identify people’s emotions
-            based on photographs. In total, we expect the tasks to take around 45
-            minutes. There are 5 tasks in total. You should feel free to take a
-            break between tasks.
+            based on photographs. The online tasks (which you can do at home) should
+            take around 50 minutes. Then participants will come into the lab TWICE. The first
+            session will take less than an hour. The second session will take around
+            80 minutes. Both times you'll be working on puzzles and problems with a small
+            group of people.
           </p>
           <p>
             <span class="consent-em">RISKS</span>: There are no risks
@@ -87,20 +89,14 @@
           </p>
           <p>
             <span class="consent-em">COMPENSATION</span>: Overall, compensation for this
-            experiment will be <strong>at least $60</strong>. This is made up of 3 components:
-            <ul>
-              <li>$10 for completing online tasks</li>
-              <li>$20 for coming into the lab, and participating in the first group
-                  session (which will take around 1 hour)</li>
-              <li>$30 for coming into the lab a second time, and completing the experiment
-                  (which will take around 1.5 hours)</li>
-            </ul>
-            In addition, participants will be paid a bonus based on their performance.
+            experiment will be $80. This requires participants to complete these online
+            tasks and to comt to <strong>two</strong> lab sessions.
           </p>
           <p>
             <span class="consent-em">PLEASE NOTE</span>: This study contains a
             number of checks to make sure that participants are finishing the
-            tasks honestly and completely.
+            tasks honestly and completely. Also, please be aware that we will be
+            recording lab sessions, and analyzing group communication.
           </p>
           <p>
             <span class="consent-em">VOLUNTARY PARTICIPATION AND RIGHT TO

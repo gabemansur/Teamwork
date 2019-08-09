@@ -105,6 +105,7 @@
                 <div class="memory test practice-test" id="memory_{{ $key }}_{{ $b_key }}">
                   <h4>{{ $block['prompt'] }}</h4>
                   <h4>Type [1], [2], or [3]</h4>
+                  <h4><em>Note: You need to type the number on your keyboard</em></h4>
                   <img class="memory-img mt-lg-4" src="{{ $test['directory'].$block['img'] }}">
                   <div class="row text-center justify-content-center">
                     <div class="col-sm-3"><h2>1</h2></div>
@@ -120,6 +121,7 @@
                 <div class="memory test" id="memory_{{ $key }}_{{ $b_key }}">
                   <h4>{{ $block['prompt'] }}</h4>
                   <h4>Type [1], [2], or [3]</h4>
+                  <h4><em>Note: You need to type the number on your keyboard</em></h4>
                   <img class="memory-img mt-lg-4" src="{{ $test['directory'].$block['img'] }}">
                   @if($block['show_numbers'] == 'true')
                     <div class="row text-center justify-content-center">

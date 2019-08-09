@@ -190,9 +190,6 @@
           Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
         </h3>
         <h4>
-          Last is a test of your group’s ability to recognize patterns and shapes.
-        </h4>
-        <h4>
           This is similar to the previous Shapes Tasks you’ve completed. But,
           the questions are formatted differently, so we'll start with some examples.
         </h4>
@@ -324,17 +321,15 @@
           Instructions and examples
         </h3>
         <h4>
-          In this task, there is a separate box at the top with some shapes and
+          There is a separate box at the top with some shapes and
           a dot. The dot is important. Below this "top box" are 5 possible
           "matches", marked a, b, c, d and e.
-        </h4>
-        <h4>
           One of these 5 boxes will be a "match". For a box to be a match,
           you must be able to put the dot in the same position as it is
           in the "top box".
         </h4>
         <h4>
-          Below is an example. In the top box, you can see that the dot is
+          Below is an example. In the top box, the dot is
           <em>inside both</em> the square and the circle. The only answer where this
           is a possibility is box c. To make this obvious, we have included
           the dot in box c.
@@ -351,9 +346,6 @@
             </tr>
           </table>
         </div>
-        <h4>
-          When all three of your group members are ready, click "Next" to see another example
-        </h4>
       </div>
       <div id="inst_3" class="inst">
         <h4>
