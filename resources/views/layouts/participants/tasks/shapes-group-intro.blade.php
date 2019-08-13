@@ -17,7 +17,7 @@
 </script>
 
 <div class="container">
-  <div class="row vertical-center">
+  <div class="row">
     <div class="col-md-12 text-center">
       @if($subtest == 'subtest1')
         <div id="inst_1" class="inst">
@@ -31,15 +31,14 @@
           </h4>
           <h4>
             <strong>
-              You only need one computer for this task. Everyone should be gathered
-              around <em>The Reporter's</em> laptop.
+              You only need one computer for this task.
             </strong>
           </h4>
           <h4>
             @if($isReporter)
               Click Next to see the examples.
             @else
-              If you are not The Reporter, you can click "finish".
+              If you are not The Reporter, click "finish".
             @endif
           </h4>
         </div>
@@ -96,15 +95,14 @@
           </h4>
           <h4>
             <strong>
-              You only need one computer for this task. Everyone should be gathered
-              around <em>The Reporter's</em> laptop.
+              You only need one computer for this task.
             </strong>
           </h4>
           <h4>
             @if($isReporter)
               Click Next to see the examples.
             @else
-              If you are not The Reporter, you can click "finish".
+              If you are not The Reporter, click "finish".
             @endif
           </h4>
         </div>
@@ -195,16 +193,14 @@
         </h4>
         <h4>
           <strong>
-            You only need one computer for this task. Everyone should be gathered
-            around <em>The Reporter's</em> laptop.
+            You only need one computer for this task.
           </strong>
         </h4>
         <h4>
           @if($isReporter)
             Click Next to see the examples.
           @else
-            If you are not The Reporter, you can click "finish" and close your laptop:
-            you won’t be needing it again.
+            If you are not The Reporter, click "finish".
           @endif
         </h4>
       </div>
@@ -303,16 +299,14 @@
         </h4>
         <h4>
           <strong>
-            You only need one computer for this task. Everyone should be gathered
-            around <em>The Reporter's</em> laptop.
+            You only need one computer for this task.
           </strong>
         </h4>
         <h4>
           @if($isReporter)
             Click Next to see the examples.
           @else
-            If you are not The Reporter, you can click "finish" and close your laptop:
-            you won’t be needing it again.
+            If you are not The Reporter, click "finish".
           @endif
         </h4>
       </div>
@@ -335,7 +329,7 @@
           the dot in box c.
         </h4>
         <div class="text-center shapes-test-container shapes-{{ $subtest }}">
-          <img src="/img/shapes-task/{{ $subtest }}/example_01.png" class="shapes-img">
+          <img src="/img/shapes-task/{{ $subtest }}/example_01.png" class="shapes-img shapes-{{ $subtest }}">
           <table class="table shapes-test-table shapes-{{ $subtest }}">
             <tr>
               @for($i = 0; $i < 5; $i++)

@@ -214,8 +214,7 @@ $( document ).ready(function() {
         </h4>
         <h4>
           <strong>At this point everyone should gather around The Reporter’s laptop.</strong>
-          If you are not The Reporter, you can click "finish" and close your laptop:
-          you won’t be needing it again.
+          If you are not The Reporter, you can click "finish".
         </h4>
         <h4>
           Once all three members of the group can see the screen of The Reporter’s

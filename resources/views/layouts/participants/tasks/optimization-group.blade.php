@@ -26,7 +26,7 @@ $( document ).ready(function() {
   var groupId = {{ \Auth::user()->group_id }};
   var taskId = {{ $taskId }};
   var token = "{{ csrf_token() }}";
-  var step = 1;
+  var step = 7;
   var warningTimeout;
 
   // Setting the timer and warning timer
@@ -125,6 +125,7 @@ $( document ).ready(function() {
     }
 
     else {
+      markIndividualReady(userId, groupId, taskId, step, token);
       $("#waiting-for-group").modal('hide');
       $("#reporter-final-answer").modal({show: true, backdrop: 'static', keyboard: false});
     }

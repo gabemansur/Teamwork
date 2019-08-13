@@ -550,7 +550,6 @@ class GroupTaskController extends Controller
         $r->prompt = 'Not reporter';
         $r->response = 'n/a';
         $r->save();
-        $request->session()->put('waitingMsg', "Feel free to close your laptop, as you won't be needing it again. At this point, everyone should gather round The Reporter's laptop");
         return redirect('/end-group-task');
       }
 
@@ -685,9 +684,11 @@ class GroupTaskController extends Controller
       $tasks = \Teamwork\GroupTask::where('group_id', \Auth::user()->group_id)
                                       ->where('name', '!=', 'Consent')
                                       ->where('name', '!=', 'Intro')
+                                      ->where('name', '!=', 'ChooseReporter')
+                                      ->where('name', '!=', 'Teammates')
                                       ->where('name', '!=', 'Feedback')
                                       ->where('name', '!=', 'Conclusion')
-                                      ->where('name', '!=', 'ChooseReporter')
+                                      ->where('name', '!=', 'Demographics')
                                       ->get();
 
       $count = 0;

@@ -1010,7 +1010,9 @@ class IndividualTaskController extends Controller
       $tasks = \Teamwork\GroupTask::where('group_id', \Auth::user()->group_id)
                                       ->where('name', '!=', 'Consent')
                                       ->where('name', '!=', 'Intro')
+                                      ->where('name', '!=', 'ChooseReporter')
                                       ->where('name', '!=', 'Feedback')
+                                      ->where('name', '!=', 'Demographics')
                                       ->where('name', '!=', 'Conclusion')
                                       ->get();
 

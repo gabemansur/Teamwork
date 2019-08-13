@@ -267,12 +267,12 @@ img.eyes {
 }
 
 .shapes-subtest3 .shapes-img {
-  width: 1140px!important;
+  width: 940px!important;
   height: auto!important;
 }
 
 .shapes-subtest4 .shapes-img {
-  width: 700px!important;
+  width: 900px!important;
   height: auto!important;
 }
 
@@ -297,7 +297,7 @@ img.eyes {
 
 .shapes-test-container.shapes-subtest4 {
   position: relative;
-  width: 700px;
+  width: 900px;
   margin: 0 auto;
   margin-bottom: 36px;
 }
@@ -312,16 +312,16 @@ img.eyes {
 
 .shapes-test-table.shapes-subtest3 {
   margin: 0 auto;
-  width: 704px;
+  width: 980px;
   position: absolute;
-  top: 400px;
-  left: 244px;
+  top: 510px;
+  left: 82px;
 }
 
 .shapes-test-table.shapes-subtest4 {
-  top: 240px;
-  left: 90px;
-  width: 540px;
+  top: 310px;
+  left: 100px;
+  width: 700px;
 }
 
 .shapes-test-table td {
