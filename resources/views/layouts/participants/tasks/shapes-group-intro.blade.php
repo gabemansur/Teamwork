@@ -291,9 +291,6 @@
           Task {{ \Session::get('completedTasks') + 1 }} of {{ \Session::get('totalTasks') }}
         </h3>
         <h4>
-          Last is a test of your group’s ability to recognize patterns and shapes.
-        </h4>
-        <h4>
           This is similar to the previous Shapes Tasks you’ve completed. But,
           the questions are formatted differently, so we'll start with some examples.
         </h4>

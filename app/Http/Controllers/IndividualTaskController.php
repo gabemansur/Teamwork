@@ -105,6 +105,10 @@ class IndividualTaskController extends Controller
           request()->session()->put('currentIndividualTaskName', 'Feedback');
           return redirect('/study-feedback');
 
+        case "Survey":
+          request()->session()->put('currentIndividualTaskName', 'Demographics');
+          return redirect('/survey');
+
         case "Conclusion":
           request()->session()->put('currentIndividualTaskName', 'Conclusion');
           return redirect('/check-for-confirmation-code');
@@ -285,6 +289,31 @@ class IndividualTaskController extends Controller
       $r->prompt = 'Study feedback';
       $r->response = $request->feedback;
       $r->save();
+      return redirect('/end-individual-task');
+    }
+
+    public function survey(Request $request) {
+      $this->recordStartTime($request, 'intro');
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $parameters = unserialize($currentTask->parameters);
+      return view('layouts.participants.participant-survey')
+             ->with('survey', $parameters->survey);
+    }
+
+    public function saveSurvey(Request $request) {
+      $this->recordEndTime($request, 'intro');
+      $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
+      $individualTaskId = $request->session()->get('currentIndividualTask');
+      foreach ($request->all() as $key => $answer) {
+        if($key == '_token') continue;
+          $r = new Response;
+          $r->group_tasks_id = $currentTask->id;
+          $r->individual_tasks_id = $individualTaskId;
+          $r->user_id = \Auth::user()->id;
+          $r->prompt = 'Survey: ' .$key;
+          $r->response = $answer;
+          $r->save();
+      }
       return redirect('/end-individual-task');
     }
 
@@ -1012,7 +1041,7 @@ class IndividualTaskController extends Controller
                                       ->where('name', '!=', 'Intro')
                                       ->where('name', '!=', 'ChooseReporter')
                                       ->where('name', '!=', 'Feedback')
-                                      ->where('name', '!=', 'Demographics')
+                                      ->where('name', '!=', 'Survey')
                                       ->where('name', '!=', 'Conclusion')
                                       ->get();
 

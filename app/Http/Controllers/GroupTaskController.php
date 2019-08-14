@@ -688,7 +688,7 @@ class GroupTaskController extends Controller
                                       ->where('name', '!=', 'Teammates')
                                       ->where('name', '!=', 'Feedback')
                                       ->where('name', '!=', 'Conclusion')
-                                      ->where('name', '!=', 'Demographics')
+                                      ->where('name', '!=', 'Survey')
                                       ->get();
 
       $count = 0;

@@ -152,6 +152,18 @@ Route::get('/teammates', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::get('/survey', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@survey',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
+Route::post('/survey', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'IndividualTaskController@saveSurvey',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::post('/teammates', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'IndividualTaskController@saveTeammates',

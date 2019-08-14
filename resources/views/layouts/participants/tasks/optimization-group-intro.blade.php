@@ -325,7 +325,6 @@ $( document ).ready(function() {
 
           <div id="inst_3" class="inst">
             <h2 class="text-primary">Optimization Task</h2>
-            <h3>Review</h3>
             <h4>
               Every time you do the Optimization Task, the computer has a
               different "relationship" in mind. When you enter a guess, your
@@ -334,8 +333,7 @@ $( document ).ready(function() {
             </h4>
             <img src="/img/optimization-task/function-example.png" style="width:400px; height: auto;">
             <h4>
-              As you can see, guesses around 240 result in particularly high values;
-              guesses around 140 result in very low values.
+              As you can see, guesses around 240 result in particularly high values.
             </h4>
             <h4>
               When all three members click next, we will have a
