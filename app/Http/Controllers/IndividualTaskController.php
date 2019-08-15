@@ -339,10 +339,9 @@ class IndividualTaskController extends Controller
 
       if($parameters->displayScoreGroup == 'true') {
         $eligiblityStats = $this->calculateEligibility(\Auth::user()->group_id);
-        $user = \User::find(\Auth::user()->id);
+        $user = \Teamwork\User::find(\Auth::user()->id);
         $user->score_group = $eligiblityStats['passed'];
         $user->save();
-
       }
 
       else $eligiblityStats = null;
