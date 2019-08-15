@@ -340,8 +340,8 @@ class IndividualTaskController extends Controller
       }
       else $eligiblityStats = null;
 
-      if($eligiblityStats) $eligiblity = $eligiblity['passed'];
-      else $eligiblity = false;
+      if($eligiblityStats) $eligibility = $eligiblityStats['passed'];
+      else $eligibility = false;
 
       if($parameters->digitalReceipt == 'true') {
         $receiptSonaId = $parameters->sonaId;
@@ -363,7 +363,7 @@ class IndividualTaskController extends Controller
              ->with('code', $code)
              ->with('score', false)
              ->with('checkEligibility', $parameters->displayScoreGroup == 'true')
-             ->with('eligible', $eligiblity)
+             ->with('eligible', $eligibility)
              ->with('feedbackLink', $feedbackLink)
              ->with('receiptSonaId', $receiptSonaId);
     }

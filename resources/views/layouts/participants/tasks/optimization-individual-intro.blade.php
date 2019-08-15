@@ -68,7 +68,7 @@ $( document ).ready(function() {
 </script>
 
 <div class="container">
-  <div class="row vertical-center">
+  <div class="row">
     <div class="col-md-12 text-center">
       <div id="inst_1" class="inst">
         <h2 class="text-primary">Optimization Task</h2>
@@ -102,7 +102,7 @@ $( document ).ready(function() {
           Let&#39;s start with a practice. Say the underlying relationship
           (which you won’t know) looks like this:
         </h4>
-        <img src="/img/optimization-task/function-example.png" style="width:400px; height: auto;">
+        <img src="/img/optimization-task/function-example.png" style="width:325px; height: auto;">
         <h4>
           If you look at the graph you can see that when you enter
           the number 50, the output will be close to 100. You
@@ -112,7 +112,8 @@ $( document ).ready(function() {
         </h4>
         <h4 class="text-warning" id="practice-prompt">
           Practice: enter a number between 0 and 300 and click "Enter Practice Guess".<br>
-          When you&#39;re finished practicing, click "Next".
+          Your results will appear below.
+          When you&#39;re finished practicing, click "Next" button below.
         </h4>
         <div class="alert alert-danger" id="alert" role="alert"></div>
         <div class="row text-center">

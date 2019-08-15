@@ -29,6 +29,13 @@ $( document ).ready(function() {
   var step = 7;
   var warningTimeout;
 
+  // No enter key
+  $('form').keydown(function(event) {
+   if(event.keyCode == 13){
+     event.preventDefault();
+   }
+  });
+
   // Setting the timer and warning timer
   warningTimeout = setTimeout(function() {
     $('#warningModal').modal({show: true, backdrop: 'static', keyboard: false});

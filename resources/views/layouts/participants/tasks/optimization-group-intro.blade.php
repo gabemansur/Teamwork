@@ -482,7 +482,7 @@ $( document ).ready(function() {
       <div id="inst_1" class="inst">
         <h4>
           The next task is the same. The only change is that there is a new relationship
-          between the numbers you guess and the numnbers you receive in return.
+          between the numbers you guess and the numbers you receive in return.
         </h4>
         <h4>
           <strong>If you need to, take a moment to discuss with your group, then click "Next" <span class="text-danger">to begin the task</span>.</strong>

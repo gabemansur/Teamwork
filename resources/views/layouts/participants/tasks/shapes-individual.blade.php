@@ -136,7 +136,7 @@
                         What is the <span style="color: #ea3767;">missing piece</span>?<br>
                         Select your answer here
                       </h4>
-                        <select class="form-control form-control-lg" style="width: 64px; margin: 0 auto;" name="{{ $i }}[]">
+                        <select class="form-control form-control-lg" style="width: 120px; margin: 0 auto;" name="{{ $i }}[]">
                           <option value="">----</option>
                           <option>1</option>
                           <option>2</option>
