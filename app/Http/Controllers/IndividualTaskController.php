@@ -360,6 +360,11 @@ class IndividualTaskController extends Controller
       }
       else $code = null;
 
+      if(\Auth::user()->survey_code){
+        $url = 'https://harvarddecisionlab.sona-systems.com/services/SonaAPI.svc/WebstudyCredit?experiment_id=549&credit_token=0d9329ec68f446afa677b3dff496e3db&survey_code='.\Auth::user()->survey_code;
+        file_get_contents($url);
+      }
+
       return view('layouts.participants.participant-study-conclusion')
              ->with('conclusionContent', $conclusionContent)
              ->with('code', $code)
