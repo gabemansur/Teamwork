@@ -71,7 +71,6 @@ class AdminController extends Controller
 
     public function getIndividualTaskResponses() {
       $groups = $this->getIndividualGroups();
-
       $userData = [];
 
       foreach ($groups as $key => $group) {
@@ -81,7 +80,8 @@ class AdminController extends Controller
                      ->first();
 
         $users = \Teamwork\User::where('id', $userId)
-                              ->with('group');
+                              ->with('group')
+                              ->get();
 
         array_push($userData, $this->collectResponses($users, $group));
 
