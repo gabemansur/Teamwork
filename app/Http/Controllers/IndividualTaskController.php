@@ -1077,7 +1077,7 @@ class IndividualTaskController extends Controller
                                        ->where('name', 'Shapes')
                                        ->with('response')
                                        ->first();
-
+                                       
       $shapesCorrect = $shapesTask->response->sum('correct');
 
       $shapesTimestamps = Time::where('group_tasks_id', $shapesTask->id)
