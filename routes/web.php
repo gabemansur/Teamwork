@@ -68,6 +68,12 @@ Route::get('/waiting', [
 	'roles' => ['Participant'] // Only a logged in user can view this page
 ]);
 
+Route::post('/set-task-end', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'GroupTaskController@setTaskEnd',
+	'roles' => ['Participant'] // Only a logged in user can view this page
+]);
+
 Route::post('/mark-individual-response-complete', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'AjaxController@markIndividualResponseComplete',
@@ -549,6 +555,18 @@ Route::post('/group-add-participants', [
 Route::get('/admin', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'AdminController@getResponses',
+	'roles' => ['Researcher'] // Only a logged in user can view this page
+]);
+
+Route::get('/admin/individual-responses', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'AdminController@getIndividualTaskResponses',
+	'roles' => ['Researcher'] // Only a logged in user can view this page
+]);
+
+Route::get('/admin/group-responses', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'AdminController@getGroupTaskResponses',
 	'roles' => ['Researcher'] // Only a logged in user can view this page
 ]);
 

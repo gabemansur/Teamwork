@@ -2,6 +2,30 @@
 
 
 @section('content')
+<script>
+  $(document).ready(function() {
+    $(".alert").hide();
+    $("#submit").on("click", function(event) {
+      $(".alert").hide();
+      radioNames = [];
+      $("input:radio").each(function (i, v){
+        if($.inArray($(this).attr('name'), radioNames) == -1) radioNames.push($(this).attr('name'));
+      });
+
+      validated = true;
+      $.each(radioNames, function(i, val) {
+          if(!$("input:radio[name='"+val+"']").is(":checked")){
+            validated = false;
+          }
+      });
+
+      if(!validated){
+        $(".alert").show();
+        event.preventDefault();
+      }
+    });
+  });
+</script>
 <div class="container">
   <div class="row vertical-center">
     <div class="col-md-6 offset-3 text-left">
@@ -11,7 +35,7 @@
           <h4>
             Please tell us a bit about yourself...
           </h4>
-          <div style="margin-left: 64px;">
+          <div style="margin-left: 64px;" class="form-div">
             <div class="form-group">
               <h5>What is your gender</h5>
               <div class="form-check">
@@ -159,7 +183,7 @@
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="ethnbirth_yearicity" value="1961-1965">
+                <input class="form-check-input" type="radio" name="birth_year" value="1961-1965">
                 <label class="form-check-label" for="birth_year">
                   1961 - 1965
                 </label>
@@ -219,9 +243,10 @@
                 </label>
               </div>
             </div>
+            <div class="alert alert-danger" role="alert">Please answer all questions before continuing</div>
           </div>
           <div class="text-center">
-            <button class="btn btn-lg btn-primary" type="submit">Next</button>
+            <button class="btn btn-lg btn-primary" id="submit" type="submit">Next</button>
           </div>
         </form>
       @endif

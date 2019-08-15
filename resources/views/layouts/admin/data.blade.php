@@ -7,6 +7,7 @@
         <table class="table table-striped">
             <tr>
               <th>User ID</th>
+              <th>Reporter</th>
               <th>Group ID</th>
               <th>Task</th>
               <th>Instruction Time</th>
@@ -24,6 +25,13 @@
                   @foreach($responses as $response)
                     <tr>
                       <td>{{ $user['user'] }}</td>
+                      <td>
+                        @if($user['isReporter'])
+                          Reporter
+                        @else
+                          Not Reporter
+                        @endif
+                      </td>
                       <td>{{ $user['group'] }}</td>
                       <td>{{ $task['name'] }}</td>
                       <td>{{ $task['introTime'] }}</td>

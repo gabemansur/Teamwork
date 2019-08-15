@@ -46,6 +46,14 @@ class LoginController extends Controller
        $user->save();
       }
 
+
+      \DB::table('group_user')
+         ->insert(['user_id' => $user->id,
+                   'group_id' => $group->id,
+                   'created_at' => date("Y-m-d H:i:s"),
+                   'updated_at' => date("Y-m-d H:i:s")]);
+
+
       // If this is a newly created group, create some tasks if requested
       if($newGroup && isset($request->task_package)) {
        if($request->task_package == 'group-memory'){
@@ -108,13 +116,18 @@ class LoginController extends Controller
         $group->save();
 
         $user = User::firstOrCreate(['participant_id' => $request->participant_id],
-                                    ['name' => 'partipant',
+                                    ['name' => 'participant',
                                      'participant_id' => $request->participant_id,
                                      'password' => bcrypt('participant'),
                                      'role_id' => 3,
                                      'group_id' => $group->id]);
         $user->save();
         \Auth::login($user);
+        \DB::table('group_user')
+           ->insert(['user_id' => $user->id,
+                     'group_id' => $group->id,
+                     'created_at' => date("Y-m-d H:i:s"),
+                     'updated_at' => date("Y-m-d H:i:s")]);
 
         if(isset($request->task_package)) {
           if($request->task_package == 'eq') \Teamwork\GroupTask::initializeEQTasks(\Auth::user()->group_id, $randomize = false);
@@ -131,8 +144,7 @@ class LoginController extends Controller
         }
       }
 
-
-       return redirect('/get-individual-task');
+      return redirect('/get-individual-task');
     }
 
     public function retryIndividual() {

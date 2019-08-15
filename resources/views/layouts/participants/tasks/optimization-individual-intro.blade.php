@@ -104,17 +104,16 @@ $( document ).ready(function() {
         </h4>
         <img src="/img/optimization-task/function-example.png" style="width:325px; height: auto;">
         <h4>
-          If you look at the graph you can see that when you enter
-          the number 50, the output will be close to 100. You
-          can also see that you will get the biggest output when you enter 240.
-          Last, if you enter a number close to 140 the computer will give you
-          a negative number.
+          In this example, you get the biggest result when you enter 240. Practice
+          entering numbers, and look at the results; then hit next
         </h4>
+        <!--
         <h4 class="text-warning" id="practice-prompt">
           Practice: enter a number between 0 and 300 and click "Enter Practice Guess".<br>
           Your results will appear below.
           When you&#39;re finished practicing, click "Next" button below.
         </h4>
+        -->
         <div class="alert alert-danger" id="alert" role="alert"></div>
         <div class="row text-center">
           <div class="col-md-6 offset-md-3 justify-content-center">

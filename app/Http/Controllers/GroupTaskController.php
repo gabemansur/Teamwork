@@ -197,12 +197,13 @@ class GroupTaskController extends Controller
         else {
           $request->session()->put('waitingMsg', "For this part of the task you will be working on the Reporter's laptop");
         }
-        return redirect('/end-group-task');
+        //return redirect('/end-group-task');
       }
 
       else {
         $this->recordEndTime($request, 'task');
       }
+
 
       // Retrieve all responses
       $responses = array_where($request->request->all(), function ($value, $key) {
@@ -225,10 +226,9 @@ class GroupTaskController extends Controller
                           'count' =>$testCount,
                           'task_type' => $t['task_type']];
       }
-
       // Look up the test based on the response key
       foreach ($responses as $key => $response) {
-
+        if(!$isReporter) continue;
         $indices = explode('_', $key);
         $test = $tests[$indices[1]]['blocks'][$indices[2]];
 
@@ -277,20 +277,6 @@ class GroupTaskController extends Controller
         $r->points = $points;
         $r->save();
 
-      }
-
-      $results = '';
-      $bestTest['test'] = '';
-      $bestTest['score'] = 0;
-      $bestTest['task_type'] = '';
-
-      foreach($correct as $c) {
-        if($c['points'] / 3 > $bestTest['score']) {
-          $bestTest['score'] = $c['points'] / 3;
-          $bestTest['test'] = $c['name'];
-          $bestTest['task_type'] = $c['task_type'];
-
-        }
       }
 
       // If this participant isn't the reporter, we'll set a message to
@@ -380,6 +366,7 @@ class GroupTaskController extends Controller
     }
 
     public function optimization(Request $request) {
+      $this->recordEndTime($request, 'intro');
       $this->recordStartTime($request, 'task');
       $currentTask = GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
@@ -662,6 +649,10 @@ class GroupTaskController extends Controller
     public function endShapesGroup(Request $request) {
       $request->session()->put('waitingMsg', "For this part of the task you will be working on the Reporter's laptop");
       return redirect('/end-group-task');
+    }
+
+    public function setTaskEnd(Request $request) {
+      $this->recordEndTime($request, 'task');
     }
 
     private function recordStartTime(Request $request, $type) {

@@ -56,6 +56,71 @@ class AdminController extends Controller
         })->export('xls');
     }
 
+    // Returns an array of groups that contain 1 person (i.e. Individual Task participants)
+    private function getIndividualGroups() {
+      $groups = \DB::select( \DB::raw("SELECT group_id
+      FROM group_user
+      GROUP BY group_id
+      HAVING COUNT(*) = 1"));
+      $groupIds = [];
+      foreach($groups as $key => $group) {
+        $groupIds[] = $group->group_id;
+      }
+      return $groupIds;
+    }
+
+    public function getIndividualTaskResponses() {
+      $groups = $this->getIndividualGroups();
+
+      $userData = [];
+
+      foreach ($groups as $key => $group) {
+        $userId = \DB::table('group_user')
+                     ->where('group_id', $group)
+                     ->pluck('user_id')
+                     ->first();
+
+        $users = \Teamwork\User::where('id', $userId)
+                              ->with('group');
+
+        $users->chunk(1, function ($users) use(&$userData) {
+              array_push($userData, $this->collectResponses($users, $group));
+        });
+
+      }
+
+      return view('layouts.admin.data')
+             ->with('userData', $userData);
+    }
+
+    public function getGroupTaskResponses() {
+
+      $individualGroups = $this->getIndividualGroups();
+
+      $userGroups = \DB::table('group_user')
+                   ->whereNotIn('group_id', $individualGroups)
+                   ->get();
+
+      $userData = [];
+
+      foreach($userGroups as $k => $userGroup) {
+        $users = \Teamwork\User::where('id', $userGroup->user_id)
+                               ->with('group')
+                               ->get();
+
+        array_push($userData, $this->collectResponses($users, $userGroup->group_id));
+        // Pass reference to userData so we can push to it inside the closure
+        /*
+        $users->chunk(1, function ($users) use(&$userData) {
+              array_push($userData, $this->collectResponses($users, $userGroup->group_id));
+        });
+        */
+      }
+
+      return view('layouts.admin.data')
+             ->with('userData', $userData);
+    }
+
     public function getResponses() {
       $users = \Teamwork\User::where('role_id', 3)
                              ->with('group');
@@ -71,16 +136,29 @@ class AdminController extends Controller
              ->with('userData', $userData);
     }
 
-    private function collectResponses($users) {
+
+
+    private function collectResponses($users, $groupId) {
       $userData = [];
       foreach ($users as $key => $user) {
 
+          $reporterCheck = \DB::table('reporters')
+             ->where('user_id', $user->id)
+             ->where('group_id', $groupId)
+             ->first();
+
+          $isReporter = ($reporterCheck) ? true : false;
+
+          $group = \Teamwork\Group::find($groupId);
+
+
           $uData = ['user' => $user->participant_id,
-                    'group'=> $user->group->id,
+                    'isReporter' => $isReporter,
+                    'group'=> $group->group_number,
                     'tasks' => []];
 
           $groupTasks = \Teamwork\GroupTask::with('response')
-                                           ->where('group_id', $user->group->id)
+                                           ->where('group_id', $groupId)
                                            ->get();
 
           foreach ($groupTasks as $k => $task) {
@@ -91,7 +169,7 @@ class AdminController extends Controller
                        ->where('type', 'task')
                        ->first();
 
-            if($taskTime) {
+            if($taskTime && $taskTime->start_time && $taskTime->end_time) {
               $taskTime = strtotime($taskTime->end_time) - strtotime($taskTime->start_time);
             }
 
@@ -103,7 +181,7 @@ class AdminController extends Controller
                        ->where('type', 'intro')
                        ->first();
 
-            if($introTime) {
+            if($introTime && $introTime->start_time && $introTime->end_time) {
               $introTime = strtotime($introTime->end_time) - strtotime($introTime->start_time);
             }
 
@@ -127,6 +205,7 @@ class AdminController extends Controller
 
             $responses = [];
             foreach ($task->response as $response) {
+              if($response->user_id != $user->id) continue;
               if($task->name == 'Memory') {
 
                 //$u = unserialize($response->prompt);
@@ -147,7 +226,6 @@ class AdminController extends Controller
           }
         array_push($userData, $uData);
       }
-      //dump($userData);
       return $userData;
     }
 

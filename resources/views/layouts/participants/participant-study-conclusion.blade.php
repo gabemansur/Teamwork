@@ -47,19 +47,19 @@
       @if($checkEligibility)
         @if($eligible)
           <h2>Congratulations on completing the tasks!</h2>
-          <h4>You are now eligible for the Superteams Study.</h4><br>
+          <h4>You are now eligible for the <span class="text-primary">Superteams Study</span>.</h4><br>
           <h4>
-            The Superteams Study has regular slots available Sona. You need to come to the lab twice to complete the study.
+            You need to come to the lab twice to complete the study.
           </h4><br>
           <h4>
-            The first visit will take 50-60 minutes. You will be paid $30 in total
+            Superteams Lab Session 1 will take 50-60 minutes. You will be paid $30 in total
             [$20 for the visit to the lab, and $10 for your time in completing these online tasks].
           </h4><br>
           <h4>
-            The second visit will take 80-90 minutes. You will be paid $50 for your time. Total payment for participating in the study will be $80.
+            Superteams Lab Session 2 will take 80-90 minutes. You will be paid $60 for your time. Total payment for participating in the study will be $90.
           </h4><br>
           <h4 class="danger">
-            You can sign up for sessions in Sona now
+            You can sign up for Lab Session 1 now
           </h4><br>
           <h4>
             If you have any questions or concerns, please contact <a href="mailto:benweidmann@g.harvard.edu">benweidmann@g.harvard.edu</a>.

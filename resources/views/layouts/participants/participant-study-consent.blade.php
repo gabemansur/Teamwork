@@ -89,7 +89,7 @@
           </p>
           <p>
             <span class="consent-em">COMPENSATION</span>: Overall, compensation for this
-            experiment will be $80. This requires participants to complete these online
+            experiment will be $90. This requires participants to complete these online
             tasks and to come to <strong>two</strong> lab sessions.
           </p>
           <p>

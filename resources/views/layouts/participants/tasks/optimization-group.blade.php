@@ -117,6 +117,11 @@ $( document ).ready(function() {
       $('#final-guess-prompt').modal({show: true, backdrop: 'static', keyboard: false});
       $("#guess").prop('disabled', true);
       $("#submit-guess").prop('disabled', true);
+      if(!isReporter){
+        $.post("/set-task-end", { // Sets an end-of-task time for non-reporters
+            _token: "{{ csrf_token() }}",
+          } );
+      }
     }
 
     event.preventDefault();
