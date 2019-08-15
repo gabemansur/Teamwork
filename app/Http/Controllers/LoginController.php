@@ -95,9 +95,10 @@ class LoginController extends Controller
       return view('layouts.participants.individual-only-login');
     }
 
-    public function individualPackageLogin($package) {
+    public function individualPackageLogin(Request $request, $package) {
       return view('layouts.participants.individual-only-login')
-             ->with('package', $package);
+             ->with('package', $package)
+             ->with('surveyCode', $request->c);
     }
 
     public function postIndividualLogin(Request $request) {
@@ -114,9 +115,9 @@ class LoginController extends Controller
         // Create a group
         $group = Group::firstOrCreate(['group_number' => uniqid()]);
         $group->save();
-
         $user = User::firstOrCreate(['participant_id' => $request->participant_id],
                                     ['name' => 'participant',
+                                     'survey_code' => $request->survey_code,
                                      'participant_id' => $request->participant_id,
                                      'password' => bcrypt('participant'),
                                      'role_id' => 3,

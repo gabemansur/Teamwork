@@ -83,9 +83,7 @@ class AdminController extends Controller
         $users = \Teamwork\User::where('id', $userId)
                               ->with('group');
 
-        $users->chunk(1, function ($users) use(&$userData) {
-              array_push($userData, $this->collectResponses($users, $group));
-        });
+        array_push($userData, $this->collectResponses($users, $group));
 
       }
 

@@ -24,6 +24,9 @@
             @if(isset($package))
               <input type="hidden" name="task_package" value="{{ $package }}">
             @endif
+            @if(isset($surveyCode))
+              <input type="hidden" name="survey_code" value="{{ $surveyCode }}">
+            @endif
           </div>
           <div class="text-center">
             <button class="btn btn-lg btn-primary" type="submit">Sign In</button>
