@@ -296,8 +296,10 @@ class IndividualTaskController extends Controller
       $this->recordStartTime($request, 'intro');
       $currentTask = \Teamwork\GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($currentTask->parameters);
+      if(!$parameters->survey) $survey == 'hdsl';
+      else $survey = $parameters->survey;
       return view('layouts.participants.participant-survey')
-             ->with('survey', $parameters->survey);
+             ->with('survey', $survey);
     }
 
     public function saveSurvey(Request $request) {
@@ -1077,7 +1079,7 @@ class IndividualTaskController extends Controller
                                        ->where('name', 'Shapes')
                                        ->with('response')
                                        ->first();
-                                       
+
       $shapesCorrect = $shapesTask->response->sum('correct');
 
       $shapesTimestamps = Time::where('group_tasks_id', $shapesTask->id)
