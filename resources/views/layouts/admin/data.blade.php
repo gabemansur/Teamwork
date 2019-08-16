@@ -8,6 +8,8 @@
             <tr>
               <th>User ID</th>
               <th>Reporter</th>
+              <th>Eligible</th>
+              <th>Unique ID</th>
               <th>Group ID</th>
               <th>Task</th>
               <th>Instruction Time</th>
@@ -31,6 +33,16 @@
                         @else
                           Not Reporter
                         @endif
+                      </td>
+                      <td>
+                        @if($user['eligible'])
+                          Yes
+                        @else
+                          No
+                        @endif
+                      </td>
+                      <td>
+                        {{ $user['surveyCode'] }}
                       </td>
                       <td>{{ $user['group'] }}</td>
                       <td>{{ $task['name'] }}</td>

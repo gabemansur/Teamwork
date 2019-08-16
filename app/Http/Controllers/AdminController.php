@@ -152,6 +152,8 @@ class AdminController extends Controller
 
           $uData = ['user' => $user->participant_id,
                     'isReporter' => $isReporter,
+                    'eligible' => $user->score_group,
+                    'surveyCode' => $user->survey_code,
                     'group'=> $group->group_number,
                     'tasks' => []];
 
