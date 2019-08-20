@@ -1449,9 +1449,10 @@ class IndividualTaskController extends Controller
                               ->get();
 
         foreach($users as $user) {
+          if($user->score != 0) continue;
           $user->score = $this->calculateScore($group);
           dump($user->participant_id .': '. $user->score);
-          //$user->save();
+          $user->save();
         }
       }
     }
