@@ -258,6 +258,8 @@
                             {{ $c_key + 1 }}) {{ $choice }}
                           </h4>
                       @endforeach
+                      <input type="hidden" name="response_{{ $key }}_{{ $b_key }}"
+                             id="response_{{ $key }}_{{ $b_key }}">
                     </div>
                   </div>
                 </div>
@@ -324,8 +326,10 @@
                       <div class="col-md-3"><h2>3</h2></div>
                     </div>
                   @endif
+                  <input type="hidden" name="response_{{ $key }}_{{ $b_key }}"
+                         id="response_{{ $key }}_{{ $b_key }}">
                 </div>
-              @endif {{-- End if blocktype = practice_text_images --}}
+              @endif {{-- End if blocktype = practice_test_images --}}
 
               @if($block['type'] == 'test_images')
                 <div class="memory test" id="memory_{{ $key }}_{{ $b_key }}">

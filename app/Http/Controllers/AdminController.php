@@ -87,7 +87,7 @@ class AdminController extends Controller
 
       }
 
-      return view('layouts.admin.data')
+      return view('layouts.admin.data-individual')
              ->with('userData', $userData);
     }
 
@@ -115,7 +115,7 @@ class AdminController extends Controller
         */
       }
 
-      return view('layouts.admin.data')
+      return view('layouts.admin.data-group')
              ->with('userData', $userData);
     }
 
@@ -149,10 +149,10 @@ class AdminController extends Controller
 
           $group = \Teamwork\Group::find($groupId);
 
-
           $uData = ['user' => $user->participant_id,
                     'isReporter' => $isReporter,
                     'eligible' => $user->score_group,
+                    'score' => $user->score,
                     'surveyCode' => $user->survey_code,
                     'group'=> $group->group_number,
                     'tasks' => []];
@@ -160,6 +160,9 @@ class AdminController extends Controller
           $groupTasks = \Teamwork\GroupTask::with('response')
                                            ->where('group_id', $groupId)
                                            ->get();
+
+          // We'll create a mem object to access some memory test info later
+          $mem = new \Teamwork\Tasks\Memory;
 
           foreach ($groupTasks as $k => $task) {
 
@@ -208,11 +211,12 @@ class AdminController extends Controller
               if($response->user_id != $user->id) continue;
               if($task->name == 'Memory') {
 
-                //$u = unserialize($response->prompt);
-                if($response->prompt == 'Memory stimulus type') {
+
+                if(strpos($response->prompt, 'Memory stimulus type') !== false) {
                   $t = (strtotime($response->updated_at) - strtotime($response->created_at));
                   $response->response .= ' (' .$t. ' secs)';
                 }
+
               }
               $responses[] = ['prompt' => $response->prompt,
                               'response' => $response->response,

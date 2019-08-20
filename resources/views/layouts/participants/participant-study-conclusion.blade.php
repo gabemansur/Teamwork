@@ -99,7 +99,7 @@
 
 
       @if($receiptSonaId)
-        <a class="btn btn-lg btn-success" href="http://dashboard.harvarddecisionlab.org/new-receipt/?i={{ base64_encode($receiptSonaId) }}">Sign Your Digital Receipt</a>
+        <a class="btn btn-lg btn-success" href="http://dashboard.harvarddecisionlab.org/new-receipt/?i={{ base64_encode($receiptSonaId) }}&p={{ base64_encode($payment) }}">Sign Your Digital Receipt</a>
       @endif
     </div>
   </div>

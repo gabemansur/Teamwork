@@ -363,6 +363,12 @@ class IndividualTaskController extends Controller
       }
       else $receiptSonaId = null;
 
+      if($parameters->payment){
+        $payment = $parameters->payment;
+      }
+
+      else $payment = null;
+
       if($parameters->feedback == 'true') {
         $feedbackLink = $conclusion->getFeedbackLink($parameters->feedbackLinkType);
       }
@@ -385,7 +391,8 @@ class IndividualTaskController extends Controller
              ->with('checkEligibility', $parameters->displayScoreGroup == 'true')
              ->with('eligible', $eligibility)
              ->with('feedbackLink', $feedbackLink)
-             ->with('receiptSonaId', $receiptSonaId);
+             ->with('receiptSonaId', $receiptSonaId)
+             ->with('payment', $payment);
     }
 
     public function teamRoleIntro(Request $request) {
@@ -753,11 +760,21 @@ class IndividualTaskController extends Controller
         $r->user_id = \Auth::user()->id;
         $r->group_tasks_id = $currentTask->id;
         $r->individual_tasks_id = $request->session()->get('currentIndividualTask');
+
+        $prompt = $tests[$indices[1]]['test_name'].' type: '.$tests[$indices[1]]['task_type'].' '.$tests[$indices[1]]['blocks'][$indices[2]]['type'];
+
+        /*
         $r->prompt = serialize(['test' => $tests[$indices[1]]['test_name'],
                                'block' => $indices[2],
                                'test_type' => $tests[$indices[1]]['task_type']]);
+        */
+        $r->prompt = $prompt;
         if(is_array($response)) {
-          $r->response = serialize($response);
+          $responseStr = '';
+          foreach ($response as $val) {
+            $responseStr .= $val.',';
+          }
+          $r->response = $responseStr;
         }
         else $r->response = $response;
         $r->points = $points;

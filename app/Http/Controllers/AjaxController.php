@@ -125,7 +125,9 @@ class AjaxController extends Controller
    }
 
    public function saveMemoryReviewSelection(Request $request) {
-
+      $task = \Teamwork\GroupTask::find($request->group_tasks_id);
+      $params = unserialize($task->parameters);
+      $test = $params->test;
       $previousResponse = Response::where('user_id', $request->user_id)
                                  ->where('group_tasks_id', $request->group_tasks_id)
                                  ->where('prompt', 'Memory stimulus type')
@@ -139,7 +141,7 @@ class AjaxController extends Controller
      $response = new Response;
      $response->group_tasks_id = $request->group_tasks_id;
      $response->user_id = $request->user_id;
-     $response->prompt = 'Memory stimulus type';
+     $response->prompt = 'Memory stimulus type ('.$test.')';
      $response->response = $request->type;
      $response->save();
 

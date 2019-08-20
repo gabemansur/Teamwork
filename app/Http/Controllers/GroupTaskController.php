@@ -263,15 +263,20 @@ class GroupTaskController extends Controller
           $correct[$indices[1]]['points'] += $points;
         }
 
+        $prompt = $tests[$indices[1]]['test_name'].' type: '.$tests[$indices[1]]['task_type'].' '.$tests[$indices[1]]['blocks'][$indices[2]]['type'];
+
         $r = new Response;
         $r->user_id = \Auth::user()->id;
         $r->group_tasks_id = $currentTask->id;
         $r->individual_tasks_id = $request->session()->get('currentIndividualTask');
-        $r->prompt = serialize(['test' => $tests[$indices[1]]['test_name'],
-                               'block' => $indices[2],
-                               'test_type' => $tests[$indices[1]]['task_type']]);
+        $r->prompt = $prompt;
+
         if(is_array($response)) {
-          $r->response = serialize($response);
+         $responseStr = '';
+         foreach ($response as $val) {
+           $responseStr .= $val.',';
+         }
+         $r->response = $responseStr;
         }
         else $r->response = $response;
         $r->points = $points;

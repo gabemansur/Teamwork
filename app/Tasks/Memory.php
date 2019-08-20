@@ -2445,4 +2445,8 @@ class Memory {
     return Self::$avaialbleParams;
   }
 
+  public function getMemoryBlock($testName, $block){
+    return $this->memoryTests[$testName]['blocks'][$block];
+  }
+
 }
