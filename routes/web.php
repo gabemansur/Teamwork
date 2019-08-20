@@ -581,6 +581,10 @@ Route::get('/responses-test', [
   'uses' => 'IndividualTaskController@responsesTest',
 ]);
 
+Route::get('/add-scores-to-users', [
+  'uses' => 'IndividualTaskController@addScoresToUsers',
+]);
+
 Route::get('/optimization-test', [
   'uses' => 'AjaxController@testOptimization',
 ]);

@@ -337,9 +337,15 @@ class IndividualTaskController extends Controller
       $conclusion = new \Teamwork\Tasks\Conclusion;
       $conclusionContent = $conclusion->getConclusion($parameters->type);
 
+      $user = \Teamwork\User::find(\Auth::user()->id);
+      $finalScore = $this->calculateScore(\Auth::user()->group_id);
+      $user->score = $finalScore;
+      $user->save();
+
       if($parameters->displayScoreGroup == 'true') {
+
         $eligiblityStats = $this->calculateEligibility(\Auth::user()->group_id);
-        $user = \Teamwork\User::find(\Auth::user()->id);
+
         $user->score_group = $eligiblityStats['passed'];
         $user->save();
       }
@@ -1151,6 +1157,7 @@ class IndividualTaskController extends Controller
       $standardizedMemScore = $this->getIndividualMemoryScores($groupId, $filter);
       $finalScore = (1 / 3) * ($standardizedShapesScore + $standardizedOptScore + $standardizedMemScore);
 
+      /* For reference, we're recording the score now, displaying the fruit in the data view.
       $fruit = 'pear';
       if($finalScore >= .45) $fruit = 'banana';
       elseif($finalScore >= -0.2) $fruit = 'grape';
@@ -1160,8 +1167,8 @@ class IndividualTaskController extends Controller
 
       $user->score_group = $fruit;
       $user->save();
-
-      return $fruit;
+      */
+      return $finalScore;
     }
 
     private function getIndividualOptimizationScore($groupId, $filter) {
@@ -1320,7 +1327,9 @@ class IndividualTaskController extends Controller
                                        ->where('name', 'Shapes')
                                        ->with('response')
                                        ->first();
-
+      if(!$shapesTask){
+        return 0;
+      }
       $shapesCorrect = $shapesTask->response->sum('correct');
       $populationShapesScores = collect($this->getShapesScores($filter));
 
@@ -1361,6 +1370,7 @@ class IndividualTaskController extends Controller
     }
 
     private function standardizeScore($score, $avg, $stdDev) {
+      if($stdDev == 0) return 0;
       return ($score - $avg) / $stdDev;
     }
 
@@ -1369,7 +1379,7 @@ class IndividualTaskController extends Controller
     }
 
     private function getStdDev($scores) {
-
+      if(count($scores) == 0) return 0;
       $mean = $scores->avg();
       $distFromMean = $scores->map(function($val, $k) use ($mean){
         return pow(abs($mean - $val), 2);
@@ -1413,6 +1423,36 @@ class IndividualTaskController extends Controller
                       ->get();
       foreach($responses as $key => $response) {
         dump($response);
+      }
+    }
+
+    public function addScoresToUsers() {
+      $groups = \DB::select( \DB::raw("SELECT group_id
+      FROM group_user
+      GROUP BY group_id
+      HAVING COUNT(*) = 1"));
+      $groupIds = [];
+      foreach($groups as $key => $group) {
+        $groupIds[] = $group->group_id;
+      }
+
+      $userData = [];
+
+      foreach ($groupIds as $key => $group) {
+        $userId = \DB::table('group_user')
+                     ->where('group_id', $group)
+                     ->pluck('user_id')
+                     ->first();
+
+        $users = \Teamwork\User::where('id', $userId)
+                              ->with('group')
+                              ->get();
+
+        foreach($users as $user) {
+          $user->score = $this->calculateScore($group);
+          dump($user->participant_id .': '. $user->score);
+          //$user->save();
+        }
       }
     }
 
