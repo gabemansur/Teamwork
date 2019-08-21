@@ -69,6 +69,34 @@ class AdminController extends Controller
       return $groupIds;
     }
 
+    public function getUsers() {
+
+      $users = \Teamwork\User::where('id', '>', 734) // When we went live with the lab version
+                            ->with('group')
+                            ->get();
+
+
+      $userData = [];
+
+      foreach($users as $user) {
+        $groups = \DB::table('group_user')
+                     ->where('user_id', $user->id)
+                     ->get();
+
+        $groupTasks = [];
+
+        foreach($groups as $group) {
+          $tasks = \Teamwork\Group::where('id', $group->group_id)->with('groupTasks')->get();
+          $userData[] = ['user' => $user, 'groups' => $tasks];
+        }
+
+      }
+
+      return view('layouts.admin.data-users')
+             ->with('userData', $userData);
+
+    }
+
     public function getIndividualTaskResponses() {
       $groups = $this->getIndividualGroups();
       $userData = [];

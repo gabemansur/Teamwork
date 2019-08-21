@@ -36,6 +36,10 @@ $( document ).ready(function() {
    }
   });
 
+  var testf = function(x) {
+    return 30 * Math.exp( -(Math.pow( x / 30, 2)) ) + (100 * Math.exp( -(Math.pow( (x - 150) / 30, 2 )) )) + (25 * Math.cos(x/40)) + (50 * Math.sin((x+35)/ 20));
+  };
+
   // Setting the timer and warning timer
   warningTimeout = setTimeout(function() {
     $('#warningModal').modal({show: true, backdrop: 'static', keyboard: false});
@@ -96,7 +100,9 @@ $( document ).ready(function() {
       event.preventDefault();
       return;
     }
-
+    console.log(f(n));
+    console.log(testf(n));
+    console.log('----------------');
     result = Math.round(f(n));
     responses.push({guess: n, result: result});
 

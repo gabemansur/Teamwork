@@ -43,12 +43,22 @@ var taskFunctions = {
     },
 
     i: function(x) {
-      return 40 * ( Math.sin( (x - 20) / 15 ) ) + 80 * ( Math.cos( x / 10 ) );
+      return (x / 4) + Math.pow( Math.E, -(Math.pow((x - 50) / 15, 2))) + (100 * Math.cos( x / 10 )) + (100 * (Math.sin( x / 30 )));
     },
 
     j: function(x) {
-      return (x / 1.5) - (100 * Math.exp( - (Math.pow( (x - 100), 2 )) / 600 )) - (Math.pow(1.02, x)) + Math.pow( 1.06, (x - 205) );
+      return 80 *  Math.pow( Math.E, -(Math.pow((x - 50) / 20, 2))) + ((x / 2) - (200 * Math.pow( Math.E, -(Math.pow((x - 280) / 10, 2))))) + (30 * (Math.cos( x / 30 )));
+    },
+
+    k: function(x) {
+      return 30 * Math.exp( -(Math.pow( x / 30, 2)) ) + (100 * Math.exp( -(Math.pow( (x - 150) / 30, 2 )) )) + (25 * Math.cos(x/40)) + (50 * Math.sin((x+35)/ 20));
+    },
+
+    l: function(x) {
+      return 30 *  Math.cos(x/15) + (60 * Math.sin(x / 40)) + (50 * Math.cos((x - 20) / 10))
     },
 
 
 };
+
+// http://laktak.github.io/js-graphy/

@@ -558,6 +558,12 @@ Route::get('/admin', [
 	'roles' => ['Researcher'] // Only a logged in user can view this page
 ]);
 
+Route::get('/admin/users', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'AdminController@getUsers',
+	'roles' => ['Researcher'] // Only a logged in user can view this page
+]);
+
 Route::get('/admin/individual-responses', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
 	'uses' => 'AdminController@getIndividualTaskResponses',
