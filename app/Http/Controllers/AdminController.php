@@ -87,8 +87,9 @@ class AdminController extends Controller
 
         foreach($groups as $group) {
           $tasks = \Teamwork\Group::where('id', $group->group_id)->with('groupTasks')->get();
-          $userData[] = ['user' => $user, 'groups' => $tasks];
+          $groupTasks[] = $tasks;
         }
+        $userData[] = ['user' => $user, 'groups' => $groupTasks];
 
       }
 
