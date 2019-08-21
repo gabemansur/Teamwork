@@ -130,7 +130,7 @@ class AjaxController extends Controller
       $test = $params->test;
       $previousResponse = Response::where('user_id', $request->user_id)
                                  ->where('group_tasks_id', $request->group_tasks_id)
-                                 ->where('prompt', 'Memory stimulus type')
+                                 ->where('prompt', 'Memory stimulus type('.$test.')')
                                  ->orderBy('id', 'desc')
                                  ->first();
       if($previousResponse){

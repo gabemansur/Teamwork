@@ -363,7 +363,7 @@ class IndividualTaskController extends Controller
       }
       else $receiptSonaId = null;
 
-      if($parameters->payment){
+      if(isset($parameters->payment)){
         $payment = $parameters->payment;
       }
 
@@ -1114,7 +1114,7 @@ class IndividualTaskController extends Controller
                                        ->where('name', 'Shapes')
                                        ->with('response')
                                        ->first();
-
+                                       
       $shapesCorrect = $shapesTask->response->sum('correct');
 
       $shapesTimestamps = Time::where('group_tasks_id', $shapesTask->id)
