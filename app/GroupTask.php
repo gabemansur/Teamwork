@@ -203,7 +203,7 @@ class GroupTask extends Model
         {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_5"}},
         {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_5","hasGroup":"true","mapping":"random","maxResponses":"15"}},
         {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_5_alt","hasGroup":"true","mapping":"random","maxResponses":"15"}},
-        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_4","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"false", "feedback":"false", "feedbackLinkType":"group5Pilot"}}
+        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_4","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"true", "sonaId": "547", "payment": "60", "feedback":"false", "feedbackLinkType":"group5Pilot"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }

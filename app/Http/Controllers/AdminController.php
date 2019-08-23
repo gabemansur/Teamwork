@@ -71,7 +71,7 @@ class AdminController extends Controller
 
     public function getUsers() {
 
-      $users = \Teamwork\User::where('id', '>', 734) // When we went live with the lab version
+      $users = \Teamwork\User::where('id', '>', 667) // When we went live with the lab version
                             ->with('group')
                             ->get();
 
