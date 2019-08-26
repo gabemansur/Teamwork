@@ -167,7 +167,7 @@ $( document ).ready(function() {
     else {
       markIndividualReady(userId, groupId, taskId, step, token);
       $("#final-result").val(f($("#final-guess").val()));
-      //$("#optimization-final-form").submit();
+      $("#optimization-final-form").submit();
       $("#reporter-final-answer").modal('hide');
       event.preventDefault();
     }
