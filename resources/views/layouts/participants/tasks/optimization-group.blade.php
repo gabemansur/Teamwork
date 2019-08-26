@@ -103,7 +103,7 @@ $( document ).ready(function() {
     console.log(f(n));
     console.log(testf(n));
     console.log('----------------');
-    result = Math.round(f(n));
+    result = f(n).toFixed(2);
     responses.push({guess: n, result: result});
 
     $("#guess-history").append("<tr><td>" + guessNumber + " of " + MAX_RESPONSES +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
@@ -167,7 +167,7 @@ $( document ).ready(function() {
     else {
       markIndividualReady(userId, groupId, taskId, step, token);
       $("#final-result").val(f($("#final-guess").val()));
-      $("#optimization-final-form").submit();
+      //$("#optimization-final-form").submit();
       $("#reporter-final-answer").modal('hide');
       event.preventDefault();
     }

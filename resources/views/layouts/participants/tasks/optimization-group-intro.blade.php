@@ -86,7 +86,7 @@ $( document ).ready(function() {
 
     guessNumber++;
 
-    result = Math.round(f(n));
+    result = f(n).toFixed(2);
     responses.push({guess: n, result: result});
     $("#guess-history").append("<tr><td>" + guessNumber +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
     $("#guess").val('');

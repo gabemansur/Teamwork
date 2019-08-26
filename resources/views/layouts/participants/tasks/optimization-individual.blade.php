@@ -95,7 +95,7 @@ $( document ).ready(function() {
       return;
     }
 
-    result = Math.round(f(n));
+    result = f(n).toFixed(2);
     responses.push({guess: n, result: result});
 
     $("#guess-history").append("<tr><td>" + guessNumber + " of " + MAX_RESPONSES +"</td><td>" + n + "</td><td>" + result + "</td></tr>");
