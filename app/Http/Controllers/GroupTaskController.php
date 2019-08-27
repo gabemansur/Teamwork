@@ -532,7 +532,7 @@ class GroupTaskController extends Controller
       $task = GroupTask::find($request->session()->get('currentGroupTask'));
       $parameters = unserialize($task->parameters);
       $isReporter = $this->isReporter(\Auth::user()->id, \Auth::user()->group_id);
-      // If htis participant isn't the reporter, we'll save an empty response
+      // If this participant isn't the reporter, we'll save an empty response
       // so that the group can continue when the reporter has finished
 
       if(!$isReporter){

@@ -265,7 +265,7 @@ $( document ).ready(function() {
         @if($isReporter)
           <form action="/cryptography-end" id="cryptography-end-form" method="post">
         @else
-          <form action="/cryptography-individual-end" id="cryptography-end-form" method="post">
+          <form action="/cryptography-end" id="cryptography-end-form" method="post">
         @endif
           {{ csrf_field() }}
           <input type="hidden" name="task_result" id="task-result" value="0">
