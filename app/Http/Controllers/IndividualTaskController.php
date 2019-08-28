@@ -1098,10 +1098,10 @@ class IndividualTaskController extends Controller
       \Session::put('completedTasks', $completed);
     }
 
-    public function testEligibility($userId) {
-      $user = \Teamwork\User::where('id', $userId)->first();
-      dump($user);
-      $eligiblity = $this->calculateEligibility($user->group_id);
+    public function testEligibility($groupId) {
+      $finalScore = $this->calculateScore($groupId);
+      $eligiblity = $this->calculateEligibility($groupId);
+      dump($finalScore);
       dump($eligiblity);
     }
 
@@ -1114,7 +1114,7 @@ class IndividualTaskController extends Controller
                                        ->where('name', 'Shapes')
                                        ->with('response')
                                        ->first();
-                                       
+
       $shapesCorrect = $shapesTask->response->sum('correct');
 
       $shapesTimestamps = Time::where('group_tasks_id', $shapesTask->id)
@@ -1165,7 +1165,13 @@ class IndividualTaskController extends Controller
 
     public function calculateScore($groupId) {
       // When we switch to filter to use only HDSL participants, we also need to un-square optStdDev
-      $filter = \DB::table('users')->whereRaw('CHAR_LENGTH(participant_id) > 11')->pluck('group_id')->toArray();
+      //$filter = \DB::table('users')->whereRaw('CHAR_LENGTH(participant_id) > 11')->pluck('group_id')->toArray();
+      $filter = \DB::table('users')
+                   ->where('score_group', 1)
+                   ->where('participant_id', 'like', '%@%')
+                   ->pluck('group_id')
+                   ->toArray();
+
 
       $standardizedShapesScore = $this->getIndividualShapesScore($groupId, $filter);
 

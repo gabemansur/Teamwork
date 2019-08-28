@@ -158,7 +158,7 @@ $( document ).ready(function() {
     step++;
 
     let n = parseInt($("#final-guess").val());
-    if(n < 0 || n > 300 || n === '') {
+    if($("#final-guess").val().length == 0 || n < 0 || n > 300) {
       $("#final-answer-error").html('Your guess must be between 0 and 300');
       $("#final-answer-error").show();
       event.preventDefault();
