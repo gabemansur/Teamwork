@@ -460,13 +460,14 @@ class AdminController extends Controller
         $signups = $this->getSignUpsForTimeslot($slot->timeslot_id);
         $participants = [];
         foreach($signups as $signup){
+          $name = $signup->first_name->__toString() .' '. $signup->last_name->__toString() .' (' .$signup->email->__toString() .')';
           $user = \Teamwork\User::where('participant_id', $signup->email->__toString())->first();
           if(!$user){
-            $participants[] = ['participant' => $signup->email->__toString(),
+            $participants[] = ['participant' => $name,
                             'score' => 'Not Found', 'eligible' => 'Not Found'];
           }
           else {
-            $participants[] = ['participant' => $signup->email->__toString(),
+            $participants[] = ['participant' => $name,
                             'score' => $user->score, 'eligible' => $user->score_group];
           }
         }
