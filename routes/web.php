@@ -554,7 +554,7 @@ Route::post('/group-add-participants', [
 
 Route::get('/admin', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
-	'uses' => 'AdminController@getResponses',
+	'uses' => 'AdminController@getAdminHome',
 	'roles' => ['Researcher'] // Only a logged in user can view this page
 ]);
 
@@ -576,9 +576,15 @@ Route::get('/admin/group-responses', [
 	'roles' => ['Researcher'] // Only a logged in user can view this page
 ]);
 
-Route::get('/download-csv', [
+Route::get('/download-individual-csv', [
 	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
-	'uses' => 'AdminController@getCSV',
+	'uses' => 'AdminController@getIndividualCSV',
+	'roles' => ['Researcher'] // Only a logged in user can view this page
+]);
+
+Route::get('/download-group-csv', [
+	'middleware' => ['auth', 'roles'], // A 'roles' middleware must be specified
+	'uses' => 'AdminController@getGroupCSV',
 	'roles' => ['Researcher'] // Only a logged in user can view this page
 ]);
 

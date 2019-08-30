@@ -8,6 +8,14 @@ use Maatwebsite\Excel\Concerns\FromView;
 
 class AdminController extends Controller
 {
+    public function getAdminHome() {
+      $sessionOneTimeslots = $this->getTimeslotData(547);
+      $sessionTwoTimeslots = $this->getTimeslotData(548);
+
+      return view('layouts.admin.admin')
+             ->with('sessionOneSlots', $sessionOneTimeslots)
+             ->with('sessionTwoSlots', $sessionTwoTimeslots);
+    }
 
     public function getCSV() {
 
@@ -30,6 +38,9 @@ class AdminController extends Controller
             foreach($responses as $response) {
 
                 $responses[] = ['user' => $user['user'],
+                                'isReporter' => $user['isReporter'],
+                                'eligible' => $user['eligible'],
+                                'score' => $user['score'],
                                 'group' => $user['group'],
                                 'task' => $task['name'],
                                 'introTime' => $task['introTime'],
@@ -69,6 +80,19 @@ class AdminController extends Controller
       return $groupIds;
     }
 
+    // Returns an array of groups that contain multiple people (i.e. NOT Individual Task participants)
+    private function getGroups() {
+      $groups = \DB::select( \DB::raw("SELECT group_id
+      FROM group_user
+      GROUP BY group_id
+      HAVING COUNT(*) > 1"));
+      $groupIds = [];
+      foreach($groups as $key => $group) {
+        $groupIds[] = $group->group_id;
+      }
+      return $groupIds;
+    }
+
     public function getUsers() {
 
       $users = \Teamwork\User::where('id', '>', 667) // When we went live with the lab version
@@ -95,6 +119,161 @@ class AdminController extends Controller
 
       return view('layouts.admin.data-users')
              ->with('userData', $userData);
+
+    }
+
+    private function applyDateFilter($filter, $date) {
+
+      switch($filter){
+        case 'all':
+          $filterDate = \Carbon\Carbon::createFromFormat('Y-m-d H', '2019-07-01 0');
+          break;
+
+        case 'day':
+          $filterDate = \Carbon\Carbon::now()->startOfDay();
+          break;
+
+        case 'date':
+          $filterDate = \Carbon\Carbon::createFromFormat('Y-m-d H', $date .' 0'); // For midnight that day (i.e. ALL DAY)
+          break;
+
+        case 'week':
+        default:
+          $filterDate = \Carbon\Carbon::now()->subWeek();
+          break;
+      }
+      return $filterDate;
+    }
+
+    public function getIndividualCSV(Request $request) {
+
+      // Filter
+      $filterDate = $this->applyDateFilter($request->filter, $request->date);
+
+      $groups = $this->getIndividualGroups();
+      $userData = [];
+
+
+
+      foreach ($groups as $key => $group) {
+        $userId = \DB::table('group_user')
+                     ->where('group_id', $group)
+                     ->pluck('user_id')
+                     ->first();
+
+        $users = \Teamwork\User::where('id', $userId)
+                              ->with('group')
+                              ->get();
+
+        array_push($userData, $this->collectResponses($users, $group));
+
+      }
+
+      $responseData = [];
+      foreach($userData as $data) {
+        foreach($data as $user) {
+
+          foreach($user['tasks'] as $task) {
+
+            foreach($task['responses'] as $responses) {
+
+              foreach($responses as $response) {
+                  if($response['time']->lessThan($filterDate)){
+                    continue;
+                  }
+                  $responseData[] = ['user' => $user['user'],
+                                      'eligible' => $user['eligible'],
+                                      'score' => $user['score'],
+                                      'task' => $task['name'],
+                                      'introTime' => $task['introTime'],
+                                      'taskTime' => $task['taskTime'],
+                                      'prompt' => $response['prompt'],
+                                      'response' => $response['response'],
+                                      'correct' => $response['correct'],
+                                      'points' => $response['points'],
+                                      'time' => $response['time']
+                                    ];
+              }
+            }
+          }
+        }
+      }
+
+      $collection = collect($responseData);
+      $filedate = date('d-m-Y');
+
+      return Excel::create('individual_responses_'.$filedate, function($excel) use($collection){
+
+        $excel->sheet('individual_responses', function($sheet) use($collection){
+            $sheet->fromModel($collection, null, 'A1', true);
+        });
+
+        })->export('xls');
+
+    }
+
+    public function getGroupCSV(Request $request) {
+      // Filter
+      $filterDate = $this->applyDateFilter($request->filter, $request->date);
+
+      $groups = $this->getGroups();
+      $userData = [];
+
+      foreach ($groups as $key => $group) {
+        $userIds = \DB::table('group_user')
+                     ->where('group_id', $group)
+                     ->pluck('user_id');
+
+        $users = \Teamwork\User::whereIn('id', $userIds)
+                              ->with('group')
+                              ->get();
+
+        array_push($userData, $this->collectResponses($users, $group));
+
+      }
+
+      $responseData = [];
+      foreach($userData as $data) {
+        foreach($data as $user) {
+
+          foreach($user['tasks'] as $task) {
+
+            foreach($task['responses'] as $responses) {
+
+              foreach($responses as $response) {
+                if($response['time']->lessThan($filterDate)){
+                  continue;
+                }
+                $responseData[] = ['user' => $user['user'],
+                                'isReporter' => $user['isReporter'],
+                                'knowTeammates' => $user['knowTeammates'],
+                                'eligible' => $user['eligible'],
+                                'score' => $user['score'],
+                                'group' => $user['group'],
+                                'task' => $task['name'],
+                                'introTime' => $task['introTime'],
+                                'taskTime' => $task['taskTime'],
+                                'prompt' => $response['prompt'],
+                                'response' => $response['response'],
+                                'correct' => $response['correct'],
+                                'points' => $response['points'],
+                                'time' => $response['time']];
+              }
+            }
+          }
+        }
+      }
+
+      $collection = collect($responseData);
+      $filedate = date('d-m-Y');
+
+      return Excel::create('group_responses_'.$filedate, function($excel) use($collection){
+
+        $excel->sheet('group_responses', function($sheet) use($collection){
+            $sheet->fromModel($collection, null, 'A1', true);
+        });
+
+        })->export('xls');
 
     }
 
@@ -178,8 +357,15 @@ class AdminController extends Controller
 
           $group = \Teamwork\Group::find($groupId);
 
+          $knowTeammates = \DB::table('teammates')
+                              ->where('user_id', $user->id)
+                              ->where('group_id', $groupId)
+                              ->pluck('know_teammates')
+                              ->first();
+
           $uData = ['user' => $user->participant_id,
                     'isReporter' => $isReporter,
+                    'knowTeammates' => $knowTeammates,
                     'eligible' => $user->score_group,
                     'score' => $user->score,
                     'surveyCode' => $user->survey_code,
@@ -260,6 +446,79 @@ class AdminController extends Controller
         array_push($userData, $uData);
       }
       return $userData;
+    }
+
+    private function getTimeslotData($expId) {
+      $startDate = \Carbon\Carbon::now()->toDateString();
+      $endDate = \Carbon\Carbon::now()->addMonth()->toDateString();
+      $slots = $this->GetTimeslotsByExperimentIDDateRange($expId, $startDate, $endDate);
+
+      $timeslots = [];
+
+      foreach($slots as $slot) {
+
+        $signups = $this->getSignUpsForTimeslot($slot->timeslot_id);
+        $participants = [];
+        foreach($signups as $signup){
+          $user = \Teamwork\User::where('participant_id', $signup->email->__toString())->first();
+          if(!$user){
+            $participants[] = ['participant' => $signup->email->__toString(),
+                            'score' => 'Not Found', 'eligible' => 'Not Found'];
+          }
+          else {
+            $participants[] = ['participant' => $signup->email->__toString(),
+                            'score' => $user->score, 'eligible' => $user->score_group];
+          }
+        }
+        $timeslots[] = ['datetime' => $slot->timeslot_date->__toString(),
+                        'numRequested' => $slot->num_students->__toString(),
+                        'numSignedUp' => $slot->num_signed_up->__toString(),
+                        'signups' => $participants];
+      }
+      return $timeslots;
+    }
+
+
+    private function getTimeslotsByExperimentIDDateRange($experiment_id, $start_date, $end_date)
+    {
+      $this->xml = $this->getSonaXml('GetTimeslotsByExperimentIDDateRange',
+                                 ['experiment_id' => $experiment_id,
+                                  'start_date' => $start_date,
+                                  'end_date' => $end_date,
+                                  'fill_status' => 'A']);
+
+
+      $timeslots = [];
+      foreach ($this->xml->Result->APIStudySchedule as $timeslot) {
+        $timeslots[] = $timeslot;
+      }
+      return $timeslots;
+    }
+
+    private function getSignUpsForTimeslot($timeslot_id)
+      {
+        $this->xml = $this->getSonaXml('GetSignUpsForTimeslot', ['timeslot_id' => $timeslot_id]);
+        $timeslots = [];
+        foreach ($this->xml->Result->APISignUp as $signup) {
+          $timeslots[] = $signup;
+        }
+        return $timeslots;
+      }
+
+
+    private function getSonaXml($func, $args)
+    {
+      $url = "https://harvarddecisionlab.sona-systems.com/services/SonaAPI.svc/" . $func . "?username=".env('SONA_USERNAME', '')."&password=".env('SONA_PASSWORD', '');
+      foreach ($args as $key => $value) {
+        $url .= "&".$key.'='.$value;
+      }
+
+      $feed = simplexml_load_file($url);
+
+      foreach ($feed->{$func.'Result'} as $item) {
+        $ns_dc = $item->children('http://schemas.datacontract.org/2004/07/emsdotnet.sonasystems');
+      }
+      return $ns_dc;
     }
 
 }
