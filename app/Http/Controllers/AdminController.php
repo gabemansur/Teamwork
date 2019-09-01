@@ -153,8 +153,6 @@ class AdminController extends Controller
       $groups = $this->getIndividualGroups();
       $userData = [];
 
-
-
       foreach ($groups as $key => $group) {
         $userId = \DB::table('group_user')
                      ->where('group_id', $group)
@@ -200,16 +198,26 @@ class AdminController extends Controller
       }
 
       $collection = collect($responseData);
+
       $filedate = date('d-m-Y');
+      // Temporarily set exectution time and memory, cuz these files are large, yo
+      ini_set('max_execution_time', 300); //300 seconds = 5 minutes
+      ini_set('memory_limit', '1024M');
 
-      return Excel::create('individual_responses_'.$filedate, function($excel) use($collection){
+      Excel::create('individual_responses_'.$filedate, function($excel) use ($collection) {
+          $excel->sheet('individual_responses', function($sheet) use($collection) {
+              $sheet->appendRow(array(
+                'user', 'eligible', 'score', 'task', 'introTime', 'taskTime',
+                'prompt', 'response', 'correct', 'points', 'time'
+              ));
 
-        $excel->sheet('individual_responses', function($sheet) use($collection){
-            $sheet->fromModel($collection, null, 'A1', true);
-        });
-
-        })->export('xls');
-
+              foreach($collection->chunk(100) as $chunks) {
+                foreach ($chunks as $key => $row) {
+                  $sheet->appendRow($row);
+                }
+              }
+          });
+      })->download('xlsx');
     }
 
     public function getGroupCSV(Request $request) {
@@ -267,13 +275,25 @@ class AdminController extends Controller
       $collection = collect($responseData);
       $filedate = date('d-m-Y');
 
-      return Excel::create('group_responses_'.$filedate, function($excel) use($collection){
+      // Temporarily set exectution time and memory, cuz these files are large, yo
+      ini_set('max_execution_time', 300); //300 seconds = 5 minutes
+      ini_set('memory_limit', '1024M');
 
-        $excel->sheet('group_responses', function($sheet) use($collection){
-            $sheet->fromModel($collection, null, 'A1', true);
-        });
+      Excel::create('group_responses_'.$filedate, function($excel) use ($collection) {
+          $excel->sheet('group_responses', function($sheet) use($collection) {
+              $sheet->appendRow(array(
+                'user', 'isReporter', 'knowTeammates', 'eligible', 'score', 'group',
+                'task', 'introTime', 'taskTime',
+                'prompt', 'response', 'correct', 'points', 'time'
+              ));
 
-        })->export('xls');
+              foreach($collection->chunk(100) as $chunks) {
+                foreach ($chunks as $key => $row) {
+                  $sheet->appendRow($row);
+                }
+              }
+          });
+      })->download('xlsx');
 
     }
 

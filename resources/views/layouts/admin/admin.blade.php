@@ -30,7 +30,7 @@
     });
 
     $("#individual-data").click(function(event) {
-      console.log(individualFilter);
+      console.log("/download-individual-csv?filter=" + individualFilter);
       window.location = "/download-individual-csv?filter=" + individualFilter;
       event.preventDefault();
     });
