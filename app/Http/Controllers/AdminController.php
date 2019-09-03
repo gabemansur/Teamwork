@@ -180,6 +180,7 @@ class AdminController extends Controller
                     continue;
                   }
                   $responseData[] = ['user' => $user['user'],
+                                      'uniqueId' => $user['surveyCode'],
                                       'eligible' => $user['eligible'],
                                       'score' => $user['score'],
                                       'task' => $task['name'],
@@ -207,7 +208,7 @@ class AdminController extends Controller
       Excel::create('individual_responses_'.$filedate, function($excel) use ($collection) {
           $excel->sheet('individual_responses', function($sheet) use($collection) {
               $sheet->appendRow(array(
-                'user', 'eligible', 'score', 'task', 'introTime', 'taskTime',
+                'user', 'uniqueId', 'eligible', 'score', 'task', 'introTime', 'taskTime',
                 'prompt', 'response', 'correct', 'points', 'time'
               ));
 
@@ -253,6 +254,7 @@ class AdminController extends Controller
                   continue;
                 }
                 $responseData[] = ['user' => $user['user'],
+                                'uniqueId' => $user['surveyCode'],
                                 'isReporter' => $user['isReporter'],
                                 'knowTeammates' => $user['knowTeammates'],
                                 'eligible' => $user['eligible'],
@@ -282,7 +284,7 @@ class AdminController extends Controller
       Excel::create('group_responses_'.$filedate, function($excel) use ($collection) {
           $excel->sheet('group_responses', function($sheet) use($collection) {
               $sheet->appendRow(array(
-                'user', 'isReporter', 'knowTeammates', 'eligible', 'score', 'group',
+                'user', 'uniqueId', 'isReporter', 'knowTeammates', 'eligible', 'score', 'group',
                 'task', 'introTime', 'taskTime',
                 'prompt', 'response', 'correct', 'points', 'time'
               ));
