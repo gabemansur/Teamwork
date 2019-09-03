@@ -18,7 +18,6 @@ $( document ).ready(function() {
     //Form validation
     $(".alert-danger").hide();
     $('.form-check-input:visible').each(function(){
-      console.log($(this).attr('name'));
       name = $(this).attr('name');
       if ($("input:radio[name=" + name + "]:checked").length == 0) {
         $(".alert-danger").show();
@@ -35,6 +34,27 @@ $( document ).ready(function() {
 
   // Preload all images
   preload(preloadImages);
+
+  // Tracking clicks
+  var lastClick = new Date();
+  var timingList = "presented_at: " + lastClick.toLocaleString();
+
+  $(".timing-input").click(function() {
+    let now = Date.now();
+    let clickTime = now - lastClick;
+    let val = $(this).val;
+    timingList += ', ' + val + ': ' + clickTime;
+    // Store the timingList into the appropriate hidden timing input
+    $("input[name='timing_"+$(this).attr('name')+"']").val(timingList);
+  });
+
+  $(".tracking-submit").click(function(event) {
+    
+    timingList['submitted_at'] = new Date();
+    let el = $(".timing-input:visible").attr('name');
+    event.stopImmediatePropagation();
+    $("input[name='timing_"+el+"']").val(JSON.stringify(timingList));
+  });
 });
 
 </script>
@@ -53,12 +73,13 @@ $( document ).ready(function() {
               <div class="col-md-2 offset-md-5">
                 @foreach($test['choices'] as $c_key => $choice)
                   <div class="form-check">
-                    <input class="form-check-input form-check-large" type="radio" name="{{ $key }}"  value="{{ $choice }}">
+                    <input class="form-check-input form-check-large timing-input" type="radio" name="{{ $key }}"  value="{{ $choice }}">
                     <label class="form-check-label" for="exampleRadios1">
                       <a class="text-dark" href="https://www.dictionary.com/browse/{{ $choice }}?s=t" target="_blank">{{ $choice }}</a>
                     </label>
                   </div>
                 @endforeach
+                <input type="hidden" name="timing_{{ $key }}">
               </div>
             </div>
           </div>
@@ -68,7 +89,7 @@ $( document ).ready(function() {
         <div class="alert alert-danger" role="alert">
           Please make a choice before continuing.
         </div>
-        <input class="btn btn-primary instr_nav btn-lg" type="button" name="next" id="next" value="Next &#8680;"><br />
+        <input class="btn btn-primary instr_nav btn-lg tracking-submit" type="button" name="next" id="next" value="Next &#8680;"><br />
         <span class="text-primary text-lg" id="pagination-display">
           <span id="curr-page">1</span> / {{ count($tests) }}
         </span>
