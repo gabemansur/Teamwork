@@ -91,7 +91,7 @@ class GroupTask extends Model
     public static function initializeTestingTasks($group_id, $randomize) {
       $taskArray = '[
         {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"hdsl_individual"}},
-        {"taskName":"Eyes","taskParams":{"hasIndividuals":"true","hasGroup":"false"}},
+        {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest5"}},
         {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"hdsl_individual","hasCode":"false","displayScoreGroup":"true","digitalReceipt":"false","feedback":"false", "feedbackLinkType":"pilot"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);

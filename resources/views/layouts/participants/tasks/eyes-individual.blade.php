@@ -14,6 +14,29 @@
 $( document ).ready(function() {
 
   $(".alert-danger").hide();
+
+  // Tracking clicks
+  var lastClick = new Date();
+  var timingList = "presented_at: " + lastClick.toLocaleString();
+
+  $(".timing-input").click(function() {
+    let now = Date.now();
+    let clickTime = now - lastClick;
+    let val = $(this).val();
+    timingList += ', ' + val + ': ' + clickTime;
+  });
+
+  $(".tracking-submit").click(function(event) {
+    timingList += ', submitted_at: ' + new Date().toLocaleString() + ' ';
+    let el = $(".timing-input:visible").attr('name');
+    let currVal = $("input[name='timing_"+el+"']").val();
+    $("input[name='timing_"+el+"']").val(currVal + timingList);
+
+    lastClick = new Date();
+    timingList = "presented_at: " + lastClick.toLocaleString();
+
+  });
+
   $("#next").on("click", function(event) {
     //Form validation
     $(".alert-danger").hide();
@@ -34,27 +57,6 @@ $( document ).ready(function() {
 
   // Preload all images
   preload(preloadImages);
-
-  // Tracking clicks
-  var lastClick = new Date();
-  var timingList = "presented_at: " + lastClick.toLocaleString();
-
-  $(".timing-input").click(function() {
-    let now = Date.now();
-    let clickTime = now - lastClick;
-    let val = $(this).val;
-    timingList += ', ' + val + ': ' + clickTime;
-    // Store the timingList into the appropriate hidden timing input
-    $("input[name='timing_"+$(this).attr('name')+"']").val(timingList);
-  });
-
-  $(".tracking-submit").click(function(event) {
-    
-    timingList['submitted_at'] = new Date();
-    let el = $(".timing-input:visible").attr('name');
-    event.stopImmediatePropagation();
-    $("input[name='timing_"+el+"']").val(JSON.stringify(timingList));
-  });
 });
 
 </script>

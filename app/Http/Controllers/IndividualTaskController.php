@@ -928,8 +928,6 @@ class IndividualTaskController extends Controller
 
       $tests = (new \Teamwork\Tasks\Eyes)->getTest();
       $correct = 0;
-      dump($request['timing_0']);
-      dump($request);
 
       foreach ($request->all() as $key => $value) {
         if($key == '_token') continue;
@@ -947,8 +945,10 @@ class IndividualTaskController extends Controller
         $response->group_tasks_id = $groupTaskId;
         $response->individual_tasks_id = $individualTaskId;
         $response->prompt = $tests[$key]['img'];
-        $response->prompt .= ' timing: '. $request['timing_'.$key];
-        dump($response->prompt);
+        $prop = 'timing_'.$key;
+        if(isset($request->$prop)){
+          $response->prompt .= ' timing: '. $request->$prop;
+        }
 
         $response->response = $value;
         $response->correct = $isCorrect;
@@ -960,7 +960,7 @@ class IndividualTaskController extends Controller
 
       $request->session()->put('currentIndividualTaskResult', $results);
       $request->session()->put('currentIndividualTaskName', 'Eyes Task');
-      //return redirect('/individual-task-results');
+      return redirect('/individual-task-results');
     }
 
     public function brainstormingIntro() {
@@ -1040,6 +1040,7 @@ class IndividualTaskController extends Controller
 
       foreach ($request->all() as $key => $input) {
         if($key == '_token') continue;
+        if(strpos($key, 'timing_') !== false) continue;
 
         $inputString = $input;
 
@@ -1064,6 +1065,12 @@ class IndividualTaskController extends Controller
         $r->individual_tasks_id = $individualTask;
         $r->user_id = \Auth::user()->id;
         $r->prompt = $parameters->subtest.' : '.$key;
+
+        $prop = 'timing_'.$key;
+        if(isset($request->$prop)){
+          $r->prompt .= ' timing: '. $request->$prop;
+        }
+
         $r->response = $inputString;
         $r->correct = $correct;
         $r->points = $correct;

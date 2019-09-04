@@ -36,6 +36,27 @@
         $('#submitPrompt').modal();
       });
 
+      // Tracking clicks
+      var lastClick = new Date();
+      var timingList = "presented_at: " + lastClick.toLocaleString();
+
+      $(".timing-input").on('change', function() {
+        let now = Date.now();
+        let clickTime = now - lastClick;
+        let val = $(this).val();
+        timingList += ', ' + val + ': ' + clickTime;
+      });
+
+      $(".tracking-submit").click(function(event) {
+        timingList += ', submitted_at: ' + new Date().toLocaleString() + ' ';
+        let el = $(".timing-input:visible").attr('name').replace('[]', ''); // Removing array brackets from name
+        let currVal = $("input[name='timing_"+el+"']").val();
+        $("input[name='timing_"+el+"']").val(currVal + timingList);
+
+        lastClick = new Date();
+        timingList = "presented_at: " + lastClick.toLocaleString();
+      });
+
       $("#back").on('click', function(event) {
         if(parseInt($("#curr-page").html() - 1) <= numShapes) {
           $("#next").show();
@@ -75,7 +96,7 @@
                 <div class="col-md-2 offset-md-5">
                   <div class="form-group mb-lg-5">
                     <label for="{{ $i }}">Your answer:</label>
-                    <select class="form-control ml-lg-2" name="{{ $i }}">
+                    <select class="form-control ml-lg-2 timing-input" name="{{ $i }}">
                       <option>------</option>
                       <option value="a">a</option>
                       <option value="b">b</option>
@@ -115,19 +136,19 @@
                   @if($subtest == 'subtest2')
                     @for($j = 0; $j < 5; $j++)
                       <td>
-                        <input class="form-check-large check-limited" type="checkbox" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
+                        <input class="form-check-large check-limited timing-input" type="checkbox" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
                       </td>
                     @endfor
                   @elseif($subtest == 'subtest3')
                     @for($j = 0; $j < 6; $j++)
                       <td>
-                        <input class="form-check-large" type="radio" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
+                        <input class="form-check-large timing-input" type="radio" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
                       </td>
                     @endfor
                   @elseif($subtest == 'subtest4')
                     @for($j = 0; $j < 5; $j++)
                       <td>
-                        <input class="form-check-large" type="radio" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
+                        <input class="form-check-large timing-input" type="radio" name="{{ $i }}[]" value="{{ strtolower(chr($j + 65)) }}">
                       </td>
                     @endfor
                   @elseif($subtest == 'subtest5')
@@ -136,7 +157,7 @@
                         What is the <span style="color: #ea3767;">missing piece</span>?<br>
                         Select your answer here
                       </h4>
-                        <select class="form-control form-control-lg" style="width: 120px; margin: 0 auto;" name="{{ $i }}[]">
+                        <select class="form-control form-control-lg timing-input" style="width: 120px; margin: 0 auto;" name="{{ $i }}[]">
                           <option value="">----</option>
                           <option>1</option>
                           <option>2</option>
@@ -149,6 +170,7 @@
                         </select>
                     </td>
                   @endif
+                  <input type="hidden" name="timing_{{ $i }}">
                 </tr>
               </table>
             </div>
@@ -171,8 +193,8 @@
           style="width: 400px; top: -30%; position: relative; left: 63%;"
         @endif
       >
-        <input class="btn btn-primary instr_nav btn-lg" type="button" name="back" id="back" value="&#8678; Back">
-        <input class="btn btn-primary instr_nav btn-lg" type="button" name="next" id="next" value="Next &#8680;"><br />
+        <input class="btn btn-primary instr_nav btn-lg tracking-submit" type="button" name="back" id="back" value="&#8678; Back">
+        <input class="btn btn-primary instr_nav btn-lg tracking-submit" type="button" name="next" id="next" value="Next &#8680;"><br />
         <span class="text-primary ml-md-4 text-lg" id="pagination-display">
           <span id="curr-page">1</span> / {{ $shapes['length'] }}
         </span>
