@@ -607,6 +607,7 @@ class GroupTaskController extends Controller
 
       foreach ($request->all() as $key => $input) {
         if($key == '_token') continue;
+        if(strpos($key, 'timing_') !== false) continue;
 
         $inputString = $input;
 
@@ -634,6 +635,12 @@ class GroupTaskController extends Controller
         $r->individual_tasks_id = $individualTask;
         $r->user_id = \Auth::user()->id;
         $r->prompt = $parameters->subtest.' : '.$key;
+        
+        $prop = 'timing_'.$key;
+        if(isset($request->$prop)){
+          $r->prompt .= ' timing: '. $request->$prop;
+        }
+
         $r->response = $inputString;
         $r->correct = $correct;
         $r->points = $points;
