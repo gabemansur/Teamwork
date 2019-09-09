@@ -155,6 +155,13 @@ class LoginController extends Controller
       $user = \Auth::user();
       $user->group_id = $group->id;
       $user->save();
+
+      \DB::table('group_user')
+         ->insert(['user_id' => $user->id,
+                   'group_id' => $group->id,
+                   'created_at' => date("Y-m-d H:i:s"),
+                   'updated_at' => date("Y-m-d H:i:s")]);
+                   
       \Teamwork\GroupTask::initializeLabIndividualTasks(\Auth::user()->group_id, $randomize = false);
       return redirect('/get-individual-task');
     }
