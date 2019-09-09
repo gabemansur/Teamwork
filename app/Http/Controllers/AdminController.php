@@ -11,7 +11,7 @@ class AdminController extends Controller
     public function getAdminHome() {
       $sessionOneTimeslots = $this->getTimeslotData(547);
       $sessionTwoTimeslots = $this->getTimeslotData(548);
-      dump(php_info());
+      dump(phpinfo());
       return view('layouts.admin.admin')
              ->with('sessionOneSlots', $sessionOneTimeslots)
              ->with('sessionTwoSlots', $sessionTwoTimeslots);
