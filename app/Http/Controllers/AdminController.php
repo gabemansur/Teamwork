@@ -492,11 +492,11 @@ class AdminController extends Controller
                             'score' => $user->score, 'eligible' => $user->score_group];
           }
         }
-        /*
+        
         usort($participants, function($a, $b) {
           return $a['score'] < $b['score'];
         });
-        */
+
         $timeslots[] = ['datetime' => $slot->timeslot_date->__toString(),
                         'numRequested' => $slot->num_students->__toString(),
                         'numSignedUp' => $slot->num_signed_up->__toString(),
