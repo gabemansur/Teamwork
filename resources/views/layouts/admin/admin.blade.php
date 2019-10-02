@@ -204,10 +204,10 @@
               @foreach($slotsTwo['signups'] as $signupTwo)
                 <p class="dropdown-item">
                   <strong>{{ $signupTwo['participant'] }}</strong>
-                  @if($signup['score'] == -999)
+                  @if($signupTwo['score'] == -999)
                     <em>Not found</em>
                   @else
-                    <em>{{ $signup['score'] }}</em>
+                    <em>{{ $signupTwo['score'] }}</em>
                   @endif
                     Eligibile:
                       <em>
