@@ -2,6 +2,17 @@
 
 
 @section('content')
+
+<script>
+$( document ).ready(function() {
+  $("#sign-in").on("click", function() {
+    $("#sign-in").attr("disabled", true);
+    $("#sign-in-form").submit();
+  });
+});
+
+</script>
+
 <div class="container">
   <div class="row justify-content-center vertical-center">
     <div class="col-md-6 p-4">
@@ -12,7 +23,7 @@
         </h5>
         @endforeach
       @endif
-      <form action="/participant-login" method="post">
+      <form action="/participant-login" id="sign-in-form" method="post">
         {{ csrf_field() }}
         <fieldset class="bg-light p-4 rounded">
           <div class="form-group">
@@ -29,7 +40,7 @@
             <input type="hidden" name="task_package" value="{{ $package }}">
           @endif
           <div class="text-center">
-            <button class="btn btn-lg btn-primary" type="submit">Sign In</button>
+            <button class="btn btn-lg btn-primary" type="submit" id="sign-in">Sign In</button>
           </div>
         </fieldset>
       </form>

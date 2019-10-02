@@ -92,7 +92,8 @@ class GroupTask extends Model
       $taskArray = '[
         {"taskName":"Consent","taskParams":{"hasIndividuals":"true","hasGroup":"false","subjectPool":"hdsl_individual"}},
         {"taskName":"Shapes","taskParams":{"hasIndividuals":"true","hasGroup":"false","subtest":"subtest5"}},
-        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"hdsl_individual","hasCode":"false","displayScoreGroup":"true","digitalReceipt":"false","feedback":"false", "feedbackLinkType":"pilot"}}
+        {"taskName":"Survey","taskParams":{"hasIndividuals":"true","hasGroup":"false","survey":"hdsl"}},
+        {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"hdsl_individual","hasCode":"false","displayScoreGroup":"false","digitalReceipt":"false","feedback":"false", "feedbackLinkType":"pilot"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
     }
@@ -102,10 +103,9 @@ class GroupTask extends Model
       $taskArray = '[
         {"taskName":"Intro","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_2"}},
         {"taskName":"ChooseReporter","taskParams":{"hasIndividuals":"true","hasGroup":"true"}},
-        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest2"}},
-        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest3"}},
-        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest4"}},
-        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest1"}},
+        {"taskName":"Shapes","taskParams":{"hasIndividuals":"false","hasGroup":"true","subtest":"subtest5"}},
+        {"taskName":"Optimization","taskParams":{"hasIndividuals":"true","hasGroup":"false","function":"1","intro":"individual","maxResponses":"15"}},
+        {"taskName":"Cryptography","taskParams":{"hasIndividuals":"false","intro":"group_5","hasGroup":"true","mapping":"random","maxResponses":"15"}},
         {"taskName":"Conclusion","taskParams":{"hasIndividuals":"true","hasGroup":"false","type":"group_4","hasCode":"false","displayScoreGroup":"false", "digitalReceipt":"true", "sonaId": "547", "payment": "30", "feedback":"false", "feedbackLinkType":"group5Pilot"}}
         ]';
       return Self::initializeTasks($group_id, $taskArray, $randomize);
