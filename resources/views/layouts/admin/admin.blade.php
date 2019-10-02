@@ -167,7 +167,12 @@
               @foreach($slotsOne['signups'] as $signup)
                 <p class="dropdown-item">
                   <strong>{{ $signup['participant'] }}</strong>
-                    Score: <em>{{ $signup['score'] }}</em>
+                    Score:
+                    @if($signup['score'] == -999)
+                      <em>Not found</em>
+                    @else
+                      <em>{{ $signup['score'] }}</em>
+                    @endif
                     Eligibile:
                       <em>
                       @if($signup['eligible'] == 1)

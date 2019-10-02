@@ -485,13 +485,18 @@ class AdminController extends Controller
           $user = \Teamwork\User::where('participant_id', $signup->email->__toString())->first();
           if(!$user){
             $participants[] = ['participant' => $name,
-                            'score' => 'Not Found', 'eligible' => 'Not Found'];
+                            'score' => -999, 'eligible' => 'Not Found'];
           }
           else {
             $participants[] = ['participant' => $name,
                             'score' => $user->score, 'eligible' => $user->score_group];
           }
         }
+
+        usort($participants, function($a, $b) {
+          return $a['score'] < $b['score'];
+        });
+
         $timeslots[] = ['datetime' => $slot->timeslot_date->__toString(),
                         'numRequested' => $slot->num_students->__toString(),
                         'numSignedUp' => $slot->num_signed_up->__toString(),
