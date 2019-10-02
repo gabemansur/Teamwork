@@ -46,12 +46,17 @@ class LoginController extends Controller
        $user->save();
       }
 
+      try{
+        \DB::table('group_user')
+           ->insert(['user_id' => $user->id,
+                     'group_id' => $group->id,
+                     'created_at' => date("Y-m-d H:i:s"),
+                     'updated_at' => date("Y-m-d H:i:s")]);
+      }
 
-      \DB::table('group_user')
-         ->insert(['user_id' => $user->id,
-                   'group_id' => $group->id,
-                   'created_at' => date("Y-m-d H:i:s"),
-                   'updated_at' => date("Y-m-d H:i:s")]);
+      catch(\Exception $e){
+        // Will throw an exception if the group ID and user ID are duplicates. Just ignore
+      }
 
 
       // If this is a newly created group, create some tasks if requested
@@ -161,7 +166,7 @@ class LoginController extends Controller
                    'group_id' => $group->id,
                    'created_at' => date("Y-m-d H:i:s"),
                    'updated_at' => date("Y-m-d H:i:s")]);
-                   
+
       \Teamwork\GroupTask::initializeLabIndividualTasks(\Auth::user()->group_id, $randomize = false);
       return redirect('/get-individual-task');
     }
